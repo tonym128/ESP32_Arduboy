@@ -15,6 +15,8 @@ This SLIMBOY setup has a few limitations over the original solution:
 
 These limitations only have a very minor impact on the usability and games like hadowRunner just run fine on the SLIMBOY.
 
+See https://github.com/harbaum/ArduboyTones for a matching port of the ArduboyTones library.
+
 # Arduboy2 Library
 
 The Arduboy2 library is maintained in a git repository hosted on [GitHub](https://github.com/) at:
