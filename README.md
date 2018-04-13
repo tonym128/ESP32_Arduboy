@@ -3,7 +3,7 @@
 This is a port of the original Arduboy2 code to the simpler and cheaper
 Arduino Nano and an I²C display.
 
-![Breadboard setup][breadboard.png]
+![Breadboard setup](breadboard.png)
 
 This SLIMBOY setup has a few limitations over the original solution:
 
