@@ -1,19 +1,18 @@
 # SLIMBOY - Arduboy2 port to Arduino Nano and I²C display
 
-This is a port of the original Arduboy2 code to the simpler and cheaper
-Arduino Nano and an I²C display.
+This is a port of the original Arduboy2 code to the simpler and cheaper Arduino Nano and an I²C display.
 
 ![Breadboard setup](breadboard.png)
 
-This SLIMBOY setup has a few limitations over the original solution:
+The SLIMBOY setup has a few limitations over the original solution:
 
- - The I²C connection is slower than SPI and the framerate suffers on some games. The current setup has been optimized for speed and runs nearly as smooth as the SPI version
- - The Atmega328 of the Arduino Nano has some limitations over the  Atmega32u4 of the original Arduboy
-   - It has fewer timers and thus and some customs sound libraries won't work 100%
+ - The I²C connection is slower than SPI and the framerate slightly suffers on some games. The current setup has been optimized for speed and runs nearly as smooth as the SPI version
+ - The Atmega328 on the Arduino Nano has some limitations over the  Atmega32u4 of the original Arduboy
+   - It has fewer timers and thus some custom sound libraries won't work 100%
    - It has 500 bytes less ram
-   - It has less PWM pins and thus the blue (yellow above) LED cannot be dimmed
+   - It has less PWM pins and thus the blue (yellow in the schematic above) LED cannot be dimmed
 
-These limitations only have a very minor impact on the usability and games like hadowRunner just run fine on the SLIMBOY.
+These limitations only have a very minor impact on the usability and games like ShadowRunner just run fine on the SLIMBOY.
 
 See https://github.com/harbaum/ArduboyTones for a matching port of the ArduboyTones library.
 
