@@ -7,11 +7,17 @@
 #ifndef ARDUBOY2_CORE_H
 #define ARDUBOY2_CORE_H
 
+
 #include <Arduino.h>
 #include <avr/power.h>
 #include <avr/sleep.h>
 #include <avr/wdt.h>
 #include <limits.h>
+
+#ifdef __AVR_ATmega328P__
+#warning SLIMBOY!
+#define SLIMBOY
+#endif
 
 
 // main hardware compile flags
@@ -39,6 +45,7 @@
 // ----- Arduboy pins -----
 #ifdef ARDUBOY_10
 
+#ifdef SLIMBOY
 #define PIN_CS 12       // Display CS Arduino pin number
 #define CS_PORT PORTD   // Display CS port
 #define CS_BIT PORTD6   // Display CS physical bit number
@@ -50,7 +57,22 @@
 #define PIN_RST 6       // Display reset Arduino pin number
 #define RST_PORT PORTD  // Display reset port
 #define RST_BIT PORTD7  // Display reset physical bit number
+#endif
 
+#ifdef SLIMBOY
+#define RED_LED 5   /**< The pin number for the red color in the RGB LED. */
+#define GREEN_LED 7 /**< The pin number for the greem color in the RGB LED. */
+#define BLUE_LED 6   /**< The pin number for the blue color in the RGB LED. */
+
+#define RED_LED_PORT PORTD
+#define RED_LED_BIT PORTD5
+
+#define GREEN_LED_PORT PORTD
+#define GREEN_LED_BIT PORTD7
+
+#define BLUE_LED_PORT PORTD
+#define BLUE_LED_BIT PORTD6
+#else
 #define RED_LED 10   /**< The pin number for the red color in the RGB LED. */
 #define GREEN_LED 11 /**< The pin number for the greem color in the RGB LED. */
 #define BLUE_LED 9   /**< The pin number for the blue color in the RGB LED. */
@@ -63,6 +85,7 @@
 
 #define BLUE_LED_PORT PORTB
 #define BLUE_LED_BIT PORTB5
+#endif
 
 // bit values for button states
 // these are determined by the buttonsState() function
@@ -72,6 +95,45 @@
 #define DOWN_BUTTON _BV(4)  /**< The Down button value for functions requiring a bitmask */
 #define A_BUTTON _BV(3)     /**< The A button value for functions requiring a bitmask */
 #define B_BUTTON _BV(2)     /**< The B button value for functions requiring a bitmask */
+
+#ifdef SLIMBOY
+#define PIN_LEFT_BUTTON 15
+#define LEFT_BUTTON_PORT PORTC
+#define LEFT_BUTTON_PORTIN PINC
+#define LEFT_BUTTON_DDR DDRC
+#define LEFT_BUTTON_BIT PORTC1
+
+#define PIN_RIGHT_BUTTON 3
+#define RIGHT_BUTTON_PORT PORTD
+#define RIGHT_BUTTON_PORTIN PIND
+#define RIGHT_BUTTON_DDR DDRD
+#define RIGHT_BUTTON_BIT PORTD3
+
+#define PIN_UP_BUTTON 17
+#define UP_BUTTON_PORT PORTC
+#define UP_BUTTON_PORTIN PINC
+#define UP_BUTTON_DDR DDRC
+#define UP_BUTTON_BIT PORTC3
+
+#define PIN_DOWN_BUTTON 2
+#define DOWN_BUTTON_PORT PORTD
+#define DOWN_BUTTON_PORTIN PIND
+#define DOWN_BUTTON_DDR DDRD
+#define DOWN_BUTTON_BIT PORTD2
+
+#define PIN_A_BUTTON 4
+#define A_BUTTON_PORT PORTD
+#define A_BUTTON_PORTIN PIND
+#define A_BUTTON_DDR DDRD
+#define A_BUTTON_BIT PORTD4
+
+#define PIN_B_BUTTON 16
+#define B_BUTTON_PORT PORTC
+#define B_BUTTON_PORTIN PINC
+#define B_BUTTON_DDR DDRC
+#define B_BUTTON_BIT PORTC2
+
+#else
 
 #define PIN_LEFT_BUTTON A2
 #define LEFT_BUTTON_PORT PORTF
@@ -108,7 +170,21 @@
 #define B_BUTTON_PORTIN PINB
 #define B_BUTTON_DDR DDRB
 #define B_BUTTON_BIT PORTB4
+#endif
 
+#ifdef SLIMBOY
+#define PIN_SPEAKER_1 9  /**< The pin number of the first lead of the speaker */
+#define PIN_SPEAKER_2 11 /**< The pin number of the second lead of the speaker */
+
+#define SPEAKER_1_PORT PORTB
+#define SPEAKER_1_DDR DDRB
+#define SPEAKER_1_BIT PORTB1
+
+#define SPEAKER_2_PORT PORTB
+#define SPEAKER_2_DDR DDRB
+#define SPEAKER_2_BIT PORTB3
+
+#else
 #define PIN_SPEAKER_1 5  /**< The pin number of the first lead of the speaker */
 #define PIN_SPEAKER_2 13 /**< The pin number of the second lead of the speaker */
 
@@ -119,6 +195,8 @@
 #define SPEAKER_2_PORT PORTC
 #define SPEAKER_2_DDR DDRC
 #define SPEAKER_2_BIT PORTC7
+#endif
+
 // -----------------------
 
 // ----- DevKit pins -----
