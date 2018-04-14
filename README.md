@@ -10,11 +10,19 @@ The SLIMBOY setup has a few limitations over the original solution:
  - The Atmega328 on the Arduino Nano has some limitations over the  Atmega32u4 of the original Arduboy
    - It has fewer timers and thus some custom sound libraries won't work 100%
    - It has 500 bytes less ram
-   - It has less PWM pins and thus the blue (yellow in the schematic above) LED cannot be dimmed
+   - It has less PWM pins and thus the green LED cannot be dimmed
 
 These limitations only have a very minor impact on the usability and games like ShadowRunner just run fine on the SLIMBOY.
 
 See https://github.com/harbaum/ArduboyTones for a matching port of the ArduboyTones library.
+
+## Games tested on the Arduino Nano
+
+ - ArduBreakout
+ - Shadow-Runner
+ - VIRUS-LQP-79
+ - Pinball
+ - Nineteen43
 
 # Arduboy2 Library
 
