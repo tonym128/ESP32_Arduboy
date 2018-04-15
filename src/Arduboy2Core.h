@@ -45,7 +45,7 @@
 // ----- Arduboy pins -----
 #ifdef ARDUBOY_10
 
-#ifdef SLIMBOY
+#ifndef SLIMBOY
 #define PIN_CS 12       // Display CS Arduino pin number
 #define CS_PORT PORTD   // Display CS port
 #define CS_BIT PORTD6   // Display CS physical bit number

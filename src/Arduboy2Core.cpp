@@ -405,7 +405,7 @@ void Arduboy2Core::bootPowerSaving()
 #endif
 }
 
-#ifdef SLIMBOY
+#ifndef SLIMBOY
 // Shut down the display
 void Arduboy2Core::displayOff()
 {
