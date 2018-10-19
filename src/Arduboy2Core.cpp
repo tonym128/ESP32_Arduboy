@@ -176,14 +176,14 @@ void Arduboy2Core::bootPins()
   // Port C INPUT_PULLUP
   PORTC |= _BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) |
            _BV(B_BUTTON_BIT);
-  DDRC  |= _BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) |
-           _BV(B_BUTTON_BIT);
+  DDRC &= ~(_BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) |
+	    _BV(B_BUTTON_BIT));
   // Port D INPUT_PULLUP
   PORTD |= _BV(RIGHT_BUTTON_BIT) |
            _BV(DOWN_BUTTON_BIT) | _BV(A_BUTTON_BIT);
-  DDRD  |= _BV(RIGHT_BUTTON_BIT) |
-           _BV(DOWN_BUTTON_BIT) | _BV(A_BUTTON_BIT) |
-           _BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT);
+  DDRD &= ~(_BV(RIGHT_BUTTON_BIT) |
+	    _BV(DOWN_BUTTON_BIT) | _BV(A_BUTTON_BIT));   
+  DDRD  |= _BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT);
 
   // switch off LEDs by default
   PORTD |= _BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT);
