@@ -186,7 +186,7 @@ void Arduboy2Core::bootPins()
   DDRD  |= _BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT);
 
   // switch off LEDs by default
-  PORTD |= _BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT);
+  PORTD &= ~(_BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT));
 #else
 #ifdef ARDUBOY_10
 
@@ -613,12 +613,12 @@ void Arduboy2Core::setRGBled(uint8_t color, uint8_t val)
   if (color == RED_LED) {
     //    val = val?RGB_ON:RGB_OFF;
     //    bitWrite(RED_LED_PORT, RED_LED_BIT, val);
-    OCR0B = 255 - val;
+    OCR0B = val;
   } else if (color == GREEN_LED) {
     val = val?RGB_ON:RGB_OFF;
     bitWrite(GREEN_LED_PORT, GREEN_LED_BIT, val);
   } else if (color == BLUE_LED) {
-    OCR0A = 255 - val;
+    OCR0A = val;
   }
 #elif defined(ARDUBOY_10)
   if (color == RED_LED)

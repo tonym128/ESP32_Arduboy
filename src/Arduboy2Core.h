@@ -39,8 +39,13 @@
 // #define AB_DEVKIT    //< compile for the official dev kit
 #endif
 
+#ifdef SLIMBOY
+#define RGB_ON HIGH   /**< For digitially setting an RGB LED on using digitalWriteRGB() */
+#define RGB_OFF LOW /**< For digitially setting an RGB LED off using digitalWriteRGB() */
+#else
 #define RGB_ON LOW   /**< For digitially setting an RGB LED on using digitalWriteRGB() */
 #define RGB_OFF HIGH /**< For digitially setting an RGB LED off using digitalWriteRGB() */
+#endif
 
 // ----- Arduboy pins -----
 #ifdef ARDUBOY_10
