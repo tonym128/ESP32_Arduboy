@@ -803,7 +803,10 @@ void Arduboy2Core::mainNoUSB()
 //#if defined(USBCON)
 //  USBDevice.attach();
 //#endif
-
+#else
+  // Nano seems to need init()
+  init();
+#endif
   setup();
 
   for (;;) {
@@ -812,6 +815,5 @@ void Arduboy2Core::mainNoUSB()
   }
 
 //  return 0;
-#endif
 }
 
