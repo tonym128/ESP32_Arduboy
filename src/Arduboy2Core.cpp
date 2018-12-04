@@ -6,6 +6,8 @@
 
 #include "Arduboy2Core.h"
 
+#include <avr/wdt.h>
+
 const uint8_t PROGMEM lcdBootProgram[] = {
 #ifdef SLIMBOY
   // slimboy sets all registers to sane defaults since i2c
