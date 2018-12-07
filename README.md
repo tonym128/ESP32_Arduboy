@@ -14,7 +14,13 @@ The SLIMBOY setup has a few limitations over the original solution:
 
 These limitations only have a very minor impact on the usability and games like ShadowRunner just run fine on the SLIMBOY.
 
-See https://github.com/harbaum/ArduboyTones for a matching port of the ArduboyTones library.
+## Related
+
+Several sound libraries exist for the Arduboy. Some of them have also
+been ported the the Nano:
+
+ - Matching port of [ArduboyTones](https://github.com/harbaum/ArduboyTones)
+ - Matching port of [ATMlib](https://github.com/harbaum/ATMlib)
 
 ## Games tested on the Arduino Nano
 
