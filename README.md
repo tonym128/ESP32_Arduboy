@@ -1,4 +1,4 @@
-# ESP8266 Fork of the SLIMBOY Fork of the original Arduboy2 lib.
+# ESP8266 Fork of the SLIMBOY Fork of the Arduboy2 lib.
 
 Note1: For fast I2C communication I am using this library: https://github.com/ThingPulse/esp8266-oled-ssd1306
 
