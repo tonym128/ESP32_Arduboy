@@ -1,3 +1,15 @@
+# ESP8266 Fork of the SLIMBOY Fork of the original Arduboy2 lib.
+
+Note1: For fast I2C communication I am using this library: https://github.com/ThingPulse/esp8266-oled-ssd1306
+
+ there need to be a oled object of type SSD1306Brzo before creating the arduboy object. For more information see: HelloWorld.ino
+
+Note2: esp8266 eeprom class has no update() member, so it need to be created by you. See file: eepromNote.txt
+
+Note3: I am using the PS2X_lib but you can use whatever you want for reading your buttons. For more information see: Buttons.ino
+
+Note4: I added a ArduboyTones fork for esp8266 audio support.  
+
 # SLIMBOY - Arduboy2 port to Arduino Nano and I²C display
 
 This is a port of the original Arduboy2 code to the simpler and cheaper Arduino Nano and an I²C display.
