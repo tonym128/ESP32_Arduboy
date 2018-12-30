@@ -6,70 +6,21 @@
 
 #include "Arduboy2Core.h"
 
-#include <avr/wdt.h>
+#ifndef ESP8266
+#include <Wire.h>
+#else
+uint8_t externalButtons;		
+void (*externalButtonsHandler)();
+bool hasExternalButtonsHandler = false;
+			
+			
+#ifdef LIMIT_BUTTON_CALLS
+uint32_t nextButtonsRead = 0;
+#endif			
+			
+#endif
 
 const uint8_t PROGMEM lcdBootProgram[] = {
-#ifdef SLIMBOY
-  // slimboy sets all registers to sane defaults since i2c
-  // displays usually havn't a reset input
-
-  // Display Off
-  0xAE,
-
-  // Set Display Clock Divisor v = 0xF0
-  // default is 0x80
-  0xD5, 0xF0,
-
-  // Set Multiplex Ratio v = 0x3F
-  0xA8, 0x3F,
-
-  // Set Display Offset v = 0
-  0xD3, 0x00,
-
-  // Set Start Line (0)
-  0x40,
-
-  // Charge Pump Setting v = enable (0x14)
-  // default is disabled
-  0x8D, 0x14,
-
-  // Set Segment Re-map (A0) | (b0001)
-  // default is (b0000)
-  0xA1,
-
-  // Set COM Output Scan Direction
-  0xC8,
-
-  // Set COM Pins v
-  0xDA, 0x12,
-
-  // Set Contrast v = 0xCF
-  0x81, 0xCF,
-
-  // Set Precharge = 0xF1
-  0xD9, 0xF1,
-
-  // Set VCom Detect
-  0xDB, 0x40,
-
-  // Entire Display ON
-  0xA4,
-
-  // Set normal/inverse display
-  0xA6,
-
-  // Display On
-  0xAF,
-
-  // set display mode = horizontal addressing mode (0x00)
-  0x20, 0x00,
-
-  // set col address range
-  0x21, 0x00, WIDTH-1,
-
-  // set page address range
-  0x22, 0x00, 0x07,
-#else
   // boot defaults are commented out but left here in case they
   // might prove useful for reference
   //
@@ -131,7 +82,6 @@ const uint8_t PROGMEM lcdBootProgram[] = {
 
   // set page address range
   // 0x22, 0x00, 0x07,
-#endif
 };
 
 
@@ -144,9 +94,11 @@ void Arduboy2Core::boot()
   setCPUSpeed8MHz();
   #endif
 
+	#ifndef ESP8266
   // Select the ADC input here so a delay isn't required in initRandomSeed()
   ADMUX = RAND_SEED_IN_ADMUX;
-
+	#endif
+	
   bootPins();
   bootSPI();
   bootOLED();
@@ -154,12 +106,15 @@ void Arduboy2Core::boot()
 }
 
 #ifdef ARDUBOY_SET_CPU_8MHZ
+// 8MHz on a esp8266...
+#ifndef ESP8266
 // If we're compiling for 8MHz we need to slow the CPU down because the
 // hardware clock on the Arduboy is 16MHz.
 // We also need to readjust the PLL prescaler because the Arduino USB code
 // likely will have incorrectly set it for an 8MHz hardware clock.
 void Arduboy2Core::setCPUSpeed8MHz()
 {
+
   uint8_t oldSREG = SREG;
   cli();                // suspend interrupts
   PLLCSR = _BV(PINDIV); // dissable the PLL and set prescale for 16MHz)
@@ -169,27 +124,12 @@ void Arduboy2Core::setCPUSpeed8MHz()
   SREG = oldSREG;       // restore interrupts
 }
 #endif
-
+#endif
 // Pins are set to the proper modes and levels for the specific hardware.
 // This routine must be modified if any pins are moved to a different port
 void Arduboy2Core::bootPins()
 {
-#ifdef SLIMBOY
-  // Port C INPUT_PULLUP
-  PORTC |= _BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) |
-           _BV(B_BUTTON_BIT);
-  DDRC &= ~(_BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) |
-	    _BV(B_BUTTON_BIT));
-  // Port D INPUT_PULLUP
-  PORTD |= _BV(RIGHT_BUTTON_BIT) |
-           _BV(DOWN_BUTTON_BIT) | _BV(A_BUTTON_BIT);
-  DDRD &= ~(_BV(RIGHT_BUTTON_BIT) |
-	    _BV(DOWN_BUTTON_BIT) | _BV(A_BUTTON_BIT));   
-  DDRD  |= _BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT);
-
-  // switch off LEDs by default
-  PORTD &= ~(_BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT));
-#else
+#ifndef ESP8266
 #ifdef ARDUBOY_10
 
   // Port B INPUT_PULLUP or HIGH
@@ -269,47 +209,13 @@ void Arduboy2Core::bootPins()
   DDRF &= ~(_BV(A_BUTTON_BIT) | _BV(B_BUTTON_BIT) | _BV(RAND_SEED_IN_BIT));
   // Port F outputs (none)
   // Speaker: Not set here. Controlled by audio class
-
 #endif
 #endif
 }
-
-#ifdef SLIMBOY
-#define I2CADDR 0x3c
-
-void i2c_send_byte(uint8_t data) {
-  TWDR = data;
-  TWCR = _BV(TWINT)  |  _BV(TWEN);
-  while( !(TWCR & _BV(TWINT)));
-}
-
-void i2c_start() {
-  TWCR = _BV(TWINT) | _BV(TWSTA)  | _BV(TWEN);
-  while( !(TWCR & _BV(TWINT)));
-  i2c_send_byte(I2CADDR<<1);
-}
-
-void i2c_stop(void) {
-  TWCR = _BV(TWINT) | _BV(TWEN) | _BV(TWSTO);
-  while( (TWCR & _BV(TWSTO)));
-}
-#endif
 
 void Arduboy2Core::bootOLED()
 {
-#ifdef SLIMBOY
-  TWSR = 0;
-  TWBR = F_CPU/(2*100000)-8;
-
-  i2c_start();
-  i2c_send_byte(0x00);
-  for (uint8_t i = 0; i < sizeof(lcdBootProgram); i++) 
-    i2c_send_byte(pgm_read_byte(lcdBootProgram + i));
-  i2c_stop();
-  
-  //  TWBR = F_CPU/(2*400000)-8;
-  TWBR = 1; // 12 = 400kHz
-#else
+#ifndef ESP8266
   // reset the display
   delayShort(5); // reset pin should be low here. let it stay low a while
   bitSet(RST_PORT, RST_BIT); // set high to come out of reset
@@ -328,32 +234,37 @@ void Arduboy2Core::bootOLED()
 #endif
 }
 
-#ifndef SLIMBOY
+
 void Arduboy2Core::LCDDataMode()
 {
+#ifndef ESP8266	
   bitSet(DC_PORT, DC_BIT);
+#endif
 }
 
 void Arduboy2Core::LCDCommandMode()
 {
+#ifndef ESP8266	
   bitClear(DC_PORT, DC_BIT);
+#endif	
 }
-#endif
+
 
 // Initialize the SPI interface for the display
 void Arduboy2Core::bootSPI()
 {
-#ifndef SLIMBOY
+#ifndef ESP8266
 // master, mode 0, MSB first, CPU clock / 2 (8MHz)
   SPCR = _BV(SPE) | _BV(MSTR);
   SPSR = _BV(SPI2X);
 #endif
 }
 
-#ifndef SLIMBOY
+
 // Write to the SPI bus (MOSI pin)
 void Arduboy2Core::SPItransfer(uint8_t data)
 {
+#ifndef ESP8266	
   SPDR = data;
   /*
    * The following NOP introduces a small delay that can prevent the wait
@@ -363,12 +274,12 @@ void Arduboy2Core::SPItransfer(uint8_t data)
    */
   asm volatile("nop");
   while (!(SPSR & _BV(SPIF))) { } // wait
+#endif	
 }
-#endif
 
-#ifndef SLIMBOY
 void Arduboy2Core::safeMode()
 {
+#ifndef ESP8266	
   if (buttonsState() == UP_BUTTON)
   {
     digitalWriteRGB(RED_LED, RGB_ON);
@@ -381,22 +292,25 @@ void Arduboy2Core::safeMode()
 
     while (true) { }
   }
+#endif	
 }
-#endif
+
 
 
 /* Power Management */
 
 void Arduboy2Core::idle()
 {
+#ifndef ESP8266
   SMCR = _BV(SE); // select idle mode and enable sleeping
   sleep_cpu();
   SMCR = 0; // disable sleeping
+#endif
 }
 
 void Arduboy2Core::bootPowerSaving()
 {
-#ifdef SLIMBOY
+#ifdef ESP8266
   // FIXME
 #else
   // disable Two Wire Interface (I2C) and the ADC
@@ -407,23 +321,31 @@ void Arduboy2Core::bootPowerSaving()
 #endif
 }
 
-#ifndef SLIMBOY
+
 // Shut down the display
 void Arduboy2Core::displayOff()
 {
+#ifndef ESP8266	
   LCDCommandMode();
   SPItransfer(0xAE); // display off
   SPItransfer(0x8D); // charge pump:
   SPItransfer(0x10); //   disable
   delayShort(250);
   bitClear(RST_PORT, RST_BIT); // set display reset pin low (reset state)
+#else
+	sendLCDCommand(DISPLAYOFF);	
+#endif	
 }
-#endif
+
 
 // Restart the display after a displayOff()
 void Arduboy2Core::displayOn()
 {
+#ifndef ESP8266		
   bootOLED();
+#else
+	sendLCDCommand(DISPLAYON);
+#endif	
 }
 
 uint8_t Arduboy2Core::width() { return WIDTH; }
@@ -435,37 +357,35 @@ uint8_t Arduboy2Core::height() { return HEIGHT; }
 
 void Arduboy2Core::paint8Pixels(uint8_t pixels)
 {
-#ifdef SLIMBOY
-  i2c_start();
-  i2c_send_byte(0x40);
-  i2c_send_byte(pixels);
-  i2c_stop();
-#else
+#ifndef ESP8266	
   SPItransfer(pixels);
+#else
+	uint8_t command[2] = {0x40, pixels};
+  brzo_i2c_start_transaction(OLED_I2C_ADRESS, BRZO_I2C_SPEED);
+  brzo_i2c_write(command, 2, true);
+  brzo_i2c_end_transaction();
 #endif
+
 }
 
 void Arduboy2Core::paintScreen(const uint8_t *image)
 {
-#ifdef SLIMBOY
-  // I2C
-  for (uint8_t i=0; i<(WIDTH*HEIGHT/(16*8));) {
-    // send a bunch of data in one xmission
-    i2c_start();
-    i2c_send_byte(0x40);
-    for(uint8_t x=0;x<16;x++,i++) {
-      TWDR = pgm_read_byte(image+i);
-      TWCR = _BV(TWINT) |  _BV(TWEN);
-      while( !(TWCR & _BV(TWINT)));
-    }
-    i2c_stop();
-  }
-#else
+#ifndef ESP8266	
   for (int i = 0; i < (HEIGHT*WIDTH)/8; i++)
   {
-    SPItransfer(pgm_read_byte(image + i));
+    SPI.transfer(pgm_read_byte(image + i));
   }
-#endif
+	
+#else
+  for (uint8_t i=0; i<(WIDTH*HEIGHT/(16*8));) {
+		brzo_i2c_start_transaction(OLED_I2C_ADRESS, BRZO_I2C_SPEED);
+    for(uint8_t x=0;x<16;x++,i++) {
+			uint8_t command[2] = {0x40, pgm_read_byte(image+i+x)};			
+			brzo_i2c_write(command, 2, true);
+    }
+    brzo_i2c_end_transaction();
+  } 
+#endif	
 }
 
 // paint from a memory buffer, this should be FAST as it's likely what
@@ -476,21 +396,7 @@ void Arduboy2Core::paintScreen(const uint8_t *image)
 // It is specifically tuned for a 16MHz CPU clock and SPI clocking at 8MHz.
 void Arduboy2Core::paintScreen(uint8_t image[], bool clear)
 {
-#ifdef SLIMBOY
-  // I2C
-  uint16_t i;
-  i2c_start();
-  TWDR = 0x40;
-  TWCR = _BV(TWINT) | _BV(TWEN);
-  for (uint16_t i=0; i<(WIDTH*HEIGHT/8);i++) {
-    while( !(TWCR & _BV(TWINT)));
-    TWDR = image[i];
-    TWCR = _BV(TWINT) | _BV(TWEN);
-    if(clear) image[i] = 0;
-  }
-  while( !(TWCR & _BV(TWINT)));
-  i2c_stop();
-#else
+#ifndef ESP8266
   uint16_t count;
 
   asm volatile (
@@ -514,65 +420,65 @@ void Arduboy2Core::paintScreen(uint8_t image[], bool clear)
       [len_lsb] "M"   (WIDTH * (HEIGHT / 8 * 2) & 0xFF), // 2: for delay loop multiplier
       [clear]   "r"   (clear)
   );
+#else
+  brzo_i2c_start_transaction(OLED_I2C_ADRESS, BRZO_I2C_SPEED);
+	uint8_t command[1] = {0x40};			
+	brzo_i2c_write(command, 1, true);
+  for (uint16_t i=0; i<(WIDTH*HEIGHT/8);i++) {
+		uint8_t command[1] = {image[i]};			
+		brzo_i2c_write(command, 1, true);
+  }
+  brzo_i2c_end_transaction();
 #endif
 }
 
 void Arduboy2Core::blank()
 {
-#ifdef SLIMBOY
-  for (uint8_t i=0; i<(WIDTH*HEIGHT/(16*8)); i++) {
-    i2c_start();
-    i2c_send_byte(0x40);
-    for(uint8_t x=0;x<16;x++) {
-      TWDR = 0;
-      TWCR = _BV(TWINT) |  _BV(TWEN);
-      while( !(TWCR & _BV(TWINT)));
-    }
-    i2c_stop();
-  }
-#else
+#ifndef ESP8266		
   for (int i = 0; i < (HEIGHT*WIDTH)/8; i++)
-    SPItransfer(0x00);
-#endif
+    SPI.transfer(0x00);
+#else
+	sendLCDCommand(DISPLAYOFF);
+#endif	
 }
 
 void Arduboy2Core::sendLCDCommand(uint8_t command)
 {
-#ifdef SLIMBOY
-  i2c_start();
-  i2c_send_byte(0x00);
-  i2c_send_byte(command);
-  i2c_stop();
-#else
+#ifndef ESP8266	
   LCDCommandMode();
-  SPItransfer(command);
+  SPI.transfer(command);
   LCDDataMode();
-#endif
+#else	
+  uint8_t com[2] = {0x80 /* command mode */, command};
+  brzo_i2c_start_transaction(OLED_I2C_ADRESS, BRZO_I2C_SPEED);
+  brzo_i2c_write(com, 2, true);
+  brzo_i2c_end_transaction();
+#endif	
 }
 
 // invert the display or set to normal
 // when inverted, a pixel set to 0 will be on
 void Arduboy2Core::invert(bool inverse)
-{
+{		
   sendLCDCommand(inverse ? OLED_PIXELS_INVERTED : OLED_PIXELS_NORMAL);
 }
 
 // turn all display pixels on, ignoring buffer contents
 // or set to normal buffer display
 void Arduboy2Core::allPixelsOn(bool on)
-{
+{	
   sendLCDCommand(on ? OLED_ALL_PIXELS_ON : OLED_PIXELS_FROM_RAM);
 }
 
 // flip the display vertically or set to normal
 void Arduboy2Core::flipVertical(bool flipped)
-{
+{	
   sendLCDCommand(flipped ? OLED_VERTICAL_FLIPPED : OLED_VERTICAL_NORMAL);
 }
 
 // flip the display horizontally or set to normal
 void Arduboy2Core::flipHorizontal(bool flipped)
-{
+{	
   sendLCDCommand(flipped ? OLED_HORIZ_FLIPPED : OLED_HORIZ_NORMAL);
 }
 
@@ -580,16 +486,8 @@ void Arduboy2Core::flipHorizontal(bool flipped)
 
 void Arduboy2Core::setRGBled(uint8_t red, uint8_t green, uint8_t blue)
 {
-#ifdef SLIMBOY
-  //  bitWrite(RED_LED_PORT, RED_LED_BIT, red ? RGB_ON : RGB_OFF);
-  bitWrite(GREEN_LED_PORT, GREEN_LED_BIT, green ? RGB_ON : RGB_OFF);
-  // timer 0: Fast PWM, OC0A clear on compare / set at top
-  // We must stay in Fast PWM mode because timer 0 is used for system timing.
-  // We can't use "inverted" mode because it won't allow full shut off.
-  TCCR0A = _BV(COM0B1) | _BV(COM0A1) | _BV(WGM01) | _BV(WGM00);
-  OCR0A = 255 - blue;
-  OCR0B = 255 - red;
-#elif defined(ARDUBOY_10) // RGB, all the pretty colors
+#ifndef ESP8266
+#if defined(ARDUBOY_10) // RGB, all the pretty colors
   // timer 0: Fast PWM, OC0A clear on compare / set at top
   // We must stay in Fast PWM mode because timer 0 is used for system timing.
   // We can't use "inverted" mode because it won't allow full shut off.
@@ -607,22 +505,13 @@ void Arduboy2Core::setRGBled(uint8_t red, uint8_t green, uint8_t blue)
   (void)green;  // parameter unused
   bitWrite(BLUE_LED_PORT, BLUE_LED_BIT, blue ? RGB_ON : RGB_OFF);
 #endif
+#endif
 }
 
 void Arduboy2Core::setRGBled(uint8_t color, uint8_t val)
 {
-#ifdef SLIMBOY
-  if (color == RED_LED) {
-    //    val = val?RGB_ON:RGB_OFF;
-    //    bitWrite(RED_LED_PORT, RED_LED_BIT, val);
-    OCR0B = val;
-  } else if (color == GREEN_LED) {
-    val = val?RGB_ON:RGB_OFF;
-    bitWrite(GREEN_LED_PORT, GREEN_LED_BIT, val);
-  } else if (color == BLUE_LED) {
-    OCR0A = val;
-  }
-#elif defined(ARDUBOY_10)
+#ifndef ESP8266
+#if defined(ARDUBOY_10)
   if (color == RED_LED)
   {
     OCR1BL = val;
@@ -642,13 +531,12 @@ void Arduboy2Core::setRGBled(uint8_t color, uint8_t val)
     bitWrite(BLUE_LED_PORT, BLUE_LED_BIT, val ? RGB_ON : RGB_OFF);
   }
 #endif
+#endif
 }
 
 void Arduboy2Core::freeRGBled()
 {
-#ifdef SLIMBOY
-  TCCR0A = _BV(WGM01) | _BV(WGM00);
-#else
+#ifndef ESP8266	
 #ifdef ARDUBOY_10
   // clear the COM bits to return the pins to normal I/O mode
   TCCR0A = _BV(WGM01) | _BV(WGM00);
@@ -659,6 +547,7 @@ void Arduboy2Core::freeRGBled()
 
 void Arduboy2Core::digitalWriteRGB(uint8_t red, uint8_t green, uint8_t blue)
 {
+#ifndef ESP8266	
 #ifdef ARDUBOY_10
   bitWrite(RED_LED_PORT, RED_LED_BIT, red);
   bitWrite(GREEN_LED_PORT, GREEN_LED_BIT, green);
@@ -669,10 +558,12 @@ void Arduboy2Core::digitalWriteRGB(uint8_t red, uint8_t green, uint8_t blue)
   (void)green;  // parameter unused
   bitWrite(BLUE_LED_PORT, BLUE_LED_BIT, blue);
 #endif
+#endif
 }
 
 void Arduboy2Core::digitalWriteRGB(uint8_t color, uint8_t val)
 {
+#ifndef ESP8266
 #ifdef ARDUBOY_10
   if (color == RED_LED)
   {
@@ -693,23 +584,32 @@ void Arduboy2Core::digitalWriteRGB(uint8_t color, uint8_t val)
     bitWrite(BLUE_LED_PORT, BLUE_LED_BIT, val);
   }
 #endif
+#endif
 }
 
 /* Buttons */
 
+#ifdef ESP8266		
+void Arduboy2Core::setExternalButtons(uint8_t but) {
+	
+	externalButtons	= but;
+}
+
+void Arduboy2Core::setExternalButtonsHandler(void (*function)())
+{
+	externalButtonsHandler = function;
+	hasExternalButtonsHandler = true;
+}
+#endif
+
 uint8_t Arduboy2Core::buttonsState()
 {
-  uint8_t buttons;
-#ifdef SLIMBOY
-  buttons = 0;
-  if (bitRead(UP_BUTTON_PORTIN, UP_BUTTON_BIT) == 0) { buttons |= UP_BUTTON; }
-  if (bitRead(DOWN_BUTTON_PORTIN, DOWN_BUTTON_BIT) == 0) { buttons |= DOWN_BUTTON; }
-  if (bitRead(LEFT_BUTTON_PORTIN, LEFT_BUTTON_BIT) == 0) { buttons |= LEFT_BUTTON; }
-  if (bitRead(RIGHT_BUTTON_PORTIN, RIGHT_BUTTON_BIT) == 0) { buttons |= RIGHT_BUTTON; }
+#ifndef ESP8266	
+  uint8_t buttons;	
 
-  if (bitRead(A_BUTTON_PORTIN, A_BUTTON_BIT) == 0) { buttons |= A_BUTTON; }
-  if (bitRead(B_BUTTON_PORTIN, B_BUTTON_BIT) == 0) { buttons |= B_BUTTON; }
-#else
+	// get the buttons form PS2 lib
+	buttons = 0;
+	
 #ifdef ARDUBOY_10
   // up, right, left, down
   buttons = ((~PINF) &
@@ -730,8 +630,27 @@ uint8_t Arduboy2Core::buttonsState()
   // B
   if (bitRead(B_BUTTON_PORTIN, B_BUTTON_BIT) == 0) { buttons |= B_BUTTON; }
 #endif
-#endif
+
   return buttons;
+	
+#else
+	
+#ifdef LIMIT_BUTTON_CALLS
+	// return the buttons states from the last call
+	if (millis() < nextButtonsRead)
+		return externalButtons;
+		
+	// set time for the next reading
+	nextButtonsRead = millis() + LIMIT_BUTTON_CALLS;
+
+#endif
+
+	// in this callback function the externalButtons should be updated#
+	if (hasExternalButtonsHandler)
+		(*externalButtonsHandler)();
+	
+  return externalButtons;
+#endif
 }
 
 // delay in ms with 16 bit duration
@@ -742,19 +661,14 @@ void Arduboy2Core::delayShort(uint16_t ms)
 
 void Arduboy2Core::exitToBootloader()
 {
+#ifndef ESP8266
   cli();
-#ifndef SLIMBOY
-  // set bootloader magic key
-  // storing two uint8_t instead of one uint16_t saves an instruction
-  //  when high and low bytes of the magic key are the same
-  *(uint8_t *)MAGIC_KEY_POS = lowByte(MAGIC_KEY);
-  *(uint8_t *)(MAGIC_KEY_POS + 1) = highByte(MAGIC_KEY);
-#endif
   // enable watchdog timer reset, with 16ms timeout
   wdt_reset();
   WDTCSR = (_BV(WDCE) | _BV(WDE));
   WDTCSR = _BV(WDE);
   while (true) { }
+#endif
 }
 
 // Replacement main() that eliminates the USB stack code.
@@ -763,7 +677,7 @@ void Arduboy2Core::exitToBootloader()
 
 void Arduboy2Core::mainNoUSB()
 {
-#ifndef SLIMBOY
+#ifndef ESP8266
   // disable USB
   UDCON = _BV(DETACH);
   UDIEN = 0;
@@ -805,10 +719,7 @@ void Arduboy2Core::mainNoUSB()
 //#if defined(USBCON)
 //  USBDevice.attach();
 //#endif
-#else
-  // Nano seems to need init()
-  init();
-#endif
+
   setup();
 
   for (;;) {
@@ -817,5 +728,6 @@ void Arduboy2Core::mainNoUSB()
   }
 
 //  return 0;
+#endif
 }
 

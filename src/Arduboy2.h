@@ -7,6 +7,11 @@
 #ifndef ARDUBOY2_H
 #define ARDUBOY2_H
 
+#ifdef ESP8266
+#include <brzo_i2c.h> // Only needed for Arduino 1.6.5 and earlier
+#include "SSD1306Brzo.h"
+#endif
+
 #include <Arduino.h>
 #include <EEPROM.h>
 #include "Arduboy2Core.h"
@@ -14,6 +19,7 @@
 #include "Sprites.h"
 #include "SpritesB.h"
 #include <Print.h>
+#include <limits.h>
 
 
 /** \brief
@@ -34,7 +40,7 @@
  * #endif
  * \endcode
  */
-#define ARDUBOY_LIB_VER 50200
+#define ARDUBOY_LIB_VER 50100
 
 // EEPROM settings
 #define ARDUBOY_UNIT_NAME_LEN 6 /**< The maximum length of the unit name string. */
@@ -89,10 +95,6 @@
 #define CLEAR_BUFFER true /**< Value to be passed to `display()` to clear the screen buffer. */
 
 
-//=============================================
-//========== Rect (rectangle) object ==========
-//=============================================
-
 /** \brief
  * A rectangle object for collision functions.
  *
@@ -101,7 +103,6 @@
  * given width and height.
  *
  * \see Arduboy2Base::collide(Point, Rect) Arduboy2Base::collide(Rect, Rect)
- *      Point
  */
 struct Rect
 {
@@ -109,26 +110,7 @@ struct Rect
   int16_t y;      /**< The Y coordinate of the top left corner */
   uint8_t width;  /**< The width of the rectangle */
   uint8_t height; /**< The height of the rectangle */
-
-  /** \brief
-   * The default constructor
-   */
-  Rect() = default;
-
-  /** \brief
-   * The fully initializing constructor
-   *
-   * \param x The X coordinate of the top left corner. Copied to variable `x`.
-   * \param y The Y coordinate of the top left corner. Copied to variable `y`.
-   * \param width The width of the rectangle. Copied to variable `width`.
-   * \param height The height of the rectangle. Copied to variable `height`.
-   */
-  Rect(int16_t x, int16_t y, uint8_t width, uint8_t height);
 };
-
-//==================================
-//========== Point object ==========
-//==================================
 
 /** \brief
  * An object to define a single point for collision functions.
@@ -136,25 +118,12 @@ struct Rect
  * \details
  * The location of the point is given by X and Y coordinates.
  *
- * \see Arduboy2Base::collide(Point, Rect) Rect
+ * \see Arduboy2Base::collide(Point, Rect)
  */
 struct Point
 {
   int16_t x; /**< The X coordinate of the point */
   int16_t y; /**< The Y coordinate of the point */
-
-  /** \brief
-   * The default constructor
-   */
-  Point() = default;
-
-  /** \brief
-   * The fully initializing constructor
-   *
-   * \param x The X coordinate of the point. Copied to variable `x`.
-   * \param y The Y coordinate of the point. Copied to variable `y`.
-   */
-  Point(int16_t x, int16_t y);
 };
 
 //==================================
@@ -479,7 +448,7 @@ class Arduboy2Base : public Arduboy2Core
    * specified color. The values WHITE or BLACK can be used for the color.
    * If the `color` parameter isn't included, the pixel will be set to WHITE.
    */
-  static void drawPixel(int16_t x, int16_t y, uint8_t color = WHITE);
+  void drawPixel(int16_t x, int16_t y, uint8_t color = WHITE);
 
   /** \brief
    * Returns the state of the given pixel in the screen buffer.
@@ -730,36 +699,16 @@ class Arduboy2Base : public Arduboy2Core
   uint8_t* getBuffer();
 
   /** \brief
-   * Create a seed suitable for use with a random number generator.
-   *
-   * \return A random value that can be used to seed a random number generator.
-   *
-   * \details
-   * The returned value will be a random value derived from entropy from an
-   * ADC reading of a floating pin combined with the microseconds since boot.
-   *
-   * This method is still most effective when called after a semi-random time,
-   * such as after a user hits a button to start a game or other semi-random
-   * event.
-   *
-   * \see initRandomSeed()
-   */
-  unsigned long generateRandomSeed();
-
-  /** \brief
    * Seed the random number generator with a random value.
    *
    * \details
    * The Arduino random number generator is seeded with a random value
    * derived from entropy from an ADC reading of a floating pin combined with
-   * the microseconds since boot. The seed value is provided by calling the
-   * `generateRandomSeed()` function.
+   * the microseconds since boot.
    *
    * This method is still most effective when called after a semi-random time,
    * such as after a user hits a button to start a game or other semi-random
    * event.
-   *
-   * \see generateRandomSeed()
    */
   void initRandomSeed();
 
@@ -1056,7 +1005,7 @@ class Arduboy2Base : public Arduboy2Core
    *
    * \see Point Rect
    */
-  static bool collide(Point point, Rect rect);
+  bool collide(Point point, Rect rect);
 
   /** \brief
    * Test if a rectangle is intersecting with another rectangle.
@@ -1073,7 +1022,7 @@ class Arduboy2Base : public Arduboy2Core
    *
    * \see Rect
    */
-  static bool collide(Rect rect1, Rect rect2);
+  bool collide(Rect rect1, Rect rect2);
 
   /** \brief
    * Read the unit ID from system EEPROM.
@@ -1308,7 +1257,13 @@ class Arduboy2Base : public Arduboy2Core
    *
    * \see getBuffer()
    */
+   
+ 
+#ifndef ESP8266
   static uint8_t sBuffer[(HEIGHT*WIDTH)/8];
+#else	
+  static uint8_t* sBuffer;
+#endif	
 
  protected:
   // helper function for sound enable/disable system control

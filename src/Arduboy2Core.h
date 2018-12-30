@@ -7,12 +7,28 @@
 #ifndef ARDUBOY2_CORE_H
 #define ARDUBOY2_CORE_H
 
-
 #include <Arduino.h>
+
+#ifndef ESP8266
 #include <avr/power.h>
 #include <avr/sleep.h>
+#include <avr/wdt.h>
+#include <SPI.h>
+#else
+#include <brzo_i2c.h> // Only needed for Arduino 1.6.5 and earlier
+#include "SSD1306Brzo.h"
 
-#ifdef __AVR_ATmega328P__
+#define OLED_I2C_ADRESS 0x3c
+#define LIMIT_BUTTON_CALLS (1000 / 30)
+#endif
+
+#include <limits.h>
+
+#define max(a,b) ((a)>(b)?(a):(b))
+#define min(a,b) ((a)<(b)?(a):(b))
+
+// use Slimboy, because hopefully it is easier to convert than the original code
+#if defined(__AVR_ATmega328P__) || defined(ESP8266) 
 #warning SLIMBOY!
 #define SLIMBOY
 #endif
@@ -37,13 +53,8 @@
 // #define AB_DEVKIT    //< compile for the official dev kit
 #endif
 
-#ifdef SLIMBOY
-#define RGB_ON HIGH   /**< For digitially setting an RGB LED on using digitalWriteRGB() */
-#define RGB_OFF LOW /**< For digitially setting an RGB LED off using digitalWriteRGB() */
-#else
 #define RGB_ON LOW   /**< For digitially setting an RGB LED on using digitalWriteRGB() */
 #define RGB_OFF HIGH /**< For digitially setting an RGB LED off using digitalWriteRGB() */
-#endif
 
 // ----- Arduboy pins -----
 #ifdef ARDUBOY_10
@@ -175,10 +186,13 @@
 #define B_BUTTON_BIT PORTB4
 #endif
 
-#ifdef SLIMBOY
-#define PIN_SPEAKER_1 9  /**< The pin number of the first lead of the speaker */
-#define PIN_SPEAKER_2 11 /**< The pin number of the second lead of the speaker */
+#ifdef ESP8266
 
+// there is only one pin for audio
+#define PIN_SPEAKER_1 D3  
+#define PIN_SPEAKER_2 D3
+
+/*
 #define SPEAKER_1_PORT PORTB
 #define SPEAKER_1_DDR DDRB
 #define SPEAKER_1_BIT PORTB1
@@ -186,10 +200,10 @@
 #define SPEAKER_2_PORT PORTB
 #define SPEAKER_2_DDR DDRB
 #define SPEAKER_2_BIT PORTB3
-
+*/
 #else
-#define PIN_SPEAKER_1 5  /**< The pin number of the first lead of the speaker */
-#define PIN_SPEAKER_2 13 /**< The pin number of the second lead of the speaker */
+#define PIN_SPEAKER_1 5  
+#define PIN_SPEAKER_2 13 
 
 #define SPEAKER_1_PORT PORTC
 #define SPEAKER_1_DDR DDRC
@@ -199,7 +213,6 @@
 #define SPEAKER_2_DDR DDRC
 #define SPEAKER_2_BIT PORTC7
 #endif
-
 // -----------------------
 
 // ----- DevKit pins -----
@@ -291,12 +304,14 @@
 
 // ----- Pins common on Arduboy and DevKit -----
 
+#ifndef ESP8266
 // Unconnected analog input used for noise by initRandomSeed()
 #define RAND_SEED_IN A4
 #define RAND_SEED_IN_PORT PORTF
 #define RAND_SEED_IN_BIT PORTF1
 // Value for ADMUX to read the random seed pin: 2.56V reference, ADC1
 #define RAND_SEED_IN_ADMUX (_BV(REFS0) | _BV(REFS1) | _BV(MUX0))
+#endif
 
 // SPI interface
 #define SPI_MISO_PORT PORTB
@@ -418,6 +433,13 @@ class Arduboy2Core
   public:
     Arduboy2Core();
 
+#ifdef ESP8266		
+    void setExternalButtons(uint8_t but);	
+		
+	void setExternalButtonsHandler(void (*function)());
+#endif		
+				
+		
     /** \brief
      * Idle the CPU to save power.
      *
@@ -928,7 +950,7 @@ class Arduboy2Core
     // Replacement main() that eliminates the USB stack code.
     // Used by the ARDUBOY_NO_USB macro. This should not be called
     // directly from a sketch.
-    void static mainNoUSB();
+    void static mainNoUSB();	
 
   protected:
     // internals
