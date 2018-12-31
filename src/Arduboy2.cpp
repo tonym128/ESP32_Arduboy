@@ -915,11 +915,15 @@ void Arduboy2Base::drawSlowXYBitmap
   // no need to draw at all of we're offscreen
   if (x+w < 0 || x > WIDTH-1 || y+h < 0 || y > HEIGHT-1)
     return;
-
   int16_t xi, yi, byteWidth = (w + 7) / 8;
+
   for(yi = 0; yi < h; yi++) {
     for(xi = 0; xi < w; xi++ ) {
-      if(pgm_read_byte(bitmap + yi * byteWidth + xi / 8) & (128 >> (xi & 7))) {
+#ifdef ESP8266
+      if(!(pgm_read_byte(bitmap + yi * byteWidth + xi / 8) & (128 >> (xi & 7)))) {		
+#else
+      if(pgm_read_byte(bitmap + yi * byteWidth + xi / 8) & (128 >> (xi & 7))) {	
+#endif
         drawPixel(x + xi, y + yi, color);
       }
     }

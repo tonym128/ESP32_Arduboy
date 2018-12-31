@@ -131,6 +131,7 @@ void Sprites::drawBitmap(int16_t x, int16_t y,
   uint16_t bitmap_data;
 
   switch (draw_mode) {
+
     case SPRITE_UNMASKED:
       // we only want to mask the 8 bits of our own sprite, so we can
       // calculate the mask before the start of the loop
@@ -241,6 +242,42 @@ void Sprites::drawBitmap(int16_t x, int16_t y,
 
 
     case SPRITE_PLUS_MASK:
+#ifdef ESP8266
+      for (uint8_t a = 0; a < loop_h; a++) {
+        for (uint8_t iCol = 0; iCol < rendered_width; iCol++) {
+          // NOTE: this is the SPRITE_MASKED case with a little 
+          // modification, instead of two offsets I increment bofs twice.
+
+          // load data and bit shift
+          // mask needs to be bit flipped
+          bitmap_data = pgm_read_byte(bofs) * mul_amt;	
+
+		  // increment because after the image is the mask
+          bofs++;
+		  
+          mask_data = ~(pgm_read_byte(bofs) * mul_amt);
+
+          if (sRow >= 0) {
+            data = Arduboy2Base::sBuffer[ofs];
+            data &= (uint8_t)(mask_data);
+            data |= (uint8_t)(bitmap_data);
+            Arduboy2Base::sBuffer[ofs] = data;
+          }
+          if (yOffset != 0 && sRow < 7) {
+            data = Arduboy2Base::sBuffer[ofs + WIDTH];
+            data &= (*((unsigned char *) (&mask_data) + 1));
+            data |= (*((unsigned char *) (&bitmap_data) + 1));
+            Arduboy2Base::sBuffer[ofs + WIDTH] = data;
+          }
+          ofs++;
+          bofs++;
+        }
+        sRow++;
+        bofs += w - rendered_width;
+        ofs += WIDTH - rendered_width;
+      }
+      break;
+#else
       // *2 because we use double the bits (mask + bitmap)
       bofs = (uint8_t *)(bitmap + ((start_h * w) + xOffset) * 2);
 
@@ -355,6 +392,7 @@ void Sprites::drawBitmap(int16_t x, int16_t y,
         // lower registers (l) or simple (r16-r23) upper registers (a).
         : // pushes/clobbers/pops r28 and r29 (y)
       );
+#endif
       break;
   }
 }

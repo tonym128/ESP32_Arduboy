@@ -13,10 +13,9 @@ uint8_t externalButtons;
 void (*externalButtonsHandler)();
 bool hasExternalButtonsHandler = false;
 			
-			
 #ifdef LIMIT_BUTTON_CALLS
-uint32_t nextButtonsRead = 0;
-#endif			
+static uint32_t nextButtonsRead = 0;
+#endif	
 			
 #endif
 

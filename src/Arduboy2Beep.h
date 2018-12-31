@@ -7,11 +7,6 @@
 #ifndef ARDUBOY2_BEEP_H
 #define ARDUBOY2_BEEP_H
 
-#ifdef __AVR_ATmega328P__
-#warning SLIMBOY!
-#define SLIMBOY
-#endif
-
 /** \brief
  * Play simple square wave tones using speaker pin 1.
  *
