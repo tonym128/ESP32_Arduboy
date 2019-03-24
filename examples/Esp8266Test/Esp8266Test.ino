@@ -113,8 +113,8 @@ void loop() {
   arduboy.clear();
 
   // need to change the screen because oled library updates only changed areas
-  //if (arduboy.everyXFrames(2))
-  //  arduboy.fillScreen(WHITE);
+  if (arduboy.everyXFrames(2))
+    arduboy.fillScreen(WHITE);
 
   arduboy.setCursor(0, 0);
   arduboy.print(F("ESP8266 Test "));
