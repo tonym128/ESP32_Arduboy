@@ -17,6 +17,8 @@ I changed those examples to support my fork:
         Arduboy2/examples/HelloWorld/HelloWorld.ino
       
         Arduboy2/examples/Buttons/Buttons.ino
+        
+![BreadboardESP8266](BreadboardESP8266.JPG)
 
 # SLIMBOY - Arduboy2 port to Arduino Nano and I²C display
 
