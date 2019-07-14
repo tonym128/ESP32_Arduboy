@@ -26,8 +26,15 @@ After looking around, I found the awesome Arduboy project, and the community it 
 99% of the work on the library was done by the contributors to the following repositories:
 
 https://github.com/Arduboy/Arduboy 
+
 https://github.com/MLXXXp/Arduboy2
+
 https://github.com/harbaum/Arduboy2 
-https://github.com/hartmann1301/Arduboy2 Migrated the library to the ESP8266 platform, from there just a few tweaks were needed.
+
+https://github.com/hartmann1301/Arduboy2 hartmann1301 migrated the library to the ESP8266 platform, from there just a few tweaks were needed.
 
 Please do read through the extensive documentation included there.
+
+# Contributions and Disclaimer
+
+Contributions to the documentation, code or electronics are welcome, I am not pretending to be an expert in C or in electrical engineering, use the library and the circuits presented above at your own risk.
