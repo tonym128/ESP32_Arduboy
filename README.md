@@ -1,6 +1,6 @@
 # ESP8266 port of the Arduboy2 library
 
-This port of the Arduboy library compiles for the ESP8266 from Arduino Studio, existing Arduboy2-compatible games like CastleBoy by TeamARG can use it as a drop-in replacement for the original Arduboy2 library, other games such as Squario or Virus LQP-79 run with slight modifications, but hopefully they will run natively in future releases.
+This port of the Arduboy2 library compiles for the ESP8266, existing Arduboy2-compatible games like CastleBoy by TeamARG can use it as a drop-in replacement for the original Arduboy2 library, other games such as Squario or Virus LQP-79 run with slight modifications, but hopefully they will run natively in future releases.
 
 # Usage
 
@@ -9,9 +9,11 @@ Simply replace the Arduboy2 library in your Arduino Studio libraries folder with
 # Hardware
 
 The library was tested on a NodeMCU module with a ESP-12N (yes, N) microcontroller.
-It requires an SSD1306 based OLED module
+It requires an SSD1306 based OLED module, the pinout should match the pictures if you want to place it on the breadboard right beside the ESP8266.
 
+![ItsAlive](itsalive.jpg)
 
+![Layout](Layout.gif)
 
 # Motivation
 
