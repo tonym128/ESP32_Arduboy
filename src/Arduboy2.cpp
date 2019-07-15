@@ -10,7 +10,7 @@
 
 #ifdef ESP8266
 // create display
-extern SSD1306Brzo oled;
+extern SSD1306Brzo oled(OLED_I2C_ADRESS, D3, D4);
 
 #endif
 
