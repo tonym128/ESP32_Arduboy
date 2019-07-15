@@ -15,6 +15,14 @@ It requires an SSD1306 based OLED module, the pinout should match the pictures i
 
 ![Layout](Layout.gif)
 
+# Bill of Materials
+
+As stated earlier, the goal is to get to USD $5 per unit, shipped. If you order the parts from Amazon, the bill comes to around $30, but you can get enough parts for 4 consoles from AliExpress for $20, not including the battery circuitry, but a triple AA holder connected to the pins Vin and GND will do the trick for a few more cents on the same site.
+
+The following file contains a sample of the items you need to buy, I did NOT buy from them, they are not endorsing me, nor do I warranty that the parts will work together or at all.
+
+https://github.com/edgarborja/Arduboy2ESP/blob/master/AliExpressBillOfMateriasl.pdf
+
 # Motivation
 
 I wanted to build the simplest (and cheapest) portable and programmable game console, so that new tinkerers can have an accessible experience of putting it together, and experience the thrill that I felt when I started editing gorilla.bas and nibbles.bas in DOS in the early 90's.
