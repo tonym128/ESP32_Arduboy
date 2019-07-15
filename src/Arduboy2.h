@@ -186,7 +186,8 @@ class Arduboy2Base : public Arduboy2Core
    * \see Arduboy2Audio
    */
   Arduboy2Audio audio;
-
+  BeepPin1 tunes;
+  
   /** \brief
    * Initialize the hardware, display the boot logo, provide boot utilities, etc.
    *
