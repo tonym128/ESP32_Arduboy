@@ -9,7 +9,7 @@ Simply replace the Arduboy2 library in your Arduino Studio libraries folder with
 # Hardware
 
 The library was tested on a NodeMCU module with a ESP-12N (yes, N) microcontroller.
-It requires an SSD1306 based OLED module, the pinout should match the pictures if you want to place it on the breadboard right beside the ESP8266.
+It requires an SSD1306 based OLED module, the pinout of the OLED module should match the pictures if you want to place it on the breadboard right beside the ESP8266.
 
 ![ItsAlive](itsalive.jpg)
 
@@ -45,4 +45,4 @@ Please do read through the extensive documentation included there.
 
 # Contributions and Disclaimer
 
-Contributions to the documentation, code or electronics are welcome, I am not pretending to be an expert in C or in electrical engineering, use the library and the circuits presented above at your own risk.
+Contributions to the documentation, code or electronics are welcome, English is not my first language, I am not pretending to be an expert in C or in electrical engineering (nor in using Github); use the library and the circuits presented above at your own risk.
