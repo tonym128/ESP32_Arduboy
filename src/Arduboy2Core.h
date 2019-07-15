@@ -9,18 +9,10 @@
 
 #include <Arduino.h>
 
-#ifndef ESP8266
-#include <avr/power.h>
-#include <avr/sleep.h>
-#include <avr/wdt.h>
-#include <SPI.h>
-#else
 #include <brzo_i2c.h> // Only needed for Arduino 1.6.5 and earlier
 #include "SSD1306Brzo.h"
 
 #define OLED_I2C_ADRESS 0x3c
-#define LIMIT_BUTTON_CALLS (1000 / 30)
-#endif
 
 #include <limits.h>
 
@@ -60,11 +52,11 @@
 #ifdef ARDUBOY_10
 
 #ifndef SLIMBOY
-#define PIN_CS 12       // Display CS Arduino pin number
+#define PIN_CS 2       // Display CS Arduino pin number //EBORJA: Was 12
 #define CS_PORT PORTD   // Display CS port
 #define CS_BIT PORTD6   // Display CS physical bit number
 
-#define PIN_DC 4        // Display D/C Arduino pin number
+#define PIN_DC 0        // Display D/C Arduino pin number //EBORJA: Was 4
 #define DC_PORT PORTD   // Display D/C port
 #define DC_BIT PORTD4   // Display D/C physical bit number
 
@@ -103,13 +95,15 @@
 
 // bit values for button states
 // these are determined by the buttonsState() function
-#define LEFT_BUTTON _BV(5)  /**< The Left button value for functions requiring a bitmask */
-#define RIGHT_BUTTON _BV(6) /**< The Right button value for functions requiring a bitmask */
-#define UP_BUTTON _BV(7)    /**< The Up button value for functions requiring a bitmask */
-#define DOWN_BUTTON _BV(4)  /**< The Down button value for functions requiring a bitmask */
-#define A_BUTTON _BV(3)     /**< The A button value for functions requiring a bitmask */
-#define B_BUTTON _BV(2)     /**< The B button value for functions requiring a bitmask */
+#define LEFT_BUTTON  32  /**< The Left button value for functions requiring a bitmask */
+#define RIGHT_BUTTON 16 /**< The Right button value for functions requiring a bitmask */
+#define UP_BUTTON    8    /**< The Up button value for functions requiring a bitmask */
+#define DOWN_BUTTON  4  /**< The Down button value for functions requiring a bitmask */
+#define A_BUTTON 	 2     /**< The A button value for functions requiring a bitmask */
+#define B_BUTTON 	 1     /**< The B button value for functions requiring a bitmask */
 
+
+/*
 #ifdef SLIMBOY
 #define PIN_LEFT_BUTTON 15
 #define LEFT_BUTTON_PORT PORTC
@@ -147,7 +141,7 @@
 #define B_BUTTON_DDR DDRC
 #define B_BUTTON_BIT PORTC2
 
-#else
+//#else*/
 
 #define PIN_LEFT_BUTTON A2
 #define LEFT_BUTTON_PORT PORTF
@@ -184,13 +178,13 @@
 #define B_BUTTON_PORTIN PINB
 #define B_BUTTON_DDR DDRB
 #define B_BUTTON_BIT PORTB4
-#endif
+//#endif
 
 #ifdef ESP8266
 
 // there is only one pin for audio
-#define PIN_SPEAKER_1 D3  
-#define PIN_SPEAKER_2 D3
+#define PIN_SPEAKER_1 D5  
+#define PIN_SPEAKER_2 D5
 
 /*
 #define SPEAKER_1_PORT PORTB
@@ -213,91 +207,6 @@
 #define SPEAKER_2_DDR DDRC
 #define SPEAKER_2_BIT PORTC7
 #endif
-// -----------------------
-
-// ----- DevKit pins -----
-#elif defined(AB_DEVKIT)
-
-#define PIN_CS 6        // Display CS Arduino pin number
-#define CS_PORT PORTD   // Display CS port
-#define CS_BIT PORTD7   // Display CS physical bit number
-
-#define PIN_DC 4        // Display D/C Arduino pin number
-#define DC_PORT PORTD   // Display D/C port
-#define DC_BIT PORTD4   // Display D/C physical bit number
-
-#define PIN_RST 12      // Display reset Arduino pin number
-#define RST_PORT PORTD  // Display reset port
-#define RST_BIT PORTD6  // Display reset physical bit number
-
-#define SPI_MOSI_PORT PORTB
-#define SPI_MOSI_BIT PORTB2
-
-#define SPI_SCK_PORT PORTB
-#define SPI_SCK_BIT PORTB1
-
-// map all LEDs to the single TX LED on DEVKIT
-#define RED_LED 17
-#define GREEN_LED 17
-#define BLUE_LED 17
-
-#define BLUE_LED_PORT PORTB
-#define BLUE_LED_BIT PORTB0
-
-// bit values for button states
-// these are determined by the buttonsState() function
-#define LEFT_BUTTON _BV(5)
-#define RIGHT_BUTTON _BV(2)
-#define UP_BUTTON _BV(4)
-#define DOWN_BUTTON _BV(6)
-#define A_BUTTON _BV(1)
-#define B_BUTTON _BV(0)
-
-// pin values for buttons, probably shouldn't use these
-#define PIN_LEFT_BUTTON 9
-#define LEFT_BUTTON_PORT PORTB
-#define LEFT_BUTTON_PORTIN PINB
-#define LEFT_BUTTON_DDR DDRB
-#define LEFT_BUTTON_BIT PORTB5
-
-#define PIN_RIGHT_BUTTON 5
-#define RIGHT_BUTTON_PORT PORTC
-#define RIGHT_BUTTON_PORTIN PINC
-#define RIGHT_BUTTON_DDR DDRC
-#define RIGHT_BUTTON_BIT PORTC6
-
-#define PIN_UP_BUTTON 8
-#define UP_BUTTON_PORT PORTB
-#define UP_BUTTON_PORTIN PINB
-#define UP_BUTTON_DDR DDRB
-#define UP_BUTTON_BIT PORTB4
-
-#define PIN_DOWN_BUTTON 10
-#define DOWN_BUTTON_PORT PORTB
-#define DOWN_BUTTON_PORTIN PINB
-#define DOWN_BUTTON_DDR DDRB
-#define DOWN_BUTTON_BIT PORTB6
-
-#define PIN_A_BUTTON A0
-#define A_BUTTON_PORT PORTF
-#define A_BUTTON_PORTIN PINF
-#define A_BUTTON_DDR DDRF
-#define A_BUTTON_BIT PORTF7
-
-#define PIN_B_BUTTON A1
-#define B_BUTTON_PORT PORTF
-#define B_BUTTON_PORTIN PINF
-#define B_BUTTON_DDR DDRF
-#define B_BUTTON_BIT PORTF6
-
-#define PIN_SPEAKER_1 A2
-#define SPEAKER_1_PORT PORTF
-#define SPEAKER_1_DDR DDRF
-#define SPEAKER_1_BIT PORTF5
-// SPEAKER_2 is purposely not defined for DEVKIT as it could potentially
-// be dangerous and fry your hardware (because of the devkit wiring).
-//
-// Reference: https://github.com/Arduboy/Arduboy/issues/108
 
 #endif
 // --------------------
@@ -432,13 +341,13 @@ class Arduboy2Core
 
   public:
     Arduboy2Core();
-
+/*
 #ifdef ESP8266		
     void setExternalButtons(uint8_t but);	
 		
 	void setExternalButtonsHandler(void (*function)());
 #endif		
-				
+	*/			
 		
     /** \brief
      * Idle the CPU to save power.
@@ -962,3 +871,5 @@ class Arduboy2Core
 };
 
 #endif
+
+
