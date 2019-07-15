@@ -6,18 +6,6 @@
 
 #include "Arduboy2Core.h"
 
-#ifndef ESP8266
-#include <Wire.h>
-#else
-uint8_t externalButtons;		
-void (*externalButtonsHandler)();
-bool hasExternalButtonsHandler = false;
-			
-#ifdef LIMIT_BUTTON_CALLS
-static uint32_t nextButtonsRead = 0;
-#endif	
-			
-#endif
 
 const uint8_t PROGMEM lcdBootProgram[] = {
   // boot defaults are commented out but left here in case they
@@ -127,89 +115,14 @@ void Arduboy2Core::setCPUSpeed8MHz()
 // Pins are set to the proper modes and levels for the specific hardware.
 // This routine must be modified if any pins are moved to a different port
 void Arduboy2Core::bootPins()
-{
-#ifndef ESP8266
-#ifdef ARDUBOY_10
-
-  // Port B INPUT_PULLUP or HIGH
-  PORTB |= _BV(RED_LED_BIT) | _BV(GREEN_LED_BIT) | _BV(BLUE_LED_BIT) |
-           _BV(B_BUTTON_BIT);
-  // Port B INPUT or LOW (none)
-  // Port B inputs
-  DDRB &= ~(_BV(B_BUTTON_BIT) | _BV(SPI_MISO_BIT));
-  // Port B outputs
-  DDRB |= _BV(RED_LED_BIT) | _BV(GREEN_LED_BIT) | _BV(BLUE_LED_BIT) |
-          _BV(SPI_MOSI_BIT) | _BV(SPI_SCK_BIT) | _BV(SPI_SS_BIT);
-
-  // Port C
-  // Speaker: Not set here. Controlled by audio class
-
-  // Port D INPUT_PULLUP or HIGH
-  PORTD |= _BV(CS_BIT);
-  // Port D INPUT or LOW
-  PORTD &= ~(_BV(RST_BIT));
-  // Port D inputs (none)
-  // Port D outputs
-  DDRD |= _BV(RST_BIT) | _BV(CS_BIT) | _BV(DC_BIT);
-
-  // Port E INPUT_PULLUP or HIGH
-  PORTE |= _BV(A_BUTTON_BIT);
-  // Port E INPUT or LOW (none)
-  // Port E inputs
-  DDRE &= ~(_BV(A_BUTTON_BIT));
-  // Port E outputs (none)
-
-  // Port F INPUT_PULLUP or HIGH
-  PORTF |= _BV(LEFT_BUTTON_BIT) | _BV(RIGHT_BUTTON_BIT) |
-           _BV(UP_BUTTON_BIT) | _BV(DOWN_BUTTON_BIT);
-  // Port F INPUT or LOW
-  PORTF &= ~(_BV(RAND_SEED_IN_BIT));
-  // Port F inputs
-  DDRF &= ~(_BV(LEFT_BUTTON_BIT) | _BV(RIGHT_BUTTON_BIT) |
-            _BV(UP_BUTTON_BIT) | _BV(DOWN_BUTTON_BIT) |
-            _BV(RAND_SEED_IN_BIT));
-  // Port F outputs (none)
-
-#elif defined(AB_DEVKIT)
-
-  // Port B INPUT_PULLUP or HIGH
-  PORTB |= _BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) | _BV(DOWN_BUTTON_BIT) |
-           _BV(BLUE_LED_BIT);
-  // Port B INPUT or LOW (none)
-  // Port B inputs
-  DDRB &= ~(_BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) | _BV(DOWN_BUTTON_BIT) |
-            _BV(SPI_MISO_BIT));
-  // Port B outputs
-  DDRB |= _BV(SPI_MOSI_BIT) | _BV(SPI_SCK_BIT) | _BV(SPI_SS_BIT) |
-          _BV(BLUE_LED_BIT);
-
-  // Port C INPUT_PULLUP or HIGH
-  PORTC |= _BV(RIGHT_BUTTON_BIT);
-  // Port C INPUT or LOW (none)
-  // Port C inputs
-  DDRC &= ~(_BV(RIGHT_BUTTON_BIT));
-  // Port C outputs (none)
-
-  // Port D INPUT_PULLUP or HIGH
-  PORTD |= _BV(CS_BIT);
-  // Port D INPUT or LOW
-  PORTD &= ~(_BV(RST_BIT));
-  // Port D inputs (none)
-  // Port D outputs
-  DDRD |= _BV(RST_BIT) | _BV(CS_BIT) | _BV(DC_BIT);
-
-  // Port E (none)
-
-  // Port F INPUT_PULLUP or HIGH
-  PORTF |= _BV(A_BUTTON_BIT) | _BV(B_BUTTON_BIT);
-  // Port F INPUT or LOW
-  PORTF &= ~(_BV(RAND_SEED_IN_BIT));
-  // Port F inputs
-  DDRF &= ~(_BV(A_BUTTON_BIT) | _BV(B_BUTTON_BIT) | _BV(RAND_SEED_IN_BIT));
-  // Port F outputs (none)
-  // Speaker: Not set here. Controlled by audio class
-#endif
-#endif
+{ 
+  pinMode(5, INPUT_PULLUP); //button left *
+  pinMode(12, INPUT_PULLUP); //button right *
+  pinMode(4, INPUT_PULLUP); //button up *
+  pinMode(3, INPUT_PULLUP); //button down
+  pinMode(13, INPUT_PULLUP); //button A *
+  pinMode(1, INPUT_PULLUP); //button B
+  
 }
 
 void Arduboy2Core::bootOLED()
@@ -498,11 +411,6 @@ void Arduboy2Core::setRGBled(uint8_t red, uint8_t green, uint8_t blue)
   TCCR1A = _BV(COM1A1) | _BV(COM1A0) | _BV(COM1B1) | _BV(COM1B0) | _BV(WGM10);
   OCR1AL = blue;
   OCR1BL = red;
-#elif defined(AB_DEVKIT)
-  // only blue on DevKit, which is not PWM capable
-  (void)red;    // parameter unused
-  (void)green;  // parameter unused
-  bitWrite(BLUE_LED_PORT, BLUE_LED_BIT, blue ? RGB_ON : RGB_OFF);
 #endif
 #endif
 }
@@ -522,12 +430,6 @@ void Arduboy2Core::setRGBled(uint8_t color, uint8_t val)
   else if (color == BLUE_LED)
   {
     OCR1AL = val;
-  }
-#elif defined(AB_DEVKIT)
-  // only blue on DevKit, which is not PWM capable
-  if (color == BLUE_LED)
-  {
-    bitWrite(BLUE_LED_PORT, BLUE_LED_BIT, val ? RGB_ON : RGB_OFF);
   }
 #endif
 #endif
@@ -551,11 +453,6 @@ void Arduboy2Core::digitalWriteRGB(uint8_t red, uint8_t green, uint8_t blue)
   bitWrite(RED_LED_PORT, RED_LED_BIT, red);
   bitWrite(GREEN_LED_PORT, GREEN_LED_BIT, green);
   bitWrite(BLUE_LED_PORT, BLUE_LED_BIT, blue);
-#elif defined(AB_DEVKIT)
-  // only blue on DevKit
-  (void)red;    // parameter unused
-  (void)green;  // parameter unused
-  bitWrite(BLUE_LED_PORT, BLUE_LED_BIT, blue);
 #endif
 #endif
 }
@@ -576,18 +473,12 @@ void Arduboy2Core::digitalWriteRGB(uint8_t color, uint8_t val)
   {
     bitWrite(BLUE_LED_PORT, BLUE_LED_BIT, val);
   }
-#elif defined(AB_DEVKIT)
-  // only blue on DevKit
-  if (color == BLUE_LED)
-  {
-    bitWrite(BLUE_LED_PORT, BLUE_LED_BIT, val);
-  }
 #endif
 #endif
 }
 
 /* Buttons */
-
+/*
 #ifdef ESP8266		
 void Arduboy2Core::setExternalButtons(uint8_t but) {
 	
@@ -600,56 +491,19 @@ void Arduboy2Core::setExternalButtonsHandler(void (*function)())
 	hasExternalButtonsHandler = true;
 }
 #endif
-
+*/
 uint8_t Arduboy2Core::buttonsState()
 {
-#ifndef ESP8266	
-  uint8_t buttons;	
-
-	// get the buttons form PS2 lib
-	buttons = 0;
-	
-#ifdef ARDUBOY_10
-  // up, right, left, down
-  buttons = ((~PINF) &
-              (_BV(UP_BUTTON_BIT) | _BV(RIGHT_BUTTON_BIT) |
-               _BV(LEFT_BUTTON_BIT) | _BV(DOWN_BUTTON_BIT)));
-  // A
-  if (bitRead(A_BUTTON_PORTIN, A_BUTTON_BIT) == 0) { buttons |= A_BUTTON; }
-  // B
-  if (bitRead(B_BUTTON_PORTIN, B_BUTTON_BIT) == 0) { buttons |= B_BUTTON; }
-#elif defined(AB_DEVKIT)
-  // down, left, up
-  buttons = ((~PINB) &
-              (_BV(DOWN_BUTTON_BIT) | _BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT)));
-  // right
-  if (bitRead(RIGHT_BUTTON_PORTIN, RIGHT_BUTTON_BIT) == 0) { buttons |= RIGHT_BUTTON; }
-  // A
-  if (bitRead(A_BUTTON_PORTIN, A_BUTTON_BIT) == 0) { buttons |= A_BUTTON; }
-  // B
-  if (bitRead(B_BUTTON_PORTIN, B_BUTTON_BIT) == 0) { buttons |= B_BUTTON; }
-#endif
-
+  uint8_t buttons = 0;	
+  
+    // LEFT_BUTTON, RIGHT_BUTTON, UP_BUTTON, DOWN_BUTTON, A_BUTTON, B_BUTTON
+  if (digitalRead(5)  == LOW) { buttons = buttons | LEFT_BUTTON; }  // left
+  if (digitalRead(12) == LOW) { buttons = buttons | RIGHT_BUTTON; }  // right
+  if (digitalRead(4)  == LOW) { buttons = buttons | UP_BUTTON; }  // up
+  if (digitalRead(3)  == LOW) { buttons = buttons | DOWN_BUTTON; }  // down
+  if (digitalRead(13) == LOW) { buttons = buttons | A_BUTTON; }  // a?
+  if (digitalRead(1)  == LOW) { buttons = buttons | B_BUTTON; }  // b?
   return buttons;
-	
-#else
-	
-#ifdef LIMIT_BUTTON_CALLS
-	// return the buttons states from the last call
-	if (millis() < nextButtonsRead)
-		return externalButtons;
-		
-	// set time for the next reading
-	nextButtonsRead = millis() + LIMIT_BUTTON_CALLS;
-
-#endif
-
-	// in this callback function the externalButtons should be updated#
-	if (hasExternalButtonsHandler)
-		(*externalButtonsHandler)();
-	
-  return externalButtons;
-#endif
 }
 
 // delay in ms with 16 bit duration
@@ -729,4 +583,3 @@ void Arduboy2Core::mainNoUSB()
 //  return 0;
 #endif
 }
-
