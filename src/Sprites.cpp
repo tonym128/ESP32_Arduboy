@@ -44,7 +44,7 @@ void Sprites::draw(int16_t x, int16_t y,
   if (bitmap == NULL)
     return;
 
-  uint8_t width = pgm_read_byte(bitmap);
+  uint8_t width = pgm_read_word(bitmap);
   uint8_t height = pgm_read_byte(++bitmap);
   bitmap++;
   if (frame > 0 || sprite_frame > 0) {
@@ -63,7 +63,6 @@ void Sprites::draw(int16_t x, int16_t y,
   if (drawMode == SPRITE_AUTO_MODE) {
     drawMode = mask == NULL ? SPRITE_UNMASKED : SPRITE_MASKED;
   }
-
   drawBitmap(x, y, bitmap, mask, width, height, drawMode);
 }
 
@@ -275,7 +274,6 @@ void Sprites::drawBitmap(int16_t x, int16_t y,
         bofs += w - rendered_width;
         ofs += WIDTH - rendered_width;
       }
-      break;
       break;
   }
 }

@@ -10,11 +10,9 @@ Adafruit_MCP23017 mcp;
 Adafruit_MCP4725 dac;
 ESPboyLED myled;
 
+uint8_t Arduboy2Core::sBuffer[];
 
 Arduboy2Core::Arduboy2Core() {}
-
-uint8_t Arduboy2Core::sBuffer[];
-uint8_t Arduboy2Core::oBuffer[];
 
 
 void Arduboy2Core::boot(){
@@ -126,7 +124,7 @@ uint8_t Arduboy2Core::height() { return HEIGHT; }
 /* Drawing */
 
 void Arduboy2Core::paintScreen(const uint8_t *image){
-  memcpy(sBuffer, image, sizeof(sBuffer));
+  //memcpy(sBuffer, image, HEIGHT*WIDTH/8);
 };
 
 // paint from a memory buffer, this should be FAST as it's likely what
@@ -136,8 +134,8 @@ void Arduboy2Core::paintScreen(const uint8_t *image){
 // execution times to allow time for each byte of data to be clocked out.
 // It is specifically tuned for a 16MHz CPU clock and SPI clocking at 8MHz.
 void Arduboy2Core::paintScreen(uint8_t image[], bool clear) {
-  memcpy(sBuffer, image, sizeof(sBuffer));
-  if (clear) memset(sBuffer, 0, sizeof(sBuffer));
+//  memcpy(sBuffer, image, HEIGHT*WIDTH/8);
+//  if (clear) memset(sBuffer, 0, HEIGHT*WIDTH/8);
 };
 
 

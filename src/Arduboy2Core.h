@@ -83,7 +83,6 @@ class Arduboy2Core
   public:
   
     static uint8_t sBuffer[(HEIGHT*WIDTH)/8];
-    static uint8_t oBuffer[HEIGHT*WIDTH];
     
     Arduboy2Core();
 

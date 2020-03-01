@@ -855,22 +855,25 @@ void Arduboy2Base::drawCompressed(int16_t sx, int16_t sy, const uint8_t *bitmap,
 
 
 void Arduboy2Base::clear(){
-  memset(sBuffer, 0, sizeof(sBuffer));
+  memset(sBuffer, 0, HEIGHT*WIDTH/8);
 }
 
 
 void Arduboy2Base::display(){ 
+
   static uint8_t currentDataByte;
-  
-  for (uint16_t xPos = 0; xPos < WIDTH; xPos++) {
-    for (uint16_t yPos = 0; yPos < HEIGHT; yPos++) {		
-			if (!(yPos % 8)) currentDataByte = sBuffer[xPos + (yPos / 8) * WIDTH];	
-            if ((currentDataByte & 0x01)) oBuffer[yPos*WIDTH+xPos] = 220;
-            else oBuffer[yPos*WIDTH+xPos] = 0;
-			currentDataByte = currentDataByte >> 1;
-	}
+  static uint16_t indexDataByte; 
+  static uint16_t bufline[WIDTH];
+
+  for (uint8_t posY = 0; posY < HEIGHT; posY++){
+    for (uint8_t posX = 0; posX < WIDTH; posX++){
+       currentDataByte = sBuffer[posX + (posY / 8) * WIDTH];
+       currentDataByte >>= (posY%8);
+       if (currentDataByte & 0x01) bufline[posX] = LHSWAP(TFT_YELLOW);
+       else bufline[posX] = TFT_BLACK;
+     }
+     screen.pushImage(0, posY+20, 128, 1, bufline);
    }
-   screen.pushImage(0, 20, WIDTH, HEIGHT, oBuffer, true);
 }
 
 
@@ -1189,8 +1192,7 @@ int16_t Arduboy2::getCursorY(){
   return cursor_y;
 }
 
-void Arduboy2::setTextColor(uint8_t color)
-{
+void Arduboy2::setTextColor(uint8_t color){
   textColor = color;
 }
 
