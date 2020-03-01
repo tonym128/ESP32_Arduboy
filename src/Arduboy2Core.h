@@ -7,91 +7,36 @@
 #ifndef ARDUBOY2_CORE_H
 #define ARDUBOY2_CORE_H
 
+#include <ESP8266WiFi.h>
 #include <Arduino.h>
-
-#include <brzo_i2c.h> // Only needed for Arduino 1.6.5 and earlier
-#include "SSD1306Brzo.h"
-
-#define OLED_I2C_ADRESS 0x3c
+#include <SPI.h>
+#include "TFT_eSPI.h"
+#include "Adafruit_MCP23017.h"
+#include "Adafruit_MCP4725.h"
+#include "ESPboyLogo.h"
+#include "ESPboy_LED.h"
 
 #include <limits.h>
 
-#define max(a,b) ((a)>(b)?(a):(b))
-#define min(a,b) ((a)<(b)?(a):(b))
+#define CSTFTPIN        8 //CS MCP23017 PIN to TFT
+#define MCP23017address 0 // actually it's 0x20 but in <Adafruit_MCP23017.h> lib there is (x|0x20) :)
+#define MCP4725address  0x60 //DAC driving LCD backlit
 
-// use Slimboy, because hopefully it is easier to convert than the original code
-#if defined(__AVR_ATmega328P__) || defined(ESP8266) 
-#warning SLIMBOY!
-#define SLIMBOY
-#endif
+#define maxVal(a,b) ((a)>(b)?(a):(b))
+#define minVal(a,b) ((a)<(b)?(a):(b))
+#define LHSWAP(w) (((w)>>8)|((w)<<8))
 
+// there is only one pin for audio
+#define PIN_SPEAKER_1 D3
+#define PIN_SPEAKER_2 D3
 
-// main hardware compile flags
+#define LEDPIN 	D4
+#define RGB_ON 	200
+#define RGB_OFF 0
+#define RED_LED  0
+#define GREEN_LED  1
+#define BLUE_LED  2
 
-#if !defined(ARDUBOY_10) && !defined(AB_DEVKIT)
-/* defaults to Arduboy Release 1.0 if not using a boards.txt file
- *
- * we default to Arduboy Release 1.0 if a compile flag has not been
- * passed to us from a boards.txt file
- *
- * if you wish to compile for the devkit without using a boards.txt
- * file simply comment out the ARDUBOY_10 define and uncomment
- * the AB_DEVKIT define like this:
- *
- *     // #define ARDUBOY_10
- *     #define AB_DEVKIT
- */
-#define ARDUBOY_10   //< compile for the production Arduboy v1.0
-// #define AB_DEVKIT    //< compile for the official dev kit
-#endif
-
-#define RGB_ON LOW   /**< For digitially setting an RGB LED on using digitalWriteRGB() */
-#define RGB_OFF HIGH /**< For digitially setting an RGB LED off using digitalWriteRGB() */
-
-// ----- Arduboy pins -----
-#ifdef ARDUBOY_10
-
-#ifndef SLIMBOY
-#define PIN_CS 2       // Display CS Arduino pin number //EBORJA: Was 12
-#define CS_PORT PORTD   // Display CS port
-#define CS_BIT PORTD6   // Display CS physical bit number
-
-#define PIN_DC 0        // Display D/C Arduino pin number //EBORJA: Was 4
-#define DC_PORT PORTD   // Display D/C port
-#define DC_BIT PORTD4   // Display D/C physical bit number
-
-#define PIN_RST 6       // Display reset Arduino pin number
-#define RST_PORT PORTD  // Display reset port
-#define RST_BIT PORTD7  // Display reset physical bit number
-#endif
-
-#ifdef SLIMBOY
-#define RED_LED 5   /**< The pin number for the red color in the RGB LED. */
-#define GREEN_LED 7 /**< The pin number for the greem color in the RGB LED. */
-#define BLUE_LED 6   /**< The pin number for the blue color in the RGB LED. */
-
-#define RED_LED_PORT PORTD
-#define RED_LED_BIT PORTD5
-
-#define GREEN_LED_PORT PORTD
-#define GREEN_LED_BIT PORTD7
-
-#define BLUE_LED_PORT PORTD
-#define BLUE_LED_BIT PORTD6
-#else
-#define RED_LED 10   /**< The pin number for the red color in the RGB LED. */
-#define GREEN_LED 11 /**< The pin number for the greem color in the RGB LED. */
-#define BLUE_LED 9   /**< The pin number for the blue color in the RGB LED. */
-
-#define RED_LED_PORT PORTB
-#define RED_LED_BIT PORTB6
-
-#define GREEN_LED_PORT PORTB
-#define GREEN_LED_BIT PORTB7
-
-#define BLUE_LED_PORT PORTB
-#define BLUE_LED_BIT PORTB5
-#endif
 
 // bit values for button states
 // these are determined by the buttonsState() function
@@ -102,223 +47,19 @@
 #define A_BUTTON 	 2     /**< The A button value for functions requiring a bitmask */
 #define B_BUTTON 	 1     /**< The B button value for functions requiring a bitmask */
 
+#define PAD_LEFT        0x01
+#define PAD_UP          0x02
+#define PAD_DOWN        0x04
+#define PAD_RIGHT       0x08
+#define PAD_ACT         0x10
+#define PAD_ESC         0x20
+#define PAD_LFT         0x40
+#define PAD_RGT         0x80
+#define PAD_ANY         0xff
 
-/*
-#ifdef SLIMBOY
-#define PIN_LEFT_BUTTON 15
-#define LEFT_BUTTON_PORT PORTC
-#define LEFT_BUTTON_PORTIN PINC
-#define LEFT_BUTTON_DDR DDRC
-#define LEFT_BUTTON_BIT PORTC1
-
-#define PIN_RIGHT_BUTTON 3
-#define RIGHT_BUTTON_PORT PORTD
-#define RIGHT_BUTTON_PORTIN PIND
-#define RIGHT_BUTTON_DDR DDRD
-#define RIGHT_BUTTON_BIT PORTD3
-
-#define PIN_UP_BUTTON 17
-#define UP_BUTTON_PORT PORTC
-#define UP_BUTTON_PORTIN PINC
-#define UP_BUTTON_DDR DDRC
-#define UP_BUTTON_BIT PORTC3
-
-#define PIN_DOWN_BUTTON 2
-#define DOWN_BUTTON_PORT PORTD
-#define DOWN_BUTTON_PORTIN PIND
-#define DOWN_BUTTON_DDR DDRD
-#define DOWN_BUTTON_BIT PORTD2
-
-#define PIN_A_BUTTON 4
-#define A_BUTTON_PORT PORTD
-#define A_BUTTON_PORTIN PIND
-#define A_BUTTON_DDR DDRD
-#define A_BUTTON_BIT PORTD4
-
-#define PIN_B_BUTTON 16
-#define B_BUTTON_PORT PORTC
-#define B_BUTTON_PORTIN PINC
-#define B_BUTTON_DDR DDRC
-#define B_BUTTON_BIT PORTC2
-
-//#else*/
-
-#define PIN_LEFT_BUTTON A2
-#define LEFT_BUTTON_PORT PORTF
-#define LEFT_BUTTON_PORTIN PINF
-#define LEFT_BUTTON_DDR DDRF
-#define LEFT_BUTTON_BIT PORTF5
-
-#define PIN_RIGHT_BUTTON A1
-#define RIGHT_BUTTON_PORT PORTF
-#define RIGHT_BUTTON_PORTIN PINF
-#define RIGHT_BUTTON_DDR DDRF
-#define RIGHT_BUTTON_BIT PORTF6
-
-#define PIN_UP_BUTTON A0
-#define UP_BUTTON_PORT PORTF
-#define UP_BUTTON_PORTIN PINF
-#define UP_BUTTON_DDR DDRF
-#define UP_BUTTON_BIT PORTF7
-
-#define PIN_DOWN_BUTTON A3
-#define DOWN_BUTTON_PORT PORTF
-#define DOWN_BUTTON_PORTIN PINF
-#define DOWN_BUTTON_DDR DDRF
-#define DOWN_BUTTON_BIT PORTF4
-
-#define PIN_A_BUTTON 7
-#define A_BUTTON_PORT PORTE
-#define A_BUTTON_PORTIN PINE
-#define A_BUTTON_DDR DDRE
-#define A_BUTTON_BIT PORTE6
-
-#define PIN_B_BUTTON 8
-#define B_BUTTON_PORT PORTB
-#define B_BUTTON_PORTIN PINB
-#define B_BUTTON_DDR DDRB
-#define B_BUTTON_BIT PORTB4
-//#endif
-
-#ifdef ESP8266
-
-// there is only one pin for audio
-#define PIN_SPEAKER_1 D5  
-#define PIN_SPEAKER_2 D5
-
-/*
-#define SPEAKER_1_PORT PORTB
-#define SPEAKER_1_DDR DDRB
-#define SPEAKER_1_BIT PORTB1
-
-#define SPEAKER_2_PORT PORTB
-#define SPEAKER_2_DDR DDRB
-#define SPEAKER_2_BIT PORTB3
-*/
-#else
-#define PIN_SPEAKER_1 5  
-#define PIN_SPEAKER_2 13 
-
-#define SPEAKER_1_PORT PORTC
-#define SPEAKER_1_DDR DDRC
-#define SPEAKER_1_BIT PORTC6
-
-#define SPEAKER_2_PORT PORTC
-#define SPEAKER_2_DDR DDRC
-#define SPEAKER_2_BIT PORTC7
-#endif
-
-#endif
-// --------------------
-
-// ----- Pins common on Arduboy and DevKit -----
-
-#ifndef ESP8266
-// Unconnected analog input used for noise by initRandomSeed()
-#define RAND_SEED_IN A4
-#define RAND_SEED_IN_PORT PORTF
-#define RAND_SEED_IN_BIT PORTF1
-// Value for ADMUX to read the random seed pin: 2.56V reference, ADC1
-#define RAND_SEED_IN_ADMUX (_BV(REFS0) | _BV(REFS1) | _BV(MUX0))
-#endif
-
-// SPI interface
-#define SPI_MISO_PORT PORTB
-#define SPI_MISO_BIT PORTB3
-
-#define SPI_MOSI_PORT PORTB
-#define SPI_MOSI_BIT PORTB2
-
-#define SPI_SCK_PORT PORTB
-#define SPI_SCK_BIT PORTB1
-
-#define SPI_SS_PORT PORTB
-#define SPI_SS_BIT PORTB0
-// --------------------
-
-// OLED hardware (SSD1306)
-
-#define OLED_PIXELS_INVERTED 0xA7 // All pixels inverted
-#define OLED_PIXELS_NORMAL 0xA6 // All pixels normal
-
-#define OLED_ALL_PIXELS_ON 0xA5 // all pixels on
-#define OLED_PIXELS_FROM_RAM 0xA4 // pixels mapped to display RAM contents
-
-#define OLED_VERTICAL_FLIPPED 0xC0 // reversed COM scan direction
-#define OLED_VERTICAL_NORMAL 0xC8 // normal COM scan direction
-
-#define OLED_HORIZ_FLIPPED 0xA0 // reversed segment re-map
-#define OLED_HORIZ_NORMAL 0xA1 // normal segment re-map
-
-// -----
 
 #define WIDTH 128 /**< The width of the display in pixels */
 #define HEIGHT 64 /**< The height of the display in pixels */
-
-#define COLUMN_ADDRESS_END (WIDTH - 1) & 127   // 128 pixels wide
-#define PAGE_ADDRESS_END ((HEIGHT/8)-1) & 7    // 8 pages high
-
-/** \brief
- * Eliminate the USB stack to free up code space.
- *
- * \note
- * **WARNING:** Removing the USB code will make it impossible for sketch
- * uploader programs to automatically force a reset into the bootloader!
- * This means that a user will manually have to invoke a reset in order to
- * upload a new sketch, after one without USB has be been installed.
- * Be aware that the timing for the point that a reset must be initiated can
- * be tricky, which could lead to some frustration on the user's part.
- *
- * \details
- * \parblock
- * This macro will cause the USB code, normally included in the sketch as part
- * of the standard Arduino environment, to be eliminated. This will free up a
- * fair amount of program space, and some RAM space as well, at the expense of
- * disabling all USB functionality within the sketch (except as power input).
- *
- * The macro should be placed before the `setup()` function definition:
- *
- * \code{.cpp}
- * #include <Arduboy2.h>
- *
- * Arduboy2 arduboy;
- *
- * // (Other variable declarations, etc.)
- *
- * // Eliminate the USB stack
- * ARDUBOY_NO_USB
- *
- * void setup() {
- *   arduboy.begin();
- *   // any additional setup code
- * }
- * \endcode
- *
- * As stated in the warning above, without the USB code an uploader program
- * will be unable to automatically force a reset into the bootloader to upload
- * a new sketch. The user will have to manually invoke a reset. In addition to
- * eliminating the USB code, this macro will check if the DOWN button is held
- * when the sketch first starts and, if so, will call `exitToBootloader()` to
- * start the bootloader for uploading. This makes it easier for the user than
- * having to press the reset button.
- *
- * However, to make it even more convenient for a user to invoke the bootloader
- * it is highly recommended that a sketch using this macro include a menu or
- * prompt that allows the user to press the DOWN button within the sketch,
- * which should cause `exitToBootloader()` to be called.
- *
- * At a minimum, the documentation for the sketch should clearly state that a
- * manual reset will be required, and give detailed instructions on what the
- * user must do to upload a new sketch.
- * \endparblock
- *
- * \see Arduboy2Core::exitToBootloader()
- */
-#define ARDUBOY_NO_USB int main() __attribute__ ((OS_main)); \
-int main() { \
-  Arduboy2Core::mainNoUSB(); \
-  return 0; \
-}
 
 
 /** \brief
@@ -340,15 +81,13 @@ class Arduboy2Core
   friend class Arduboy2Ex;
 
   public:
+  
+    static uint8_t sBuffer[(HEIGHT*WIDTH)/8];
+    static uint8_t oBuffer[HEIGHT*WIDTH];
+    
     Arduboy2Core();
-/*
-#ifdef ESP8266		
-    void setExternalButtons(uint8_t but);	
-		
-	void setExternalButtonsHandler(void (*function)());
-#endif		
-	*/			
-		
+
+	
     /** \brief
      * Idle the CPU to save power.
      *

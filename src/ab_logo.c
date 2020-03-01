@@ -4,7 +4,7 @@
  * The ARDUBOY logo bitmap.
  */
 
-#include <avr/pgmspace.h>
+#include <pgmspace.h>
 
 #ifndef ARDUBOY_LOGO_CREATED
 #define ARDUBOY_LOGO_CREATED

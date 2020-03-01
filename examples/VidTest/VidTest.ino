@@ -23,7 +23,7 @@ void setup() {
 // this is where our game logic goes.
 void loop() {
   static uint8_t fcnt = 0;
-  static uint8_t dtime = 0;
+  static uint8_t dtime = 1;
 
   // pause render until it's time for the next frame
   if (!(arduboy.nextFrame()))

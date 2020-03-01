@@ -12,6 +12,7 @@
  */
 
 #include <Arduboy2.h>
+//#include <ESP_EEPROM.h> //it's better to use this lib
 
 // block in EEPROM to save high scores
 #define EE_FILE 2
@@ -62,6 +63,7 @@ void setup()
   beep.begin();
   arduboy.setFrameRate(FRAME_RATE);
   arduboy.initRandomSeed();
+  EEPROM.begin(100);
 }
 
 void loop()
@@ -674,12 +676,12 @@ void enterHighScore(byte file)
         tmpInitials[2] = (char)EEPROM.read(address + (5*j) + 4);
 
         // write score and initials to current slot
-        EEPROM.update(address + (5*j), ((score >> 8) & 0xFF));
-        EEPROM.update(address + (5*j) + 1, (score & 0xFF));
-        EEPROM.update(address + (5*j) + 2, initials[0]);
-        EEPROM.update(address + (5*j) + 3, initials[1]);
-        EEPROM.update(address + (5*j) + 4, initials[2]);
-
+        EEPROM.write(address + (5*j), ((score >> 8) & 0xFF));
+        EEPROM.write(address + (5*j) + 1, (score & 0xFF));
+        EEPROM.write(address + (5*j) + 2, initials[0]);
+        EEPROM.write(address + (5*j) + 3, initials[1]);
+        EEPROM.write(address + (5*j) + 4, initials[2]);
+        EEPROM.commit();
         // tmpScore and tmpInitials now hold what we want to
         //write in the next slot.
         score = tmpScore;
@@ -713,4 +715,3 @@ void playToneTimed(unsigned int frequency, unsigned int duration)
   arduboy.delayShort(duration);
   beep.noTone();
 }
-

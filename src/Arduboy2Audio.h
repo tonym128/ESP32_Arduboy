@@ -8,7 +8,7 @@
 #define ARDUBOY2_AUDIO_H
 
 #include <Arduino.h>
-#include <EEPROM.h>
+#include <ESP_EEPROM.h>
 
 /** \brief
  * Provide speaker and sound control.
@@ -70,8 +70,7 @@
  * library, in order to extend the functionality, in most circumstances.
  * \endparblock
  */
-class Arduboy2Audio
-{
+class Arduboy2Audio{
  friend class Arduboy2Ex;
 
  public:

@@ -7,13 +7,11 @@
 #ifndef ARDUBOY2_H
 #define ARDUBOY2_H
 
-#ifdef ESP8266
-#include <brzo_i2c.h> // Only needed for Arduino 1.6.5 and earlier
-#include "SSD1306Brzo.h"
-#endif
+#include "SPI.h"
+#include "TFT_eSPI.h"
 
 #include <Arduino.h>
-#include <EEPROM.h>
+#include <ESP_EEPROM.h>
 #include "Arduboy2Core.h"
 #include "Arduboy2Beep.h"
 #include "Sprites.h"
@@ -1259,12 +1257,6 @@ class Arduboy2Base : public Arduboy2Core
    * \see getBuffer()
    */
    
- 
-#ifndef ESP8266
-  static uint8_t sBuffer[(HEIGHT*WIDTH)/8];
-#else	
-  static uint8_t* sBuffer;
-#endif	
 
  protected:
   // helper function for sound enable/disable system control
