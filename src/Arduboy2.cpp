@@ -55,7 +55,7 @@ void Arduboy2Base::flashlight(){
     return;
   }
   digitalWriteRGB(RGB_ON, RGB_ON, RGB_ON);
-  
+  screen.fillScreen(TFT_WHITE);
   while (true) {
     idle();
   }
@@ -148,10 +148,10 @@ void Arduboy2Base::drawLogoSpritesBOverwrite(int16_t y){
 // bootLogoText() should be kept in sync with bootLogoShell()
 // if changes are made to one, equivalent changes should be made to the other
 void Arduboy2Base::bootLogoShell(void (*drawLogo)(int16_t)){	
-  bool showLEDs = true;//readShowBootLogoLEDsFlag();
+  bool showLEDs = readShowBootLogoLEDsFlag();
 
   if (!readShowBootLogoFlag()) {
- //   return;
+    return;
   }
 
   if (showLEDs) {
@@ -196,7 +196,7 @@ void Arduboy2Base::bootLogoExtra() { }
 // wait for all buttons to be released
 void Arduboy2Base::waitNoButtons() {
   do {
-    delayShort(50); // simple button debounce
+    delayShort(25); // simple button debounce
   } while (buttonsState());
 }
 
@@ -249,7 +249,9 @@ int Arduboy2Base::cpuLoad(){
   return lastFrameDurationMs*100 / eachFrameMillis;
 }
 
-void Arduboy2Base::initRandomSeed(){}
+void Arduboy2Base::initRandomSeed(){
+  randomSeed(ESP8266_DREG(0x20E44));
+}
 
 /* Graphics */
 
@@ -860,20 +862,25 @@ void Arduboy2Base::clear(){
 
 
 void Arduboy2Base::display(){ 
-
+  static uint16_t oBuffer[WIDTH*16];
   static uint8_t currentDataByte;
-  static uint16_t indexDataByte; 
-  static uint16_t bufline[WIDTH];
+  static uint16_t foregroundColor, backgroundColor, xPos, yPos, kPos;
 
-  for (uint8_t posY = 0; posY < HEIGHT; posY++){
-    for (uint8_t posX = 0; posX < WIDTH; posX++){
-       currentDataByte = sBuffer[posX + (posY / 8) * WIDTH];
-       currentDataByte >>= (posY%8);
-       if (currentDataByte & 0x01) bufline[posX] = LHSWAP(TFT_YELLOW);
-       else bufline[posX] = TFT_BLACK;
-     }
-     screen.pushImage(0, posY+20, 128, 1, bufline);
-   }
+  foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
+  backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
+  
+  for(kPos = 0; kPos<4; kPos++){  
+    for (xPos = 0; xPos < WIDTH; xPos++) {
+      for (yPos = 0; yPos < 16; yPos++) {		
+		//	if (!(yPos % 8)) currentDataByte = sBuffer[xPos + ((yPos+kPos*16) / 8) * WIDTH];
+		    if (!(yPos % 8)) currentDataByte = sBuffer[xPos + ((yPos>>3)+(kPos<<1)) * WIDTH];	
+            if ((currentDataByte & 0x01)) oBuffer[yPos*WIDTH+xPos] = foregroundColor;
+            else oBuffer[yPos*WIDTH+xPos] = backgroundColor;
+			currentDataByte = currentDataByte >> 1;
+	  }
+    }
+    screen.pushImage(0, 20+kPos*16, WIDTH, 16, oBuffer);
+  }
 }
 
 

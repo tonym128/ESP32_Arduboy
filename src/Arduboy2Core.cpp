@@ -59,8 +59,8 @@ void Arduboy2Core::boot(){
   screen.drawXBitmap(30, 20, ESPboyLogo, 68, 64, TFT_YELLOW);
   screen.setTextSize(1);
   screen.setTextColor(TFT_YELLOW);
-  screen.setCursor(30, 95);
-  screen.print(F("Arduboy2 lib"));
+  screen.setCursor(13, 95);
+  screen.print(F("Arduboy2 lib port"));
 
 //LCD backlit on
   for (uint8_t bcklt=0; bcklt<100; bcklt++){
