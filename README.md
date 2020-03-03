@@ -3,7 +3,7 @@ This port of **"Arduboy2"** and **"Arduboy PlayTones"** libraries from [Arduboy 
 
 It supports ESPboy buttons, LED, sound (thanks to ported **"Arduboy PlayTones" library**) and TFT display.
 
-This port compiles for the ESP8266, existing Arduboy2-compatible games and apps. 
+This port compiles for ESP8266 ESPboy, existing Arduboy2-compatible games and apps. 
 Some of them can use it as a drop-in replacement for the original **"Arduboy2" library**, other games will run after the slight modifications.
 
 # Migrating the game from Arduboy to ESPboy
