@@ -1,48 +1,77 @@
-# ESP8266 port of the Arduboy2 library
+# ESPboy (ESP8266 gadget) port of the Arduboy2 library
+This port of **"Arduboy2"** and **"Arduboy PlayTones"** libraries from [Arduboy project ](https://arduboy.com/ "Arduboy project ") intendet to run on[ ESPboy project](https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun " ESPboy project") and thorougly simplified.
 
-This port of the Arduboy2 library compiles for the ESP8266, existing Arduboy2-compatible games like CastleBoy by TeamARG can use it as a drop-in replacement for the original Arduboy2 library, other games such as Squario or Virus LQP-79 run with slight modifications, but hopefully they will run natively in future releases.
+It supports ESPboy buttons, LED, sound (thanks to ported **"Arduboy PlayTones" library**) and TFT display.
 
-# Usage
+This port compiles for ESP8266 ESPboy, existing Arduboy2-compatible games and apps. 
+Some of them can use it as a drop-in replacement for the original **"Arduboy2" library**, other games will run after the slight modifications.
 
-Simply replace the Arduboy2 library in your Arduino Studio libraries folder with this version.
+# Migrating the game from Arduboy to ESPboy
+1. replace the **"Arduboy2" library** and **"Arduboy tones" library** in your Arduino Studio libraries folder with this versions.
+2. do ingame modifications according to following notes:
+- change **"#include arduboy.h"** to **"#include arduboy2.h"**
+- some games use a function pointer arrary to pass control to different part of the codes as the game state changes. In ATMEGA32U4 the memory address are 2 bytes (single word) long, in ESP8266, the memory addresses are 4 bytyes (doube word) long, So you need to change all "pgm_read_word" to "pgm_read_dword"
+- if EEPROM is used by the game to keep configs/high scores,
+-- add EEPROM.begin(100) at setup() // 100 is just a rough max no. need to check the size
+-- add EEPROM.commit() after the last EEPROM.put(), EEPORM.write() and EEPROM.update() of each blocks of code.
+- remove any reference to the **"ATMlib"**, **"ArduboyPlaytune"** that require timers to play back ground musics. That libraries has not yet been ported
+- games that directly control the SPI or I2C bus to write to OLED display need much more work to port instead of the simple steps above.
 
-# Hardware
 
-The library was tested on a NodeMCU module with a ESP-12N (yes, N) microcontroller.
-It requires an SSD1306 based OLED module, the pinout of the OLED module should match the pictures if you want to place it on the breadboard right beside the ESP8266.
+# Advantages of ESPboy (ESP8266)
+- 8 keys
+- TFT color LCD 128õ128
+- Faster MCU 80Mh/160Mhz
+- RGB neopixel LED
+- More memory for program and data.  http://0x04.net/~mwk/doc/xtensa.pdf
+- Internal flash memory mounted as SPIFFS disk 4-16mb for additional data
+- WiFi onboard, opens up possibility for online games, top scores posting online
+- OTA (on the air firmare update) update the firmeare through WiFi from a web site, the same way as Android playstore/ Apple istore.
+- Cheaper overall cost
 
-![ItsAlive](itsalive.jpg)
-
-![Layout](Layout.gif)
-
-# Bill of Materials
-
-As stated earlier, the goal is to get to USD $5 per unit, shipped. If you order the parts from Amazon, the bill comes to around $30, but you can get enough parts for 4 consoles from AliExpress for $20, not including the battery circuitry, but a triple AA holder connected to the pins Vin and GND will do the trick for a few more cents on the same site.
-
-The following file contains a sample of the items you need to buy, I did NOT buy from them, they are not endorsing me, nor do I warranty that the parts will work together or at all.
-
-https://github.com/edgarborja/Arduboy2ESP/blob/master/AliExpressBillOfMateriasl.pdf
-
-# Motivation
-
-I wanted to build the simplest (and cheapest) portable and programmable game console, so that new tinkerers can have an accessible experience of putting it together, and experience the thrill that I felt when I started editing gorilla.bas and nibbles.bas in DOS in the early 90's.
-
-After looking around, I found the awesome Arduboy project, and the community it generated, which inspired me to join that effort and contribute if possible. 
 
 # Credits and Documentation
 
-99% of the work on the library was done by the contributors to the following repositories:
+**99% of the work on the library was done by the contributors to the following repositories:**
 
-https://github.com/Arduboy/Arduboy 
+**Arduboy2 library:**
+- https://github.com/Arduboy/Arduboy 
+- https://github.com/MLXXXp/Arduboy2
+- https://github.com/harbaum/Arduboy2 
+- https://github.com/hartmann1301/Arduboy2 hartmann1301 migrated the library to the ESP8266 platform
+- https://github.com/cheungbx/esp8266_arduboy2
+- https://github.com/edgarborja/Arduboy2ESP
 
-https://github.com/MLXXXp/Arduboy2
+**Arduboy tones library:**
+- https://github.com/MLXXXp/ArduboyTones
+- https://github.com/hartmann1301/ArduboyTones
 
-https://github.com/harbaum/Arduboy2 
+**And all the [ARDUBOY COMMUNITY!](https://community.arduboy.com/ "ARDUBOY COMMUNITY")**
 
-https://github.com/hartmann1301/Arduboy2 hartmann1301 migrated the library to the ESP8266 platform, from there just a few tweaks were needed.
+*Please do read through the extensive documentation included there.*
 
-Please do read through the extensive documentation included there.
+# There are a few games in this package
+**Check the LICENCE files in every folder to respect the copyrights!**
+- **Arduboy3D** - "Catacombs of the damned" by [James Howard](https://community.arduboy.com/t/catacombs-of-the-damned-formerly-another-fps-style-3d-demo/6565 "James Howard")
+- **ID-34-Mystic-Balloon-master** - "Mystic Balloon" [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
+- **ID-42-Sirene-master** - "Sirene"[ by TEAM ARG](http://www.team-arg.org/ " by TEAM ARG")
+- **ID-46-Arduventure-master** - "Arduventure" [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
+- **ArduBreakout** - UNKNOWN
+- **ESP8266_ArduBOYNG** - UNKNOWN
+- **ESP8266_breakout-v** - UNKNOWN
+- **ESP8266_picovaders** - UNKNOWN
+
+** if UNKNOWN please let me know about copyrights if there is a vialation*
 
 # Contributions and Disclaimer
+Contributions to the documentation, code or electronics are welcome. 
 
-Contributions to the documentation, code or electronics are welcome, English is not my first language, I am not pretending to be an expert in C or in electrical engineering (nor in using Github); use the library and the circuits presented above at your own risk.
+Use this library at your own risk.
+
+# ESPboy project links
+- ##[Youtube videos](https://www.youtube.com/channel/UCsMjlCb8CK-Cw54lRrkpbQw "Youtube videos")
+- ##[Community](https://www.espboy.com "Community")
+- ##[Hackaday page](https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun "Hackaday page")
+- ##[Software](https://github.com/ESPboy-edu "Software")
+- ##[Schematic, PCB, Gerber](https://easyeda.com/roman.sokolov/espboy-rev3-5 "Schematic, PCB, Gerber")
+- ##E-mail: espboy.edu@gmail.com
