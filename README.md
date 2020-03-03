@@ -45,6 +45,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - https://github.com/MLXXXp/ArduboyTones
 - https://github.com/hartmann1301/ArduboyTones
 
+**And all the [ARDUBOY COMMUNITY!](https://community.arduboy.com/ "ARDUBOY COMMUNITY")**
+
 *Please do read through the extensive documentation included there.*
 
 # There are a few games in this package
