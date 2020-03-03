@@ -40,6 +40,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - https://github.com/harbaum/Arduboy2 
 - https://github.com/hartmann1301/Arduboy2 hartmann1301 migrated the library to the ESP8266 platform
 - https://github.com/cheungbx/esp8266_arduboy2
+- https://github.com/edgarborja/Arduboy2ESP
 
 **Arduboy tones library:**
 - https://github.com/MLXXXp/ArduboyTones
