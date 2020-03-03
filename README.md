@@ -53,7 +53,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - **ID-34-Mystic-Balloon-master** - "Mystic Balloon" [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
 - **ID-42-Sirene-master** - "Sirene"[ by TEAM ARG](http://www.team-arg.org/ " by TEAM ARG")
 - **ID-46-Arduventure-master** - "Arduventure" [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
-- **ArduBreakout **- UNKNOWN
+- **ArduBreakout ** - UNKNOWN
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
 - **ESP8266_picovaders** - UNKNOWN
