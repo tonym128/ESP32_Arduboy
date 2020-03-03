@@ -1,5 +1,5 @@
 # ESPboy (ESP8266 gadget) port of the Arduboy2 library
-This port of **"Arduboy2"** and **"Arduboy PlayTones"** libraries are from [Arduboy project ](https://arduboy.com/ "Arduboy project ") are intendet to run on[ ESPboy project](https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun " ESPboy project") and thorougly simplified.
+This port of **"Arduboy2"** and **"Arduboy PlayTones"** libraries from [Arduboy project ](https://arduboy.com/ "Arduboy project ") intendet to run on[ ESPboy project](https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun " ESPboy project") and thorougly simplified.
 
 It supports ESPboy buttons, LED, sound (thanks to ported **"Arduboy PlayTones" library**) and TFT display.
 
