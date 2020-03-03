@@ -47,7 +47,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 *Please do read through the extensive documentation included there.*
 
-# There are a few games at example folder. 
+# There are a few games in this package
 **Check the LICENCE files in every folder to respect the copyrights!**
 - **Arduboy3D** - "Catacombs of the damned" by [James Howard](https://community.arduboy.com/t/catacombs-of-the-damned-formerly-another-fps-style-3d-demo/6565 "James Howard")
 - **ID-34-Mystic-Balloon-master** - "Mystic Balloon" [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
@@ -64,10 +64,11 @@ Contributions to the documentation, code or electronics are welcome.
 Use this library at your own risk.
 
 # ESPboy project links
-- ###[Youtube videos](https://www.youtube.com/channel/UCsMjlCb8CK-Cw54lRrkpbQw "Youtube videos")
-- ###[Community](https://www.espboy.com "Community")
-- ###[Hackaday page](https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun "Hackaday page")
-- ###[Software](https://github.com/ESPboy-edu "Software")
-- ###[Schematic, PCB, Gerber](###Schematic, PCB, Gerber "Schematic, PCB, Gerber")
-- ###E-mail: espboy.edu@gmail.com
+- ##[Youtube videos](https://www.youtube.com/channel/UCsMjlCb8CK-Cw54lRrkpbQw "Youtube videos")
+- ##[Community](https://www.espboy.com "Community")
+- ##[Hackaday page](https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun "Hackaday page")
+- ##[Software](https://github.com/ESPboy-edu "Software")
+- ##[Schematic, PCB, Gerber](https://easyeda.com/roman.sokolov/espboy-rev3-5 "Schematic, PCB, Gerber")
+- ##E-mail: espboy.edu@gmail.com
+
 
