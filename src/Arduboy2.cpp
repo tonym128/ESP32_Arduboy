@@ -864,16 +864,16 @@ void Arduboy2Base::clear(){
 void Arduboy2Base::display(){ 
   static uint16_t oBuffer[WIDTH*16];
   static uint8_t currentDataByte;
-  static uint16_t foregroundColor, backgroundColor, xPos, yPos, kPos;
+  static uint16_t foregroundColor, backgroundColor, xPos, yPos, kPos, kkPos;
 
   foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
   backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
   
   for(kPos = 0; kPos<4; kPos++){  
+    kkPos = kPos<<1;
     for (xPos = 0; xPos < WIDTH; xPos++) {
       for (yPos = 0; yPos < 16; yPos++) {		
-		//	if (!(yPos % 8)) currentDataByte = sBuffer[xPos + ((yPos+kPos*16) / 8) * WIDTH];
-		    if (!(yPos % 8)) currentDataByte = sBuffer[xPos + ((yPos>>3)+(kPos<<1)) * WIDTH];	
+		    if (!(yPos % 8)) currentDataByte = sBuffer[xPos + ((yPos>>3)+kkPos) * WIDTH];	
             if ((currentDataByte & 0x01)) oBuffer[yPos*WIDTH+xPos] = foregroundColor;
             else oBuffer[yPos*WIDTH+xPos] = backgroundColor;
 			currentDataByte = currentDataByte >> 1;
