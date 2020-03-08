@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:leonardo",
+    "port": "/dev/cu.usbmodem1411",
+    "sketch": "SpaceCab.ino",
+    "output": "../../build"
+}

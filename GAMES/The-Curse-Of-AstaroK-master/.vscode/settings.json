@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "xtr1common": "cpp",
+    "__config": "cpp",
+    "__nullptr": "cpp",
+    "limits": "cpp",
+    "type_traits": "cpp"
+  },
+  "editor.tabSize": 2
+}

@@ -44,7 +44,7 @@ void Sprites::draw(int16_t x, int16_t y,
   if (bitmap == NULL)
     return;
 
-  uint8_t width = pgm_read_word(bitmap);
+  uint8_t width = pgm_read_byte(bitmap);
   uint8_t height = pgm_read_byte(++bitmap);
   bitmap++;
   if (frame > 0 || sprite_frame > 0) {
@@ -79,10 +79,10 @@ void Sprites::drawBitmap(int16_t x, int16_t y,
 
   // xOffset technically doesn't need to be 16 bit but the math operations
   // are measurably faster if it is
-  uint16_t xOffset, ofs;
-  int8_t yOffset = y & 7;
-  int8_t sRow = y / 8;
-  uint8_t loop_h, start_h, rendered_width;
+  int16_t xOffset, ofs;
+  int16_t yOffset = y & 7;
+  int16_t sRow = y / 8;
+  uint16_t loop_h, start_h, rendered_width;
 
   if (y < 0 && yOffset > 0) {
     sRow--;
@@ -102,7 +102,7 @@ void Sprites::drawBitmap(int16_t x, int16_t y,
     rendered_width = (w - xOffset);
   }
 
-  // if the top side of the render is offscreen skip those loops
+ //  if the top side of the render is offscreen skip those loops
   if (sRow < -1) {
     start_h = abs(sRow) - 1;
   } else {
@@ -239,68 +239,8 @@ void Sprites::drawBitmap(int16_t x, int16_t y,
       }
       break;
 
-case SPRITE_PLUS_MASK:
-/*
- uint8_t * sprite_ofs = (uint8_t *)(bitmap + ((start_h * w) + xOffset) * 2);
-  uint8_t * buffer_ofs = (Arduboy2Base::sBuffer + ofs);
-   uint8_t * buffer_ofs_2 = (buffer_ofs + 128);
 
-    const uint8_t sprite_ofs_jump = ((w - rendered_width) * 2);
-   const uint8_t buffer_ofs_jump = (WIDTH - rendered_width);
-
-    for(uint8_t yi = loop_h; yi > 0; --yi)
-   {
-       for(uint8_t xi = rendered_width; xi > 0; --xi)
-       {
-           // load bitmap and mask data
-           bitmap_data = pgm_read_byte(sprite_ofs);
-           ++sprite_ofs;
-           mask_data = pgm_read_byte(sprite_ofs);
-           ++sprite_ofs;
-
-            // shift mask and buffer data
-           if(yOffset != 0)
-           {
-               bitmap_data *= mul_amt;
-               mask_data *= mul_amt;
-
-                // SECOND PAGE
-               if(sRow < 7)
-               {
-                   data = *buffer_ofs_2;
-                   mask_data = (mask_data & 0x00FF) | ((~mask_data)  & 0xFF00);
-                   data &= (uint8_t)(mask_data >> 8);
-                   data |= (uint8_t)(bitmap_data >> 8);
-                   *buffer_ofs_2 = data;
-                   ++buffer_ofs_2;
-               }
-           }
-
-            // FIRST_PAGE
-           if(sRow >= 0)
-           {
-               data = *buffer_ofs;
-               mask_data = (mask_data & 0xFF00) | ((~mask_data)  & 0x00FF);
-               data &= (uint8_t)(mask_data);
-               data |= (uint8_t)(bitmap_data);
-               *buffer_ofs = data;
-               ++buffer_ofs;
-           }
-           else
-           {
-             ++buffer_ofs;   
-           }
-       }
-       if(yi > 0)
-       {
-           ++sRow;
-           sprite_ofs += sprite_ofs_jump;
-           buffer_ofs += buffer_ofs_jump;
-           buffer_ofs_2 += buffer_ofs_jump;
-       }
-   }
-   break;
-*/
+    case SPRITE_PLUS_MASK:
       for (uint8_t a = 0; a < loop_h; a++) {
         for (uint8_t iCol = 0; iCol < rendered_width; iCol++) {
           // NOTE: this is the SPRITE_MASKED case with a little 

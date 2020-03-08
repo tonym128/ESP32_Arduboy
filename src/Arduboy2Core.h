@@ -24,7 +24,7 @@
 
 #define maxVal(a,b) ((a)>(b)?(a):(b))
 #define minVal(a,b) ((a)<(b)?(a):(b))
-#define LHSWAP(w) (((w)>>8)|((w)<<8))
+#define LHSWAP(w) (uint16_t)((((uint16_t)w)>>8)|(((uint16_t)w)<<8))
 
 // there is only one pin for audio
 #define PIN_SPEAKER_1 D3

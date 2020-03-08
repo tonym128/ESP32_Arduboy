@@ -85,7 +85,7 @@ void World::render( int16_t xo, int16_t yo ){
     yo = prevY>>1;
     for( uint8_t y=0; y<32; y++ ){
         int16_t sy = y*16+yo;
-        if( sy <= -15 || sy > HEIGHT ) continue; // stupid
+    if( sy <= -15 || sy > HEIGHT ) continue; // stupid
         for( uint8_t x=0; x<16; x++ ){
             
             int16_t sx = xo+x*16;

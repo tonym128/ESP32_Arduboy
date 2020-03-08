@@ -1,0 +1,7 @@
+{
+    "board": "arduino:avr:leonardo",
+    "sketch": "Curse/Curse.ino",
+    "output": "../build",
+    "port": "COM3",
+    "programmer": "AVR ISP"
+}

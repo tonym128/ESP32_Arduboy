@@ -1,0 +1,38 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:\\Users\\simon.holmes\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\**",
+                "C:\\Users\\simon.holmes\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.6.20\\**",
+                "/Users/simonholmes/Library/Arduino15/packages/arduino/hardware/avr/1.6.22/**",
+                "/Users/simonholmes/Library/Arduino15/packages/arduino/tools/**",
+                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\**",
+                "C:\\Program Files (x86)\\Arduino\\tools\\**",
+                "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/**",
+                "/Applications/Programming/Arduino.app/Contents/Java/tools/**"
+            ],
+            "forcedInclude": [
+                "C:\\Users\\simon.holmes\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.6.20\\cores\\arduino\\Arduino.h",
+                "/Users/simonholmes/Library/Arduino15/packages/arduino/hardware/avr/1.6.22/cores/arduino/Arduino.h",
+                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino\\Arduino.h",
+                "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.11.25503/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "Mac",
+            "includePath": [
+                "/Applications/Programming/Arduino.app/Contents/Java/tools/**",
+                "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/**"
+            ],
+            "forcedInclude": [
+                "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ]
+        }
+    ],
+    "version": 4
+}

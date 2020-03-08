@@ -864,18 +864,19 @@ void Arduboy2Base::clear(){
 void Arduboy2Base::display(){ 
   static uint16_t oBuffer[WIDTH*16];
   static uint8_t currentDataByte;
-  static uint16_t foregroundColor, backgroundColor, xPos, yPos, kPos, kkPos;
+  static uint16_t foregroundColor, backgroundColor, xPos, yPos, kPos, kkPos, addr;
 
   foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
   backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
   
-  for(kPos = 0; kPos<4; kPos++){  
+  for(kPos = 0; kPos<4; kPos++){  //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
     kkPos = kPos<<1;
     for (xPos = 0; xPos < WIDTH; xPos++) {
       for (yPos = 0; yPos < 16; yPos++) {		
-		    if (!(yPos % 8)) currentDataByte = sBuffer[xPos + ((yPos>>3)+kkPos) * WIDTH];	
-            if ((currentDataByte & 0x01)) oBuffer[yPos*WIDTH+xPos] = foregroundColor;
-            else oBuffer[yPos*WIDTH+xPos] = backgroundColor;
+		    if (!(yPos % 8)) currentDataByte = sBuffer[xPos + ((yPos>>3)+kkPos) * WIDTH];
+		    addr = 	yPos*WIDTH+xPos;
+            if (currentDataByte & 0x01) oBuffer[addr] = foregroundColor;
+            else oBuffer[addr] = backgroundColor;
 			currentDataByte = currentDataByte >> 1;
 	  }
     }

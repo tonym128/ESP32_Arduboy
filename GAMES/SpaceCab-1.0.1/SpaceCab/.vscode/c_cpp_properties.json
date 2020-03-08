@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/Users/simonholmes/Documents/Arduino/libraries",
+                "/Users/simonholmes/Documents/Arduino/libraries/Arduboy2/src",
+                "/Users/simonholmes/Documents/Arduino/libraries/ArduboyTones/src",
+                "/Users/simonholmes/Documents/Arduino/libraries/FixedPoints/src",
+                "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino",
+                "/Applications/Programming/Arduino.app/Contents/Java/hardware/tools/avr/avr/include",
+                "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/variants/leonardo",
+                "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/libraries/EEPROM/src"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false,
+                "path": [
+                    "/Users/simonholmes/Documents/Arduino/libraries",
+                    "/Users/simonholmes/Documents/Arduino/libraries/Arduboy2/src",
+                    "/Users/simonholmes/Documents/Arduino/libraries/ArduboyTones/src",
+                    "/Users/simonholmes/Documents/Arduino/libraries/FixedPoints/src",
+                    "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino",
+                    "/Applications/Programming/Arduino.app/Contents/Java/hardware/tools/avr/avr/include",
+                    "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/variants/leonardo",
+                    "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/libraries/EEPROM/src"
+                ]
+            },
+            "intelliSenseMode": "msvc-x64"
+        }
+    ],
+    "version": 4
+}
