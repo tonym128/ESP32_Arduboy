@@ -20,7 +20,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 # Advantages of ESPboy (ESP8266)
 - 8 keys
-- TFT color LCD 128õ128
+- TFT color LCD 128Ãµ128
 - Faster MCU 80Mh/160Mhz
 - RGB neopixel LED
 - More memory for program and data.  http://0x04.net/~mwk/doc/xtensa.pdf
@@ -52,11 +52,24 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 # There are a few games in this package
 **Check the LICENCE files in every folder to respect the copyrights!**
-- **Arduboy3D** - "Catacombs of the damned" by [James Howard](https://community.arduboy.com/t/catacombs-of-the-damned-formerly-another-fps-style-3d-demo/6565 "James Howard")
-- **ID-34-Mystic-Balloon-master** - "Mystic Balloon" [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
-- **ID-42-Sirene-master** - "Sirene"[ by TEAM ARG](http://www.team-arg.org/ " by TEAM ARG")
-- **ID-46-Arduventure-master** - "Arduventure" [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
-- **ArduBreakout** - UNKNOWN
+- **Catacombs of the damned** (MIT) [by James Howard](https://community.arduboy.com/t/catacombs-of-the-damned-formerly-another-fps-style-3d-demo/6565 "James Howard")
+- **Mystic Balloon** (MIT) [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
+- **Sirene** (MIT) [ by TEAM ARG](http://www.team-arg.org/ " by TEAM ARG")
+- **Arduventure** (MIT) [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
+- **CastleBoy** (MIT) by jlauener
+- **Dark And Under** (BSD-3-Clause) by Garage Collective (Cyril Guichard (Luxregina), Simon Holmes (Filmote), Pharap)
+- **HelloCommander** (MIT) by Felipe Manga (FManga)
+- **Blob Attack** (MIT) [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
+- **Virus-LQP-79** (MIT) [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
+- **Kong-II** (MIT) by Vampirics and Filmote
+- **LodeRunner (all 154 levels in a single game!)** (BSD-3) by Simon Holmes (filmote)
+- **MicroCity** (GPL-3.0) by James Howard
+- **SpaceCab** (GPL-3.0) by by Stephane C (vampirics) and Simon Holmes (filmote)
+- **The Curse Of Astarok** (MIT) by Simon Holmes (filmote)
+- **Squario** (copyrighted, forbidden for distribution) Squario by arduboychris
+- **Circuit Dude** (copyrighted, forbidden for distribution) [by Jonathan Holmes](http://www.crait.net)
+- **Omega Horizon** (copyrighted, forbidden for distribution) [by shdwwzrd](http://neoretro.games)
+- **Rayne the rogue** (copyrighted, forbidden for distribution) [by shdwwzrd](http://neoretro.games)
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
 - **ESP8266_picovaders** - UNKNOWN
