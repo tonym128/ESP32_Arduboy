@@ -67,9 +67,9 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - **SpaceCab** (GPL-3.0) by by Stephane C (vampirics) and Simon Holmes (filmote)
 - **The Curse Of Astarok** (MIT) by Simon Holmes (filmote)
 - **Squario** (copyrighted, forbidden for distribution) Squario by arduboychris
-- **Circuit Dude** (copyrighted, forbidden for distribution) [by Jonathan Holmes](http://www.crait.net)
-- **Omega Horizon** (copyrighted, forbidden for distribution) [by shdwwzrd](http://neoretro.games)
-- **Rayne the rogue** (copyrighted, forbidden for distribution) [by shdwwzrd](http://neoretro.games)
+- **Circuit Dude** (copyrighted) [by Jonathan Holmes](http://www.crait.net)
+- **Omega Horizon** (copyrighted) [by shdwwzrd](http://neoretro.games)
+- **Rayne the rogue** (copyrighted) [by shdwwzrd](http://neoretro.games)
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
 - **ESP8266_picovaders** - UNKNOWN
