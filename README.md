@@ -16,6 +16,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 -- add EEPROM.commit() after the last EEPROM.put(), EEPORM.write() and EEPROM.update() of each blocks of code.
 - remove any reference to the **"ATMlib"**, **"ArduboyPlaytune"** that require timers to play back ground musics. That libraries has not yet been ported
 - games that directly control the SPI or I2C bus to write to OLED display need much more work to port instead of the simple steps above.
+- font() array is used in TFT_eSPI display library so you have to chage all "font" to "font_"
+- min() and max() macros are used in TFT_eSPI display library so you have to chage all min() and max() to minVal() and maxVal() correspondenly
 
 
 # Advantages of ESPboy (ESP8266)
@@ -66,10 +68,10 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - **MicroCity** (GPL-3.0) by James Howard
 - **SpaceCab** (GPL-3.0) by by Stephane C (vampirics) and Simon Holmes (filmote)
 - **The Curse Of Astarok** (MIT) by Simon Holmes (filmote)
-- **Squario** (Proprietary) Squario by arduboychris
-- **Circuit Dude** (Proprietary) [by Jonathan Holmes](http://www.crait.net)
-- **Omega Horizon** (Proprietary) [by shdwwzrd](http://neoretro.games)
-- **Rayne the rogue** (Proprietary) [by shdwwzrd](http://neoretro.games)
+- **Rayne the rogue** (MIT) [by shdwwzrd](http://neoretro.games)
+- **Squario** (Proprietary) Squario by arduboychris (if author against posting the code in this repository for the purpose of teaching programming and fun, please let me know, i'll remove it)
+- **Circuit Dude** (Proprietary) [by Jonathan Holmes](http://www.crait.net)(if author against posting the code in this repository for the purpose of teaching programming and fun, please let me know, i'll remove it)
+- **Omega Horizon** (Proprietary) [by shdwwzrd](http://neoretro.games)(if author against posting the code in this repository for the purpose of teaching programming and fun, please let me know, i'll remove it)
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
 - **ESP8266_picovaders** - UNKNOWN
