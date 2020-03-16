@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 2,
+  "title": "Jet Pac",
+  "description": "Arduboy clone of the classic ZX Spectrum game 'Jet Pac'.",
+  "author": "Mike McRoberts",
+  "version": "1.0",
+  "date": "2013-01-31",
+  "genre": "Action",
+  "publisher": "Mike McRoberts",
+  "idea": "Mike McRoberts",
+  "code": "Mike McRoberts",
+  "art": "Mike McRoberts",
+  "sound": "Mike McRoberts",
+  "url": "https://github.com/thearduinoguy/ArduBoyJetPack",
+  "sourceUrl": "https://github.com/thearduinoguy/ArduBoyJetPack",
+  "email": "mike@thearduinoguy.org",
+  "banner": "JETPACBANNER.png",
+  "screenshots": [
+    {
+      "title": "Screenshot 1",
+      "filename": "screenshot1.png"
+    },
+    {
+      "title": "Screenshot 2",
+      "filename": "screenshot2.png"
+    }
+  ],
+  "binaries": [
+    {
+      "title": "Jet Pac",
+      "filename": "firmware.hex",
+      "device": "Arduboy"
+    }
+  ],
+  "buttons": [
+    {
+      "control": "Left",
+      "action": "Walk or fly left"
+    },
+    {
+      "control": "Right",
+      "action": "Walk or fly right"
+    },
+    {
+      "control": "Up or A",
+      "action": "Fire Jet Pac Thrusters"
+    },
+    {
+      "control": "Down or B",
+      "action": "Fire Lasers"
+    }
+  ],
+  "eeprom": {
+    "variable": false,
+    "start": 512,
+    "end": 515
+  }
+}

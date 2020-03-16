@@ -365,6 +365,7 @@ boolean repeating = false;
 
 // ============================= SETUP ===================================
 void setup() {
+  EEPROM.begin(1024);
   arduboy.begin();
   arduboy.setFrameRate(FRAME_RATE);
   setState(sMain);
@@ -710,6 +711,7 @@ void saveFlags() {
 void resetSysEEPROM() {
   for (unsigned int i = EEPROM_START; i < EEPROM_STORAGE_SPACE_START; i++) {
     EEPROM.update(i, 0xFF);
+    EEPROM.commit();
   }
   arduboy.clear();
   printStrLargeRev_P(RESET_SYS_CONFIRMED_1_X, RESET_SYS_CONFIRMED_1_Y, StrSystem);
@@ -728,6 +730,7 @@ void resetUserEEPROM() {
   arduboy.display(CLEAR_BUFFER);
   for (unsigned int i = EEPROM_STORAGE_SPACE_START; i <= EEPROM_END; i++) {
     EEPROM.update(i, 0xFF);
+    EEPROM.commit();
   }
   printStrLargeRev_P(RESET_USER_CONFIRMED_1_X, RESET_USER_CONFIRMED_1_Y, StrUser);
   printStrLargeRev_P(RESET_USER_CONFIRMED_2_X, RESET_USER_CONFIRMED_2_Y, StrEEPROM);
@@ -1177,4 +1180,3 @@ int centerStr2_P(const char* str) {
 int rightStr_P(const char* str) {
   return WIDTH - (strlen_P(str) * CHAR_WIDTH) + 1;
 }
-

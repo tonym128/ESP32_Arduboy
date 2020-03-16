@@ -1,0 +1,13 @@
+Windows executable files were created using Mingw-w64
+https://mingw-w64.org/
+
+The following commands were used to create 64 bit and 32 bit executables:
+
+x86_64-w64-mingw32-gcc -O2 -Wall -o midi2tones_64bit.exe midi2tones.c
+
+i686-w64-mingw32-gcc -O2 -Wall -o midi2tones_32bit.exe midi2tones.c
+
+x86_64-w64-mingw32-gcc -O2 -Wall -o miditones_scroll_64bit.exe miditones_scroll.c
+
+i686-w64-mingw32-gcc -O2 -Wall -o miditones_scroll_32bit.exe miditones_scroll.c
+

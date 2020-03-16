@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/Users/lucas/Library/Arduino15/packages/arduboy/hardware/avr/1.0.0/**",
+                "${workspaceFolder}/**",
+                "/Applications/Arduino.app/Contents/Java/libraries/**",
+                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/**",
+                "/Applications/Arduino.app/Contents/Java/hardware/tools/avr/avr/include/**",
+                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/variants/standard/**",
+                "/Users/lucas/Documents/Arduino/libraries/**"
+            ],
+            "defines": [],
+            "macFrameworkPath": [
+                "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false,
+                "path": [
+                    "/Applications/Arduino.app/Contents/Java/"
+                ]
+            },
+            "forcedInclude": []
+        }
+    ],
+    "version": 4
+}

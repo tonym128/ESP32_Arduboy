@@ -1,0 +1,20 @@
+
+
+echo "" > out
+
+m2x() {
+    midi2tones -o2 $1; cat "${1}.c" | sed -e "s/score/$2/g" >> out;
+}
+
+m2x title/title titleMusic
+m2x stage1/stage1 stage1Music
+m2x boss/boss-160bpm bossMusic
+m2x gameOver/gameOver titleMusic
+
+
+cat out | pbcopy
+
+
+rm -f *.mid* out
+
+say done &

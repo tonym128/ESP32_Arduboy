@@ -14,6 +14,7 @@
 //determine the game
 #define GAME_ID                  40
 
+WiFi.mode(WIFI_OFF);
 #include "globals.h"
 #include "menu.h"
 #include "player.h"
@@ -44,8 +45,8 @@ const FunctionPointer PROGMEM mainGameLoop[] =
   stateGameMayhem,
 };
 
-void setup()
-{
+void setup(){
+  WiFi.mode(WIFI_OFF);
   EEPROM.begin(200);
   arduboy.boot();                                           // begin with the boot logo en setting up the device to work
   arduboy.audio.begin();

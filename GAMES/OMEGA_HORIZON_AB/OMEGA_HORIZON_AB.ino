@@ -33,7 +33,8 @@
 -changed how sound status is accessed in eeprom
 
 */
-#include <SPI.h>
+//#include <SPI.h>
+#include <ESP8266WiFi.h>
 #include <Arduboy2.h>
 #include "Tinyfont.h"//830 PROGMEM - 28 RAM
 #include <ArduboyTones.h>//626 PROGMEM - 30 RAM
@@ -1420,7 +1421,7 @@ uint32_t game_timer=0;
 bool video_out = false;
 
 void setup() {
-
+  WiFi.mode(WIFI_OFF);
   arduboy.boot(); // raw hardware
   arduboy.blank(); // blank the display
   arduboy.flashlight(); // light the RGB LED and screen if UP button is being held.  

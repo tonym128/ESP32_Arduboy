@@ -14,6 +14,7 @@
 //determine the game
 #define GAME_ID 28
 
+#include <ESP8266WiFi.h>
 #include "globals.h"
 #include "menu.h"
 #include "game.h"
@@ -34,6 +35,7 @@ const FunctionPointer PROGMEM  mainGameLoop[] = {
 
 
 void setup() {
+  WiFi.mode(WIFI_OFF);
   arduboy.boot();                                           // begin with the boot logo en setting up the device to work
   arduboy.audio.begin();
   arduboy.bootLogoSpritesSelfMasked();

@@ -1,3 +1,4 @@
+#include <ESP8266WiFi.h>
 #include "src/utils/Arduboy2Ext.h"
 #include "Enums.h"
 #include "src/levels/Level.h"
@@ -69,6 +70,7 @@ uint8_t playerLevel = 1;    // Levelup level
  * -----------------------------------------------------------------------------------------------------------------------------
  */
 void setup() {
+  WiFi.mode(WIFI_OFF);
 
   EEPROM.begin(300);
   arduboy.boot();

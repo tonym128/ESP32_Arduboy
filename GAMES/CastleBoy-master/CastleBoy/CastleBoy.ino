@@ -1,3 +1,5 @@
+#include <ESP8266WiFi.h>
+
 #include "global.h"
 
 #include "menu.h"
@@ -6,8 +8,8 @@
 
 uint8_t bootCounter = 0;
 
-void setup()
-{
+void setup(){
+  WiFi.mode(WIFI_OFF);
   ab.begin();
   ab.setFrameRate(FPS);
 

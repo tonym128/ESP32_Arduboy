@@ -1,0 +1,5 @@
+{
+    "board": "arduboy:avr:arduboy",
+    "sketch": "TrenchRun.ino",
+    "port": "/dev/cu.usbmodem141401"
+}

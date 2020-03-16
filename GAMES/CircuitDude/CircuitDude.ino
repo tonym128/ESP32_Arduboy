@@ -55,6 +55,7 @@
 //	design element derived from this game must have explicit permission from me if it is
 //	intended to be released or distributed to others.
 
+#include <ESP8266WiFi.h>
 #include <Arduboy2.h>
 Arduboy2 arduboy;
 #include <Arduboy2Beep.h>
@@ -2242,7 +2243,7 @@ void gameloop() {
 }
 
 void setup() {
-  
+  WiFi.mode(WIFI_OFF); 
 	arduboy.begin();
 	arduboy.setFrameRate(FRAMERATE);
 	beep.begin();

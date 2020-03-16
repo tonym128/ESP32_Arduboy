@@ -1,3 +1,4 @@
+#include <ESP8266WiFi.h>
 #include "src/utils/Arduboy2Ext.h"
 #include "src/utils/Enums.h"
 #include "src/utils/Utils.h"
@@ -26,7 +27,7 @@ GameStats gameStats;
 GameStateType gameState = GameStateType::SplashScreen_Activate; 
 
 void setup(void) {
-
+  WiFi.mode(WIFI_OFF);
 	arduboy.boot();
 	arduboy.flashlight();
 	arduboy.systemButtons();

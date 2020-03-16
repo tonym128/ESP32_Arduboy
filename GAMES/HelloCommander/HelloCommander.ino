@@ -1,3 +1,4 @@
+#include <ESP8266WiFi.h>
 #include "globals.h"
 #include "world.h"
 #include "player.h"
@@ -40,6 +41,7 @@ void stateRoundStart(){
 }
 
 void setup() {
+  WiFi.mode(WIFI_OFF);
   arduboy.boot();
   arduboy.flashlight();
   arduboy.setFrameRate(10);

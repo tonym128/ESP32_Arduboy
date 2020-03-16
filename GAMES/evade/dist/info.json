@@ -1,0 +1,43 @@
+{
+  "title": "Evade",
+  "description": "You are the sole survivor from a space colony who had been decimated by an alien invasion. Your only mission was to escape and evade (the enemy).  Evade is a side scrolling infinite shooter game, featuring two types of player weapon and three different boss levels.  Beat them all, and try again... it gets harder and faster!",
+  "version": "1.00",
+  "genre": "Shooter",
+  "device": "Arduboy",
+  "date": "2016-12-23",
+  "url": "http://www.moduscreate.com",
+  "companion": "http://www.moduscreate.com",
+  "sourceUrl": "https://github.com/ModusCreateOrg/evade-arduboy-game",
+  "email": "contact@moduscreate.com",
+  "banner": "evade_banner.png",
+  "publisher": "Modus Create",
+  "screenshots": [
+    "evade_title.png",
+    "evade_in_game_2.png",
+    "evade_boss_2.png"
+  ],
+  "hexes": [
+    {
+      "title": "Evade",
+      "hex": "evade.hex"
+    }
+  ],
+  "author": "Modus Create",
+  "code": "Modus Create",
+  "idea": "Modus Create",
+  "art": "Modus Create",
+  "sound": "Modus Create",
+  "buttons": {
+    "buttonUp": "Move Up",
+    "buttonDown": "Move Down",
+    "buttonLeft": "Move Left",
+    "buttonRight": "Move Right",
+    "buttonA": "Fire Pew Pew",
+    "buttonB": "Fire Hadouken"
+  },
+  "eeprom": {
+    "variable": false,
+    "start": 16,
+    "end": 71
+  }
+}
