@@ -53,7 +53,10 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 *Please do read through the extensive documentation included there.*
 
 # There are a few games in this package
-**Check the LICENCE files in every folder to respect the copyrights!**
+**Check the LICENCE files in every folder!**
+
+If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, i'll remove it.
+
 - **Catacombs of the damned** (MIT) [by James Howard](https://community.arduboy.com/t/catacombs-of-the-damned-formerly-another-fps-style-3d-demo/6565 "James Howard")
 - **Mystic Balloon** (MIT) [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
 - **Sirene** (MIT) [ by TEAM ARG](http://www.team-arg.org/ " by TEAM ARG")
@@ -69,14 +72,18 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - **SpaceCab** (GPL-3.0) by by Stephane C (vampirics) and Simon Holmes (filmote)
 - **The Curse Of Astarok** (MIT) by Simon Holmes (filmote)
 - **Rayne the rogue** (MIT) [by shdwwzrd](http://neoretro.games)
-- **Squario** (Proprietary) Squario by arduboychris (if author against posting the code in this repository for the purpose of teaching programming and fun, please let me know, i'll remove it)
-- **Circuit Dude** (Proprietary) [by Jonathan Holmes](http://www.crait.net)(if author against posting the code in this repository for the purpose of teaching programming and fun, please let me know, i'll remove it)
-- **Omega Horizon** (Proprietary) [by shdwwzrd](http://neoretro.games)(if author against posting the code in this repository for the purpose of teaching programming and fun, please let me know, i'll remove it)
+- **Space Battle - Trench Run** (MIT) by Lucas Cardinali (lscardinali)
+- **MicroTD** (CC0-1.0) by drummyfish
+- **Shadow-Runner-1.6.1** (MIT) [by TEAM ARG](http://www.team-arg.org/)
+- **Evade** (MIT) by Modus Create
+- **Rooftop Rescue** (MIT) by Bert van't Veer
+- **JetPac** (Proprietary) by Mike McRoberts
+- **Squario** (Proprietary) Squario by arduboychris 
+- **Circuit Dude** (Proprietary) [by Jonathan Holmes](http://www.crait.net)
+- **Omega Horizon** (Proprietary) [by shdwwzrd](http://neoretro.games)
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
 - **ESP8266_picovaders** - UNKNOWN
-
-** if UNKNOWN please let me know about copyrights if there is a vialation*
 
 # Contributions and Disclaimer
 Contributions to the documentation, code or electronics are welcome. 
