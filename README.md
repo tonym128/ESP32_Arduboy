@@ -77,6 +77,7 @@ If authors against posting the code in this repository for the purpose of learni
 - **Shadow-Runner-1.6.1** (MIT) [by TEAM ARG](http://www.team-arg.org/)
 - **Evade** (MIT) by Modus Create
 - **Rooftop Rescue** (MIT) by Bert van't Veer
+- **Crates 3D** (MIT) by Badja (original) & Brian (port)
 - **JetPac** (Proprietary) by Mike McRoberts
 - **Squario** (Proprietary) Squario by arduboychris 
 - **Circuit Dude** (Proprietary) [by Jonathan Holmes](http://www.crait.net)
