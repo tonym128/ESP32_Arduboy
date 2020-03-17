@@ -5,7 +5,7 @@ Version 1.1
 by Mike McRoberts (a.k.a. TheArduinoGuy)
 */
 
-#define SAVELOCATION (/*EEPROM_STORAGE_SPACE_START*/ + 90)
+#define SAVELOCATION (/*EEPROM_STORAGE_SPACE_START +*/ 90)
 
 #include <Arduboy2.h>
 #include "bitmaps.h"
