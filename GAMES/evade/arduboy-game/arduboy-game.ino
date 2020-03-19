@@ -4,6 +4,8 @@
  *  Author: Modus Create
  */
 
+
+#include <ESP8266WiFi.h>
 #include "Arduboy2.h"
 #include "globals.h"
 #include "messagecatalog.h"
@@ -1123,6 +1125,7 @@ void resetHighScoreTable() {
 
 // Runs once, initialization.
 void setup() {
+  WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
   arduboy.begin();
   EEPROM.begin(100);
     

@@ -12,6 +12,8 @@
 //determine the game
 #define GAME_ID 15
 
+
+#include <ESP8266WiFi.h>
 #include <Gamby.h>
 #include <avr/pgmspace.h>
 
@@ -56,6 +58,7 @@ int runnerY = 0;
 boolean show_runner = false;
 
 void setup () {
+  WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
   randomSeed(analogRead(0));
   gamby.drawPattern = PATTERN_BLACK;
   gamby.rect(0,0,95,63);

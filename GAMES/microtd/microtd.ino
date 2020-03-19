@@ -13,6 +13,8 @@
   with gcc (or maybe even other compiler) for quick debug/tests on the PC.
 */
 
+
+#include <ESP8266WiFi.h>
 #ifdef ARDUINO
   #include <stdint.h>
   #include <Arduboy2.h>
@@ -2707,6 +2709,7 @@ bool recordWritten = false; ///< For detecting records and writing to EEPROM.
 
 void setup()
 { 
+  WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
   EEPROM.begin(200);
   arduboy.begin();
   game.mSound = arduboy.audio.enabled();

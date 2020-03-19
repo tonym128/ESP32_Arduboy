@@ -3,6 +3,8 @@
 // (c) 2019 Bert vt Veer
 //----------------------------------------------------------------------------
 
+
+#include <ESP8266WiFi.h>
 #include <Arduboy2.h>
 #include <ArduboyTones.h>
 //#include <EEPROM.h>
@@ -456,6 +458,7 @@ void nextFrame()
 
 void setup() 
 {
+    WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
     ardu.begin();
     ardu.setFrameRate(60);
     sound.volumeMode(VOLUME_ALWAYS_NORMAL);

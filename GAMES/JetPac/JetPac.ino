@@ -7,6 +7,7 @@ by Mike McRoberts (a.k.a. TheArduinoGuy)
 
 #define SAVELOCATION (/*EEPROM_STORAGE_SPACE_START +*/ 90)
 
+#include <ESP8266WiFi.h>
 #include <Arduboy2.h>
 #include "bitmaps.h"
 #include <ArduboyTones.h>
@@ -106,6 +107,7 @@ byte laserIndex = 0;
 void setup()
 {
         //Serial.begin(115200);
+        WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
         EEPROM.begin(200);
         arduboy.boot(); // raw hardware
         arduboy.blank(); // blank the display
@@ -955,7 +957,7 @@ void checkJetManHit()
                         lives=lives-1;
                         if (lives<0) gameState = 2;
                         sound.tone(800,200, 600, 200, 200, 400);
-                        for (int x=0; x<300; x++)
+                        for (int x=0; x<120; x++)
                         {
                                 arduboy.clear();
                                 arduboy.drawFastHLine(0, 63, 128); // ground
@@ -965,6 +967,7 @@ void checkJetManHit()
                                 drawlasers();
                                 //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
                                 arduboy.display();
+                                delay(2);
                         }
 
                 }
