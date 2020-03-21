@@ -8,7 +8,11 @@
 #define ARDUBOY2_AUDIO_H
 
 #include <Arduino.h>
+#ifdef ESP8266
 #include <ESP_EEPROM.h>
+#else
+#include <EEPROM.h>
+#endif
 
 /** \brief
  * Provide speaker and sound control.

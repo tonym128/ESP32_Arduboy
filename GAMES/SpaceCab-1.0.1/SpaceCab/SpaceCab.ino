@@ -1,6 +1,8 @@
 #include "src/Utils/Arduboy2Ext.h"
 
+#ifdef ESP8266
 #include <ESP8266WiFi.h>
+#endif
 #include <ArduboyTones.h>
 #include "src/Images/Images.h"
 #include "src/Entities/Entities.h"
@@ -54,7 +56,7 @@ Level level;
 //------------------------------------------------------------------------------
 
 void setup() {
-  WiFi.mode(WIFI_OFF);
+  //WiFi.mode(WIFI_OFF);
   arduboy.boot();
   arduboy.display();
   arduboy.flashlight();

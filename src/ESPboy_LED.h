@@ -8,8 +8,11 @@ for www.ESPboy.com project by RomanS
 #ifndef ESPboy_LED
 #define ESPboy_LED
 
+#ifdef ADAFRUIT
 #define LEDPIN D4
-
+#else
+#define LEDPIN 0
+#endif
 
 class ESPboyLED{
 private:

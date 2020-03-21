@@ -14,7 +14,10 @@
 //determine the game
 #define GAME_ID 42
 
+#ifdef ESP8266
 #include <ESP8266WiFi.h>
+#endif
+
 #include "globals.h"
 #include "menu.h"
 #include "game.h"
@@ -42,7 +45,7 @@ const FunctionPointer PROGMEM  mainGameLoop[] = {
 
 
 void setup() {
-  WiFi.mode(WIFI_OFF);
+  //WiFi.mode(WIFI_OFF);
   arduboy.begin();
   arduboy.setFrameRate(60);                                 // set the frame rate of the game at 60 fps
 }

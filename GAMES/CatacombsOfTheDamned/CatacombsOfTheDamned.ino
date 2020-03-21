@@ -1,13 +1,16 @@
+#ifdef ESP8266
 #include <ESP8266WiFi.h>
+#endif
+
 #include <Arduboy2.h>
-#include <ArduboyTones.h>
+//#include <ArduboyTones.h>
 #include "Game.h"
 #include "Draw.h"
 #include "FixedMath.h"
 #include "Platform.h"
 
 Arduboy2Base arduboy;
-ArduboyTones sound(arduboy.audio.enabled);
+// ArduboyTones sound(arduboy.audio.enabled);
 Sprites sprites;
 
 
@@ -48,7 +51,7 @@ uint8_t Platform::GetInput()
 
 void Platform::PlaySound(const uint16_t* audioPattern)
 {
-	sound.tones(audioPattern);
+	// sound.tones(audioPattern);
 }
 
 void Platform::SetLED(uint8_t r, uint8_t g, uint8_t b)
@@ -164,7 +167,7 @@ void Platform::ExpectLoadDelay()
 }
 
 void setup(){
-  WiFi.mode(WIFI_OFF);
+  //WiFi.mode(WIFI_OFF);
 
   // i think this is only needed for the esp8266 eeprom emulation
   EEPROM.begin(EEPROM_NEEDED_BYTES);

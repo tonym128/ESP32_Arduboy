@@ -1,5 +1,8 @@
 //#include <SPI.h>
+#ifdef ESP8266
 #include <ESP8266WiFi.h>
+#endif
+
 #include <Arduboy2.h>
 //#include <ArduboyPlaytune.h>
 #include <ArduboyTones.h>
@@ -798,7 +801,7 @@ PROGMEM const int8_t rarities[] = {
 };
 
 void setup() {
-  WiFi.mode(WIFI_OFF);
+  //WiFi.mode(WIFI_OFF);
   EEPROM.begin(100);
   arduboy.boot();
   arduboy.setFrameRate(30);

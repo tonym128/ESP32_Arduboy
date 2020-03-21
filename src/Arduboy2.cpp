@@ -9,8 +9,11 @@
 #include "glcdfont.c"
 
 extern TFT_eSPI screen;
+
+#ifdef ADAFRUIT
 extern Adafruit_MCP23017 mcp;
 extern Adafruit_MCP4725 dac;
+#endif
 
 //========================================
 //========== class Arduboy2Base ==========
@@ -38,7 +41,7 @@ void Arduboy2Base::begin(){
   // check for and handle buttons held during start up for system control
   systemButtons(); 
   audio.begin();
-  bootLogo();
+  // bootLogo(); Doesn't display correctly, just disabling
   // alternative logo functions. Work the same as bootLogo() but may reduce
   // memory size if the sketch uses the same bitmap drawing function
 //  bootLogoCompressed();
@@ -47,6 +50,11 @@ void Arduboy2Base::begin(){
 //  bootLogoSpritesBSelfMasked();
 //  bootLogoSpritesBOverwrite();
   waitNoButtons(); // wait for all buttons to be release
+  #ifndef ESP8266
+  Serial.begin(115200);
+  while (!Serial);
+  Serial.println("Display,Draw");
+  #endif
 }
 
 
@@ -250,7 +258,11 @@ int Arduboy2Base::cpuLoad(){
 }
 
 void Arduboy2Base::initRandomSeed(){
+#ifdef ESP8266
   randomSeed(ESP8266_DREG(0x20E44));
+#else
+  randomSeed(analogRead(0));
+#endif
 }
 
 /* Graphics */
@@ -673,7 +685,7 @@ void Arduboy2Base::drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, uint8
   if (x+w < 0 || x > WIDTH-1 || y+h < 0 || y > HEIGHT-1)
     return;
 
-  int yOffset = abs(y) % 8;
+  int yOffset = abs((int)y) % 8;
   int sRow = y / 8;
   if (y < 0) {
     sRow--;
@@ -761,7 +773,6 @@ struct BitStreamReader{
   }
 };
 
-
 void Arduboy2Base::drawCompressed(int16_t sx, int16_t sy, const uint8_t *bitmap, uint8_t color){
   // set up decompress state
   BitStreamReader cs = BitStreamReader(bitmap);
@@ -776,7 +787,7 @@ void Arduboy2Base::drawCompressed(int16_t sx, int16_t sy, const uint8_t *bitmap,
     return;
 
   // sy = sy - (frame * height);
-  int yOffset = abs(sy) % 8;
+  int yOffset = abs((int)sy) % 8;
   int startRow = sy / 8;
   if (sy < 0) {
     startRow--;
@@ -860,30 +871,109 @@ void Arduboy2Base::clear(){
   memset(sBuffer, 0, HEIGHT*WIDTH/8);
 }
 
+#ifndef ESP8266
+TFT_eSprite scalesprite = TFT_eSprite(&screen); // Sprite object stext1
+bool initSprite = false;
+static int lastDrawTime, currentDrawTime;
+static int lastDisplayTime, currentDisplayTime;
+
+void Arduboy2Base::displayScreen(){
+  // static uint16_t foregroundColor, backgroundColor;
+  // foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
+  // backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
+
+  // int xSrc = 0;
+  // int ySrc = 0;
+  // for (int x = 0; x < 240;x++) {
+  //   xSrc = (x*128)/240;
+  //   for (int y = 0; y < 240; y++) {
+  //     ySrc = ((y*64)/240)*128;
+  //     scalesprite.drawPixel(x,y,mysprite[xSrc+ySrc] ? foregroundColor : backgroundColor);
+  //   }
+  // }
+  //lastDrawTime = currentDrawTime;
+  scalesprite.pushSprite(0, 0);
+  //currentDrawTime = millis();
+}
+#endif
 
 void Arduboy2Base::display(){ 
+#ifdef ESP8266
   static uint16_t oBuffer[WIDTH*16];
-  static uint8_t currentDataByte;
-  static uint16_t foregroundColor, backgroundColor, xPos, yPos, kPos, kkPos, addr;
+#else
+  lastDisplayTime = currentDisplayTime;
+  static int screenWidth = 240;
+  if (!initSprite) {
+    scalesprite.setColorDepth(1);
+    scalesprite.setBitmapColor(TFT_YELLOW,TFT_BLACK);
+    scalesprite.createSprite(240, 240);
+    scalesprite.fillSprite(TFT_BLACK); // Fill sprite with blue
+    initSprite = true;
+  }
+#endif
 
+  static uint16_t foregroundColor, backgroundColor;
   foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
   backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
-  
+  static uint8_t currentDataByte;
+  static uint16_t xPos, yPos, kPos, kkPos, addr;
+  int xDst, yDst;
   for(kPos = 0; kPos<4; kPos++){  //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
     kkPos = kPos<<1;
     for (xPos = 0; xPos < WIDTH; xPos++) {
       for (yPos = 0; yPos < 16; yPos++) {		
 		    if (!(yPos % 8)) currentDataByte = sBuffer[xPos + ((yPos>>3)+kkPos) * WIDTH];
-		    addr = 	yPos*WIDTH+xPos;
-            if (currentDataByte & 0x01) oBuffer[addr] = foregroundColor;
-            else oBuffer[addr] = backgroundColor;
-			currentDataByte = currentDataByte >> 1;
-	  }
+        #ifdef ESP8266
+          addr = 	yPos*WIDTH+xPos;
+        #else
+          xDst = (xPos*240)/128;
+          yDst = ((yPos+kPos*16)*240)/64;
+        #endif
+        if (currentDataByte & 0x01) {
+            #ifdef ESP8266
+            oBuffer[addr] = foregroundColor;
+            #else
+            // scalesprite.drawRect(xDst,yDst,2,4,foregroundColor);
+            scalesprite.drawPixel(xDst,yDst,foregroundColor);
+            scalesprite.drawPixel(xDst,yDst+1,foregroundColor);
+            scalesprite.drawPixel(xDst,yDst+2,foregroundColor);
+            scalesprite.drawPixel(xDst,yDst+3,foregroundColor);
+            scalesprite.drawPixel(xDst+1,yDst,foregroundColor);
+            scalesprite.drawPixel(xDst+1,yDst+1,foregroundColor);
+            scalesprite.drawPixel(xDst+1,yDst+2,foregroundColor);
+            scalesprite.drawPixel(xDst+1,yDst+3,foregroundColor);
+            #endif
+          }
+          else {
+            #ifdef ESP8266
+            oBuffer[addr] = backgroundColor;
+            #else
+            // scalesprite.drawRect(xDst,yDst,2,4,backgroundColor);
+            scalesprite.drawPixel(xDst,yDst,backgroundColor);
+            scalesprite.drawPixel(xDst,yDst+1,backgroundColor);
+            scalesprite.drawPixel(xDst,yDst+2,backgroundColor);
+            scalesprite.drawPixel(xDst,yDst+3,backgroundColor);
+            scalesprite.drawPixel(xDst+1,yDst,backgroundColor);
+            scalesprite.drawPixel(xDst+1,yDst+1,backgroundColor);
+            scalesprite.drawPixel(xDst+1,yDst+2,backgroundColor);
+            scalesprite.drawPixel(xDst+1,yDst+3,backgroundColor);
+            #endif
+          }
+  			currentDataByte = currentDataByte >> 1;
+      }
     }
-    screen.pushImage(0, 20+kPos*16, WIDTH, 16, oBuffer);
-  }
-}
 
+    
+#ifdef ESP8266
+  // This is doing the quarter image write
+  screen.pushImage(0, 20+kPos*16, WIDTH, 16, oBuffer);
+#endif
+  }
+
+#ifndef ESP8266
+   this->displayScreen();
+#endif
+}
 
 void Arduboy2Base::display(bool clear){
   this->display();

@@ -1,7 +1,10 @@
 //#include <SPI.h>
 //#include <EEPROM.h>
 
+#ifdef ESP8266
 #include <ESP8266WiFi.h>
+#endif
+
 #include <Arduboy2.h>
 #include "SquarioGame.h"
 #include "DefinesImagesAndSounds.h"
@@ -21,7 +24,7 @@ uint32_t prevTime = 0;
 bool SoundOn = true;
 
 void setup() {
-  WiFi.mode(WIFI_OFF);
+  //WiFi.mode(WIFI_OFF);
   EEPROM.begin(200);
   display.begin();
 }

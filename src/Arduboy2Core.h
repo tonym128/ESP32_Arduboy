@@ -7,20 +7,31 @@
 #ifndef ARDUBOY2_CORE_H
 #define ARDUBOY2_CORE_H
 
+#ifdef ESP8266
 #include <ESP8266WiFi.h>
+#endif
+
 #include <Arduino.h>
 #include <SPI.h>
 #include "TFT_eSPI.h"
+
+#ifdef ADAFRUIT
 #include "Adafruit_MCP23017.h"
 #include "Adafruit_MCP4725.h"
+#endif
+
 #include "ESPboyLogo.h"
+#ifdef ESP8266
 #include "ESPboy_LED.h"
+#endif
 
 #include <limits.h>
 
+#ifdef ADAFRUIT
 #define CSTFTPIN        8 //CS MCP23017 PIN to TFT
 #define MCP23017address 0 // actually it's 0x20 but in <Adafruit_MCP23017.h> lib there is (x|0x20) :)
 #define MCP4725address  0x60 //DAC driving LCD backlit
+#endif
 
 #define maxVal(a,b) ((a)>(b)?(a):(b))
 #define minVal(a,b) ((a)<(b)?(a):(b))

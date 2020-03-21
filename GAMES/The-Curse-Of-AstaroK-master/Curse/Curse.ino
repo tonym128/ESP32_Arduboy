@@ -9,7 +9,10 @@
 #include "src/utils/FadeEffects.h"
 #include "src/ardBitmap/ArdBitmap.h"
 
+#ifdef ESP8266
 #include <ESP8266WiFi.h>
+#endif
+
 #include <ArduboyTones.h>
 #include "src/sounds/Sounds.h"
 
@@ -34,7 +37,7 @@ GameOverStateVars gameOverVars;
 int8_t mrBlinky = 127;
 
 void setup() {
-  WiFi.mode(WIFI_OFF);
+  //WiFi.mode(WIFI_OFF);
   EEPROM.begin(100);
 	arduboy.boot();
 	#ifndef SOUND_BUTTONS

@@ -1,4 +1,7 @@
+#ifdef ESP8266
 #include <ESP8266WiFi.h>
+#endif
+
 #include "src/utils/Arduboy2Ext.h"
 //#include <ArduboyTones.h>
 #include "src/images/sounds.h"
@@ -52,7 +55,7 @@ uint8_t getNearestY(int8_t margin = HALF_GRID_SIZE);
 //  Setup ..
 //
 void setup() {
-  WiFi.mode(WIFI_OFF);
+  //WiFi.mode(WIFI_OFF);
   arduboy.boot();
   arduboy.flashlight();
   arduboy.systemButtons();

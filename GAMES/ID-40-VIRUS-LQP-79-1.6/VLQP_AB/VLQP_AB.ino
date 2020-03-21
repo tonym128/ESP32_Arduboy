@@ -46,7 +46,7 @@ const FunctionPointer PROGMEM mainGameLoop[] =
 };
 
 void setup(){
-  WiFi.mode(WIFI_OFF);
+  //WiFi.mode(WIFI_OFF);
   EEPROM.begin(200);
   arduboy.boot();                                           // begin with the boot logo en setting up the device to work
   arduboy.audio.begin();

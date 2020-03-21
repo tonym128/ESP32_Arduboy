@@ -1,4 +1,6 @@
+#ifdef ESP8266
 #include <ESP8266WiFi.h>
+#endif
 #include <Arduboy2.h>
 //#include <EEPROM.h>
 #include "Draw.h"
@@ -107,7 +109,7 @@ uint8_t* GetPowerGrid()
 }
 
 void setup(){ 
-  WiFi.mode(WIFI_OFF);
+  //WiFi.mode(WIFI_OFF);
   EEPROM.begin(2000);
   arduboy.boot();
   arduboy.flashlight();

@@ -11,7 +11,14 @@
 #include "TFT_eSPI.h"
 
 #include <Arduino.h>
+
+#include <Arduino.h>
+#ifdef ESP8266
 #include <ESP_EEPROM.h>
+#else
+#include <EEPROM.h>
+#endif
+
 #include "Arduboy2Core.h"
 #include "Arduboy2Beep.h"
 #include "Sprites.h"
@@ -414,6 +421,10 @@ class Arduboy2Base : public Arduboy2Core
    * \see display(bool)
    */
   void display();
+
+#ifdef ESP32
+  void displayScreen();
+#endif
 
   /** \brief
    * Copy the contents of the display buffer to the display. The display buffer

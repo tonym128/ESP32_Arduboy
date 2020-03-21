@@ -135,7 +135,7 @@ void setup()
 
   arduboy.setFrameRate(25);
   arduboy.setTextSize(3);
-
+#ifdef ADAFRUIT
   // audio setup
   tunes.initChannel(PIN_SPEAKER_1);
 #ifndef AB_DEVKIT
@@ -145,6 +145,7 @@ void setup()
   // if it's a DevKit
   tunes.initChannel(PIN_SPEAKER_1); // use the same pin for both channels
   tunes.toneMutesScore(true);       // mute the score when a tone is sounding
+#endif
 #endif
 
   arduboy.invert(!arduboy.audio.enabled()); // invert display if sound muted
