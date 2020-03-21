@@ -1,3 +1,7 @@
+#ifndef ESP8266
+#define PROGMEM
+#endif
+
 #ifndef ITEMS_H
 #define ITEMS_H
 

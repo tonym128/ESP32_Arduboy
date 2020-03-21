@@ -1,3 +1,7 @@
+#ifndef ESP8266
+#define PROGMEM
+#endif
+
 #ifndef PLAYFIELD_H
 #define PLAYFIELD_H
 
@@ -170,25 +174,25 @@ void checkCollisions()
   if ((showitems & B00000001) && arduboy.collide(runnerRect, stoneOneRect))
   {
     lifePlayer -= 4;
-    sound.tone(175, 100);
+    //sound.tone(175, 100);
   }
 
   if ((showitems & B00000010) && arduboy.collide(runnerRect, stoneTwoRect))
   {
     lifePlayer -= 4;
-    sound.tone(175, 100);
+    //sound.tone(175, 100);
   }
 
   if ((showitems & B00000100) && arduboy.collide(runnerRect, birdOneRect))
   {
     lifePlayer -= 2;
-    sound.tone(523, 50);
+    //sound.tone(523, 50);
   }
 
   if ((showitems & B00001000) && arduboy.collide(runnerRect, birdTwoRect))
   {
     lifePlayer -= 2;
-    sound.tone(523, 50);
+    //sound.tone(523, 50);
   }
 
   if ((showitems & B00100000) && arduboy.collide(runnerRect, extraLifeRect))
@@ -197,7 +201,7 @@ void checkCollisions()
     itemX[ITEM_EXTRA_LIFE] = 128;
     lifePlayer = 128;
     scorePlayer += 500;
-    sound.tone(750, 200);
+    //sound.tone(750, 200);
   }
 }
 

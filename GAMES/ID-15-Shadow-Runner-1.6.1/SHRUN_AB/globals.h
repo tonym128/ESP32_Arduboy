@@ -1,9 +1,13 @@
+#ifndef ESP8266
+#define PROGMEM
+#endif
+
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
 #include <Arduino.h>
 #include <Arduboy2.h>
-#include <ArduboyTones.h>
+//#include <ArduboyTones.h>
 #include "bitmaps.h"
 
 //define menu states (on main menu)
@@ -24,7 +28,7 @@
 
 Arduboy2Base arduboy;
 Sprites sprites;
-ArduboyTones sound(arduboy.audio.enabled);
+//ArduboyTones sound(arduboy.audio.enabled);
 
 //determines the state of the game
 byte gameState = STATE_MENU_INTRO;   // start the game with the TEAM a.r.g. logo

@@ -1,3 +1,7 @@
+#ifndef ESP8266
+#define PROGMEM
+#endif
+
 /*
   SHADOW RUNNER: http://www.team-arg.org/shrun-manual.html
 

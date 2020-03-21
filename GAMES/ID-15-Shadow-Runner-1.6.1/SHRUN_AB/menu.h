@@ -1,3 +1,7 @@
+#ifndef ESP8266
+#define PROGMEM
+#endif
+
 #ifndef MENU_H
 #define MENU_H
 
