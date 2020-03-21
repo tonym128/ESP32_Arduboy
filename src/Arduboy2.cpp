@@ -872,28 +872,33 @@ void Arduboy2Base::clear(){
 }
 
 #ifndef ESP8266
-TFT_eSprite scalesprite = TFT_eSprite(&screen); // Sprite object stext1
+static const int maxPixel = 240*240;
 bool initSprite = false;
-static int lastDrawTime, currentDrawTime;
-static int lastDisplayTime, currentDisplayTime;
+bool sprite[maxPixel];
 
 void Arduboy2Base::displayScreen(){
-  // static uint16_t foregroundColor, backgroundColor;
-  // foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
-  // backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
+  int colour = -1;
+  int counter = 0;
 
-  // int xSrc = 0;
-  // int ySrc = 0;
-  // for (int x = 0; x < 240;x++) {
-  //   xSrc = (x*128)/240;
-  //   for (int y = 0; y < 240; y++) {
-  //     ySrc = ((y*64)/240)*128;
-  //     scalesprite.drawPixel(x,y,mysprite[xSrc+ySrc] ? foregroundColor : backgroundColor);
-  //   }
-  // }
-  //lastDrawTime = currentDrawTime;
-  scalesprite.pushSprite(0, 0);
-  //currentDrawTime = millis();
+  screen.startWrite();
+  screen.setAddrWindow(0, 0, 240, 240);
+
+  int i = 0;
+  while (i < maxPixel)
+  {
+      counter = 1;
+
+      colour = sprite[i];
+      while (colour == sprite[i + counter])
+      {
+        counter++;
+      }
+
+      screen.writeColor(colour ? TFT_YELLOW : TFT_BLACK, counter);
+      i += counter;
+  }
+
+  screen.endWrite();
 }
 #endif
 
@@ -901,15 +906,7 @@ void Arduboy2Base::display(){
 #ifdef ESP8266
   static uint16_t oBuffer[WIDTH*16];
 #else
-  lastDisplayTime = currentDisplayTime;
   static int screenWidth = 240;
-  if (!initSprite) {
-    scalesprite.setColorDepth(1);
-    scalesprite.setBitmapColor(TFT_YELLOW,TFT_BLACK);
-    scalesprite.createSprite(240, 240);
-    scalesprite.fillSprite(TFT_BLACK); // Fill sprite with blue
-    initSprite = true;
-  }
 #endif
 
   static uint16_t foregroundColor, backgroundColor;
@@ -917,6 +914,7 @@ void Arduboy2Base::display(){
   backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
   static uint8_t currentDataByte;
   static uint16_t xPos, yPos, kPos, kkPos, addr;
+  static int loc;
   int xDst, yDst;
   for(kPos = 0; kPos<4; kPos++){  //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
     kkPos = kPos<<1;
@@ -928,35 +926,34 @@ void Arduboy2Base::display(){
         #else
           xDst = (xPos*240)/128;
           yDst = ((yPos+kPos*16)*240)/64;
+          loc = xDst + yDst * 240;
         #endif
         if (currentDataByte & 0x01) {
             #ifdef ESP8266
             oBuffer[addr] = foregroundColor;
             #else
-            // scalesprite.drawRect(xDst,yDst,2,4,foregroundColor);
-            scalesprite.drawPixel(xDst,yDst,foregroundColor);
-            scalesprite.drawPixel(xDst,yDst+1,foregroundColor);
-            scalesprite.drawPixel(xDst,yDst+2,foregroundColor);
-            scalesprite.drawPixel(xDst,yDst+3,foregroundColor);
-            scalesprite.drawPixel(xDst+1,yDst,foregroundColor);
-            scalesprite.drawPixel(xDst+1,yDst+1,foregroundColor);
-            scalesprite.drawPixel(xDst+1,yDst+2,foregroundColor);
-            scalesprite.drawPixel(xDst+1,yDst+3,foregroundColor);
+            sprite[loc] = 1;
+            sprite[loc+240] = 1;
+            sprite[loc+480] = 1;
+            sprite[loc+720] = 1;
+            sprite[loc+1] = 1;
+            sprite[loc+241] = 1;
+            sprite[loc+481] = 1;
+            sprite[loc+721] = 1;
             #endif
           }
           else {
             #ifdef ESP8266
             oBuffer[addr] = backgroundColor;
             #else
-            // scalesprite.drawRect(xDst,yDst,2,4,backgroundColor);
-            scalesprite.drawPixel(xDst,yDst,backgroundColor);
-            scalesprite.drawPixel(xDst,yDst+1,backgroundColor);
-            scalesprite.drawPixel(xDst,yDst+2,backgroundColor);
-            scalesprite.drawPixel(xDst,yDst+3,backgroundColor);
-            scalesprite.drawPixel(xDst+1,yDst,backgroundColor);
-            scalesprite.drawPixel(xDst+1,yDst+1,backgroundColor);
-            scalesprite.drawPixel(xDst+1,yDst+2,backgroundColor);
-            scalesprite.drawPixel(xDst+1,yDst+3,backgroundColor);
+            sprite[loc] = 0;
+            sprite[loc+240] = 0;
+            sprite[loc+480] = 0;
+            sprite[loc+720] = 0;
+            sprite[loc+1] = 0;
+            sprite[loc+241] = 0;
+            sprite[loc+481] = 0;
+            sprite[loc+721] = 0;
             #endif
           }
   			currentDataByte = currentDataByte >> 1;
