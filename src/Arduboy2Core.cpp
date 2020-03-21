@@ -305,10 +305,10 @@ buttons = 0;
       if (keystate & BIT_P1_Right) buttons |= RIGHT_BUTTON;//Right
       if (keystate & BIT_P1_Top) buttons |= UP_BUTTON;//Up
       if (keystate & BIT_P1_Bottom) buttons |= DOWN_BUTTON;;//Down
-      if (keystate & BIT_P2_Left) buttons |= A_BUTTON;//A
-      if (keystate & BIT_P2_Top) buttons |= A_BUTTON;//A
-      if (keystate & BIT_P2_Right) buttons |= B_BUTTON;;//B
-      if (keystate & BIT_P2_Bottom) buttons |= B_BUTTON;//B
+      if (keystate & BIT_P2_Right) buttons |= A_BUTTON;;//A
+      if (keystate & BIT_P2_Bottom) buttons |= A_BUTTON;//A
+      if (keystate & BIT_P2_Left) buttons |= B_BUTTON;//B
+      if (keystate & BIT_P2_Top) buttons |= B_BUTTON;//B
     } else {
       getRawInput();
       for (int i = 0; i < 8; i++)
