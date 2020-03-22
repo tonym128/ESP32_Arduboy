@@ -62,16 +62,16 @@ void Arduboy2Core::boot(){
 #endif
 
   screen.begin();
-  delay(200);
+  // delay(200);
   screen.setRotation(0);
   screen.fillScreen(TFT_BLACK);
 
 //draw ESPboylogo
-  screen.drawXBitmap(30, 20, ESPboyLogo, 68, 64, TFT_YELLOW);
-  screen.setTextSize(1);
-  screen.setTextColor(TFT_YELLOW);
-  screen.setCursor(13, 95);
-  screen.print(F("Arduboy2 lib port"));
+  //screen.drawXBitmap(30, 20, ESPboyLogo, 68, 64, TFT_YELLOW);
+  //screen.setTextSize(1);
+  //screen.setTextColor(TFT_YELLOW);
+  //screen.setCursor(13, 95);
+  //screen.print(F("Arduboy2 lib port"));
 
 #ifdef ADAFRUIT
 //LCD backlit on

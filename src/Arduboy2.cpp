@@ -15,6 +15,9 @@ extern Adafruit_MCP23017 mcp;
 extern Adafruit_MCP4725 dac;
 #endif
 
+#ifndef ESP8266
+#include "mapscaler.h"
+#endif
 //========================================
 //========== class Arduboy2Base ==========
 //========================================
@@ -872,34 +875,60 @@ void Arduboy2Base::clear(){
 }
 
 #ifndef ESP8266
-static const int maxPixel = 240*240;
-bool initSprite = false;
-bool sprite[maxPixel];
+const static int maxPixel = 240*240;
+const static uint8_t mask[]  = { 0b00000001 , 0b00000010 , 0b00000100 , 0b00001000, 0b00010000 , 0b00100000 , 0b01000000 , 0b10000000 };
+//const static uint8_t mask[]  = { 0b10000000 , 0b01000000 , 0b00100000 , 0b00001000, 0b00001000 , 0b00000100 , 0b00000010 , 0b00000001 };
 
 void Arduboy2Base::displayScreen(){
+
   int colour = -1;
   int counter = 0;
+  
+  // Initial Setup
+  int i = 0;
+  int refPixel = mapScaler[i];
+  int byte = refPixel / 8;
+  int bit = refPixel % 8;
+  colour = sBuffer[byte] & mask[bit];
+
+  int refNextPixel = 0;
+  int nextbyte = 0;
+  int nextbit = 0;
+  int nextcolour = -1;
 
   screen.startWrite();
   screen.setAddrWindow(0, 0, 240, 240);
 
-  int i = 0;
-  while (i < maxPixel)
+  while (i < maxPixel-1)
   {
-      counter = 1;
+      refNextPixel = mapScaler[i+1];
 
-      colour = sprite[i];
-      while (colour == sprite[i + counter])
-      {
+      // Is the next pixel the same ?
+      if (refNextPixel == refPixel) {
         counter++;
+      } else {
+        nextbyte = refNextPixel / 8;
+        nextbit = refNextPixel % 8;
+        nextcolour = sBuffer[nextbyte] & mask[nextbit];
+
+        if (nextcolour == colour) {
+          counter++;
+        } else {
+          screen.writeColor(colour ? TFT_YELLOW : TFT_BLACK, counter);
+          colour = nextcolour;
+          counter = 1;
+        }
+
+        refPixel = refNextPixel;
       }
 
-      screen.writeColor(colour ? TFT_YELLOW : TFT_BLACK, counter);
-      i += counter;
+      i++;
   }
 
+  screen.writeColor(colour ? TFT_YELLOW : TFT_BLACK, counter);
   screen.endWrite();
 }
+
 #endif
 
 void Arduboy2Base::display(){ 
@@ -909,63 +938,62 @@ void Arduboy2Base::display(){
   static int screenWidth = 240;
 #endif
 
-  static uint16_t foregroundColor, backgroundColor;
-  foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
-  backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
-  static uint8_t currentDataByte;
-  static uint16_t xPos, yPos, kPos, kkPos, addr;
-  static int loc;
-  int xDst, yDst;
-  for(kPos = 0; kPos<4; kPos++){  //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
-    kkPos = kPos<<1;
-    for (xPos = 0; xPos < WIDTH; xPos++) {
-      for (yPos = 0; yPos < 16; yPos++) {		
-		    if (!(yPos % 8)) currentDataByte = sBuffer[xPos + ((yPos>>3)+kkPos) * WIDTH];
-        #ifdef ESP8266
-          addr = 	yPos*WIDTH+xPos;
-        #else
-          xDst = (xPos*240)/128;
-          yDst = ((yPos+kPos*16)*240)/64;
-          loc = xDst + yDst * 240;
-        #endif
-        if (currentDataByte & 0x01) {
-            #ifdef ESP8266
-            oBuffer[addr] = foregroundColor;
-            #else
-            sprite[loc] = 1;
-            sprite[loc+240] = 1;
-            sprite[loc+480] = 1;
-            sprite[loc+720] = 1;
-            sprite[loc+1] = 1;
-            sprite[loc+241] = 1;
-            sprite[loc+481] = 1;
-            sprite[loc+721] = 1;
-            #endif
-          }
-          else {
-            #ifdef ESP8266
-            oBuffer[addr] = backgroundColor;
-            #else
-            sprite[loc] = 0;
-            sprite[loc+240] = 0;
-            sprite[loc+480] = 0;
-            sprite[loc+720] = 0;
-            sprite[loc+1] = 0;
-            sprite[loc+241] = 0;
-            sprite[loc+481] = 0;
-            sprite[loc+721] = 0;
-            #endif
-          }
-  			currentDataByte = currentDataByte >> 1;
-      }
-    }
-
+  // static uint16_t foregroundColor, backgroundColor;
+  // foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
+  // backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
+  // static uint8_t currentDataByte;
+  // static uint16_t xPos, yPos, kPos, kkPos, addr;
+  // static int loc;
+  // int xDst, yDst;
+  // for(kPos = 0; kPos<4; kPos++){  //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
+  //   kkPos = kPos<<1;
+  //   for (xPos = 0; xPos < WIDTH; xPos++) {
+  //     for (yPos = 0; yPos < 16; yPos++) {		
+	// 	    if (!(yPos % 8)) currentDataByte = sBuffer[xPos + ((yPos>>3)+kkPos) * WIDTH];
+  //       #ifdef ESP8266
+  //         addr = 	yPos*WIDTH+xPos;
+  //       #else
+  //         xDst = (xPos*240)/128;
+  //         yDst = ((yPos+kPos*16)*240)/64;
+  //         loc = xDst + yDst * 240;
+  //       #endif
+  //       if (currentDataByte & 0x01) {
+  //           #ifdef ESP8266
+  //           oBuffer[addr] = foregroundColor;
+  //           #else
+  //           sprite[loc] = 1;
+  //           sprite[loc+240] = 1;
+  //           sprite[loc+480] = 1;
+  //           sprite[loc+720] = 1;
+  //           sprite[loc+1] = 1;
+  //           sprite[loc+241] = 1;
+  //           sprite[loc+481] = 1;
+  //           sprite[loc+721] = 1;
+  //           #endif
+  //         }
+  //         else {
+  //           #ifdef ESP8266
+  //           oBuffer[addr] = backgroundColor;
+  //           #else
+  //           sprite[loc] = 0;
+  //           sprite[loc+240] = 0;
+  //           sprite[loc+480] = 0;
+  //           sprite[loc+720] = 0;
+  //           sprite[loc+1] = 0;
+  //           sprite[loc+241] = 0;
+  //           sprite[loc+481] = 0;
+  //           sprite[loc+721] = 0;
+  //           #endif
+  //         }
+  // 			currentDataByte = currentDataByte >> 1;
+  //     }
+  //   }
     
 #ifdef ESP8266
   // This is doing the quarter image write
   screen.pushImage(0, 20+kPos*16, WIDTH, 16, oBuffer);
 #endif
-  }
+//  }
 
 #ifndef ESP8266
    this->displayScreen();
