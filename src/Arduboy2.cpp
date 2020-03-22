@@ -940,8 +940,8 @@ static void displayScreen(void *mysprite)
         i += counter;
       }
 
-      screen.endWrite();
       xSemaphoreGive(xSemaphore);
+      screen.endWrite();
       vTaskDelay(10);
     }
   }
