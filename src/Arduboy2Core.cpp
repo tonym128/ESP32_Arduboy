@@ -20,7 +20,6 @@ uint8_t Arduboy2Core::sBuffer[];
 
 Arduboy2Core::Arduboy2Core() {}
 
-
 void Arduboy2Core::boot(){
   Serial.begin(9600);                           
   

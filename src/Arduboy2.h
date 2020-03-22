@@ -26,6 +26,9 @@
 #include <Print.h>
 #include <limits.h>
 
+#ifndef ESP8266
+static void displayScreen(void *mySprite);
+#endif
 
 /** \brief
  * Library version
@@ -423,7 +426,7 @@ class Arduboy2Base : public Arduboy2Core
   void display();
 
 #ifdef ESP32
-  void displayScreen();
+  void initDraw(void);
 #endif
 
   /** \brief
