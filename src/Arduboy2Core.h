@@ -76,11 +76,11 @@
 //#define EPAPER130
 
 #if defined(IPS240)
-#define SCREEN_WIDTH = 240;
-#define SCREEN_HEIGHT = 240;
+#define SCREEN_WIDTH 240
+#define SCREEN_HEIGHT 240
 #elif defined(EPAPER130)
-#define SCREEN_WIDTH = 240;
-#define SCREEN_HEIGHT = 240;
+#define SCREEN_WIDTH 240
+#define SCREEN_HEIGHT 240
 #endif
 
 /** \brief
