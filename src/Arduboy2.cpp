@@ -908,7 +908,7 @@ void Arduboy2Base::clear()
 }
 
 #ifndef ESP8266
-static const int maxPixel = 240 * 240;
+static const int maxPixel = SCREEN_WIDTH * SCREEN_HEIGHT;
 static bool initSprite = false;
 static bool sprite[maxPixel];
 static SemaphoreHandle_t xSemaphore;
@@ -923,7 +923,7 @@ static void displayScreen(void *mysprite)
       int counter = 0;
       bool *theBuffer = (bool *)mysprite;
       screen.startWrite();
-      screen.setAddrWindow(0, 0, 240, 240);
+      screen.setAddrWindow(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
       int i = 0;
       while (i < maxPixel)
@@ -998,9 +998,9 @@ void Arduboy2Base::display()
 #ifdef ESP8266
           addr = yPos * WIDTH + xPos;
 #else
-          xDst = (xPos * 240) / 128;
-          yDst = ((yPos + kPos * 16) * 240) / 64;
-          loc = xDst + yDst * 240;
+          xDst = (xPos * SCREEN_WIDTH) / WIDTH;
+          yDst = ((yPos + kPos * 16) * SCREEN_HEIGHT) / HEIGHT;
+          loc = xDst + yDst * SCREEN_WIDTH;
 #endif
           if (currentDataByte & 0x01)
           {
@@ -1008,13 +1008,13 @@ void Arduboy2Base::display()
             oBuffer[addr] = foregroundColor;
 #else
             sprite[loc] = 1;
-            sprite[loc + 240] = 1;
-            sprite[loc + 480] = 1;
-            sprite[loc + 720] = 1;
+            sprite[loc + SCREEN_WIDTH] = 1;
+            sprite[loc + SCREEN_WIDTH*2] = 1;
+            sprite[loc + SCREEN_WIDTH*3] = 1;
             sprite[loc + 1] = 1;
-            sprite[loc + 241] = 1;
-            sprite[loc + 481] = 1;
-            sprite[loc + 721] = 1;
+            sprite[loc + 1 + SCREEN_WIDTH] = 1;
+            sprite[loc + 1 + SCREEN_WIDTH*2] = 1;
+            sprite[loc + 1 + SCREEN_WIDTH*3] = 1;
 #endif
           }
           else
@@ -1023,13 +1023,13 @@ void Arduboy2Base::display()
             oBuffer[addr] = backgroundColor;
 #else
             sprite[loc] = 0;
-            sprite[loc + 240] = 0;
-            sprite[loc + 480] = 0;
-            sprite[loc + 720] = 0;
+            sprite[loc + SCREEN_WIDTH] = 0;
+            sprite[loc + SCREEN_WIDTH*2] = 0;
+            sprite[loc + SCREEN_WIDTH*3] = 0;
             sprite[loc + 1] = 0;
-            sprite[loc + 241] = 0;
-            sprite[loc + 481] = 0;
-            sprite[loc + 721] = 0;
+            sprite[loc + 1 + SCREEN_WIDTH] = 0;
+            sprite[loc + 1 + SCREEN_WIDTH*2] = 0;
+            sprite[loc + 1 + SCREEN_WIDTH*3] = 0;
 #endif
           }
           currentDataByte = currentDataByte >> 1;

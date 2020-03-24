@@ -72,6 +72,16 @@
 #define WIDTH 128 /**< The width of the display in pixels */
 #define HEIGHT 64 /**< The height of the display in pixels */
 
+#define IPS240
+//#define EPAPER130
+
+#if defined(IPS240)
+#define SCREEN_WIDTH = 240;
+#define SCREEN_HEIGHT = 240;
+#elif defined(EPAPER130)
+#define SCREEN_WIDTH = 240;
+#define SCREEN_HEIGHT = 240;
+#endif
 
 /** \brief
  * Lower level functions generally dealing directly with the hardware.
