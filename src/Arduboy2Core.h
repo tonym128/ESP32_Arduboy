@@ -48,7 +48,6 @@
 #define GREEN_LED  1
 #define BLUE_LED  2
 
-
 // bit values for button states
 // these are determined by the buttonsState() function
 #define LEFT_BUTTON  32  /**< The Left button value for functions requiring a bitmask */
@@ -68,7 +67,6 @@
 #define PAD_RGT         0x80
 #define PAD_ANY         0xff
 
-
 #define WIDTH 128 /**< The width of the display in pixels */
 #define HEIGHT 64 /**< The height of the display in pixels */
 
@@ -78,9 +76,11 @@
 #if defined(IPS240)
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 240
+#define SCALE
 #elif defined(EPAPER130)
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 240
+#define SCALE
 #endif
 
 /** \brief

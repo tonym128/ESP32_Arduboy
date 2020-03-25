@@ -998,9 +998,15 @@ void Arduboy2Base::display()
 #ifdef ESP8266
           addr = yPos * WIDTH + xPos;
 #else
+    #ifdef SCALE
           xDst = (xPos * SCREEN_WIDTH) / WIDTH;
           yDst = ((yPos + kPos * 16) * SCREEN_HEIGHT) / HEIGHT;
           loc = xDst + yDst * SCREEN_WIDTH;
+    #else
+          xDst = xPos;
+          yDst = (yPos + kPos * 16);
+          loc = xDst + yDst * SCREEN_WIDTH;
+    #endif
 #endif
           if (currentDataByte & 0x01)
           {
@@ -1008,6 +1014,7 @@ void Arduboy2Base::display()
             oBuffer[addr] = foregroundColor;
 #else
             sprite[loc] = 1;
+  #ifdef SCALE // Optimisation for 128x64 to 240x240
             sprite[loc + SCREEN_WIDTH] = 1;
             sprite[loc + SCREEN_WIDTH*2] = 1;
             sprite[loc + SCREEN_WIDTH*3] = 1;
@@ -1015,6 +1022,7 @@ void Arduboy2Base::display()
             sprite[loc + 1 + SCREEN_WIDTH] = 1;
             sprite[loc + 1 + SCREEN_WIDTH*2] = 1;
             sprite[loc + 1 + SCREEN_WIDTH*3] = 1;
+  #endif
 #endif
           }
           else
@@ -1023,6 +1031,7 @@ void Arduboy2Base::display()
             oBuffer[addr] = backgroundColor;
 #else
             sprite[loc] = 0;
+  #ifdef SCALE // Optimisation for 128x64 to 240x240
             sprite[loc + SCREEN_WIDTH] = 0;
             sprite[loc + SCREEN_WIDTH*2] = 0;
             sprite[loc + SCREEN_WIDTH*3] = 0;
@@ -1030,6 +1039,7 @@ void Arduboy2Base::display()
             sprite[loc + 1 + SCREEN_WIDTH] = 0;
             sprite[loc + 1 + SCREEN_WIDTH*2] = 0;
             sprite[loc + 1 + SCREEN_WIDTH*3] = 0;
+  #endif
 #endif
           }
           currentDataByte = currentDataByte >> 1;
