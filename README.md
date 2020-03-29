@@ -82,6 +82,8 @@ If authors against posting the code in this repository for the purpose of learni
 - **Squario** (Proprietary) Squario by arduboychris 
 - **Circuit Dude** (Proprietary) [by Jonathan Holmes](http://www.crait.net)
 - **Omega Horizon** (Proprietary) [by shdwwzrd](http://neoretro.games)
+- **Ard-Drivin** (MIT) by [Rem and LP](https://community.arduboy.com/t/ard-drivin-fast-paced-racing-sim/3178)
+- **Tamaguino** (GNU GPL v3.0) by [Alojz Jakob](https://alojzjakob.github.io/Tamaguino/), ported to Arduboy by [Scott R](https://community.arduboy.com/t/tamaguino-ab-tamagotchi-for-arduino/4806)
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
 - **ESP8266_picovaders** - UNKNOWN
