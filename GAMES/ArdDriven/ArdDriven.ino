@@ -1017,6 +1017,9 @@ void drawOutrunTrack() {
 // our main game loop, this runs once every cycle/frame.
 // this is where our game logic goes.
 void loop() {
+ static uint32_t lastMillis;
+ static uint32_t startTime;
+	
 	arduboy.nextFrame();
   flicker++;
 
@@ -1024,19 +1027,12 @@ void loop() {
   paintScreen();
 	arduboy.pollButtons();
 
-  static uint32_t startTime;
   while (((ESP.getCycleCount()) - startTime) < TTOT /*it's global, sets in setup()*/);
   startTime = ESP.getCycleCount();
 
-	fpscount++;
-	uint16_t currentMilli = millis();
-	if (currentMilli - lastMilli >= 1000) {
-		lastMilli += 1000;
-		fps = fpscount;
-		fpscount = 0;
-		if (gameTimer > 0) {
-			gameTimer--;
-		}
+	if (millis() - lastMillis > 1000) {
+		lastMillis = millis();
+		if (gameTimer > 0) gameTimer--;
 	}
 	stateFrame++;
 
