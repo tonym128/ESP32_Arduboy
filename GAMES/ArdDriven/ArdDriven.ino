@@ -265,13 +265,16 @@ void drawChar(uint8_t x, uint8_t y, unsigned char c)
     return;
   y >>= 3;
   for (uint8_t i = 0; i < 6; i++)
-  {
-    // use '~' to draw black on white text if font was created white on black
-    // Note: Font has been changed to 6x8, at starts at character 32 instead of 0, and ends a char 127 (instead of 255)
-    // so it occupies 6 bytes x 96 chars = 576 bytes (instead of the original arduboy font of 5 bytes x 256 chars = 1280 bytes)
     drawByte(x + i, y, pgm_read_byte(font_drv + ((c - 32) * 6) + i));
-  }
 }
+
+
+
+void prnt(String str){
+  for (uint8_t i = 0; i < str.length(); i++)
+    drawChar(arduboy.getCursorX() + i*6, arduboy.getCursorY(), str[i]);
+}
+
 
 
 // This function runs once in your game.
@@ -495,14 +498,16 @@ void TitleState()
   drawMaskBitmap(0, 0, title, 0);
 	if (stateFrame > 120) {
 		arduboy.setCursor(104, 0);
-		arduboy.print("Sfx");
+		//arduboy.print("Sfx");
+    prnt("Sfx");
 		drawChar(122, 0, arduboy.audio.enabled() ? '@' : ' ');
 	}
 
 	if (stateFrame > 300) {
 		if (stateFrame < 500 || (stateFrame & 64) == 0) {
 			arduboy.setCursor(4, 56);
-			arduboy.print(" > Push A to start < ");
+			//arduboy.print(" > Push A to start < ");
+      prnt(" > Push A to start < ");
 		}
 
 		// Auto-switch to game after a delay, but instantly gameover by setting timer to 0
@@ -618,7 +623,8 @@ void DrawHud() {
 
 	if (gameTimer == 0) {
 		arduboy.setCursor(31, 32);
-		arduboy.print(" Game over ");
+		//arduboy.print(" Game over ");
+    prnt(" Game over ");
 
 		// If going into the 'game over' part of this game state:
 		if (currentState == EState::Game) {
