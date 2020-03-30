@@ -10,7 +10,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 1. replace the **"Arduboy2" library** and **"Arduboy tones" library** in your Arduino Studio libraries folder with these versions.
 2. do ingame modifications according to the following notes:
 - change **"#include arduboy.h"** to **"#include arduboy2.h"**
-- some games use a function pointer array to pass control to a different parts of the code as the game state changes. In ATMEGA32U4 the memory address is 2 bytes (single word) long, in ESP8266, the memory addresses is 4 bytes (double word) long, So you need to change all "pgm_read_word" to "pgm_read_dword"
+- some games use a function pointer array to pass control to a different parts of the code as the game state changes. In ATMEGA32U4 the memory address is 2 bytes (single word) long, in ESP8266, the memory addresses is 4 bytes (double word) long, So you need to change all "pgm_read_word" to "pgm_read_dword" at the pointers
 - if EEPROM is used by the game to keep configs/high scores,
 -- add EEPROM.begin(100) at setup() // 100 is just a rough max no. need to check the size
 -- add EEPROM.commit() after the last EEPROM.put(), EEPORM.write() and EEPROM.update() of each blocks of code.
