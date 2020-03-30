@@ -22,7 +22,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 # Advantages of ESPboy (ESP8266)
 - 8 keys
-- TFT color LCD 128õ128
+- TFT color LCD 128x128
 - Faster MCU 80Mh/160Mhz
 - RGB neopixel LED
 - More memory for program and data.  http://0x04.net/~mwk/doc/xtensa.pdf
@@ -84,6 +84,7 @@ If authors against posting the code in this repository for the purpose of learni
 - **Omega Horizon** (Proprietary) [by shdwwzrd](http://neoretro.games)
 - **Ard-Drivin** (MIT) by [Rem and LP](https://community.arduboy.com/t/ard-drivin-fast-paced-racing-sim/3178)
 - **Tamaguino** (GNU GPL v3.0) by [Alojz Jakob](https://alojzjakob.github.io/Tamaguino/), ported to Arduboy by [Scott R](https://community.arduboy.com/t/tamaguino-ab-tamagotchi-for-arduino/4806)
+- **Glove** (MIT) by [fuopy](https://github.com/ArduboyCollection/glove)
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
 - **ESP8266_picovaders** - UNKNOWN
@@ -94,9 +95,9 @@ Contributions to the documentation, code or electronics are welcome.
 Use this library at your own risk.
 
 # ESPboy project links
-- ##[Youtube videos](https://www.youtube.com/channel/UCsMjlCb8CK-Cw54lRrkpbQw "Youtube videos")
-- ##[Community](https://www.espboy.com "Community")
-- ##[Hackaday page](https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun "Hackaday page")
-- ##[Software](https://github.com/ESPboy-edu "Software")
-- ##[Schematic, PCB, Gerber](https://easyeda.com/roman.sokolov/espboy-rev3-5 "Schematic, PCB, Gerber")
-- ##E-mail: espboy.edu@gmail.com
+- #[Youtube videos](https://www.youtube.com/channel/UCsMjlCb8CK-Cw54lRrkpbQw "Youtube videos")
+- #[Community](https://www.espboy.com "Community")
+- #[Hackaday page](https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun "Hackaday page")
+- #[Software](https://github.com/ESPboy-edu "Software")
+- #[Schematic, PCB, Gerber](https://easyeda.com/roman.sokolov/espboy-rev3-5 "Schematic, PCB, Gerber")
+- #E-mail: espboy.edu@gmail.com
