@@ -18,6 +18,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - games that directly control the SPI or I2C bus to write to OLED display need much more work to port instead of the simple steps above.
 - font() array is used in TFT_eSPI display library so you have to chage all "font" to "font_"
 - min() and max() macros are used in TFT_eSPI display library so you have to chage all min() and max() to minVal() and maxVal() correspondenly
+- there is a problem with a "char" data (this is the signed/unsigned problem). The game variables which are not really char or char* should be changed correspondely "unsigned char" to "uint8_t" and "char" or "signed char" to "int8t". Don't forget to set #include "Arduino.h" at the beginig.
+- it's better to change all "short" to "int16_t", "unsigned shot" to "uint16_t", "byte" to "uint8_t", "int" to "int16_t", "unsigned int" to "uint16_t", "long" to "int32_t", "unsigned long" to "uint32_t" 
 
 
 # Advantages of ESPboy (ESP8266)
