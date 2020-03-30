@@ -79,7 +79,7 @@ void displayTitle()
 		
 		// Draw black pixels
 		arduboy.drawPixel(random(0,128), random(0,64), 0);
-		
+		arduboy.drawPixel(random(0,128), random(0,64), 0);
 		// Draw white pixels
 		if(whitePixelDelay <= 0) {
 			arduboy.drawPixel(random(0,128), random(0,64), 1);

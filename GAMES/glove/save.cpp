@@ -66,6 +66,7 @@ void breakSave(uint8_t file)
 	EEPROM.write(address+FILE_VALID+2, 'M');
 	EEPROM.write(address+FILE_VALID+3, 'e');
 	EEPROM.write(address+FILE_VALID+4, 'q');
+  EEPROM.commit();
 }
 
 void initializeSave(uint8_t file)
@@ -89,6 +90,7 @@ void initializeSave(uint8_t file)
 	for(int8_t player = 0; player < 30; player += 1) {
 		EEPROM.write(20+address+player, 0);
 	}
+ EEPROM.commit();
 }
 
 
@@ -189,9 +191,10 @@ bool saveHighScore()
 		EEPROM.write(myScoreAddress+FILE_NAME+3, inputName[3]);
 		
 		displayRecords();
-		
+		EEPROM.commit();
 		return true;
 	}
+  EEPROM.commit();
 	return false;
 }
 
@@ -204,6 +207,7 @@ void markRoomAsCleared(uint8_t room)
 	int8_t data = EEPROM.read(pos);
 	data |= 1 << (room%8);
 	EEPROM.write(pos, data);
+  EEPROM.commit();
 }
 
 int16_t getCurrentLevelProgress()
@@ -259,11 +263,13 @@ void saveGame(uint8_t file)
 	EEPROM.write(address+FILE_LEVEL, levelsCompleted);
 	EEPROM.write(address+FILE_CURRENT_LEVEL, currentLevel);
 	EEPROM.write(address+FILE_CONTINUE, 1);
+ EEPROM.commit();
 }
 
 void deleteContinueSave()
 {
 	EEPROM.write(GameSaveOffset + 10 + FILE_CONTINUE, 0);
+  EEPROM.commit();
 }
 
 void clearAllRooms()

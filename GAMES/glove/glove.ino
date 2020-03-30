@@ -9,6 +9,8 @@
 void setup() {
 	// Start arduboy
     arduboy.begin();
+
+    EEPROM.begin(1000);
 	
 	// Set audio state
 	if(!arduboy.audio.enabled())
