@@ -61,25 +61,25 @@ If authors against posting the code in this repository for the purpose of learni
 - **Mystic Balloon** (MIT) [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
 - **Sirene** (MIT) [ by TEAM ARG](http://www.team-arg.org/ " by TEAM ARG")
 - **Arduventure** (MIT) [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
-- **CastleBoy** (MIT) by jlauener
-- **Dark And Under** (BSD-3-Clause) by Garage Collective (Cyril Guichard (Luxregina), Simon Holmes (Filmote), Pharap)
-- **HelloCommander** (MIT) by Felipe Manga (FManga)
+- **CastleBoy** (MIT) by [jlauener](https://github.com/ArduboyCollection/CastleBoy)
+- **Dark And Under** (BSD-3-Clause) by [Garage Collective (Cyril Guichard (Luxregina), Simon Holmes (Filmote), Pharap)](https://github.com/ArduboyCollection/Dark-And-Under)
+- **HelloCommander** (MIT) by [Felipe Manga (FManga)](https://github.com/ArduboyCollection/HelloCommander)
 - **Blob Attack** (MIT) [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
 - **Virus-LQP-79** (MIT) [by TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
-- **Kong-II** (MIT) by Vampirics and Filmote
-- **LodeRunner (all 154 levels in a single game!)** (BSD-3) by Simon Holmes (filmote)
-- **MicroCity** (GPL-3.0) by James Howard
-- **SpaceCab** (GPL-3.0) by by Stephane C (vampirics) and Simon Holmes (filmote)
-- **The Curse Of Astarok** (MIT) by Simon Holmes (filmote)
+- **Kong-II** (MIT) by [Vampirics and Filmote](https://github.com/Press-Play-On-Tape/Kong-II)
+- **LodeRunner (all 154 levels in a single game!)** (BSD-3) by [Simon Holmes (filmote)](https://community.arduboy.com/t/lode-runner-a-trilogy-in-four-parts/5385)
+- **MicroCity** (GPL-3.0) by [James Howard](https://community.arduboy.com/t/microcity-city-simulation-in-your-pocket/4808)
+- **SpaceCab** (GPL-3.0) by [Stephane C (vampirics) and Simon Holmes (filmote)](https://community.arduboy.com/t/space-cab-v1-0-1/6055)
+- **The Curse Of Astarok** (MIT) by [Simon Holmes (filmote)](https://community.arduboy.com/t/the-curse-of-astarok-v1-0-with-sound/8203)
 - **Rayne the rogue** (MIT) [by shdwwzrd](http://neoretro.games)
-- **Space Battle - Trench Run** (MIT) by Lucas Cardinali (lscardinali)
-- **MicroTD** (CC0-1.0) by drummyfish
+- **Space Battle - Trench Run** (MIT) by [Lucas Cardinali (lscardinali)](https://community.arduboy.com/t/space-battle-trench-run/8075)
+- **MicroTD** (CC0-1.0) by [drummyfish](https://community.arduboy.com/t/microtd-tower-defense-for-arduboy/6223)
 - **Shadow-Runner-1.6.1** (MIT) [by TEAM ARG](http://www.team-arg.org/)
-- **Evade** (MIT) by Modus Create
-- **Rooftop Rescue** (MIT) by Bert van't Veer
-- **Crates 3D** (MIT) by Badja (original) & Brian (port)
-- **JetPac** (Proprietary) by Mike McRoberts
-- **Squario** (Proprietary) Squario by arduboychris 
+- **Evade** (MIT) by [Modus Create](https://community.arduboy.com/t/evade-side-scrolling-space-shooter/2712)
+- **Rooftop Rescue** (MIT) by [Bert van't Veer](https://community.arduboy.com/t/rooftop-rescue/7269)
+- **Crates 3D** (MIT) by [Badja (original) & Brian (port)](https://community.arduboy.com/t/crates-3d-a-port-of-the-ti-83-puzzle-game/1540)
+- **JetPac** (Proprietary) by [Mike McRoberts](https://community.arduboy.com/t/arduboy-jet-pac/2888)
+- **Squario** (Proprietary) Squario by [arduboychris](https://community.arduboy.com/t/squario-the-ultimate-adventure/1257)
 - **Circuit Dude** (Proprietary) [by Jonathan Holmes](http://www.crait.net)
 - **Omega Horizon** (Proprietary) [by shdwwzrd](http://neoretro.games)
 - **Ard-Drivin** (MIT) by [Rem and LP](https://community.arduboy.com/t/ard-drivin-fast-paced-racing-sim/3178)
@@ -95,9 +95,9 @@ Contributions to the documentation, code or electronics are welcome.
 Use this library at your own risk.
 
 # ESPboy project links
-- #[Youtube videos](https://www.youtube.com/channel/UCsMjlCb8CK-Cw54lRrkpbQw "Youtube videos")
-- #[Community](https://www.espboy.com "Community")
-- #[Hackaday page](https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun "Hackaday page")
-- #[Software](https://github.com/ESPboy-edu "Software")
-- #[Schematic, PCB, Gerber](https://easyeda.com/roman.sokolov/espboy-rev3-5 "Schematic, PCB, Gerber")
-- #E-mail: espboy.edu@gmail.com
+- [Youtube videos](https://www.youtube.com/channel/UCsMjlCb8CK-Cw54lRrkpbQw "Youtube videos")
+- [Community](https://www.espboy.com "Community")
+- [Hackaday page](https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun "Hackaday page")
+- [Software](https://github.com/ESPboy-edu "Software")
+- [Schematic, PCB, Gerber](https://easyeda.com/roman.sokolov/espboy-rev3-5 "Schematic, PCB, Gerber")
+- E-mail: espboy.edu@gmail.com
