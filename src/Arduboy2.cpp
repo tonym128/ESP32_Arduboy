@@ -4,6 +4,9 @@
  * The Arduboy2Base and Arduboy2 classes and support objects and definitions.
  */
 
+// Output FPS over Serial Port
+// #define DEBUG_FPS
+
 #include "Arduboy2.h"
 #include "ab_logo.c"
 #include "glcdfont.c"
@@ -16,13 +19,15 @@ extern Adafruit_MCP4725 dac;
 #endif
 
 #ifndef ESP8266
-//#declare TIMER_COUNT 16;
-//unsigned long timers[TIMER_COUNT] fps;
-//int8_t timerNumber = 0;
-static uint64_t lastTime = 0;
-static uint64_t currentTime = 0;
-static uint64_t frameTime = 0;
-static uint64_t fps = 0;
+  #ifdef DEBUG_FPS
+  //#declare TIMER_COUNT 16;
+  //unsigned long timers[TIMER_COUNT] fps;
+  //int8_t timerNumber = 0;
+  static uint64_t lastTime = 0;
+  static uint64_t currentTime = 0;
+  static uint64_t frameTime = 0;
+  static uint64_t fps = 0;
+  #endif
 #endif
 
 //========================================
@@ -921,18 +926,20 @@ void Arduboy2Base::clear()
 static const int maxPixel = SCREEN_WIDTH * SCREEN_HEIGHT;
 static bool initSprite = false;
 static bool sprite[maxPixel];
-static SemaphoreHandle_t xSemaphore;
+static SemaphoreHandle_t xSemaphoreDisplay;
 
 static void displayScreen(void *mysprite)
 {
   while (1)
   {
-    if (xSemaphoreTake(xSemaphore, (TickType_t)100) == pdTRUE)
+    if (xSemaphoreTake(xSemaphoreDisplay, (TickType_t)100) == pdTRUE)
     {
+      #ifdef DEBUG_FPS
       lastTime = currentTime;
       currentTime = esp_timer_get_time();
       frameTime = currentTime - lastTime;
-      fps = 1000000 / frameTime;
+      fps = 1000000 / (frameTime <= 0 ? 0 : frameTime);
+      #endif
       int colour = -1;
       int counter = 0;
       bool *theBuffer = (bool *)mysprite;
@@ -954,7 +961,7 @@ static void displayScreen(void *mysprite)
         i += counter;
       }
 
-      xSemaphoreGive(xSemaphore);
+      xSemaphoreGive(xSemaphoreDisplay);
       screen.endWrite();
       vTaskDelay(10);
     }
@@ -968,7 +975,6 @@ void Arduboy2Base::initDraw(void)
 {
   if (drawingThread)
     return;
-
   drawingThread = true;
   TaskHandle_t xHandle = NULL;
 
@@ -976,8 +982,10 @@ void Arduboy2Base::initDraw(void)
   // must exist for the lifetime of the task, so in this case is declared static.  If it was just an
   // an automatic stack variable it might no longer exist, or at least have been corrupted, by the time
   // the new task attempts to access it.
+#ifdef DEBUG_FPS
   currentTime = esp_timer_get_time();
-  xTaskCreatePinnedToCore(displayScreen, "Display", 16384, sprite, 1, &xHandle, 0);
+#endif
+  xTaskCreatePinnedToCore(displayScreen, "Display", 4096, sprite, 1, &xHandle, 0);
   configASSERT(xHandle);
 }
 
@@ -988,12 +996,12 @@ void Arduboy2Base::display()
   static uint16_t oBuffer[WIDTH * 16];
 #else
  if (!semCreate) {
-    xSemaphore = xSemaphoreCreateMutex();
+    xSemaphoreDisplay = xSemaphoreCreateMutex();
     semCreate = true;
  }
 #endif
 
-  if (xSemaphoreTake(xSemaphore, (TickType_t)100) == pdTRUE)
+  if (xSemaphoreTake(xSemaphoreDisplay, (TickType_t)100) == pdTRUE)
   {
     static uint16_t foregroundColor, backgroundColor;
     foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
@@ -1067,10 +1075,12 @@ void Arduboy2Base::display()
       screen.pushImage(0, 20 + kPos * 16, WIDTH, 16, oBuffer);
 #endif
     }
-    xSemaphoreGive(xSemaphore);
+    xSemaphoreGive(xSemaphoreDisplay);
   }
 #ifndef ESP8266
+  #ifdef DEBUG_FPS
   Serial.write(printf("%lld\r\n",fps));
+  #endif
   this->initDraw();
 #endif
 }
