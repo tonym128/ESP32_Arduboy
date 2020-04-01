@@ -1506,7 +1506,7 @@ void loop() {
         initRainDrops();
       }
       if (arduboy.justPressed(LEFT_BUTTON)) {//activate video out
-        Serial.begin(9600);
+        //Serial.begin(9600);
         video_out=true;
       } 
       break;

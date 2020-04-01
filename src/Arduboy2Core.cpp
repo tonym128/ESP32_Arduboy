@@ -21,11 +21,12 @@ uint8_t Arduboy2Core::sBuffer[];
 Arduboy2Core::Arduboy2Core() {}
 
 void Arduboy2Core::boot(){
-  Serial.begin(9600);                           
-  
+  Serial.begin(9600);       
+  #ifdef ESP32
+  esp_timer_init();
+  #endif
   //WiFi.mode(WIFI_OFF);
   delay(100);
-
 //LED init
 #ifdef ESP8266
   myled.begin();
@@ -64,13 +65,7 @@ void Arduboy2Core::boot(){
   delay(200);
   screen.setRotation(0);
   screen.fillScreen(TFT_BLACK);
-
-//draw ESPboylogo
-  screen.drawXBitmap(30, 20, ESPboyLogo, 68, 64, TFT_YELLOW);
-  screen.setTextSize(1);
-  screen.setTextColor(TFT_YELLOW);
-  screen.setCursor(13, 95);
-  screen.print(F("Arduboy2 lib port"));
+  Serial.write("Screen Init\r\n");
 
 #ifdef ADAFRUIT
 //LCD backlit on
@@ -86,8 +81,8 @@ void Arduboy2Core::boot(){
 #endif
 
   screen.fillScreen(TFT_BLACK);
+  Serial.write("Boot Done!");
 }
-
 
 void Arduboy2Core::setCPUSpeed8MHz() {};
 void Arduboy2Core::bootPins() {};

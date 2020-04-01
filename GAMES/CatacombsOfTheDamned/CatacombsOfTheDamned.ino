@@ -178,7 +178,7 @@ void setup(){
 //  arduboy.systemButtons();
 //  arduboy.bootLogo();
 //  arduboy.audio.off();
-//  Serial.begin(9600);
+  // Serial.begin(9600);
 //  SeedRandom((uint16_t) arduboy.generateRandomSeed());
 
   arduboy.setFrameRate(TARGET_FRAMERATE);

@@ -159,8 +159,8 @@ void TestSQ7x8(void)
 
 void setup()
 {
-	Serial.begin(9600);
-	while(!Serial);
+	//Serial.begin(9600);
+	//while(!Serial);
 
 	TestUQ8x8();
 	TestSQ7x8();

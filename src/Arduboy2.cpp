@@ -15,6 +15,16 @@ extern Adafruit_MCP23017 mcp;
 extern Adafruit_MCP4725 dac;
 #endif
 
+#ifndef ESP8266
+//#declare TIMER_COUNT 16;
+//unsigned long timers[TIMER_COUNT] fps;
+//int8_t timerNumber = 0;
+static uint64_t lastTime = 0;
+static uint64_t currentTime = 0;
+static uint64_t frameTime = 0;
+static uint64_t fps = 0;
+#endif
+
 //========================================
 //========== class Arduboy2Base ==========
 //========================================
@@ -919,6 +929,10 @@ static void displayScreen(void *mysprite)
   {
     if (xSemaphoreTake(xSemaphore, (TickType_t)100) == pdTRUE)
     {
+      lastTime = currentTime;
+      currentTime = esp_timer_get_time();
+      frameTime = currentTime - lastTime;
+      fps = 1000000 / frameTime;
       int colour = -1;
       int counter = 0;
       bool *theBuffer = (bool *)mysprite;
@@ -954,6 +968,7 @@ void Arduboy2Base::initDraw(void)
 {
   if (drawingThread)
     return;
+
   drawingThread = true;
   TaskHandle_t xHandle = NULL;
 
@@ -961,6 +976,7 @@ void Arduboy2Base::initDraw(void)
   // must exist for the lifetime of the task, so in this case is declared static.  If it was just an
   // an automatic stack variable it might no longer exist, or at least have been corrupted, by the time
   // the new task attempts to access it.
+  currentTime = esp_timer_get_time();
   xTaskCreatePinnedToCore(displayScreen, "Display", 16384, sprite, 1, &xHandle, 0);
   configASSERT(xHandle);
 }
@@ -1054,6 +1070,7 @@ void Arduboy2Base::display()
     xSemaphoreGive(xSemaphore);
   }
 #ifndef ESP8266
+  Serial.write(printf("%lld\r\n",fps));
   this->initDraw();
 #endif
 }

@@ -77,6 +77,9 @@
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 240
 #define SCALE
+#elif defined(IPS240x1)
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
 #elif defined(EPAPER130)
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 240
