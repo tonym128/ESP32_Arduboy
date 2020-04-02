@@ -78,6 +78,7 @@
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 240
 #define SCALE
+#define INTERLACED_UPDATE
 #elif defined(IPS240x1)
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64

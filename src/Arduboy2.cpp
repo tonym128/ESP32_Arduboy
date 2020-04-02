@@ -923,6 +923,65 @@ static bool initSprite = false;
 static bool sprite[maxPixel];
 static SemaphoreHandle_t xSemaphoreDisplay;
 
+static void updateFullScreen(bool *theBuffer)
+{
+  screen.startWrite();
+  screen.setAddrWindow(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+  int colour = -1;
+  int counter = 0;
+  int i = 0;
+  while (i < maxPixel)
+  {
+    counter = 1;
+
+    colour = theBuffer[i];
+    while (colour == theBuffer[i + counter])
+    {
+      counter++;
+    }
+
+    screen.writeColor(colour ? TFT_YELLOW : TFT_BLACK, counter);
+    i += counter;
+  }
+
+  screen.endWrite();
+}
+
+static void updateInterlaceScreen(bool *theBuffer)
+{
+  screen.startWrite();
+
+  int colour = -1;
+  int counter = 1;
+  int currPixel = 0;
+  int endPixel = 0;
+  int i = 0;
+  while (i < SCREEN_HEIGHT)
+  {
+    counter = 0;
+    currPixel = i * SCREEN_WIDTH;
+    endPixel = i * SCREEN_WIDTH + SCREEN_WIDTH;
+    screen.setAddrWindow(0, i, SCREEN_WIDTH, 1);
+    while (currPixel < endPixel)
+    {
+      colour = theBuffer[currPixel];
+      counter = 0;
+      while (colour == theBuffer[currPixel] && currPixel < endPixel)
+      {
+        currPixel++;
+        counter++;
+      }
+
+      screen.writeColor(colour ? TFT_YELLOW : TFT_BLACK, counter);
+    }
+
+    i += 2;
+  }
+
+  screen.endWrite();
+}
+
 static void displayScreen(void *mysprite)
 {
   for (;;)
@@ -933,29 +992,15 @@ static void displayScreen(void *mysprite)
       currentTime = esp_timer_get_time();
       frameTime = currentTime - lastTime;
       fps = 1000000 / frameTime;
-      int colour = -1;
-      int counter = 0;
       bool *theBuffer = (bool *)mysprite;
-      screen.startWrite();
-      screen.setAddrWindow(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-      int i = 0;
-      while (i < maxPixel)
-      {
-        counter = 1;
-
-        colour = theBuffer[i];
-        while (colour == theBuffer[i + counter])
-        {
-          counter++;
-        }
-
-        screen.writeColor(colour ? TFT_YELLOW : TFT_BLACK, counter);
-        i += counter;
-      }
+    
+      #ifdef INTERLACED_UPDATE
+        updateInterlaceScreen(theBuffer);
+      #else
+        updateFullScreen(theBuffer);
+      #endif
 
       xSemaphoreGive(xSemaphoreDisplay);
-      screen.endWrite();
       vTaskDelay(10);
     }
   }
