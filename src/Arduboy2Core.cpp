@@ -21,7 +21,7 @@ uint8_t Arduboy2Core::sBuffer[];
 Arduboy2Core::Arduboy2Core() {}
 
 void Arduboy2Core::boot(){
-  Serial.begin(9600);       
+  Serial.begin(115200);       
   #ifdef ESP32
   esp_timer_init();
   #endif
@@ -193,46 +193,45 @@ void Arduboy2Core::digitalWriteRGB(uint8_t color, uint8_t val){
 #ifdef ESP32
 static const byte TOUCH_SENSE_MAX = 50;
 static const byte TOUCH_SENSE_MIN = 20;
-int inputVal = 0;
+static int inputVal = 0;
 static int TOUCH_SENSE[8];
 static int touch_values[8];
-bool inputSetup = false;
+static bool inputSetup = false;
 
 // Button definitions
-const int P1_Left = 0;
-const int P1_Top = 1;
-const int P1_Right = 2;
-const int P1_Bottom = 3;
+static const int P1_Left = 0;
+static const int P1_Top = 1;
+static const int P1_Right = 2;
+static const int P1_Bottom = 3;
 
-const int P2_Right = 4;
-const int P2_Bottom = 5;
-const int P2_Left = 6;
-const int P2_Top = 7;
+static const int P2_Right = 4;
+static const int P2_Bottom = 5;
+static const int P2_Left = 6;
+static const int P2_Top = 7;
 
-const int BIT_P1_Left = 1;
-const int BIT_P1_Top = 2;
-const int BIT_P1_Right = 4;
-const int BIT_P1_Bottom = 8;
+static const int BIT_P1_Left = 1;
+static const int BIT_P1_Top = 2;
+static const int BIT_P1_Right = 4;
+static const int BIT_P1_Bottom = 8;
 
-const int BIT_P2_Right = 16;
-const int BIT_P2_Bottom = 32;
-const int BIT_P2_Left = 64;
-const int BIT_P2_Top = 128;
+static const int BIT_P2_Right = 16;
+static const int BIT_P2_Bottom = 32;
+static const int BIT_P2_Left = 64;
+static const int BIT_P2_Top = 128;
 
-
-bool readAnalogSensor(int pin, int touch_sense)
+static bool readAnalogSensor(int pin, int touch_sense)
 {
   inputVal = touchRead(pin);
   return inputVal < touch_sense && inputVal > 0;
 }
 
-int readAnalogSensorRaw(int pin)
+static int readAnalogSensorRaw(int pin)
 {
   inputVal = touchRead(pin);
   return inputVal;
 }
 
-byte getReadShiftAnalog()
+static byte getReadShiftAnalog()
 {
   byte buttonVals = 0;
   buttonVals = buttonVals | (readAnalogSensor(32, TOUCH_SENSE[0]) << P1_Left);
@@ -248,7 +247,7 @@ byte getReadShiftAnalog()
   return buttonVals;
 }
 
-void getRawInput()
+static void getRawInput()
 {
   for (int i = 0; i < 8; i++)
   {
@@ -266,14 +265,28 @@ void getRawInput()
   touch_values[i++] = readAnalogSensorRaw(12); // Select
 }
 
-byte getReadShift()
+static byte getReadShift()
 {
   return getReadShiftAnalog();
 }
+
+static uint16_t keyStateThread;
+static SemaphoreHandle_t xSemaphoreInput;
+
+static void inputThread(void *empty) {
+  for ( ;; ) {
+    if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE) {
+      keyStateThread = getReadShift();
+      xSemaphoreGive(xSemaphoreInput);
+      vTaskDelay(10);
+    }
+  }
+}
+
 #endif
 
 /* Buttons */
-uint16_t keystate;
+static uint16_t keystate;
 uint8_t buttons = 0;	
 
 uint8_t Arduboy2Core::buttonsState(){
@@ -294,7 +307,11 @@ buttons = 0;
 #else
     // Initial Setup
     if (inputSetup) {
-      keystate = getReadShift();
+      if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE) {
+        keystate = keyStateThread;
+        xSemaphoreGive(xSemaphoreInput);
+        }
+
       if (keystate & BIT_P1_Left) buttons |= LEFT_BUTTON;//Left
       if (keystate & BIT_P1_Right) buttons |= RIGHT_BUTTON;//Right
       if (keystate & BIT_P1_Top) buttons |= UP_BUTTON;//Up
@@ -304,6 +321,9 @@ buttons = 0;
       if (keystate & BIT_P2_Left) buttons |= B_BUTTON;//B
       if (keystate & BIT_P2_Top) buttons |= B_BUTTON;//B
     } else {
+      TaskHandle_t xHandle = NULL;
+      xSemaphoreInput = xSemaphoreCreateMutex();
+ 
       getRawInput();
       for (int i = 0; i < 8; i++)
       {
@@ -314,6 +334,8 @@ buttons = 0;
           TOUCH_SENSE[i] = TOUCH_SENSE_MIN;
         
       }
+
+      xTaskCreatePinnedToCore(inputThread, "Input", 16384, nullptr, 1, &xHandle, 0);
 
       inputSetup = true;
     }

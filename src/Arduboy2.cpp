@@ -921,13 +921,13 @@ void Arduboy2Base::clear()
 static const int maxPixel = SCREEN_WIDTH * SCREEN_HEIGHT;
 static bool initSprite = false;
 static bool sprite[maxPixel];
-static SemaphoreHandle_t xSemaphore;
+static SemaphoreHandle_t xSemaphoreDisplay;
 
 static void displayScreen(void *mysprite)
 {
-  while (1)
+  for (;;)
   {
-    if (xSemaphoreTake(xSemaphore, (TickType_t)100) == pdTRUE)
+    if (xSemaphoreTake(xSemaphoreDisplay, (TickType_t)100) == pdTRUE)
     {
       lastTime = currentTime;
       currentTime = esp_timer_get_time();
@@ -954,7 +954,7 @@ static void displayScreen(void *mysprite)
         i += counter;
       }
 
-      xSemaphoreGive(xSemaphore);
+      xSemaphoreGive(xSemaphoreDisplay);
       screen.endWrite();
       vTaskDelay(10);
     }
@@ -987,13 +987,14 @@ void Arduboy2Base::display()
 #ifdef ESP8266
   static uint16_t oBuffer[WIDTH * 16];
 #else
- if (!semCreate) {
-    xSemaphore = xSemaphoreCreateMutex();
+  if (!semCreate)
+  {
+    xSemaphoreDisplay = xSemaphoreCreateMutex();
     semCreate = true;
- }
+  }
 #endif
 
-  if (xSemaphoreTake(xSemaphore, (TickType_t)100) == pdTRUE)
+  if (xSemaphoreTake(xSemaphoreDisplay, (TickType_t)100) == pdTRUE)
   {
     static uint16_t foregroundColor, backgroundColor;
     foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
@@ -1014,15 +1015,15 @@ void Arduboy2Base::display()
 #ifdef ESP8266
           addr = yPos * WIDTH + xPos;
 #else
-    #ifdef SCALE
+#ifdef SCALE
           xDst = (xPos * SCREEN_WIDTH) / WIDTH;
           yDst = ((yPos + kPos * 16) * SCREEN_HEIGHT) / HEIGHT;
           loc = xDst + yDst * SCREEN_WIDTH;
-    #else
+#else
           xDst = xPos;
           yDst = (yPos + kPos * 16);
           loc = xDst + yDst * SCREEN_WIDTH;
-    #endif
+#endif
 #endif
           if (currentDataByte & 0x01)
           {
@@ -1030,15 +1031,15 @@ void Arduboy2Base::display()
             oBuffer[addr] = foregroundColor;
 #else
             sprite[loc] = 1;
-  #ifdef SCALE // Optimisation for 128x64 to 240x240
+#ifdef SCALE // Optimisation for 128x64 to 240x240
             sprite[loc + SCREEN_WIDTH] = 1;
-            sprite[loc + SCREEN_WIDTH*2] = 1;
-            sprite[loc + SCREEN_WIDTH*3] = 1;
+            sprite[loc + SCREEN_WIDTH * 2] = 1;
+            sprite[loc + SCREEN_WIDTH * 3] = 1;
             sprite[loc + 1] = 1;
             sprite[loc + 1 + SCREEN_WIDTH] = 1;
-            sprite[loc + 1 + SCREEN_WIDTH*2] = 1;
-            sprite[loc + 1 + SCREEN_WIDTH*3] = 1;
-  #endif
+            sprite[loc + 1 + SCREEN_WIDTH * 2] = 1;
+            sprite[loc + 1 + SCREEN_WIDTH * 3] = 1;
+#endif
 #endif
           }
           else
@@ -1047,15 +1048,15 @@ void Arduboy2Base::display()
             oBuffer[addr] = backgroundColor;
 #else
             sprite[loc] = 0;
-  #ifdef SCALE // Optimisation for 128x64 to 240x240
+#ifdef SCALE // Optimisation for 128x64 to 240x240
             sprite[loc + SCREEN_WIDTH] = 0;
-            sprite[loc + SCREEN_WIDTH*2] = 0;
-            sprite[loc + SCREEN_WIDTH*3] = 0;
+            sprite[loc + SCREEN_WIDTH * 2] = 0;
+            sprite[loc + SCREEN_WIDTH * 3] = 0;
             sprite[loc + 1] = 0;
             sprite[loc + 1 + SCREEN_WIDTH] = 0;
-            sprite[loc + 1 + SCREEN_WIDTH*2] = 0;
-            sprite[loc + 1 + SCREEN_WIDTH*3] = 0;
-  #endif
+            sprite[loc + 1 + SCREEN_WIDTH * 2] = 0;
+            sprite[loc + 1 + SCREEN_WIDTH * 3] = 0;
+#endif
 #endif
           }
           currentDataByte = currentDataByte >> 1;
@@ -1067,10 +1068,10 @@ void Arduboy2Base::display()
       screen.pushImage(0, 20 + kPos * 16, WIDTH, 16, oBuffer);
 #endif
     }
-    xSemaphoreGive(xSemaphore);
+    xSemaphoreGive(xSemaphoreDisplay);
   }
 #ifndef ESP8266
-  Serial.write(printf("%lld\r\n",fps));
+  Serial.write(printf("%lld\r\n", fps));
   this->initDraw();
 #endif
 }
