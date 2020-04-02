@@ -71,6 +71,7 @@
 #define HEIGHT 64 /**< The height of the display in pixels */
 
 #define IPS240
+//#define IPS240x1
 //#define EPAPER130
 
 #if defined(IPS240)

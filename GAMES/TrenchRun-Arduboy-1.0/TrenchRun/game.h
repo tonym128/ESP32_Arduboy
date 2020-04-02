@@ -99,7 +99,7 @@ void advanceTies() {
       if(tieAlive[i]) {
         if(tieFrame[i] == TIE_FRAMES) {
 //          beep.tone(beep.freq(323.251), 5);
-          tone(D3,323.251, 5);
+//          tone(D3,323.251, 5);
           tieAlive[i] = false;
           shipShakeCounter = SHIP_SHAKE_COOLDOWN;
           hull -= 1;
@@ -134,7 +134,7 @@ void checkShoot() {
   }
   if(shooting) {
     //beep.tone(beep.freq(587.330), 5);
-    tone(D3, 587.330, 5);
+    //tone(D3, 587.330, 5);
     
     byte crosshairXCenter = crosshairX + 5;
     byte crosshairYCenter = crosshairY + 5;

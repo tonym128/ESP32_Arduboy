@@ -977,7 +977,7 @@ void Arduboy2Base::initDraw(void)
   // an automatic stack variable it might no longer exist, or at least have been corrupted, by the time
   // the new task attempts to access it.
   currentTime = esp_timer_get_time();
-  xTaskCreatePinnedToCore(displayScreen, "Display", 16384, sprite, 1, &xHandle, 0);
+  xTaskCreatePinnedToCore(displayScreen, "Display", 1024, sprite, 1, &xHandle, 0);
   configASSERT(xHandle);
 }
 

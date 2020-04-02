@@ -335,7 +335,7 @@ buttons = 0;
         
       }
 
-      xTaskCreatePinnedToCore(inputThread, "Input", 16384, nullptr, 1, &xHandle, 0);
+      xTaskCreatePinnedToCore(inputThread, "Input", 1024, nullptr, 1, &xHandle, 0);
 
       inputSetup = true;
     }
