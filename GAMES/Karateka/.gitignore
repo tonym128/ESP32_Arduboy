@@ -1,0 +1,10 @@
+
+*.code-workspace
+.vscode/c_cpp_properties.json
+*.json
+.vscode/arduino.json
+.vscode/arduino.json
+src/.DS_Store
+src/utils/.DS_Store
+Images/.DS_Store
+.DS_Store
