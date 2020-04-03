@@ -87,6 +87,9 @@ If authors against posting the code in this repository for the purpose of learni
 - **Ard-Drivin** (MIT) by [Rem and LP](https://community.arduboy.com/t/ard-drivin-fast-paced-racing-sim/3178)
 - **Tamaguino** (GNU GPL v3.0) by [Alojz Jakob](https://alojzjakob.github.io/Tamaguino/), ported to Arduboy by [Scott R](https://community.arduboy.com/t/tamaguino-ab-tamagotchi-for-arduino/4806)
 - **Glove** (MIT) by [fuopy](https://github.com/ArduboyCollection/glove)
+- **Blocks** (GPL-3.0) by [w3woody](https://github.com/ArduboyCollection/blocks)
+- **Galaxion** (MIT) by [tako2](https://github.com/ArduboyCollection/galaxion)
+- **Karateka** (BSD-3-Clause) by [Simon Holmes (filmote)](https://community.arduboy.com/t/karateka-v0-9/4852) 
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
 - **ESP8266_picovaders** - UNKNOWN
