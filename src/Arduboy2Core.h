@@ -23,7 +23,7 @@
 #define SCREEN_WIDTH 250
 #define SCREEN_HEIGHT 122 // 122 VIS
 #define INTERLACED_UPDATE
-//#define SCALE
+#define SCALE
 #endif
 
 #include <Arduino.h>

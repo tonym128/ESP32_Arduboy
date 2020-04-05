@@ -957,7 +957,7 @@ static void updateEPaper(bool *theBuffer) {
     {
       for (int x = 0; x < SCREEN_WIDTH; x++)
       {
-        displayEPaper.drawPixel(x, y, theBuffer[i] ? GxEPD_BLACK : GxEPD_WHITE);
+        displayEPaper.drawPixel(x, y+6, theBuffer[i] ? GxEPD_BLACK : GxEPD_WHITE);
         i++;
       }
     }
@@ -973,7 +973,7 @@ static void updateFullScreen(bool *theBuffer)
 static void updateInterlaceScreen(bool *theBuffer)
 {
   displayEPaper.setRotation(1);
-  displayEPaper.setPartialWindow(0,0,250,128);
+  displayEPaper.setPartialWindow(0,0,SCREEN_WIDTH,SCREEN_HEIGHT+6);
   updateEPaper(theBuffer);
 }
 
@@ -981,7 +981,7 @@ static void updateInterlaceScreen(bool *theBuffer)
 static void updateFullScreen(bool *theBuffer)
 {
   screen.startWrite();
-  screen.setAddrWindow(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+  screen.setAddrWindow(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT+6);
 
   int colour = -1;
   int counter = 0;
