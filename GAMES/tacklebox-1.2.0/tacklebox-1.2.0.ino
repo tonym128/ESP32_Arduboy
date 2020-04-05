@@ -13,6 +13,7 @@ Renderer renderer(arduboy);
 Game game;
 
 void setup() {
+    EEPROM.begin(1000);
     arduboy.boot();
     arduboy.audio.begin();
     BeepPin1::begin();
