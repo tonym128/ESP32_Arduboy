@@ -11,7 +11,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 2. do ingame modifications according to the following notes:
 - change **"#include arduboy.h"** to **"#include arduboy2.h"**
 - some games use a function pointer array to pass control to a different parts of the code as the game state changes. In ATMEGA32U4 the memory address is 2 bytes (single word) long, in ESP8266, the memory addresses is 4 bytes (double word) long, So you need to change all "pgm_read_word" to "pgm_read_dword" or "pgm_read_ptr" at the pointers
-- if EEPROM is used by the game to keep configs/high scores,
+- if EEPROM is used by the game to keep configs/high scores:
 - add EEPROM.begin(1000) at setup() (1000 is just a rough max no. need to check the size)
 - change EEPROM.update() to EEPORM.write()
 - add EEPROM.commit() after the last EEPROM.put(), EEPORM.write() of each blocks of code.
@@ -19,7 +19,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - games that directly control the SPI or I2C bus to write to OLED display need much more work to port instead of the simple steps above.
 - font() array is used in TFT_eSPI display library so you have to change all "font" to "font_"
 - min() and max() macros are used in TFT_eSPI display library so you have to change all min() and max() to minVal() and maxVal() correspondenly
-- there is a problem with a "char" data (this is the signed/unsigned problem). The game variables which are not really char or char* should be changed correspondingly "unsigned char" to "uint8_t" and "char" or "signed char" to "int8t". Don't forget to set #include "Arduino.h" at the first line.
+- there is a problem with a "char" data (this is the signed/unsigned problem). The game variables which are not really char or char* should be changed correspondingly "unsigned char" to "uint8_t" and "char" or "signed char" to "int8_t". Don't forget to set #include "Arduino.h" at the first line.
 - it's better to change all "short" to "int16_t", "unsigned shot" to "uint16_t", "byte" to "uint8_t", "int" to "int16_t", "unsigned int" to "uint16_t", "long" to "int32_t", "unsigned long" to "uint32_t" 
 
 
