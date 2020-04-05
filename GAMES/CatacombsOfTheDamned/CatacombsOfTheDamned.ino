@@ -208,7 +208,7 @@ void loop(){
 	
 	Game::Draw();
     
-    //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
+  //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
 
 #if DEV_MODE
 	// CPU load bar graph	

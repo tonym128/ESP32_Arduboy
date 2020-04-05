@@ -29,6 +29,14 @@ static uint64_t lastTime = 0;
 static uint64_t currentTime = 0;
 static uint64_t frameTime = 0;
 static uint64_t fps = 0;
+
+static uint64_t gamelastTime = 0;
+static uint64_t gamecurrentTime = 0;
+static uint64_t gameframeTime = 0;
+static uint64_t gamefps = 0;
+
+uint64_t inputfps = 0;
+
 #endif
 
 //========================================
@@ -934,48 +942,39 @@ void Arduboy2Base::clear()
 static const int maxPixel = SCREEN_WIDTH * SCREEN_HEIGHT;
 static bool initSprite = false;
 static bool sprite[maxPixel];
+static bool frontBuffer[128 * 64];
+static bool backBuffer[128 * 64];
 static SemaphoreHandle_t xSemaphoreDisplay;
 
 #if defined(EPAPER130)
 bool initEPaper = false;
-static void updateFullScreen(bool *theBuffer)
-{
-  displayEPaper.setFullWindow();
+static void updateEPaper(bool *theBuffer) {
   displayEPaper.firstPage();
-  int i = 0;
   do
   {
-    displayEPaper.fillScreen(GxEPD_WHITE);
-    for (int y = 0; y < 64; y++)
+    int i = 0;
+    for (int y = 0; y < SCREEN_HEIGHT; y++)
     {
-      for (int x = 0; i < 128; x++)
+      for (int x = 0; x < SCREEN_WIDTH; x++)
       {
-        if (theBuffer[i])
-          displayEPaper.drawPixel(x, y, GxEPD_BLACK);
+        displayEPaper.drawPixel(x, y, theBuffer[i] ? GxEPD_BLACK : GxEPD_WHITE);
         i++;
       }
     }
   } while (displayEPaper.nextPage());
 }
 
+static void updateFullScreen(bool *theBuffer)
+{
+  displayEPaper.setRotation(1);
+  displayEPaper.setFullWindow();
+}
+
 static void updateInterlaceScreen(bool *theBuffer)
 {
-  displayEPaper.setPartialWindow(0, 0, 128, 64);
-  displayEPaper.firstPage();
-  int i = 0;
-  do
-  {
-    displayEPaper.fillScreen(GxEPD_WHITE);
-    for (int y = 0; y < 64; y++)
-    {
-      for (int x = 0; i < 128; x++)
-      {
-        if (theBuffer[i])
-          displayEPaper.drawPixel(x, y, GxEPD_BLACK);
-        i++;
-      }
-    }
-  } while (displayEPaper.nextPage());
+  displayEPaper.setRotation(1);
+  displayEPaper.setPartialWindow(0,0,250,128);
+  updateEPaper(theBuffer);
 }
 
 #else
@@ -1039,6 +1038,38 @@ static void updateInterlaceScreen(bool *theBuffer)
 }
 
 #endif
+static void populateSprite(bool *Buffer, bool *Sprite)
+{
+  int pixel = 0;
+  int xDst, yDst, loc;
+  bool pixelValue;
+
+  for (int y = 0; y < HEIGHT; y++)
+  {
+    for (int x = 0; x < WIDTH; x++)
+    {
+      pixel = y * WIDTH + x;
+#ifdef SCALE
+      xDst = (x * SCREEN_WIDTH) / WIDTH;
+      yDst = (y * SCREEN_HEIGHT) / HEIGHT;
+      loc = xDst + yDst * SCREEN_WIDTH;
+
+      pixelValue = Sprite[pixel];
+      Buffer[loc] = pixelValue;
+      Buffer[loc + SCREEN_WIDTH] = pixelValue;
+      Buffer[loc + SCREEN_WIDTH * 2] = pixelValue;
+      Buffer[loc + SCREEN_WIDTH * 3] = pixelValue;
+      Buffer[loc + 1] = pixelValue;
+      Buffer[loc + 1 + SCREEN_WIDTH] = pixelValue;
+      Buffer[loc + 1 + SCREEN_WIDTH * 2] = pixelValue;
+      Buffer[loc + 1 + SCREEN_WIDTH * 3] = pixelValue;
+#else
+      loc = x + y * SCREEN_WIDTH;
+      Buffer[loc] = Sprite[pixel];
+#endif
+    }
+  }
+}
 
 static void displayScreen(void *mysprite)
 {
@@ -1046,21 +1077,28 @@ static void displayScreen(void *mysprite)
   {
     if (xSemaphoreTake(xSemaphoreDisplay, (TickType_t)100) == pdTRUE)
     {
-      lastTime = currentTime;
-      currentTime = esp_timer_get_time();
-      frameTime = currentTime - lastTime;
-      fps = 1000000 / frameTime;
-      bool *theBuffer = (bool *)mysprite;
+      memcpy(backBuffer, frontBuffer, 128 * 64);
+      xSemaphoreGive(xSemaphoreDisplay);
+    }
+
+    lastTime = currentTime;
+    currentTime = esp_timer_get_time();
+    frameTime = currentTime - lastTime;
+    fps = 1000000 / frameTime;
+    populateSprite(sprite,backBuffer);
 
 #ifdef INTERLACED_UPDATE
-      updateInterlaceScreen(theBuffer);
+    updateInterlaceScreen(sprite);
+    // helloWorld();
 #else
-      updateFullScreen(theBuffer);
+    updateFullScreen(sprite);
 #endif
 
-      xSemaphoreGive(xSemaphoreDisplay);
-      vTaskDelay(10);
-    }
+    #ifdef EPAPER130
+    vTaskDelay(10);
+    #else
+    vTaskDelay(5);
+    #endif
   }
 }
 
@@ -1080,6 +1118,7 @@ void Arduboy2Base::initDraw(void)
   // an automatic stack variable it might no longer exist, or at least have been corrupted, by the time
   // the new task attempts to access it.
   currentTime = esp_timer_get_time();
+  gamecurrentTime = currentTime;
   xTaskCreatePinnedToCore(displayScreen, "Display", 1024, sprite, 1, &xHandle, 0);
   configASSERT(xHandle);
 }
@@ -1096,8 +1135,14 @@ void Arduboy2Base::display()
     semCreate = true;
   }
 #endif
+  static uint16_t foregroundColor, backgroundColor;
+  foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
+  backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
+  static uint8_t currentDataByte;
+  static uint16_t xPos, yPos, kPos, kkPos, addr;
+  static int loc, xDst, yDst;
 
-  if (xSemaphoreTake(xSemaphoreDisplay, (TickType_t)100) == pdTRUE)
+  if (xSemaphoreTake(xSemaphoreDisplay, (TickType_t)2) == pdTRUE)
   {
     static uint16_t foregroundColor, backgroundColor;
     foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
@@ -1117,51 +1162,20 @@ void Arduboy2Base::display()
             currentDataByte = sBuffer[xPos + ((yPos >> 3) + kkPos) * WIDTH];
 #ifdef ESP8266
           addr = yPos * WIDTH + xPos;
-#else
-#ifdef SCALE
-          xDst = (xPos * SCREEN_WIDTH) / WIDTH;
-          yDst = ((yPos + kPos * 16) * SCREEN_HEIGHT) / HEIGHT;
-          loc = xDst + yDst * SCREEN_WIDTH;
-#else
-          xDst = xPos;
-          yDst = (yPos + kPos * 16);
-          loc = xDst + yDst * SCREEN_WIDTH;
-#endif
-#endif
           if (currentDataByte & 0x01)
           {
-#ifdef ESP8266
             oBuffer[addr] = foregroundColor;
-#else
-            sprite[loc] = 1;
-#ifdef SCALE // Optimisation for 128x64 to 240x240
-            sprite[loc + SCREEN_WIDTH] = 1;
-            sprite[loc + SCREEN_WIDTH * 2] = 1;
-            sprite[loc + SCREEN_WIDTH * 3] = 1;
-            sprite[loc + 1] = 1;
-            sprite[loc + 1 + SCREEN_WIDTH] = 1;
-            sprite[loc + 1 + SCREEN_WIDTH * 2] = 1;
-            sprite[loc + 1 + SCREEN_WIDTH * 3] = 1;
-#endif
-#endif
           }
           else
           {
-#ifdef ESP8266
             oBuffer[addr] = backgroundColor;
-#else
-            sprite[loc] = 0;
-#ifdef SCALE // Optimisation for 128x64 to 240x240
-            sprite[loc + SCREEN_WIDTH] = 0;
-            sprite[loc + SCREEN_WIDTH * 2] = 0;
-            sprite[loc + SCREEN_WIDTH * 3] = 0;
-            sprite[loc + 1] = 0;
-            sprite[loc + 1 + SCREEN_WIDTH] = 0;
-            sprite[loc + 1 + SCREEN_WIDTH * 2] = 0;
-            sprite[loc + 1 + SCREEN_WIDTH * 3] = 0;
-#endif
-#endif
           }
+#else
+          xDst = xPos;
+          yDst = (yPos + kPos * 16);
+          loc = xDst + yDst * WIDTH;
+          frontBuffer[loc] = currentDataByte & 0x01;
+#endif
           currentDataByte = currentDataByte >> 1;
         }
       }
@@ -1174,10 +1188,16 @@ void Arduboy2Base::display()
     xSemaphoreGive(xSemaphoreDisplay);
   }
 #ifndef ESP8266
-  Serial.write(printf("%lld\r\n", fps));
+  gamelastTime = gamecurrentTime;
+  gamecurrentTime = esp_timer_get_time();
+  gameframeTime = gamecurrentTime - gamelastTime;
+  gamefps = 1000000 / gameframeTime;
+
+  //Serial.write(printf("screen : %lld , game : %lld , input : %lld\r\n", fps, gamefps, inputfps));
   this->initDraw();
 #endif
 }
+
 
 void Arduboy2Base::display(bool clear)
 {

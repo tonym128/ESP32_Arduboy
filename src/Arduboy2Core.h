@@ -20,8 +20,8 @@
 #define SCALE
 #define INTERLACED_UPDATE
 #elif defined(EPAPER130)
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 250 // 122 VIS
+#define SCREEN_WIDTH 250
+#define SCREEN_HEIGHT 122 // 122 VIS
 #define INTERLACED_UPDATE
 //#define SCALE
 #endif
@@ -34,6 +34,7 @@
 #include "TFT_eSPI.h"
 #elif defined(EPAPER130)
 #include <GxEPD2_BW.h>
+#include <Fonts/FreeMonoBold9pt7b.h>
 #define MAX_DISPLAY_BUFFER_SIZE 8192 // e.g. full height for 200x200
 #define MAX_HEIGHT(EPD) (EPD::HEIGHT <= MAX_DISPLAY_BUFFER_SIZE / (EPD::WIDTH / 8) ? EPD::HEIGHT : MAX_DISPLAY_BUFFER_SIZE / (EPD::WIDTH / 8))
 #endif

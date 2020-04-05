@@ -12,7 +12,15 @@ TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
 TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
 #elif defined(EPAPER130)
 #include "Button2.h"
-GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper(GxEPD2_213_B73(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEH0213B73
+GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper(GxEPD2_213_B73(/*CS=5*/ SS, /*DC=*/17, /*RST=*/16, /*BUSY=*/4)); // GDEH0213B73
+#endif
+
+#ifdef ESP32
+static uint64_t inputlastTime = 0;
+static uint64_t inputcurrentTime = 0;
+static uint64_t inputframeTime = 0;
+extern uint64_t inputfps;
+
 #endif
 
 #ifdef ADAFRUIT
@@ -28,11 +36,12 @@ uint8_t Arduboy2Core::sBuffer[];
 
 Arduboy2Core::Arduboy2Core() {}
 
-void Arduboy2Core::boot(){
-  Serial.begin(115200);       
-  #ifdef ESP32
+void Arduboy2Core::boot()
+{
+  Serial.begin(115200);
+#ifdef ESP32
   esp_timer_init();
-  #endif
+#endif
   //WiFi.mode(WIFI_OFF);
   delay(100);
 //LED init
@@ -41,22 +50,23 @@ void Arduboy2Core::boot(){
 #endif
 
 #ifdef ADAFRUIT
-//DAC init, LCD backlit off
+  //DAC init, LCD backlit off
   dac.begin(MCP4725address);
   delay(50);
   dac.setVoltage(0, false);
   delay(100);
 
-//MCP23017 and buttons init, should preceed the TFT init
+  //MCP23017 and buttons init, should preceed the TFT init
   mcp.begin(MCP23017address);
   delay(100);
 
-  for (int i = 0; i < 8; ++i){
+  for (int i = 0; i < 8; ++i)
+  {
     mcp.pinMode(i, INPUT);
     mcp.pullUp(i, HIGH);
   }
 
-//Sound init and test
+  //Sound init and test
   pinMode(PIN_SPEAKER_1, OUTPUT);
   tone(PIN_SPEAKER_1, 200, 100);
   delay(100);
@@ -64,19 +74,13 @@ void Arduboy2Core::boot(){
   delay(100);
   noTone(PIN_SPEAKER_1);
 
-//TFT init
+  //TFT init
   mcp.pinMode(CSTFTPIN, OUTPUT);
   mcp.digitalWrite(CSTFTPIN, LOW);
 #endif
 
 #if defined(EPAPER130)
   displayEPaper.init(115200);
-  displayEPaper.firstPage();
-  do
-  {
-    displayEPaper.fillScreen(GxEPD_WHITE); // set the background to white (fill the buffer with value for white)
-  }
-  while (displayEPaper.nextPage());
 #else
   screen.begin();
   delay(200);
@@ -86,47 +90,47 @@ void Arduboy2Core::boot(){
   Serial.write("Screen Init\r\n");
 
 #ifdef ADAFRUIT
-//LCD backlit on
-  for (uint8_t bcklt=0; bcklt<100; bcklt++){
-    dac.setVoltage(bcklt*20, false);
+  //LCD backlit on
+  for (uint8_t bcklt = 0; bcklt < 100; bcklt++)
+  {
+    dac.setVoltage(bcklt * 20, false);
     delay(10);
   }
 
   dac.setVoltage(4095, true);
   delay(500);
 #else
-    delay(100);
+  delay(100);
 #endif
 
 #if defined(EPAPER130)
   displayEPaper.firstPage();
   do
   {
-    displayEPaper.fillScreen(GxEPD_BLACK); // set the background to white (fill the buffer with value for white)
-  }
-  while (displayEPaper.nextPage());
+    displayEPaper.fillScreen(GxEPD_WHITE);
+  } while (displayEPaper.nextPage());
 #else
   screen.fillScreen(TFT_BLACK);
 #endif
   Serial.write("Boot Done!");
 }
 
-void Arduboy2Core::setCPUSpeed8MHz() {};
-void Arduboy2Core::bootPins() {};
-void Arduboy2Core::bootOLED() {};
-void Arduboy2Core::LCDDataMode() {};
-void Arduboy2Core::LCDCommandMode() {};
-void Arduboy2Core::bootSPI(){}
-void Arduboy2Core::SPItransfer(uint8_t data) {};
-void Arduboy2Core::safeMode(){}
-void Arduboy2Core::bootPowerSaving() {};
+void Arduboy2Core::setCPUSpeed8MHz(){};
+void Arduboy2Core::bootPins(){};
+void Arduboy2Core::bootOLED(){};
+void Arduboy2Core::LCDDataMode(){};
+void Arduboy2Core::LCDCommandMode(){};
+void Arduboy2Core::bootSPI() {}
+void Arduboy2Core::SPItransfer(uint8_t data){};
+void Arduboy2Core::safeMode() {}
+void Arduboy2Core::bootPowerSaving(){};
 void Arduboy2Core::sendLCDCommand(uint8_t command){};
-void Arduboy2Core::exitToBootloader() {};
+void Arduboy2Core::exitToBootloader(){};
 void Arduboy2Core::mainNoUSB(){};
 // turn all display pixels on, ignoring buffer contents
 // or set to normal buffer display
 void Arduboy2Core::allPixelsOn(bool on){};
-void Arduboy2Core::blank() {};
+void Arduboy2Core::blank(){};
 // invert the display or set to normal
 // when inverted, a pixel set to 0 will be on
 void Arduboy2Core::invert(bool inverse){};
@@ -134,25 +138,28 @@ void Arduboy2Core::invert(bool inverse){};
 void Arduboy2Core::flipVertical(bool flipped){};
 // flip the display horizontally or set to normal
 void Arduboy2Core::flipHorizontal(bool flipped){};
-void Arduboy2Core::paint8Pixels(uint8_t pixels){}
+void Arduboy2Core::paint8Pixels(uint8_t pixels) {}
 void Arduboy2Core::freeRGBled(){};
 
 /* Power Management */
-void Arduboy2Core::idle() {
-delay(1);
+void Arduboy2Core::idle()
+{
+  delay(1);
 };
 
 // Shut down the display
-void Arduboy2Core::displayOff() {
+void Arduboy2Core::displayOff()
+{
 #ifdef ADAFRUIT
-dac.setVoltage(0, false);
+  dac.setVoltage(0, false);
 #endif
 };
 
 // Restart the display after a displayOff()
-void Arduboy2Core::displayOn() {
+void Arduboy2Core::displayOn()
+{
 #ifdef ADAFRUIT
-dac.setVoltage(4095, false);
+  dac.setVoltage(4095, false);
 #endif
 };
 
@@ -160,11 +167,10 @@ uint8_t Arduboy2Core::width() { return WIDTH; }
 
 uint8_t Arduboy2Core::height() { return HEIGHT; }
 
-
 /* Drawing */
 
 void Arduboy2Core::paintScreen(const uint8_t *image){
-  //memcpy(sBuffer, image, HEIGHT*WIDTH/8);
+    //memcpy(sBuffer, image, HEIGHT*WIDTH/8);
 };
 
 // paint from a memory buffer, this should be FAST as it's likely what
@@ -173,47 +179,67 @@ void Arduboy2Core::paintScreen(const uint8_t *image){
 // The following assembly code runs "open loop". It relies on instruction
 // execution times to allow time for each byte of data to be clocked out.
 // It is specifically tuned for a 16MHz CPU clock and SPI clocking at 8MHz.
-void Arduboy2Core::paintScreen(uint8_t image[], bool clear) {
-//  memcpy(sBuffer, image, HEIGHT*WIDTH/8);
-//  if (clear) memset(sBuffer, 0, HEIGHT*WIDTH/8);
+void Arduboy2Core::paintScreen(uint8_t image[], bool clear){
+    //  memcpy(sBuffer, image, HEIGHT*WIDTH/8);
+    //  if (clear) memset(sBuffer, 0, HEIGHT*WIDTH/8);
 };
-
 
 /* RGB LED */
-void Arduboy2Core::setRGBled(uint8_t red, uint8_t green, uint8_t blue){
+void Arduboy2Core::setRGBled(uint8_t red, uint8_t green, uint8_t blue)
+{
 #ifdef ESP8266
-  myled.setRGB (red, green, blue);
+  myled.setRGB(red, green, blue);
 #endif
 };
 
-void Arduboy2Core::setRGBled(uint8_t color, uint8_t val){
+void Arduboy2Core::setRGBled(uint8_t color, uint8_t val)
+{
 #ifdef ESP8266
-  if (color == RED_LED)   myled.setR (val);
+  if (color == RED_LED)
+    myled.setR(val);
+  else if (color == GREEN_LED)
+    myled.setG(val);
+  else if (color == BLUE_LED)
+    myled.setB(val);
+#endif
+};
+
+void Arduboy2Core::digitalWriteRGB(uint8_t red, uint8_t green, uint8_t blue)
+{
+#ifdef ESP8266
+  if (red)
+    myled.setR(200);
   else
-    if (color == GREEN_LED) myled.setG (val);
-    else
-      if (color == BLUE_LED)  myled.setB (val);
+    myled.setR(0);
+  if (green)
+    myled.setG(200);
+  else
+    myled.setG(0);
+  if (blue)
+    myled.setB(200);
+  else
+    myled.setB(0);
 #endif
 };
 
-
-void Arduboy2Core::digitalWriteRGB(uint8_t red, uint8_t green, uint8_t blue){
-#ifdef ESP8266
-  if (red) myled.setR (200); else myled.setR (0); 
-  if (green) myled.setG (200); else myled.setG (0); 
-  if (blue) myled.setB (200); else myled.setB (0); 
-#endif
-};
-
-
-void Arduboy2Core::digitalWriteRGB(uint8_t color, uint8_t val){
+void Arduboy2Core::digitalWriteRGB(uint8_t color, uint8_t val)
+{
 #ifdef ESP8266
   if (color == 0)
-  	if(val) myled.setR (200); else myled.setR (0);
+    if (val)
+      myled.setR(200);
+    else
+      myled.setR(0);
   if (color == 1)
-    if(val) myled.setG (200); else myled.setG (0);
+    if (val)
+      myled.setG(200);
+    else
+      myled.setG(0);
   if (color == 2)
-    if(val) myled.setB (200); else myled.setB (0);
+    if (val)
+      myled.setB(200);
+    else
+      myled.setB(0);
 #endif
 }
 
@@ -247,43 +273,63 @@ static byte ePaperButtons = 0;
 
 void button_callback(Button2 &b)
 {
-    bool aButton = false;
-    bool bButton = false;
-    bool cButton = false;
+  bool aButton = false;
+  bool bButton = false;
+  bool cButton = false;
 
-    unsigned int time = b.wasPressedFor();
-    if (time > 3000) {
-    } else if (time > 1500) {
-        cButton = true;
-    } else if (time > 500) {
-        bButton = true;
-    } else {
-        aButton = true;
-    }
+  unsigned int time = b.wasPressedFor();
+  if (time > 3000)
+  {
+  }
+  else if (time > 1500)
+  {
+    cButton = true;
+  }
+  else if (time > 500)
+  {
+    bButton = true;
+  }
+  else
+  {
+    aButton = true;
+  }
 
-    byte buttonVals = 0;
-    buttonVals = buttonVals | (aButton << P1_Right);
-    buttonVals = buttonVals | (bButton << P2_Right);
-    buttonVals = buttonVals | (cButton << P2_Left);
+  // Serial.write(printf("a %d : b %d : c %d \r\n", aButton, bButton, cButton));
 
-    ePaperButtons = buttonVals;
+  byte buttonVals = 0;
+
+  buttonVals = buttonVals | (false << P1_Left);
+  buttonVals = buttonVals | (false << P1_Top);
+  buttonVals = buttonVals | (aButton << P1_Right);
+  buttonVals = buttonVals | (false << P1_Bottom);
+
+  buttonVals = buttonVals | (bButton << P2_Right);
+  buttonVals = buttonVals | (false << P2_Bottom);
+  buttonVals = buttonVals | (cButton << P2_Left);
+  buttonVals = buttonVals | (false << P2_Top);
+
+  ePaperButtons = buttonVals;
 }
 
 void button_init()
 {
-    pBtns.setPressedHandler(button_callback);
+  pBtns.setPressedHandler(button_callback);
 }
 
 void button_loop()
 {
-    pBtns.loop();
+  pBtns.loop();
 }
 
-static byte buttonCheck() {
-  if (buttonRun) {
+static byte buttonCheck()
+{
+  if (!buttonRun)
+  {
     button_init();
     buttonRun = true;
-  } else {
+  }
+  else
+  {
     button_loop();
   }
 
@@ -345,19 +391,27 @@ static void getRawInput()
 
 static byte getReadShift()
 {
-  #ifdef EPAPER130
+#ifdef EPAPER130
   return buttonCheck();
-  #else
+#else
   return getReadShiftAnalog();
-  #endif
+#endif
 }
 
 static uint16_t keyStateThread;
 static SemaphoreHandle_t xSemaphoreInput;
 
-static void inputThread(void *empty) {
-  for ( ;; ) {
-    if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE) {
+static void inputThread(void *empty)
+{
+  for (;;)
+  {
+    if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE)
+    {
+      inputlastTime = inputcurrentTime;
+      inputcurrentTime = esp_timer_get_time();
+      inputframeTime = inputcurrentTime - inputlastTime;
+      inputfps = 1000000 / inputframeTime;
+
       keyStateThread = getReadShift();
       xSemaphoreGive(xSemaphoreInput);
       vTaskDelay(10);
@@ -369,67 +423,104 @@ static void inputThread(void *empty) {
 
 /* Buttons */
 static uint16_t keystate;
-uint8_t buttons = 0;	
+uint8_t buttons = 0;
 
-uint8_t Arduboy2Core::buttonsState(){
-buttons = 0;
+uint8_t Arduboy2Core::buttonsState()
+{
+  buttons = 0;
 #ifdef ESP8266
   keystate = ~mcp.readGPIOAB() & 255;
 
   // LEFT_BUTTON, RIGHT_BUTTON, UP_BUTTON, DOWN_BUTTON, A_BUTTON, B_BUTTON
-  if (keystate&PAD_ANY){
-    if (keystate&PAD_LEFT)  { buttons |= LEFT_BUTTON; }  // left
-    if (keystate&PAD_RIGHT) { buttons |= RIGHT_BUTTON; }  // right
-    if (keystate&PAD_UP)    { buttons |= UP_BUTTON; }  // up
-    if (keystate&PAD_DOWN)  { buttons |= DOWN_BUTTON; }  // down
-    if (keystate&PAD_ACT)   { buttons |= A_BUTTON; }  // a?
-    if (keystate&PAD_ESC)   { buttons |= B_BUTTON; }  // b?
+  if (keystate & PAD_ANY)
+  {
+    if (keystate & PAD_LEFT)
+    {
+      buttons |= LEFT_BUTTON;
+    } // left
+    if (keystate & PAD_RIGHT)
+    {
+      buttons |= RIGHT_BUTTON;
+    } // right
+    if (keystate & PAD_UP)
+    {
+      buttons |= UP_BUTTON;
+    } // up
+    if (keystate & PAD_DOWN)
+    {
+      buttons |= DOWN_BUTTON;
+    } // down
+    if (keystate & PAD_ACT)
+    {
+      buttons |= A_BUTTON;
+    } // a?
+    if (keystate & PAD_ESC)
+    {
+      buttons |= B_BUTTON;
+    } // b?
   }
 
 #else
-    // Initial Setup
-    if (inputSetup) {
-      if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE) {
-        keystate = keyStateThread;
-        xSemaphoreGive(xSemaphoreInput);
-        }
+  // Initial Setup
+  if (inputSetup)
+  {
+    #ifndef EPAPER130
+    if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE)
+    {
+      keystate = keyStateThread;
+      xSemaphoreGive(xSemaphoreInput);
+    }
+    #else
+    // Disabled threading because of instantaneous press checks.
+     keystate = buttonCheck();
+    #endif
 
-      if (keystate & BIT_P1_Left) buttons |= LEFT_BUTTON;//Left
-      if (keystate & BIT_P1_Right) buttons |= RIGHT_BUTTON;//Right
-      if (keystate & BIT_P1_Top) buttons |= UP_BUTTON;//Up
-      if (keystate & BIT_P1_Bottom) buttons |= DOWN_BUTTON;;//Down
-      if (keystate & BIT_P2_Right) buttons |= A_BUTTON;;//A
-      if (keystate & BIT_P2_Bottom) buttons |= A_BUTTON;//A
-      if (keystate & BIT_P2_Left) buttons |= B_BUTTON;//B
-      if (keystate & BIT_P2_Top) buttons |= B_BUTTON;//B
-    } else {
-      TaskHandle_t xHandle = NULL;
-      xSemaphoreInput = xSemaphoreCreateMutex();
- #ifndef EPAPER130
-      getRawInput();
-      for (int i = 0; i < 8; i++)
-      {
-        TOUCH_SENSE[i] /= 2;
-        if (TOUCH_SENSE[i] > TOUCH_SENSE_MAX)
-          TOUCH_SENSE[i] = TOUCH_SENSE_MAX;
-        if (TOUCH_SENSE[i] < TOUCH_SENSE_MIN)
-          TOUCH_SENSE[i] = TOUCH_SENSE_MIN;
-        
-      }
+    if (keystate & BIT_P1_Left)
+      buttons |= LEFT_BUTTON; //Left
+    if (keystate & BIT_P1_Right)
+      buttons |= RIGHT_BUTTON; //Right
+    if (keystate & BIT_P1_Top)
+      buttons |= UP_BUTTON; //Up
+    if (keystate & BIT_P1_Bottom)
+      buttons |= DOWN_BUTTON;
+    ; //Down
+    if (keystate & BIT_P2_Right)
+      buttons |= A_BUTTON;
+    ; //A
+    if (keystate & BIT_P2_Bottom)
+      buttons |= A_BUTTON; //A
+    if (keystate & BIT_P2_Left)
+      buttons |= B_BUTTON; //B
+    if (keystate & BIT_P2_Top)
+      buttons |= B_BUTTON; //B
+  }
+  else
+  {
+    TaskHandle_t xHandle = NULL;
+    xSemaphoreInput = xSemaphoreCreateMutex();
+#ifndef EPAPER130
+    getRawInput();
+    for (int i = 0; i < 8; i++)
+    {
+      TOUCH_SENSE[i] /= 2;
+      if (TOUCH_SENSE[i] > TOUCH_SENSE_MAX)
+        TOUCH_SENSE[i] = TOUCH_SENSE_MAX;
+      if (TOUCH_SENSE[i] < TOUCH_SENSE_MIN)
+        TOUCH_SENSE[i] = TOUCH_SENSE_MIN;
+    }
+
+    xTaskCreatePinnedToCore(inputThread, "Input", 1024, nullptr, 1, &xHandle, 0);
 #endif
 
-      // xTaskCreatePinnedToCore(inputThread, "Input", 1024, nullptr, 1, &xHandle, 0);
-
-      inputSetup = true;
-    }
+    inputSetup = true;
+  }
 #endif
 
   return buttons;
 }
 
 // delay in ms with 16 bit duration
-void Arduboy2Core::delayShort(uint16_t ms) {
-  delay((unsigned long) ms);
+void Arduboy2Core::delayShort(uint16_t ms)
+{
+  delay((unsigned long)ms);
 };
-
-

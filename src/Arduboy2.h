@@ -28,7 +28,7 @@
 #include <limits.h>
 
 #ifndef ESP8266
-static void displayScreen(void *mySprite);
+static void displayScreen(void *sprite);
 #endif
 
 /** \brief
