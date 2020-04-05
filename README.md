@@ -91,7 +91,8 @@ If authors against posting the code in this repository for the purpose of learni
 - **Galaxion** (MIT) by [tako2](https://github.com/ArduboyCollection/galaxion)
 - **Karateka** (BSD-3-Clause) by [Simon Holmes (filmote)](https://community.arduboy.com/t/karateka-v0-9/4852)
 - **Tackle Box** (Proprietary) by [Matt](https://www.city41.games/tacklebox)
-- **Not Just a Hat Rack** by (Proprietary) [Hundstrasse] (https://hundstrasse.com/arduboy-games/not-just-a-hat-rack/)
+- **Not Just a Hat Rack** by (Proprietary) [Hundstrasse](https://hundstrasse.com/arduboy-games/not-just-a-hat-rack/)
+- **Super-Crate-Buino-branched** (LGPL-3.0-or-later) by [Aurélien Rodot](http://legacy.gamebuino.com/forum/viewtopic.php?f=17&t=3151) [(ported by uXe)](https://github.com/Rodot/Super-Crate-Buino)
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
 - **ESP8266_picovaders** - UNKNOWN
