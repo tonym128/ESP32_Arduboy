@@ -1,0 +1,84 @@
+.fish {
+    min-width: 400px;
+    display: grid;
+    grid-template-columns: 138px 512px;
+    column-gap: 20px;
+}
+
+.nameAndImage {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+}
+
+.nameAndImage h4 {
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.imgContainer {
+    width: 128px;
+    align-self: center;
+    margin-right: 10px;
+}
+
+.imgContainer img {
+    image-rendering: pixelated;
+}
+
+.GOLDFISH,
+.GUPPY,
+.BETA,
+.TROUT,
+.BASS,
+.CRAWFISH,
+.CATFISH {
+    width: 128px;
+    height: 128px;
+}
+
+.MINNOW,
+.SEAHORSE,
+.SARDINE {
+    width: 64px;
+    height: 128px;
+}
+
+.FLOUNDER,
+.OCTOPUS,
+.FANGTOOTH,
+.LOBSTER,
+.CRAB {
+    width: 96px;
+    height: 64px;
+}
+
+.EEL,
+.GROUPER {
+    width: 128px;
+    height: 64px;
+}
+
+.MARLIN {
+    width: 128px;
+    height: 60px;
+}
+
+.SHARK,
+.GRTWHITE {
+    width: 128px;
+    height: 40px;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats {
+    margin-top: 20px;
+}
+
+.stats div {
+    margin-bottom: 4px;
+}

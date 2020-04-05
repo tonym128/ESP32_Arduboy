@@ -1,0 +1,1129 @@
+{
+  "nodes": {
+    "SitePage /dev-404-page/": {
+      "path": "/dev-404-page/",
+      "id": "SitePage /dev-404-page/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "f91d29e10ba680b413138cf9ed86e655",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin dev-404-page": {
+      "resolve": "/home/matt/dev/tacklebox/web/node_modules/gatsby/dist/internal-plugins/dev-404-page",
+      "id": "Plugin dev-404-page",
+      "name": "dev-404-page",
+      "version": "1.0.0",
+      "pluginOptions": {
+        "plugins": []
+      },
+      "nodeAPIs": [
+        "createPagesStatefully"
+      ],
+      "browserAPIs": [],
+      "ssrAPIs": [],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web/node_modules/gatsby/dist/internal-plugins/dev-404-page",
+      "packageJson": {
+        "name": "dev-404-page",
+        "description": "Internal plugin to add a 404 page in development with helpful information",
+        "version": "1.0.0",
+        "main": "index.js",
+        "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+        "license": "MIT",
+        "dependencies": [],
+        "devDependencies": [],
+        "peerDependencies": [],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "7c6f2f55eb4aedcb2122aa43a0944ed1",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin load-babel-config": {
+      "resolve": "/home/matt/dev/tacklebox/web/node_modules/gatsby/dist/internal-plugins/load-babel-config",
+      "id": "Plugin load-babel-config",
+      "name": "load-babel-config",
+      "version": "1.0.0",
+      "pluginOptions": {
+        "plugins": []
+      },
+      "nodeAPIs": [
+        "onPreBootstrap"
+      ],
+      "browserAPIs": [],
+      "ssrAPIs": [],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web/node_modules/gatsby/dist/internal-plugins/load-babel-config",
+      "packageJson": {
+        "name": "load-babel-config",
+        "description": "Internal plugin that handles loading Babel configs",
+        "version": "1.0.0",
+        "main": "index.js",
+        "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+        "license": "MIT",
+        "dependencies": [],
+        "devDependencies": [],
+        "peerDependencies": [],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "6b994484adf01744e502fe9fbc091375",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin internal-data-bridge": {
+      "resolve": "/home/matt/dev/tacklebox/web/node_modules/gatsby/dist/internal-plugins/internal-data-bridge",
+      "id": "Plugin internal-data-bridge",
+      "name": "internal-data-bridge",
+      "version": "1.0.0",
+      "pluginOptions": {
+        "plugins": []
+      },
+      "nodeAPIs": [
+        "sourceNodes",
+        "onCreatePage"
+      ],
+      "browserAPIs": [],
+      "ssrAPIs": [],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web/node_modules/gatsby/dist/internal-plugins/internal-data-bridge",
+      "packageJson": {
+        "name": "internal-data-bridge",
+        "description": "An internal Gatsby plugin which creates data nodes from internal data",
+        "version": "1.0.0",
+        "main": "index.js",
+        "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+        "license": "MIT",
+        "dependencies": [],
+        "devDependencies": [],
+        "peerDependencies": [],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "f88b8d5ad2fb5bad1e9a05385a349515",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin prod-404": {
+      "resolve": "/home/matt/dev/tacklebox/web/node_modules/gatsby/dist/internal-plugins/prod-404",
+      "id": "Plugin prod-404",
+      "name": "prod-404",
+      "version": "1.0.0",
+      "pluginOptions": {
+        "plugins": []
+      },
+      "nodeAPIs": [
+        "onCreatePage"
+      ],
+      "browserAPIs": [],
+      "ssrAPIs": [],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web/node_modules/gatsby/dist/internal-plugins/prod-404",
+      "packageJson": {
+        "name": "prod-404",
+        "description": "Internal plugin to detect various flavors of 404 pages and ensure there's a 404.html path created as well to ensure compatability with static hosts",
+        "version": "1.0.0",
+        "main": "index.js",
+        "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+        "license": "MIT",
+        "dependencies": [],
+        "devDependencies": [],
+        "peerDependencies": [],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "87d474af6d54a02c27bebdebb6ea7ef0",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin query-runner": {
+      "resolve": "/home/matt/dev/tacklebox/web/node_modules/gatsby/dist/internal-plugins/query-runner",
+      "id": "Plugin query-runner",
+      "name": "query-runner",
+      "version": "1.0.0",
+      "pluginOptions": {
+        "plugins": []
+      },
+      "nodeAPIs": [
+        "onCreatePage"
+      ],
+      "browserAPIs": [],
+      "ssrAPIs": [],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web/node_modules/gatsby/dist/internal-plugins/query-runner",
+      "packageJson": {
+        "name": "query-runner",
+        "description": "Internal plugin for running queries",
+        "version": "1.0.0",
+        "main": "index.js",
+        "author": "",
+        "license": "MIT",
+        "dependencies": [],
+        "devDependencies": [],
+        "peerDependencies": [],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "1d9c2998db0e0dc5fa7ea891bb4cbf69",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin gatsby-plugin-react-helmet": {
+      "resolve": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-react-helmet",
+      "id": "Plugin gatsby-plugin-react-helmet",
+      "name": "gatsby-plugin-react-helmet",
+      "version": "3.0.0-rc.1",
+      "pluginOptions": {
+        "plugins": []
+      },
+      "nodeAPIs": [],
+      "browserAPIs": [],
+      "ssrAPIs": [
+        "onRenderBody"
+      ],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-react-helmet",
+      "packageJson": {
+        "name": "gatsby-plugin-react-helmet",
+        "description": "Manage document head data with react-helmet. Provides drop-in server rendering support for Gatsby.",
+        "version": "3.0.0-rc.1",
+        "main": "index.js",
+        "keywords": [
+          "gatsby",
+          "gatsby-plugin",
+          "favicon",
+          "react-helmet",
+          "seo",
+          "document",
+          "head",
+          "title",
+          "meta",
+          "link",
+          "script",
+          "base",
+          "noscript",
+          "style"
+        ],
+        "author": {
+          "name": "Kyle Mathews",
+          "email": "matthews.kyle@gmail.com"
+        },
+        "license": "MIT",
+        "dependencies": [
+          {
+            "name": "@babel/runtime",
+            "version": "^7.0.0"
+          }
+        ],
+        "devDependencies": [
+          {
+            "name": "@babel/cli",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "@babel/core",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "cross-env",
+            "version": "^5.1.4"
+          }
+        ],
+        "peerDependencies": [
+          {
+            "name": "gatsby",
+            "version": ">2.0.0-alpha"
+          },
+          {
+            "name": "react-helmet",
+            "version": ">=5.1.3"
+          }
+        ],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "4309359e285179f7f985724520b458f2",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin gatsby-plugin-manifest": {
+      "resolve": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-manifest",
+      "id": "Plugin gatsby-plugin-manifest",
+      "name": "gatsby-plugin-manifest",
+      "version": "2.0.2-rc.1",
+      "pluginOptions": {
+        "plugins": [],
+        "name": "City41 Games",
+        "short_name": "City41",
+        "start_url": "/",
+        "background_color": "#663399",
+        "theme_color": "#663399",
+        "display": "minimal-ui",
+        "icon": "src/images/bearForFavicon.png"
+      },
+      "nodeAPIs": [
+        "onPostBootstrap"
+      ],
+      "browserAPIs": [],
+      "ssrAPIs": [
+        "onRenderBody"
+      ],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-manifest",
+      "packageJson": {
+        "name": "gatsby-plugin-manifest",
+        "description": "Gatsby plugin which adds a manifest.webmanifest to make sites progressive web apps",
+        "version": "2.0.2-rc.1",
+        "main": "index.js",
+        "keywords": [
+          "gatsby",
+          "gatsby-plugin",
+          "favicon",
+          "icons",
+          "manifest.webmanifest",
+          "progressive-web-app",
+          "pwa"
+        ],
+        "author": {
+          "name": "Kyle Mathews",
+          "email": "mathews.kyle@gmail.com"
+        },
+        "license": "MIT",
+        "dependencies": [
+          {
+            "name": "@babel/runtime",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "bluebird",
+            "version": "^3.5.0"
+          },
+          {
+            "name": "sharp",
+            "version": "^0.20.2"
+          }
+        ],
+        "devDependencies": [
+          {
+            "name": "@babel/cli",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "@babel/core",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "cross-env",
+            "version": "^5.1.4"
+          }
+        ],
+        "peerDependencies": [
+          {
+            "name": "gatsby",
+            "version": ">2.0.0-alpha"
+          }
+        ],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "d812f12c45969a7162eb48d7d51bc182",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin gatsby-plugin-offline": {
+      "resolve": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-offline",
+      "id": "Plugin gatsby-plugin-offline",
+      "name": "gatsby-plugin-offline",
+      "version": "2.0.0-rc.6",
+      "pluginOptions": {
+        "plugins": []
+      },
+      "nodeAPIs": [
+        "createPages",
+        "onPostBuild"
+      ],
+      "browserAPIs": [
+        "registerServiceWorker",
+        "onPrefetchPathname",
+        "onServiceWorkerInstalled"
+      ],
+      "ssrAPIs": [],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-offline",
+      "packageJson": {
+        "name": "gatsby-plugin-offline",
+        "description": "Gatsby plugin which sets up a site to be able to run offline",
+        "version": "2.0.0-rc.6",
+        "main": "index.js",
+        "keywords": [
+          "gatsby",
+          "gatsby-plugin",
+          "offline",
+          "precache",
+          "service-worker"
+        ],
+        "author": {
+          "name": "Kyle Mathews",
+          "email": "mathews.kyle@gmail.com"
+        },
+        "license": "MIT",
+        "dependencies": [
+          {
+            "name": "@babel/runtime",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "cheerio",
+            "version": "^1.0.0-rc.2"
+          },
+          {
+            "name": "lodash",
+            "version": "^4.17.10"
+          },
+          {
+            "name": "workbox-build",
+            "version": "^3.4.1"
+          }
+        ],
+        "devDependencies": [
+          {
+            "name": "@babel/cli",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "@babel/core",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "cross-env",
+            "version": "^5.1.4"
+          }
+        ],
+        "peerDependencies": [
+          {
+            "name": "gatsby",
+            "version": ">2.0.0-beta"
+          }
+        ],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "3d7501f59e4518e1d3be04d2c8e4983a",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin gatsby-plugin-favicon": {
+      "resolve": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-favicon",
+      "id": "Plugin gatsby-plugin-favicon",
+      "name": "gatsby-plugin-favicon",
+      "version": "3.1.4",
+      "pluginOptions": {
+        "plugins": [],
+        "logo": "./src/images/bearForFavicon.png",
+        "appName": null,
+        "appDescription": null,
+        "developerName": null,
+        "developerURL": null,
+        "dir": "auto",
+        "lang": "en-US",
+        "background": "#fff",
+        "theme_color": "#fff",
+        "display": "standalone",
+        "orientation": "any",
+        "start_url": "/?homescreen=1",
+        "version": "1.0",
+        "icons": {
+          "android": true,
+          "appleIcon": true,
+          "appleStartup": true,
+          "coast": false,
+          "favicons": true,
+          "firefox": true,
+          "opengraph": false,
+          "twitter": false,
+          "yandex": false,
+          "windows": false
+        }
+      },
+      "nodeAPIs": [
+        "onCreateWebpackConfig"
+      ],
+      "browserAPIs": [],
+      "ssrAPIs": [
+        "onRenderBody"
+      ],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-favicon",
+      "packageJson": {
+        "name": "gatsby-plugin-favicon",
+        "description": "Gatsby plugin to add favicon for all configurations",
+        "version": "3.1.4",
+        "main": "index.js",
+        "keywords": [
+          "gatsby",
+          "gatsby-plugin",
+          "favicon"
+        ],
+        "author": {
+          "name": "Julien Blatecky",
+          "email": "julien.blatecky@creatiwity.net"
+        },
+        "license": "MIT",
+        "dependencies": [
+          {
+            "name": "favicons-webpack-plugin",
+            "version": "git://github.com/Creatiwity/favicons-webpack-plugin.git#f262255febeeca348bf7ae5cc140e0386c074e2c"
+          },
+          {
+            "name": "html-react-parser",
+            "version": "^0.4.6"
+          },
+          {
+            "name": "lodash",
+            "version": "^4.17.10"
+          }
+        ],
+        "peerDependencies": [
+          {
+            "name": "gatsby",
+            "version": ">2.0.0-alpha"
+          },
+          {
+            "name": "react",
+            "version": "^16.4.2"
+          }
+        ],
+        "devDependencies": [],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "480d4f93318f6595a70e0692a01c28d3",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin default-site-plugin": {
+      "resolve": "/home/matt/dev/tacklebox/web",
+      "id": "Plugin default-site-plugin",
+      "name": "default-site-plugin",
+      "version": "f2d13edd8a6a5012231547d82cec3df0",
+      "pluginOptions": {
+        "plugins": []
+      },
+      "nodeAPIs": [],
+      "browserAPIs": [],
+      "ssrAPIs": [],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web",
+      "packageJson": {
+        "name": "city41.games",
+        "description": "Games for the Arduboy",
+        "version": "1.0.0",
+        "keywords": [
+          "arduboy",
+          "adventure game",
+          "zelda style"
+        ],
+        "author": "Matt Greer <matt.e.greer@gmail.com>",
+        "license": "MIT",
+        "dependencies": [
+          {
+            "name": "classnames",
+            "version": "^2.2.6"
+          },
+          {
+            "name": "gatsby",
+            "version": "next"
+          },
+          {
+            "name": "gatsby-plugin-favicon",
+            "version": "^3.1.4"
+          },
+          {
+            "name": "gatsby-plugin-manifest",
+            "version": "next"
+          },
+          {
+            "name": "gatsby-plugin-offline",
+            "version": "next"
+          },
+          {
+            "name": "gatsby-plugin-react-helmet",
+            "version": "next"
+          },
+          {
+            "name": "react",
+            "version": "^16.4.2"
+          },
+          {
+            "name": "react-dom",
+            "version": "^16.4.2"
+          },
+          {
+            "name": "react-helmet",
+            "version": "^5.2.0"
+          }
+        ],
+        "devDependencies": [
+          {
+            "name": "prettier",
+            "version": "^1.14.2"
+          }
+        ],
+        "peerDependencies": [],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "5b8e1811c152b7ece4104c6961f68928",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Plugin gatsby-plugin-page-creator": {
+      "resolve": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-page-creator",
+      "id": "Plugin gatsby-plugin-page-creator",
+      "name": "gatsby-plugin-page-creator",
+      "version": "2.0.0-rc.1",
+      "pluginOptions": {
+        "plugins": [],
+        "path": "/home/matt/dev/tacklebox/web/src/pages",
+        "pathCheck": false
+      },
+      "nodeAPIs": [
+        "createPagesStatefully"
+      ],
+      "browserAPIs": [],
+      "ssrAPIs": [],
+      "pluginFilepath": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-page-creator",
+      "packageJson": {
+        "name": "gatsby-plugin-page-creator",
+        "description": "Gatsby plugin that automatically creates pages from React components in specified directories",
+        "version": "2.0.0-rc.1",
+        "main": "index.js",
+        "keywords": [
+          "gatsby",
+          "gatsby-plugin"
+        ],
+        "author": {
+          "name": "Kyle Mathews",
+          "email": "mathews.kyle@gmail.com"
+        },
+        "license": "MIT",
+        "dependencies": [
+          {
+            "name": "@babel/runtime",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "bluebird",
+            "version": "^3.5.0"
+          },
+          {
+            "name": "chokidar",
+            "version": "^1.7.0"
+          },
+          {
+            "name": "fs-exists-cached",
+            "version": "^1.0.0"
+          },
+          {
+            "name": "glob",
+            "version": "^7.1.1"
+          },
+          {
+            "name": "lodash",
+            "version": "^4.17.4"
+          },
+          {
+            "name": "parse-filepath",
+            "version": "^1.0.1"
+          },
+          {
+            "name": "slash",
+            "version": "^1.0.0"
+          }
+        ],
+        "devDependencies": [
+          {
+            "name": "@babel/cli",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "@babel/core",
+            "version": "^7.0.0"
+          },
+          {
+            "name": "cross-env",
+            "version": "^5.0.5"
+          }
+        ],
+        "peerDependencies": [
+          {
+            "name": "gatsby",
+            "version": ">2.0.0-alpha"
+          }
+        ],
+        "optionalDependecies": [],
+        "bundledDependecies": []
+      },
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "930b839cdb680f369bce74bb68f9a6cb",
+        "type": "SitePlugin",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "Site": {
+      "siteMetadata": {
+        "title": "City41 Games",
+        "keywords": "Arduboy, games, animal crossing style, zelda style, fishing, adventure",
+        "description": "I make games for the Arduboy",
+        "twitterHandle": "@mattegreer",
+        "ardynia": {
+          "title": "Ardynia",
+          "keywords": "Arduboy, games, animal crosing style, fishing, adventure",
+          "description": "A Zelda style adventure game for the Arduboy"
+        },
+        "tacklebox": {
+          "title": "Tackle Box",
+          "keywords": "Arduboy, games, animal crosing style, fishing, adventure",
+          "description": "A fishing adventure game for the Arduboy"
+        }
+      },
+      "pathPrefix": "",
+      "polyfill": true,
+      "buildTime": "2018-11-28T01:25:52.263Z",
+      "id": "Site",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "contentDigest": "b4b0f2a5156e0e116b08b61098e87c83",
+        "type": "Site",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /offline-plugin-app-shell-fallback/": {
+      "jsonName": "offline-plugin-app-shell-fallback-a30",
+      "internalComponentName": "ComponentOfflinePluginAppShellFallback",
+      "path": "/offline-plugin-app-shell-fallback/",
+      "component": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-offline/app-shell.js",
+      "componentChunkName": "component---node-modules-gatsby-plugin-offline-app-shell-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-offline",
+      "pluginCreatorId": "Plugin gatsby-plugin-offline",
+      "componentPath": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-offline/app-shell.js",
+      "id": "SitePage /offline-plugin-app-shell-fallback/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "32db5e7f7ed6c4bdd6e0ddaed870a2e6",
+        "description": "Plugin gatsby-plugin-offline",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /404/": {
+      "jsonName": "404-22d",
+      "internalComponentName": "Component404",
+      "path": "/404/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/404.js",
+      "componentChunkName": "component---src-pages-404-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/404.js",
+      "id": "SitePage /404/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "14d610176965111dbe27c8008c1b0294",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /ardynia/contact/": {
+      "jsonName": "ardynia-contact-a70",
+      "internalComponentName": "ComponentArdyniaContact",
+      "path": "/ardynia/contact/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/ardynia/contact.js",
+      "componentChunkName": "component---src-pages-ardynia-contact-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/ardynia/contact.js",
+      "id": "SitePage /ardynia/contact/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "ae86886817290ff7443a0bb4afa9e510",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /ardynia/help/": {
+      "jsonName": "ardynia-help-024",
+      "internalComponentName": "ComponentArdyniaHelp",
+      "path": "/ardynia/help/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/ardynia/help.js",
+      "componentChunkName": "component---src-pages-ardynia-help-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/ardynia/help.js",
+      "id": "SitePage /ardynia/help/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "3943e1b20d00728ccb03812e5bfaf6f7",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /ardynia/": {
+      "jsonName": "ardynia-acf",
+      "internalComponentName": "ComponentArdynia",
+      "path": "/ardynia/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/ardynia/index.js",
+      "componentChunkName": "component---src-pages-ardynia-index-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/ardynia/index.js",
+      "id": "SitePage /ardynia/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "53990d64b2905b7f4ab7ed369c181e1d",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /fg/": {
+      "jsonName": "fg-58a",
+      "internalComponentName": "ComponentFg",
+      "path": "/fg/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/fg/index.js",
+      "componentChunkName": "component---src-pages-fg-index-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/fg/index.js",
+      "id": "SitePage /fg/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "7fecc1372b1e6c8929a5b759349c27be",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /": {
+      "jsonName": "index",
+      "internalComponentName": "ComponentIndex",
+      "path": "/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/index.js",
+      "componentChunkName": "component---src-pages-index-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/index.js",
+      "id": "SitePage /",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "f757d9d726f6b80d1620ebf3cd9472cf",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /tacklebox/contact/": {
+      "jsonName": "tacklebox-contact-1e5",
+      "internalComponentName": "ComponentTackleboxContact",
+      "path": "/tacklebox/contact/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/tacklebox/contact.js",
+      "componentChunkName": "component---src-pages-tacklebox-contact-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tacklebox/contact.js",
+      "id": "SitePage /tacklebox/contact/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "87a6b81ab87d6671ebd817e524daf38f",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /tacklebox/help/": {
+      "jsonName": "tacklebox-help-406",
+      "internalComponentName": "ComponentTackleboxHelp",
+      "path": "/tacklebox/help/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/tacklebox/help.js",
+      "componentChunkName": "component---src-pages-tacklebox-help-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tacklebox/help.js",
+      "id": "SitePage /tacklebox/help/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "5d7ecbc96c75bf3ba777202c267f7c12",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /tacklebox/": {
+      "jsonName": "tacklebox-3b7",
+      "internalComponentName": "ComponentTacklebox",
+      "path": "/tacklebox/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/tacklebox/index.js",
+      "componentChunkName": "component---src-pages-tacklebox-index-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tacklebox/index.js",
+      "id": "SitePage /tacklebox/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "581a19e77d45622def268c76e958a9fc",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /tbox/contact/": {
+      "jsonName": "tbox-contact-47c",
+      "internalComponentName": "ComponentTboxContact",
+      "path": "/tbox/contact/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/tbox/contact.js",
+      "componentChunkName": "component---src-pages-tbox-contact-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tbox/contact.js",
+      "id": "SitePage /tbox/contact/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "a60ca35aa6b0d9832fec60a5a178b393",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /tbox/help/": {
+      "jsonName": "tbox-help-7c6",
+      "internalComponentName": "ComponentTboxHelp",
+      "path": "/tbox/help/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/tbox/help.js",
+      "componentChunkName": "component---src-pages-tbox-help-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tbox/help.js",
+      "id": "SitePage /tbox/help/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "cb4c36ff926af26f3ba118832f7a2e0a",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /tbox/": {
+      "jsonName": "tbox-4c3",
+      "internalComponentName": "ComponentTbox",
+      "path": "/tbox/",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/tbox/index.js",
+      "componentChunkName": "component---src-pages-tbox-index-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin gatsby-plugin-page-creator",
+      "pluginCreatorId": "Plugin gatsby-plugin-page-creator",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tbox/index.js",
+      "id": "SitePage /tbox/",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "73c9e7f25f80f2ac3730cc402bcf42bb",
+        "description": "Plugin gatsby-plugin-page-creator",
+        "owner": "internal-data-bridge"
+      }
+    },
+    "SitePage /404.html": {
+      "jsonName": "404-html-516",
+      "internalComponentName": "Component404Html",
+      "path": "/404.html",
+      "component": "/home/matt/dev/tacklebox/web/src/pages/404.js",
+      "componentChunkName": "component---src-pages-404-js",
+      "context": {},
+      "pluginCreator___NODE": "Plugin prod-404",
+      "pluginCreatorId": "Plugin prod-404",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/404.js",
+      "id": "SitePage /404.html",
+      "parent": "SOURCE",
+      "children": [],
+      "internal": {
+        "type": "SitePage",
+        "contentDigest": "f7bc51b459459c2b897da9ce0f2be1b6",
+        "description": "Plugin prod-404",
+        "owner": "internal-data-bridge"
+      }
+    }
+  },
+  "status": {
+    "plugins": {},
+    "PLUGINS_HASH": "47f0256e9fd66faa950cf8762abbe033"
+  },
+  "componentDataDependencies": {
+    "nodes": {
+      "Site": [
+        "sq--src-components-ardynia-layout-js",
+        "sq--src-components-tacklebox-layout-js"
+      ]
+    },
+    "connections": {}
+  },
+  "jsonDataPaths": {
+    "dev-404-page-5f9": "920/path---dev-404-page-5-f-9-fab-NZuapzHg3X9TaN1iIixfv1W23E",
+    "sq--src-components-layout-js": 2840028964,
+    "index": "173/path---index-6a9-NZuapzHg3X9TaN1iIixfv1W23E",
+    "404-22d": "44/path---404-22-d-bce-NZuapzHg3X9TaN1iIixfv1W23E",
+    "page-2-fbc": "53/path---page-2-fbc-5a8-NZuapzHg3X9TaN1iIixfv1W23E",
+    "404-html-516": "164/path---404-html-516-62a-NZuapzHg3X9TaN1iIixfv1W23E",
+    "media-a6a": "53/path---media-a-6-a-4e8-NZuapzHg3X9TaN1iIixfv1W23E",
+    "updates-ba8": "623/path---updates-ba-8-764-NZuapzHg3X9TaN1iIixfv1W23E",
+    "contact-26a": "686/path---contact-26-a-cd9-NZuapzHg3X9TaN1iIixfv1W23E",
+    "offline-plugin-app-shell-fallback-a30": "520/path---offline-plugin-app-shell-fallback-a-30-c5a-NZuapzHg3X9TaN1iIixfv1W23E",
+    "help-7ab": "233/path---help-7-ab-134-NZuapzHg3X9TaN1iIixfv1W23E",
+    "tacklebox-contact-1e5": "45/path---tacklebox-contact-1-e-5-a19-NZuapzHg3X9TaN1iIixfv1W23E",
+    "tacklebox-help-406": "651/path---tacklebox-help-406-2b8-NZuapzHg3X9TaN1iIixfv1W23E",
+    "tacklebox-3b7": "944/path---tacklebox-3-b-7-fe0-NZuapzHg3X9TaN1iIixfv1W23E",
+    "ardynia-contact-a70": "624/path---ardynia-contact-a-70-573-NZuapzHg3X9TaN1iIixfv1W23E",
+    "ardynia-acf": "693/path---ardynia-acf-4de-NZuapzHg3X9TaN1iIixfv1W23E",
+    "ardynia-help-024": "320/path---ardynia-help-024-72a-NZuapzHg3X9TaN1iIixfv1W23E",
+    "tbox-contact-47c": "851/path---tbox-contact-47-c-1c6-NZuapzHg3X9TaN1iIixfv1W23E",
+    "tbox-help-7c6": "991/path---tbox-help-7-c-6-f28-NZuapzHg3X9TaN1iIixfv1W23E",
+    "tbox-4c3": "521/path---tbox-4-c-3-e71-NZuapzHg3X9TaN1iIixfv1W23E",
+    "sq--src-components-tacklebox-layout-js": 1816906826,
+    "sq--src-components-ardynia-layout-js": 2881195132,
+    "fg-58a": "293/path---fg-58-a-d61-NZuapzHg3X9TaN1iIixfv1W23E"
+  },
+  "components": {
+    "/home/matt/dev/tacklebox/web/src/pages/404.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/404.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/ardynia/contact.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/ardynia/contact.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/ardynia/help.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/ardynia/help.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/ardynia/index.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/ardynia/index.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/fg/index.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/fg/index.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/index.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/index.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/tacklebox/contact.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tacklebox/contact.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/tacklebox/help.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tacklebox/help.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/tacklebox/index.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tacklebox/index.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/tbox/contact.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tbox/contact.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/tbox/help.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tbox/help.js"
+    },
+    "/home/matt/dev/tacklebox/web/src/pages/tbox/index.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/pages/tbox/index.js"
+    },
+    "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-offline/app-shell.js": {
+      "query": "",
+      "componentPath": "/home/matt/dev/tacklebox/web/node_modules/gatsby-plugin-offline/app-shell.js"
+    }
+  },
+  "staticQueryComponents": {
+    "sq--src-components-ardynia-layout-js": {
+      "name": "ArdyniaSiteTitleQuery",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/components/ardyniaLayout.js",
+      "id": "sq--src-components-ardynia-layout-js",
+      "jsonName": "sq--src-components-ardynia-layout-js",
+      "query": "query ArdyniaSiteTitleQuery {\n  site {\n    siteMetadata {\n      ardynia {\n        title\n        keywords\n        description\n      }\n      twitterHandle\n    }\n  }\n}\n",
+      "hash": 2881195132
+    },
+    "sq--src-components-tacklebox-layout-js": {
+      "name": "TackleBoxSiteTitleQuery",
+      "componentPath": "/home/matt/dev/tacklebox/web/src/components/tackleboxLayout.js",
+      "id": "sq--src-components-tacklebox-layout-js",
+      "jsonName": "sq--src-components-tacklebox-layout-js",
+      "query": "query TackleBoxSiteTitleQuery {\n  site {\n    siteMetadata {\n      tacklebox {\n        title\n        keywords\n        description\n      }\n      twitterHandle\n    }\n  }\n}\n",
+      "hash": 1816906826
+    }
+  }
+}

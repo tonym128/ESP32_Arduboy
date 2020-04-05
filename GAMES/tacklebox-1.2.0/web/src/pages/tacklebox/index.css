@@ -1,0 +1,65 @@
+.home p {
+    margin-top: 40px;
+    max-width: 442px;
+}
+
+.home .mediaContainer {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: auto 260px 260px auto;
+    grid-template-rows: auto auto;
+    grid-row-gap: 40px;
+    grid-column-gap: 40px;
+    justify-items: center;
+}
+
+.home .mediaContainer video {
+    margin: 6px 20px;
+}
+
+.catchLobster {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.collectionMenu {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.bearsTackle {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.buyInTheShop {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+@media (max-width: 800px) {
+    .home .mediaContainer {
+        grid-template-columns: 260px;
+        grid-template-rows: auto auto auto auto;
+    }
+
+    .catchLobster {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .collectionMenu {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .bearsTackle {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    .buyInTheShop {
+        grid-column: 1;
+        grid-row: 4;
+    }
+}

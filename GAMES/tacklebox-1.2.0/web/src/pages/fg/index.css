@@ -1,0 +1,28 @@
+.fg .titleImage {
+    width: 500%;
+    height: 500%;
+    image-rendering: pixelated;
+}
+
+.fg .guideContainer {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 600px;
+    grid-template-rows: auto auto;
+    grid-row-gap: 40px;
+    grid-column-gap: 40px;
+    justify-items: center;
+}
+
+.fg .fish {
+    margin-bottom: 40px;
+}
+
+.fg .agreement {
+    padding: 10px;
+}
+
+.fg .agreement.agreed {
+    background-color: #dcf2dd;
+    color: black;
+}
