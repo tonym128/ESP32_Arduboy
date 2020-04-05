@@ -8,7 +8,13 @@
 #include "ab_logo.c"
 #include "glcdfont.c"
 
+#if defined(ESP8266)
 extern TFT_eSPI screen;
+#elif defined(IPS240)
+extern TFT_eSPI screen;
+#elif defined(EPAPER130)
+extern GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper; // GDEH0213B73
+#endif
 
 #ifdef ADAFRUIT
 extern Adafruit_MCP23017 mcp;
@@ -69,7 +75,14 @@ void Arduboy2Base::flashlight()
     return;
   }
   digitalWriteRGB(RGB_ON, RGB_ON, RGB_ON);
+
+#if defined(EPAPER130)
+//display.setFullWindow();
+//display.firstPage();
+#else
   screen.fillScreen(TFT_WHITE);
+#endif
+
   while (true)
   {
     idle();
@@ -923,6 +936,49 @@ static bool initSprite = false;
 static bool sprite[maxPixel];
 static SemaphoreHandle_t xSemaphoreDisplay;
 
+#if defined(EPAPER130)
+bool initEPaper = false;
+static void updateFullScreen(bool *theBuffer)
+{
+  displayEPaper.setFullWindow();
+  displayEPaper.firstPage();
+  int i = 0;
+  do
+  {
+    displayEPaper.fillScreen(GxEPD_WHITE);
+    for (int y = 0; y < 64; y++)
+    {
+      for (int x = 0; i < 128; x++)
+      {
+        if (theBuffer[i])
+          displayEPaper.drawPixel(x, y, GxEPD_BLACK);
+        i++;
+      }
+    }
+  } while (displayEPaper.nextPage());
+}
+
+static void updateInterlaceScreen(bool *theBuffer)
+{
+  displayEPaper.setPartialWindow(0, 0, 128, 64);
+  displayEPaper.firstPage();
+  int i = 0;
+  do
+  {
+    displayEPaper.fillScreen(GxEPD_WHITE);
+    for (int y = 0; y < 64; y++)
+    {
+      for (int x = 0; i < 128; x++)
+      {
+        if (theBuffer[i])
+          displayEPaper.drawPixel(x, y, GxEPD_BLACK);
+        i++;
+      }
+    }
+  } while (displayEPaper.nextPage());
+}
+
+#else
 static void updateFullScreen(bool *theBuffer)
 {
   screen.startWrite();
@@ -982,6 +1038,8 @@ static void updateInterlaceScreen(bool *theBuffer)
   screen.endWrite();
 }
 
+#endif
+
 static void displayScreen(void *mysprite)
 {
   for (;;)
@@ -993,20 +1051,20 @@ static void displayScreen(void *mysprite)
       frameTime = currentTime - lastTime;
       fps = 1000000 / frameTime;
       bool *theBuffer = (bool *)mysprite;
-    
-      #ifdef INTERLACED_UPDATE
-        updateInterlaceScreen(theBuffer);
-      #else
-        updateFullScreen(theBuffer);
-      #endif
+
+#ifdef INTERLACED_UPDATE
+      updateInterlaceScreen(theBuffer);
+#else
+      updateFullScreen(theBuffer);
+#endif
 
       xSemaphoreGive(xSemaphoreDisplay);
       vTaskDelay(10);
     }
   }
 }
-#endif
 
+#endif
 bool drawingThread = false;
 // Function that creates a task.
 void Arduboy2Base::initDraw(void)

@@ -5,7 +5,15 @@
  */
 
 #include "Arduboy2Core.h"
-TFT_eSPI screen;
+
+#if defined(ESP8266)
+TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
+#elif defined(IPS240)
+TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
+#elif defined(EPAPER130)
+#include "Button2.h"
+GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper(GxEPD2_213_B73(/*CS=5*/ SS, /*DC=*/ 17, /*RST=*/ 16, /*BUSY=*/ 4)); // GDEH0213B73
+#endif
 
 #ifdef ADAFRUIT
 Adafruit_MCP23017 mcp;
@@ -61,10 +69,20 @@ void Arduboy2Core::boot(){
   mcp.digitalWrite(CSTFTPIN, LOW);
 #endif
 
+#if defined(EPAPER130)
+  displayEPaper.init(115200);
+  displayEPaper.firstPage();
+  do
+  {
+    displayEPaper.fillScreen(GxEPD_WHITE); // set the background to white (fill the buffer with value for white)
+  }
+  while (displayEPaper.nextPage());
+#else
   screen.begin();
   delay(200);
   screen.setRotation(0);
   screen.fillScreen(TFT_BLACK);
+#endif
   Serial.write("Screen Init\r\n");
 
 #ifdef ADAFRUIT
@@ -80,7 +98,16 @@ void Arduboy2Core::boot(){
     delay(100);
 #endif
 
+#if defined(EPAPER130)
+  displayEPaper.firstPage();
+  do
+  {
+    displayEPaper.fillScreen(GxEPD_BLACK); // set the background to white (fill the buffer with value for white)
+  }
+  while (displayEPaper.nextPage());
+#else
   screen.fillScreen(TFT_BLACK);
+#endif
   Serial.write("Boot Done!");
 }
 
@@ -191,13 +218,6 @@ void Arduboy2Core::digitalWriteRGB(uint8_t color, uint8_t val){
 }
 
 #ifdef ESP32
-static const byte TOUCH_SENSE_MAX = 50;
-static const byte TOUCH_SENSE_MIN = 20;
-static int inputVal = 0;
-static int TOUCH_SENSE[8];
-static int touch_values[8];
-static bool inputSetup = false;
-
 // Button definitions
 static const int P1_Left = 0;
 static const int P1_Top = 1;
@@ -218,6 +238,63 @@ static const int BIT_P2_Right = 16;
 static const int BIT_P2_Bottom = 32;
 static const int BIT_P2_Left = 64;
 static const int BIT_P2_Top = 128;
+static bool inputSetup = false;
+
+#ifdef EPAPER130
+static bool buttonRun = false;
+static Button2 pBtns = Button2(39);
+static byte ePaperButtons = 0;
+
+void button_callback(Button2 &b)
+{
+    bool aButton = false;
+    bool bButton = false;
+    bool cButton = false;
+
+    unsigned int time = b.wasPressedFor();
+    if (time > 3000) {
+    } else if (time > 1500) {
+        cButton = true;
+    } else if (time > 500) {
+        bButton = true;
+    } else {
+        aButton = true;
+    }
+
+    byte buttonVals = 0;
+    buttonVals = buttonVals | (aButton << P1_Right);
+    buttonVals = buttonVals | (bButton << P2_Right);
+    buttonVals = buttonVals | (cButton << P2_Left);
+
+    ePaperButtons = buttonVals;
+}
+
+void button_init()
+{
+    pBtns.setPressedHandler(button_callback);
+}
+
+void button_loop()
+{
+    pBtns.loop();
+}
+
+static byte buttonCheck() {
+  if (buttonRun) {
+    button_init();
+    buttonRun = true;
+  } else {
+    button_loop();
+  }
+
+  return ePaperButtons;
+}
+#else
+static const byte TOUCH_SENSE_MAX = 50;
+static const byte TOUCH_SENSE_MIN = 20;
+static int inputVal = 0;
+static int TOUCH_SENSE[8];
+static int touch_values[8];
 
 static bool readAnalogSensor(int pin, int touch_sense)
 {
@@ -264,10 +341,15 @@ static void getRawInput()
   touch_values[i++] = readAnalogSensorRaw(2);  // B
   touch_values[i++] = readAnalogSensorRaw(12); // Select
 }
+#endif
 
 static byte getReadShift()
 {
+  #ifdef EPAPER130
+  return buttonCheck();
+  #else
   return getReadShiftAnalog();
+  #endif
 }
 
 static uint16_t keyStateThread;
@@ -323,7 +405,7 @@ buttons = 0;
     } else {
       TaskHandle_t xHandle = NULL;
       xSemaphoreInput = xSemaphoreCreateMutex();
- 
+ #ifndef EPAPER130
       getRawInput();
       for (int i = 0; i < 8; i++)
       {
@@ -334,8 +416,9 @@ buttons = 0;
           TOUCH_SENSE[i] = TOUCH_SENSE_MIN;
         
       }
+#endif
 
-      xTaskCreatePinnedToCore(inputThread, "Input", 1024, nullptr, 1, &xHandle, 0);
+      // xTaskCreatePinnedToCore(inputThread, "Input", 1024, nullptr, 1, &xHandle, 0);
 
       inputSetup = true;
     }
@@ -343,7 +426,6 @@ buttons = 0;
 
   return buttons;
 }
-
 
 // delay in ms with 16 bit duration
 void Arduboy2Core::delayShort(uint16_t ms) {

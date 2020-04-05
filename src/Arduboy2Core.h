@@ -11,9 +11,32 @@
 #include <ESP8266WiFi.h>
 #endif
 
+//#define IPS240
+#define EPAPER130
+
+#if defined(IPS240)
+#define SCREEN_WIDTH 240
+#define SCREEN_HEIGHT 240
+#define SCALE
+#define INTERLACED_UPDATE
+#elif defined(EPAPER130)
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 250 // 122 VIS
+#define INTERLACED_UPDATE
+//#define SCALE
+#endif
+
 #include <Arduino.h>
 #include <SPI.h>
+#if defined(ESP8266)
 #include "TFT_eSPI.h"
+#elif defined(IPS240)
+#include "TFT_eSPI.h"
+#elif defined(EPAPER130)
+#include <GxEPD2_BW.h>
+#define MAX_DISPLAY_BUFFER_SIZE 8192 // e.g. full height for 200x200
+#define MAX_HEIGHT(EPD) (EPD::HEIGHT <= MAX_DISPLAY_BUFFER_SIZE / (EPD::WIDTH / 8) ? EPD::HEIGHT : MAX_DISPLAY_BUFFER_SIZE / (EPD::WIDTH / 8))
+#endif
 
 #ifdef ADAFRUIT
 #include "Adafruit_MCP23017.h"
@@ -69,24 +92,6 @@
 
 #define WIDTH 128 /**< The width of the display in pixels */
 #define HEIGHT 64 /**< The height of the display in pixels */
-
-#define IPS240
-//#define IPS240x1
-//#define EPAPER130
-
-#if defined(IPS240)
-#define SCREEN_WIDTH 240
-#define SCREEN_HEIGHT 240
-#define SCALE
-#define INTERLACED_UPDATE
-#elif defined(IPS240x1)
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-#elif defined(EPAPER130)
-#define SCREEN_WIDTH 240
-#define SCREEN_HEIGHT 240
-#define SCALE
-#endif
 
 /** \brief
  * Lower level functions generally dealing directly with the hardware.

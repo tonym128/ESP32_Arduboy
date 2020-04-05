@@ -8,6 +8,7 @@
 #define ARDUBOY2_H
 
 #include "SPI.h"
+
 #include "TFT_eSPI.h"
 
 #include <Arduino.h>
