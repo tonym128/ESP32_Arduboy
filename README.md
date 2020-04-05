@@ -89,6 +89,7 @@ If authors against posting the code in this repository for the purpose of learni
 - **Glove** (MIT) by [fuopy](https://github.com/ArduboyCollection/glove)
 - **Blocks** (GPL-3.0) by [w3woody](https://github.com/ArduboyCollection/blocks)
 - **Galaxion** (MIT) by [tako2](https://github.com/ArduboyCollection/galaxion)
+- **Tackle Box** (Proprietary) by [Matt](https://community.arduboy.com/t/tackle-box-a-fishing-adventure/6777)
 - **Karateka** (BSD-3-Clause) by [Simon Holmes (filmote)](https://community.arduboy.com/t/karateka-v0-9/4852) 
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
