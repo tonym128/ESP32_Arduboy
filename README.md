@@ -12,9 +12,9 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - change **"#include arduboy.h"** to **"#include arduboy2.h"**
 - some games use a function pointer array to pass control to a different parts of the code as the game state changes. In ATMEGA32U4 the memory address is 2 bytes (single word) long, in ESP8266, the memory addresses is 4 bytes (double word) long, So you need to change all "pgm_read_word" to "pgm_read_dword" or "pgm_read_ptr" at the pointers
 - if EEPROM is used by the game to keep configs/high scores,
--- add EEPROM.begin(1000) at setup() // 1000 is just a rough max no. need to check the size
--- change EEPROM.update() to EEPORM.write()
--- add EEPROM.commit() after the last EEPROM.put(), EEPORM.write() of each blocks of code.
+- add EEPROM.begin(1000) at setup() (1000 is just a rough max no. need to check the size)
+- change EEPROM.update() to EEPORM.write()
+- add EEPROM.commit() after the last EEPROM.put(), EEPORM.write() of each blocks of code.
 - remove any reference to the **"ATMlib"**, **"ArduboyPlaytune"** that require timers to play background music. That libraries has not been ported yet.
 - games that directly control the SPI or I2C bus to write to OLED display need much more work to port instead of the simple steps above.
 - font() array is used in TFT_eSPI display library so you have to change all "font" to "font_"
