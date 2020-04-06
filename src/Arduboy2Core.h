@@ -24,6 +24,8 @@
 #define SCREEN_HEIGHT 122 // 122 VIS
 #define INTERLACED_UPDATE
 #define SCALE
+//#define ONE_BUTTON
+#define PS3GAMEPAD
 #endif
 
 #include <Arduino.h>

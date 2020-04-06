@@ -11,8 +11,15 @@ TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
 #elif defined(IPS240)
 TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
 #elif defined(EPAPER130)
-#include "Button2.h"
 GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper(GxEPD2_213_B73(/*CS=5*/ SS, /*DC=*/17, /*RST=*/16, /*BUSY=*/4)); // GDEH0213B73
+#endif
+
+#ifdef ONEBUTTON
+#include "Button2.h"
+#endif
+
+#ifdef PS3GAMEPAD
+#include <Ps3Controller.h>
 #endif
 
 #ifdef ESP32
@@ -266,7 +273,7 @@ static const int BIT_P2_Left = 64;
 static const int BIT_P2_Top = 128;
 static bool inputSetup = false;
 
-#ifdef EPAPER130
+#ifdef ONEBUTTON
 static bool buttonRun = false;
 static Button2 pBtns = Button2(39);
 static byte ePaperButtons = 0;
@@ -335,7 +342,7 @@ static byte buttonCheck()
 
   return ePaperButtons;
 }
-#else
+#elif defined(GAMEPAD)
 static const byte TOUCH_SENSE_MAX = 50;
 static const byte TOUCH_SENSE_MIN = 20;
 static int inputVal = 0;
@@ -387,14 +394,91 @@ static void getRawInput()
   touch_values[i++] = readAnalogSensorRaw(2);  // B
   touch_values[i++] = readAnalogSensorRaw(12); // Select
 }
+#elif defined(PS3GAMEPAD)
+static bool buttonRun = false;
+int player = 0;
+int battery = 0;
+
+void onConnect(){
+    Serial.println("PS3 GamePad Connected.");
+    Serial.print("Setting LEDs to player "); Serial.println(player, DEC);
+    Ps3.setPlayer(player);
+    player += 1;
+    if(player > 10) player = 0;
+}
+
+void notify() {
+    if( Ps3.event.button_down.cross )
+        Serial.println("Started pressing the cross button");
+    if( Ps3.event.button_up.cross )
+        Serial.println("Released the cross button");
+
+    if( Ps3.event.button_down.square )
+        Serial.println("Started pressing the square button");
+    if( Ps3.event.button_up.square )
+        Serial.println("Released the square button");
+
+    if( Ps3.event.button_down.triangle )
+        Serial.println("Started pressing the triangle button");
+    if( Ps3.event.button_up.triangle )
+        Serial.println("Released the triangle button");
+
+    if( Ps3.event.button_down.circle )
+        Serial.println("Started pressing the circle button");
+    if( Ps3.event.button_up.circle )
+        Serial.println("Released the circle button");
+}
+
+void ps3gamepad_init() {
+    Ps3.attach(notify);
+    Ps3.attachOnConnect(onConnect);
+    Ps3.begin("01:02:03:04:05:06");
+}
+
+byte ps3gamepad_loop() {
+  byte buttonVals = 0;
+
+  if(!Ps3.isConnected())
+    return 0;
+
+  buttonVals = buttonVals | (Ps3.event.button_down.left << P1_Left);
+  buttonVals = buttonVals | (Ps3.event.button_down.up   << P1_Top);
+  buttonVals = buttonVals | (Ps3.event.button_down.right << P1_Right);
+  buttonVals = buttonVals | (Ps3.event.button_down.down << P1_Bottom);
+
+  buttonVals = buttonVals | (Ps3.event.button_down.circle << P2_Right);
+  buttonVals = buttonVals | (Ps3.event.button_down.cross << P2_Bottom);
+  buttonVals = buttonVals | (Ps3.event.button_down.square << P2_Left);
+  buttonVals = buttonVals | (Ps3.event.button_down.triangle << P2_Top);
+
+  return buttonVals;
+}
+
+static byte getReadPS3GamePad()
+{
+  if (!buttonRun)
+  {
+    ps3gamepad_init();
+    buttonRun = true;
+  }
+  else
+  {
+    return ps3gamepad_loop();
+  }
+
+  return 0;
+}
+
 #endif
 
 static byte getReadShift()
 {
-#ifdef EPAPER130
+#ifdef ONEBUTTON
   return buttonCheck();
-#else
+#elif defined(GAMEPAD)
   return getReadShiftAnalog();
+#elif defined(PS3GAMEPAD)
+  return getReadPS3GamePad();
 #endif
 }
 
@@ -464,15 +548,17 @@ uint8_t Arduboy2Core::buttonsState()
   // Initial Setup
   if (inputSetup)
   {
-    #ifndef EPAPER130
+    #ifdef GAMEPAD
     if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE)
     {
       keystate = keyStateThread;
       xSemaphoreGive(xSemaphoreInput);
     }
-    #else
+    #elif defined(ONEBUTTON)
     // Disabled threading because of instantaneous press checks.
      keystate = buttonCheck();
+    #elif defined(PS3GAMEPAD)
+     keystate = getReadPS3GamePad();
     #endif
 
     if (keystate & BIT_P1_Left)
