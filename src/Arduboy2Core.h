@@ -11,14 +11,16 @@
 #include <ESP8266WiFi.h>
 #endif
 
-//#define IPS240
-#define EPAPER130
+#define IPS240
+//#define EPAPER130
 
 #if defined(IPS240)
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 240
 #define SCALE
 #define INTERLACED_UPDATE
+//#define GAMEPAD
+#define PS3GAMEPAD
 #elif defined(EPAPER130)
 #define SCREEN_WIDTH 250
 #define SCREEN_HEIGHT 122 // 122 VIS

@@ -407,26 +407,55 @@ void onConnect(){
     if(player > 10) player = 0;
 }
 
+bool ps3left = 0;
+bool ps3right = 0;
+bool ps3up = 0;
+bool ps3down = 0;
+bool ps3cross = 0;
+bool ps3square = 0;
+bool ps3circle = 0;
+bool ps3triangle = 0;
+
 void notify() {
+    if( Ps3.event.button_down.up )
+      ps3up = 1;
+    if( Ps3.event.button_up.up )
+      ps3up = 0;
+
+    if( Ps3.event.button_down.down )
+      ps3down = 1;
+    if( Ps3.event.button_up.down )
+      ps3down = 0;
+
+    if( Ps3.event.button_down.left )
+      ps3left = 1;
+    if( Ps3.event.button_up.left )
+      ps3left = 0;
+
+    if( Ps3.event.button_down.right )
+      ps3right = 1;
+    if( Ps3.event.button_up.right )
+      ps3right = 0;
+
     if( Ps3.event.button_down.cross )
-        Serial.println("Started pressing the cross button");
+      ps3cross = 1;
     if( Ps3.event.button_up.cross )
-        Serial.println("Released the cross button");
+      ps3cross = 0;
 
     if( Ps3.event.button_down.square )
-        Serial.println("Started pressing the square button");
+      ps3square = 1;
     if( Ps3.event.button_up.square )
-        Serial.println("Released the square button");
+      ps3square = 0;
 
     if( Ps3.event.button_down.triangle )
-        Serial.println("Started pressing the triangle button");
+      ps3triangle = 1;
     if( Ps3.event.button_up.triangle )
-        Serial.println("Released the triangle button");
+      ps3triangle = 0;
 
     if( Ps3.event.button_down.circle )
-        Serial.println("Started pressing the circle button");
+      ps3circle = 1;
     if( Ps3.event.button_up.circle )
-        Serial.println("Released the circle button");
+      ps3circle = 0;
 }
 
 void ps3gamepad_init() {
@@ -441,15 +470,15 @@ byte ps3gamepad_loop() {
   if(!Ps3.isConnected())
     return 0;
 
-  buttonVals = buttonVals | (Ps3.event.button_down.left << P1_Left);
-  buttonVals = buttonVals | (Ps3.event.button_down.up   << P1_Top);
-  buttonVals = buttonVals | (Ps3.event.button_down.right << P1_Right);
-  buttonVals = buttonVals | (Ps3.event.button_down.down << P1_Bottom);
+  buttonVals = buttonVals | (ps3left  << P1_Left);
+  buttonVals = buttonVals | (ps3right << P1_Right);
+  buttonVals = buttonVals | (ps3up    << P1_Top);
+  buttonVals = buttonVals | (ps3down  << P1_Bottom);
 
-  buttonVals = buttonVals | (Ps3.event.button_down.circle << P2_Right);
-  buttonVals = buttonVals | (Ps3.event.button_down.cross << P2_Bottom);
-  buttonVals = buttonVals | (Ps3.event.button_down.square << P2_Left);
-  buttonVals = buttonVals | (Ps3.event.button_down.triangle << P2_Top);
+  buttonVals = buttonVals | (ps3circle << P2_Right);
+  buttonVals = buttonVals | (ps3cross << P2_Bottom);
+  buttonVals = buttonVals | (ps3square << P2_Left);
+  buttonVals = buttonVals | (ps3triangle << P2_Top);
 
   return buttonVals;
 }
@@ -558,7 +587,11 @@ uint8_t Arduboy2Core::buttonsState()
     // Disabled threading because of instantaneous press checks.
      keystate = buttonCheck();
     #elif defined(PS3GAMEPAD)
-     keystate = getReadPS3GamePad();
+    if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE)
+    {
+      keystate = getReadPS3GamePad();
+      xSemaphoreGive(xSemaphoreInput);
+    }
     #endif
 
     if (keystate & BIT_P1_Left)
@@ -584,7 +617,7 @@ uint8_t Arduboy2Core::buttonsState()
   {
     TaskHandle_t xHandle = NULL;
     xSemaphoreInput = xSemaphoreCreateMutex();
-#ifndef EPAPER130
+#ifdef GAMEPAD
     getRawInput();
     for (int i = 0; i < 8; i++)
     {
