@@ -513,7 +513,6 @@ static byte getReadShift()
 
 static uint16_t keyStateThread;
 static SemaphoreHandle_t xSemaphoreInput;
-
 static void inputThread(void *empty)
 {
   for (;;)
@@ -587,11 +586,15 @@ uint8_t Arduboy2Core::buttonsState()
     // Disabled threading because of instantaneous press checks.
      keystate = buttonCheck();
     #elif defined(PS3GAMEPAD)
+    #if defined(EPAPER130)
+    keystate = getReadShift();
+    #else
     if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE)
     {
-      keystate = getReadPS3GamePad();
+      keystate = keyStateThread;
       xSemaphoreGive(xSemaphoreInput);
     }
+    #endif
     #endif
 
     if (keystate & BIT_P1_Left)
@@ -615,9 +618,9 @@ uint8_t Arduboy2Core::buttonsState()
   }
   else
   {
+#ifdef GAMEPAD
     TaskHandle_t xHandle = NULL;
     xSemaphoreInput = xSemaphoreCreateMutex();
-#ifdef GAMEPAD
     getRawInput();
     for (int i = 0; i < 8; i++)
     {
@@ -630,6 +633,14 @@ uint8_t Arduboy2Core::buttonsState()
 
     xTaskCreatePinnedToCore(inputThread, "Input", 1024, nullptr, 1, &xHandle, 0);
 #endif
+    
+    #ifdef PS3GAMEPAD
+    #ifndef EPAPER130
+    TaskHandle_t xHandle = NULL;
+    xSemaphoreInput = xSemaphoreCreateMutex();
+    xTaskCreatePinnedToCore(inputThread, "Input", 1024, nullptr, 1, &xHandle, 0);
+    #endif
+    #endif
 
     inputSetup = true;
   }

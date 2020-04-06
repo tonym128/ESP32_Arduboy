@@ -12,7 +12,10 @@
 #endif
 
 #define IPS240
-//#define EPAPER130
+
+#ifndef IPS240
+#define EPAPER130
+#endif
 
 #if defined(IPS240)
 #define SCREEN_WIDTH 240
