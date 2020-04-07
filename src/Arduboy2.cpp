@@ -8,20 +8,11 @@
 #include "ab_logo.c"
 #include "glcdfont.c"
 
-#if defined(ESP8266)
-extern TFT_eSPI screen;
-#elif defined(IPS240)
-extern TFT_eSPI screen;
-#elif defined(EPAPER130)
-extern GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper; // GDEH0213B73
-#endif
+extern CompositeGraphics graphics;
+//Composite output using the desired mode (PAL/NTSC) and twice the resolution. 
+//It will center the displayed image automatically
+extern CompositeOutput composite;
 
-#ifdef ADAFRUIT
-extern Adafruit_MCP23017 mcp;
-extern Adafruit_MCP4725 dac;
-#endif
-
-#ifndef ESP8266
 //#declare TIMER_COUNT 16;
 //unsigned long timers[TIMER_COUNT] fps;
 //int8_t timerNumber = 0;
@@ -36,8 +27,6 @@ static uint64_t gameframeTime = 0;
 static uint64_t gamefps = 0;
 
 uint64_t inputfps = 0;
-
-#endif
 
 //========================================
 //========== class Arduboy2Base ==========
@@ -83,13 +72,6 @@ void Arduboy2Base::flashlight()
     return;
   }
   digitalWriteRGB(RGB_ON, RGB_ON, RGB_ON);
-
-#if defined(EPAPER130)
-//display.setFullWindow();
-//display.firstPage();
-#else
-  screen.fillScreen(TFT_WHITE);
-#endif
 
   while (true)
   {
@@ -302,11 +284,7 @@ int Arduboy2Base::cpuLoad()
 
 void Arduboy2Base::initRandomSeed()
 {
-#ifdef ESP8266
-  randomSeed(ESP8266_DREG(0x20E44));
-#else
   randomSeed(analogRead(0));
-#endif
 }
 
 /* Graphics */
@@ -938,219 +916,16 @@ void Arduboy2Base::clear()
   memset(sBuffer, 0, HEIGHT * WIDTH / 8);
 }
 
-#ifndef ESP8266
-static const int maxPixel = SCREEN_WIDTH * SCREEN_HEIGHT;
 static bool initSprite = false;
-static bool sprite[maxPixel];
-static bool frontBuffer[128 * 64];
-static bool backBuffer[128 * 64];
-static SemaphoreHandle_t xSemaphoreDisplay;
-
-#if defined(EPAPER130)
-bool initEPaper = false;
-static void updateEPaper(bool *theBuffer) {
-  displayEPaper.firstPage();
-  do
-  {
-    int i = 0;
-    for (int y = 0; y < SCREEN_HEIGHT; y++)
-    {
-      for (int x = 0; x < SCREEN_WIDTH; x++)
-      {
-        displayEPaper.drawPixel(x, y+6, theBuffer[i] ? GxEPD_BLACK : GxEPD_WHITE);
-        i++;
-      }
-    }
-  } while (displayEPaper.nextPage());
-}
-
-static void updateFullScreen(bool *theBuffer)
-{
-  displayEPaper.setRotation(1);
-  displayEPaper.setFullWindow();
-}
-
-static void updateInterlaceScreen(bool *theBuffer)
-{
-  displayEPaper.setRotation(1);
-  displayEPaper.setPartialWindow(0,0,SCREEN_WIDTH,SCREEN_HEIGHT+6);
-  updateEPaper(theBuffer);
-}
-
-#else
-static void updateFullScreen(bool *theBuffer)
-{
-  screen.startWrite();
-  screen.setAddrWindow(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT+6);
-
-  int colour = -1;
-  int counter = 0;
-  int i = 0;
-  while (i < maxPixel)
-  {
-    counter = 1;
-
-    colour = theBuffer[i];
-    while (colour == theBuffer[i + counter])
-    {
-      counter++;
-    }
-
-    screen.writeColor(colour ? TFT_YELLOW : TFT_BLACK, counter);
-    i += counter;
-  }
-
-  screen.endWrite();
-}
-
-static void updateInterlaceScreen(bool *theBuffer)
-{
-  screen.startWrite();
-
-  int colour = -1;
-  int counter = 1;
-  int currPixel = 0;
-  int endPixel = 0;
-  int i = 0;
-  while (i < SCREEN_HEIGHT)
-  {
-    counter = 0;
-    currPixel = i * SCREEN_WIDTH;
-    endPixel = i * SCREEN_WIDTH + SCREEN_WIDTH;
-    screen.setAddrWindow(0, i, SCREEN_WIDTH, 1);
-    while (currPixel < endPixel)
-    {
-      colour = theBuffer[currPixel];
-      counter = 0;
-      while (colour == theBuffer[currPixel] && currPixel < endPixel)
-      {
-        currPixel++;
-        counter++;
-      }
-
-      screen.writeColor(colour ? TFT_YELLOW : TFT_BLACK, counter);
-    }
-
-    i += 2;
-  }
-
-  screen.endWrite();
-}
-
-#endif
-static void populateSprite(bool *Buffer, bool *Sprite)
-{
-  int pixel = 0;
-  int xDst, yDst, loc;
-  bool pixelValue;
-
-  for (int y = 0; y < HEIGHT; y++)
-  {
-    for (int x = 0; x < WIDTH; x++)
-    {
-      pixel = y * WIDTH + x;
-#ifdef SCALE
-      xDst = (x * SCREEN_WIDTH) / WIDTH;
-      yDst = (y * SCREEN_HEIGHT) / HEIGHT;
-      loc = xDst + yDst * SCREEN_WIDTH;
-
-      pixelValue = Sprite[pixel];
-      Buffer[loc] = pixelValue;
-      Buffer[loc + SCREEN_WIDTH] = pixelValue;
-      Buffer[loc + SCREEN_WIDTH * 2] = pixelValue;
-      Buffer[loc + SCREEN_WIDTH * 3] = pixelValue;
-      Buffer[loc + 1] = pixelValue;
-      Buffer[loc + 1 + SCREEN_WIDTH] = pixelValue;
-      Buffer[loc + 1 + SCREEN_WIDTH * 2] = pixelValue;
-      Buffer[loc + 1 + SCREEN_WIDTH * 3] = pixelValue;
-#else
-      loc = x + y * SCREEN_WIDTH;
-      Buffer[loc] = Sprite[pixel];
-#endif
-    }
-  }
-}
-
-static void displayScreen(void *mysprite)
-{
-  for (;;)
-  {
-    if (xSemaphoreTake(xSemaphoreDisplay, (TickType_t)100) == pdTRUE)
-    {
-      memcpy(backBuffer, frontBuffer, 128 * 64);
-      xSemaphoreGive(xSemaphoreDisplay);
-    }
-
-    lastTime = currentTime;
-    currentTime = esp_timer_get_time();
-    frameTime = currentTime - lastTime;
-    fps = 1000000 / frameTime;
-    populateSprite(sprite,backBuffer);
-
-#ifdef INTERLACED_UPDATE
-    updateInterlaceScreen(sprite);
-    // helloWorld();
-#else
-    updateFullScreen(sprite);
-#endif
-
-    #ifdef EPAPER130
-    vTaskDelay(10);
-    #else
-    vTaskDelay(5);
-    #endif
-  }
-}
-
-#endif
-bool drawingThread = false;
-// Function that creates a task.
-void Arduboy2Base::initDraw(void)
-{
-  if (drawingThread)
-    return;
-
-  drawingThread = true;
-  TaskHandle_t xHandle = NULL;
-
-  // Create the task, storing the handle.  Note that the passed parameter ucParameterToPass
-  // must exist for the lifetime of the task, so in this case is declared static.  If it was just an
-  // an automatic stack variable it might no longer exist, or at least have been corrupted, by the time
-  // the new task attempts to access it.
-  currentTime = esp_timer_get_time();
-  gamecurrentTime = currentTime;
-  xTaskCreatePinnedToCore(displayScreen, "Display", 1024, sprite, 1, &xHandle, 0);
-  configASSERT(xHandle);
-}
-
-bool semCreate = false;
+static const int maxPixel = SCREEN_WIDTH * SCREEN_HEIGHT;
+int counter = 0;
 void Arduboy2Base::display()
 {
-#ifdef ESP8266
-  static uint16_t oBuffer[WIDTH * 16];
-#else
-  if (!semCreate)
-  {
-    xSemaphoreDisplay = xSemaphoreCreateMutex();
-    semCreate = true;
-  }
-#endif
-  static uint16_t foregroundColor, backgroundColor;
-  foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
-  backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
-  static uint8_t currentDataByte;
-  static uint16_t xPos, yPos, kPos, kkPos, addr;
-  static int loc, xDst, yDst;
-
-  if (xSemaphoreTake(xSemaphoreDisplay, (TickType_t)2) == pdTRUE)
-  {
-    static uint16_t foregroundColor, backgroundColor;
-    foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
-    backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
     static uint8_t currentDataByte;
     static uint16_t xPos, yPos, kPos, kkPos, addr;
     static int loc;
     int xDst, yDst;
+    graphics.begin(0);
     for (kPos = 0; kPos < 4; kPos++)
     { //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
       kkPos = kPos << 1;
@@ -1160,42 +935,26 @@ void Arduboy2Base::display()
         {
           if (!(yPos % 8))
             currentDataByte = sBuffer[xPos + ((yPos >> 3) + kkPos) * WIDTH];
-#ifdef ESP8266
-          addr = yPos * WIDTH + xPos;
-          if (currentDataByte & 0x01)
-          {
-            oBuffer[addr] = foregroundColor;
-          }
-          else
-          {
-            oBuffer[addr] = backgroundColor;
-          }
-#else
+
           xDst = xPos;
           yDst = (yPos + kPos * 16);
           loc = xDst + yDst * WIDTH;
-          frontBuffer[loc] = currentDataByte & 0x01;
-#endif
+          graphics.dot(xDst,yDst, (currentDataByte & 0x01));
           currentDataByte = currentDataByte >> 1;
         }
       }
-
-#ifdef ESP8266
-      // This is doing the quarter image write
-      screen.pushImage(0, 20 + kPos * 16, WIDTH, 16, oBuffer);
-#endif
     }
-    xSemaphoreGive(xSemaphoreDisplay);
-  }
-#ifndef ESP8266
+    graphics.end();
+    
   gamelastTime = gamecurrentTime;
   gamecurrentTime = esp_timer_get_time();
   gameframeTime = gamecurrentTime - gamelastTime;
   gamefps = 1000000 / gameframeTime;
-
-  //Serial.write(printf("screen : %lld , game : %lld , input : %lld\r\n", fps, gamefps, inputfps));
-  this->initDraw();
-#endif
+  if (counter % 100 == 0) {
+    Serial.write(printf("%d\r\n",(int)heap_caps_get_free_size(MALLOC_CAP_DEFAULT)));
+    counter = 0;
+  }
+  counter++;
 }
 
 

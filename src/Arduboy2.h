@@ -14,11 +14,7 @@
 #include <Arduino.h>
 
 #include <Arduino.h>
-#ifdef ESP8266
-#include <ESP_EEPROM.h>
-#else
 #include <EEPROM.h>
-#endif
 
 #include "Arduboy2Core.h"
 #include "Arduboy2Beep.h"
@@ -26,10 +22,6 @@
 #include "SpritesB.h"
 #include <Print.h>
 #include <limits.h>
-
-#ifndef ESP8266
-static void displayScreen(void *sprite);
-#endif
 
 /** \brief
  * Library version
@@ -425,10 +417,6 @@ class Arduboy2Base : public Arduboy2Core
    * \see display(bool)
    */
   void display();
-
-#ifdef ESP32
-  void initDraw(void);
-#endif
 
   /** \brief
    * Copy the contents of the display buffer to the display. The display buffer

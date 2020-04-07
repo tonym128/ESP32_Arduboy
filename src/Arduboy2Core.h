@@ -7,62 +7,17 @@
 #ifndef ARDUBOY2_CORE_H
 #define ARDUBOY2_CORE_H
 
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
-
-#define IPS240
-
-#ifndef IPS240
-#define EPAPER130
-#endif
-
-#if defined(IPS240)
-#define SCREEN_WIDTH 240
-#define SCREEN_HEIGHT 240
-#define SCALE
-#define INTERLACED_UPDATE
-//#define GAMEPAD
+#define SCREEN_WIDTH 160
+#define SCREEN_HEIGHT 100
 #define PS3GAMEPAD
-#elif defined(EPAPER130)
-#define SCREEN_WIDTH 250
-#define SCREEN_HEIGHT 122 // 122 VIS
-#define INTERLACED_UPDATE
-#define SCALE
-//#define ONE_BUTTON
-#define PS3GAMEPAD
-#endif
 
 #include <Arduino.h>
 #include <SPI.h>
-#if defined(ESP8266)
-#include "TFT_eSPI.h"
-#elif defined(IPS240)
-#include "TFT_eSPI.h"
-#elif defined(EPAPER130)
-#include <GxEPD2_BW.h>
-#include <Fonts/FreeMonoBold9pt7b.h>
-#define MAX_DISPLAY_BUFFER_SIZE 8192 // e.g. full height for 200x200
-#define MAX_HEIGHT(EPD) (EPD::HEIGHT <= MAX_DISPLAY_BUFFER_SIZE / (EPD::WIDTH / 8) ? EPD::HEIGHT : MAX_DISPLAY_BUFFER_SIZE / (EPD::WIDTH / 8))
-#endif
-
-#ifdef ADAFRUIT
-#include "Adafruit_MCP23017.h"
-#include "Adafruit_MCP4725.h"
-#endif
-
-#include "ESPboyLogo.h"
-#ifdef ESP8266
-#include "ESPboy_LED.h"
-#endif
+#include "CompositeGraphics.h"
+#include "CompositeOutput.h"
+#include <soc/rtc.h>
 
 #include <limits.h>
-
-#ifdef ADAFRUIT
-#define CSTFTPIN        8 //CS MCP23017 PIN to TFT
-#define MCP23017address 0 // actually it's 0x20 but in <Adafruit_MCP23017.h> lib there is (x|0x20) :)
-#define MCP4725address  0x60 //DAC driving LCD backlit
-#endif
 
 #define maxVal(a,b) ((a)>(b)?(a):(b))
 #define minVal(a,b) ((a)<(b)?(a):(b))

@@ -6,120 +6,50 @@
 
 #include "Arduboy2Core.h"
 
-#if defined(ESP8266)
-TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
-#elif defined(IPS240)
-TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
-#elif defined(EPAPER130)
-GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper(GxEPD2_213_B73(/*CS=5*/ SS, /*DC=*/17, /*RST=*/16, /*BUSY=*/4)); // GDEH0213B73
-#endif
+const int XRES = SCREEN_WIDTH;
+const int YRES = SCREEN_HEIGHT;
 
-#ifdef ONEBUTTON
-#include "Button2.h"
-#endif
+//Graphics using the defined resolution for the backbuffer
+CompositeGraphics graphics(XRES, YRES);
+//Composite output using the desired mode (PAL/NTSC) and twice the resolution. 
+//It will center the displayed image automatically
+CompositeOutput composite(CompositeOutput::NTSC, XRES * 2, YRES * 2);
 
-#ifdef PS3GAMEPAD
 #include <Ps3Controller.h>
-#endif
 
-#ifdef ESP32
 static uint64_t inputlastTime = 0;
 static uint64_t inputcurrentTime = 0;
 static uint64_t inputframeTime = 0;
 extern uint64_t inputfps;
 
-#endif
-
-#ifdef ADAFRUIT
-Adafruit_MCP23017 mcp;
-Adafruit_MCP4725 dac;
-#endif
-
-#ifdef ESP8266
-ESPboyLED myled;
-#endif
-
 uint8_t Arduboy2Core::sBuffer[];
+
+void compositeCore(void *data)
+{
+  while (true)
+  {
+    //just send the graphics frontbuffer whithout any interruption 
+    composite.sendFrameHalfResolution(&graphics.frame);
+    Serial.write(".");
+  }
+}
 
 Arduboy2Core::Arduboy2Core() {}
 
 void Arduboy2Core::boot()
 {
   Serial.begin(115200);
-#ifdef ESP32
   esp_timer_init();
-#endif
-  //WiFi.mode(WIFI_OFF);
-  delay(100);
-//LED init
-#ifdef ESP8266
-  myled.begin();
-#endif
 
-#ifdef ADAFRUIT
-  //DAC init, LCD backlit off
-  dac.begin(MCP4725address);
-  delay(50);
-  dac.setVoltage(0, false);
-  delay(100);
-
-  //MCP23017 and buttons init, should preceed the TFT init
-  mcp.begin(MCP23017address);
-  delay(100);
-
-  for (int i = 0; i < 8; ++i)
-  {
-    mcp.pinMode(i, INPUT);
-    mcp.pullUp(i, HIGH);
-  }
-
-  //Sound init and test
-  pinMode(PIN_SPEAKER_1, OUTPUT);
-  tone(PIN_SPEAKER_1, 200, 100);
-  delay(100);
-  tone(PIN_SPEAKER_1, 100, 100);
-  delay(100);
-  noTone(PIN_SPEAKER_1);
-
-  //TFT init
-  mcp.pinMode(CSTFTPIN, OUTPUT);
-  mcp.digitalWrite(CSTFTPIN, LOW);
-#endif
-
-#if defined(EPAPER130)
-  displayEPaper.init(115200);
-#else
-  screen.begin();
-  delay(200);
-  screen.setRotation(0);
-  screen.fillScreen(TFT_BLACK);
-#endif
+  //initializing DMA buffers and I2S
+  composite.init();
+  //initializing graphics double buffer
+  graphics.init();
   Serial.write("Screen Init\r\n");
-
-#ifdef ADAFRUIT
-  //LCD backlit on
-  for (uint8_t bcklt = 0; bcklt < 100; bcklt++)
-  {
-    dac.setVoltage(bcklt * 20, false);
-    delay(10);
-  }
-
-  dac.setVoltage(4095, true);
-  delay(500);
-#else
   delay(100);
-#endif
-
-#if defined(EPAPER130)
-  displayEPaper.firstPage();
-  do
-  {
-    displayEPaper.fillScreen(GxEPD_WHITE);
-  } while (displayEPaper.nextPage());
-#else
-  screen.fillScreen(TFT_BLACK);
-#endif
   Serial.write("Boot Done!");
+
+  xTaskCreatePinnedToCore(compositeCore, "c", 1024, NULL, 1, NULL, 0);
 }
 
 void Arduboy2Core::setCPUSpeed8MHz(){};
@@ -201,56 +131,17 @@ void Arduboy2Core::setRGBled(uint8_t red, uint8_t green, uint8_t blue)
 
 void Arduboy2Core::setRGBled(uint8_t color, uint8_t val)
 {
-#ifdef ESP8266
-  if (color == RED_LED)
-    myled.setR(val);
-  else if (color == GREEN_LED)
-    myled.setG(val);
-  else if (color == BLUE_LED)
-    myled.setB(val);
-#endif
 };
 
 void Arduboy2Core::digitalWriteRGB(uint8_t red, uint8_t green, uint8_t blue)
 {
-#ifdef ESP8266
-  if (red)
-    myled.setR(200);
-  else
-    myled.setR(0);
-  if (green)
-    myled.setG(200);
-  else
-    myled.setG(0);
-  if (blue)
-    myled.setB(200);
-  else
-    myled.setB(0);
-#endif
 };
 
 void Arduboy2Core::digitalWriteRGB(uint8_t color, uint8_t val)
 {
-#ifdef ESP8266
-  if (color == 0)
-    if (val)
-      myled.setR(200);
-    else
-      myled.setR(0);
-  if (color == 1)
-    if (val)
-      myled.setG(200);
-    else
-      myled.setG(0);
-  if (color == 2)
-    if (val)
-      myled.setB(200);
-    else
-      myled.setB(0);
-#endif
+
 }
 
-#ifdef ESP32
 // Button definitions
 static const int P1_Left = 0;
 static const int P1_Top = 1;
@@ -273,128 +164,6 @@ static const int BIT_P2_Left = 64;
 static const int BIT_P2_Top = 128;
 static bool inputSetup = false;
 
-#ifdef ONEBUTTON
-static bool buttonRun = false;
-static Button2 pBtns = Button2(39);
-static byte ePaperButtons = 0;
-
-void button_callback(Button2 &b)
-{
-  bool aButton = false;
-  bool bButton = false;
-  bool cButton = false;
-
-  unsigned int time = b.wasPressedFor();
-  if (time > 3000)
-  {
-  }
-  else if (time > 1500)
-  {
-    cButton = true;
-  }
-  else if (time > 500)
-  {
-    bButton = true;
-  }
-  else
-  {
-    aButton = true;
-  }
-
-  // Serial.write(printf("a %d : b %d : c %d \r\n", aButton, bButton, cButton));
-
-  byte buttonVals = 0;
-
-  buttonVals = buttonVals | (false << P1_Left);
-  buttonVals = buttonVals | (false << P1_Top);
-  buttonVals = buttonVals | (aButton << P1_Right);
-  buttonVals = buttonVals | (false << P1_Bottom);
-
-  buttonVals = buttonVals | (bButton << P2_Right);
-  buttonVals = buttonVals | (false << P2_Bottom);
-  buttonVals = buttonVals | (cButton << P2_Left);
-  buttonVals = buttonVals | (false << P2_Top);
-
-  ePaperButtons = buttonVals;
-}
-
-void button_init()
-{
-  pBtns.setPressedHandler(button_callback);
-}
-
-void button_loop()
-{
-  pBtns.loop();
-}
-
-static byte buttonCheck()
-{
-  if (!buttonRun)
-  {
-    button_init();
-    buttonRun = true;
-  }
-  else
-  {
-    button_loop();
-  }
-
-  return ePaperButtons;
-}
-#elif defined(GAMEPAD)
-static const byte TOUCH_SENSE_MAX = 50;
-static const byte TOUCH_SENSE_MIN = 20;
-static int inputVal = 0;
-static int TOUCH_SENSE[8];
-static int touch_values[8];
-
-static bool readAnalogSensor(int pin, int touch_sense)
-{
-  inputVal = touchRead(pin);
-  return inputVal < touch_sense && inputVal > 0;
-}
-
-static int readAnalogSensorRaw(int pin)
-{
-  inputVal = touchRead(pin);
-  return inputVal;
-}
-
-static byte getReadShiftAnalog()
-{
-  byte buttonVals = 0;
-  buttonVals = buttonVals | (readAnalogSensor(32, TOUCH_SENSE[0]) << P1_Left);
-  buttonVals = buttonVals | (readAnalogSensor(14, TOUCH_SENSE[1]) << P1_Top);
-  buttonVals = buttonVals | (readAnalogSensor(27, TOUCH_SENSE[2]) << P1_Right);
-  buttonVals = buttonVals | (readAnalogSensor(33, TOUCH_SENSE[3]) << P1_Bottom);
-
-  buttonVals = buttonVals | (readAnalogSensor(15, TOUCH_SENSE[4]) << P2_Right);
-  buttonVals = buttonVals | (readAnalogSensor(13, TOUCH_SENSE[5]) << P2_Bottom);
-  buttonVals = buttonVals | (readAnalogSensor(2, TOUCH_SENSE[6]) << P2_Left);
-  buttonVals = buttonVals | (readAnalogSensor(12, TOUCH_SENSE[7]) << P2_Top);
-
-  return buttonVals;
-}
-
-static void getRawInput()
-{
-  for (int i = 0; i < 8; i++)
-  {
-    touch_values[i] = 0;
-  }
-
-  int i = 0;
-  touch_values[i++] = readAnalogSensorRaw(32); // Left
-  touch_values[i++] = readAnalogSensorRaw(14); // Up
-  touch_values[i++] = readAnalogSensorRaw(27); // Right
-  touch_values[i++] = readAnalogSensorRaw(33); // Down
-  touch_values[i++] = readAnalogSensorRaw(15); // A
-  touch_values[i++] = readAnalogSensorRaw(13); // Start
-  touch_values[i++] = readAnalogSensorRaw(2);  // B
-  touch_values[i++] = readAnalogSensorRaw(12); // Select
-}
-#elif defined(PS3GAMEPAD)
 static bool buttonRun = false;
 int player = 0;
 int battery = 0;
@@ -498,40 +267,10 @@ static byte getReadPS3GamePad()
   return 0;
 }
 
-#endif
-
 static byte getReadShift()
 {
-#ifdef ONEBUTTON
-  return buttonCheck();
-#elif defined(GAMEPAD)
-  return getReadShiftAnalog();
-#elif defined(PS3GAMEPAD)
   return getReadPS3GamePad();
-#endif
 }
-
-static uint16_t keyStateThread;
-static SemaphoreHandle_t xSemaphoreInput;
-static void inputThread(void *empty)
-{
-  for (;;)
-  {
-    if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE)
-    {
-      inputlastTime = inputcurrentTime;
-      inputcurrentTime = esp_timer_get_time();
-      inputframeTime = inputcurrentTime - inputlastTime;
-      inputfps = 1000000 / inputframeTime;
-
-      keyStateThread = getReadShift();
-      xSemaphoreGive(xSemaphoreInput);
-      vTaskDelay(10);
-    }
-  }
-}
-
-#endif
 
 /* Buttons */
 static uint16_t keystate;
@@ -540,62 +279,10 @@ uint8_t buttons = 0;
 uint8_t Arduboy2Core::buttonsState()
 {
   buttons = 0;
-#ifdef ESP8266
-  keystate = ~mcp.readGPIOAB() & 255;
-
-  // LEFT_BUTTON, RIGHT_BUTTON, UP_BUTTON, DOWN_BUTTON, A_BUTTON, B_BUTTON
-  if (keystate & PAD_ANY)
-  {
-    if (keystate & PAD_LEFT)
-    {
-      buttons |= LEFT_BUTTON;
-    } // left
-    if (keystate & PAD_RIGHT)
-    {
-      buttons |= RIGHT_BUTTON;
-    } // right
-    if (keystate & PAD_UP)
-    {
-      buttons |= UP_BUTTON;
-    } // up
-    if (keystate & PAD_DOWN)
-    {
-      buttons |= DOWN_BUTTON;
-    } // down
-    if (keystate & PAD_ACT)
-    {
-      buttons |= A_BUTTON;
-    } // a?
-    if (keystate & PAD_ESC)
-    {
-      buttons |= B_BUTTON;
-    } // b?
-  }
-
-#else
   // Initial Setup
   if (inputSetup)
   {
-    #ifdef GAMEPAD
-    if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE)
-    {
-      keystate = keyStateThread;
-      xSemaphoreGive(xSemaphoreInput);
-    }
-    #elif defined(ONEBUTTON)
-    // Disabled threading because of instantaneous press checks.
-     keystate = buttonCheck();
-    #elif defined(PS3GAMEPAD)
-    #if defined(EPAPER130)
     keystate = getReadShift();
-    #else
-    if (xSemaphoreTake(xSemaphoreInput, (TickType_t)100) == pdTRUE)
-    {
-      keystate = keyStateThread;
-      xSemaphoreGive(xSemaphoreInput);
-    }
-    #endif
-    #endif
 
     if (keystate & BIT_P1_Left)
       buttons |= LEFT_BUTTON; //Left
@@ -618,33 +305,8 @@ uint8_t Arduboy2Core::buttonsState()
   }
   else
   {
-#ifdef GAMEPAD
-    TaskHandle_t xHandle = NULL;
-    xSemaphoreInput = xSemaphoreCreateMutex();
-    getRawInput();
-    for (int i = 0; i < 8; i++)
-    {
-      TOUCH_SENSE[i] /= 2;
-      if (TOUCH_SENSE[i] > TOUCH_SENSE_MAX)
-        TOUCH_SENSE[i] = TOUCH_SENSE_MAX;
-      if (TOUCH_SENSE[i] < TOUCH_SENSE_MIN)
-        TOUCH_SENSE[i] = TOUCH_SENSE_MIN;
-    }
-
-    xTaskCreatePinnedToCore(inputThread, "Input", 1024, nullptr, 1, &xHandle, 0);
-#endif
-    
-    #ifdef PS3GAMEPAD
-    #ifndef EPAPER130
-    TaskHandle_t xHandle = NULL;
-    xSemaphoreInput = xSemaphoreCreateMutex();
-    xTaskCreatePinnedToCore(inputThread, "Input", 1024, nullptr, 1, &xHandle, 0);
-    #endif
-    #endif
-
     inputSetup = true;
   }
-#endif
 
   return buttons;
 }
