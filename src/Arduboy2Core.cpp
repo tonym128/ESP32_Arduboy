@@ -49,7 +49,7 @@ void Arduboy2Core::boot()
   delay(100);
   Serial.write("Boot Done!");
 
-  xTaskCreatePinnedToCore(compositeCore, "c", 1024, NULL, 1, NULL, 0);
+  xTaskCreatePinnedToCore(compositeCore, "c", 1024, NULL, 1, NULL, 1);
 }
 
 void Arduboy2Core::setCPUSpeed8MHz(){};

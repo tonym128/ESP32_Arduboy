@@ -198,7 +198,7 @@ class CompositeOutput
     fillValues(i, levelBlack, samplesBlackLeft);
     for(int x = 0; x < targetXres / 2; x++)
     {
-      short pix = (levelBlack + pixels[x] * 240) << 8;
+      short pix = (pixels[x] ? levelWhite : levelBlack) << 8;
       line[i++^1] = pix;
       line[i++^1]   = pix;
     }
