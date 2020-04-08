@@ -6,8 +6,8 @@ GameState State::gameState = {};
 bool State::hasUserSaved() {
     uint8_t id;
     EEPROM.get(EEPROM_START, id);
-
-    return id == GAME_ID;
+    if (id == GAME_ID)return (1);
+    else return(0);
 }
 
 void State::saveToEEPROM() {
@@ -19,8 +19,9 @@ void State::saveToEEPROM() {
 void State::load() {
     if (hasUserSaved()) {
         EEPROM.get(EEPROM_START + 1, gameState);
-    } else {
-        gameState.canChooseProMode = false;
+    } 
+    else {
+        gameState.canChooseProMode = true;
         gameState.useProMode = false;
 
         // start the game at 4pm
@@ -43,17 +44,21 @@ void State::load() {
     }
 }
 
+
 void State::setFishAcquired(FishType fishType) {
     gameState.acquiredFish[static_cast<int8_t>(fishType)] = true;
 }
+
 
 void State::incrementCurrentCount(FishType fishType) {
     gameState.currentFishCount[static_cast<int8_t>(fishType)] += 1;
 }
 
+
 void State::decreaseCurrentCount(FishType fishType, uint8_t count) {
     gameState.currentFishCount[static_cast<int8_t>(fishType)] -= count;
 }
+
 
 void State::setFishLength(Fish& fish) {
     int8_t index = static_cast<int8_t>(fish.type);
@@ -61,21 +66,20 @@ void State::setFishLength(Fish& fish) {
     gameState.bestLength[index] = max(currentLength, fish.length);
 }
 
+
 bool State::sellAllFish() {
     Fish fish;
     bool soldSomething = false;
 
     for (uint8_t f = 0; f < static_cast<uint8_t>(FishType::OLD_BOOT); ++f) {
         Fish::loadFish(static_cast<FishType>(f), fish);
-
         soldSomething = soldSomething || gameState.currentFishCount[f] > 0;
-
         gameState.money += gameState.currentFishCount[f] * fish.value;
         gameState.currentFishCount[f] = 0;
     }
-
     return soldSomething;
 }
+
 
 void State::clearEEPROM() {
     EEPROM.put(EEPROM_START, 0);
@@ -83,11 +87,12 @@ void State::clearEEPROM() {
     load();
 }
 
+
 bool State::isDay() {
     uint8_t hour = getCurrentHour();
-
     return hour >= 5 && hour < 21;
 }
+
 
 uint8_t State::getCurrentHour() {
     return gameState.minute / 60;

@@ -2,6 +2,7 @@
 #include <Arduboy2.h>
 #include <math.h>
 
+//#include <ESP8266WiFi.h>
 #include "src/game.h"
 #include "src/renderer.h"
 #include "src/util.h"
@@ -13,22 +14,21 @@ Renderer renderer(arduboy);
 Game game;
 
 void setup() {
-    EEPROM.begin(1000);
+    Serial.begin(9600);
+    EEPROM.begin(200);
+//    WiFi.mode(WIFI_OFF);
     arduboy.boot();
     arduboy.audio.begin();
     BeepPin1::begin();
     randomSeed(analogRead(0));
-
-#ifdef SERIAL_LOG
-    Serial.begin(9600);
-    delay(1500);
-    LOG("setup done");
-#endif
+    State::load();
 }
+
 
 uint8_t loopCounter = 1;
 
 void loop() {
+    delay(1);
     if (!arduboy.nextFrame()) {
         return;
     }

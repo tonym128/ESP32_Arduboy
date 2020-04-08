@@ -1803,10 +1803,10 @@ void loop() {
     //saveEEPROM(); //it checks if the values have changed before writting so it won't wear out the EEPROM
 
     //camera smoothing
-    //int x = (player.x + player.getWidth()/2)/SCALE - LCDWIDTH/2;
-    //int y = (player.y + player.getHeight()/2)/SCALE - LCDHEIGHT/2;
-    //cameraX = (3*cameraX + x)/4;
-    //cameraY = (3*cameraY + y)/4;
+    int x = (player.x + player.getWidth()/2)/SCALE - LCDWIDTH/2;
+    int y = (player.y + player.getHeight()/2)/SCALE - LCDHEIGHT/2;
+    cameraX = (3*cameraX + x)/4;
+    cameraY = (3*cameraY + y)/4;
 
     //update camera
     if (world.getWidth()*SCALE <= LCDWIDTH) {
