@@ -73,17 +73,7 @@ int main() {
   return 0;
 }
 
-void setup() {
-  //WiFi.mode(WIFI_OFF);
-  EEPROM.begin(100);
-  arduboy.boot();
-  arduboy.audio.begin();
-  //ATM.play(titleSong);
-  arduboy.setFrameRate(60);                                 // set the frame rate of the game at 60 fps
-}
-
-
-void loop() {
+void gameLogic(void *) {
   if (!(arduboy.nextFrame())) return;
   //arduboy.fillScreen(1);
   arduboy.pollButtons();
@@ -99,4 +89,22 @@ void loop() {
   else if (flashWhite) flashScreen(WHITE);
   //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
   arduboy.display();
+}
+
+void gameLogicLoop(void *) {
+  gameLogic(nullptr);
+}
+
+void loop() {
+  delay(1000);
+}
+
+void setup() {
+  //WiFi.mode(WIFI_OFF);
+  EEPROM.begin(100);
+  arduboy.boot();
+  arduboy.audio.begin();
+  //ATM.play(titleSong);
+  arduboy.setFrameRate(60);                                 // set the frame rate of the game at 60 fps
+  xTaskCreatePinnedToCore(gameLogic, "g", 4096, nullptr, 1, nullptr, 0);
 }

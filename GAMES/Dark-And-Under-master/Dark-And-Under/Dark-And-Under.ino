@@ -67,7 +67,97 @@ LevelUpButtons levelUpButton = LevelUpButtons::None;
 uint8_t level = 0;          // Current map
 uint8_t playerLevel = 1;    // Levelup level
 
+// -- Threaded for TV out
+void gameLogic(void *) {
+for (;;) {
+  uint16_t delayLength = 0;
+  if (!(arduboy.nextFrame())) return;
 
+  arduboy.pollButtons();
+
+  switch (gameState) {
+
+    #ifdef ALTERNATIVE_ENDING 
+      case GameState::InvalidSeq:
+      font3x5.setCursor(22, 22);
+      font3x5.print(F("LEVELS MUST BE PLAYED\n    IN SEQUENCE !"));
+      break;
+    #endif
+
+    case GameState::InitGame:
+      level = 0;
+      gameState = GameState::InitLevel;
+      break;
+
+    case GameState::InitLevel:
+      initialiseLevel(&myHero, &myLevel, levels[level]);
+      break;
+
+    case GameState::Move:
+    case GameState::ItemIgnore:
+      delayLength = playLoop();
+      break;
+
+    case GameState::InventorySelect:
+    case GameState::InventoryAction:
+      delayLength = inventoryLoop();
+      break;
+
+    case GameState::ItemSelect:
+      delayLength = itemLoop();
+      break;
+
+    case GameState::Splash:
+      displaySplash();
+      break;
+
+    case GameState::About:
+      displayLogo();
+      break;
+
+    case GameState::Battle_EnemyAttacks_Init:
+    case GameState::Battle_EnemyAttacks:
+    case GameState::Battle_EnemyDies:
+    case GameState::Battle_PlayerDecides:
+    case GameState::Battle_PlayerAttacks:
+    case GameState::Battle_PlayerDefends:
+    case GameState::Battle_PlayerCastsSpell:
+      delayLength = battleLoop();
+      break;
+
+    case GameState::Battle_PlayerDies:
+      displayEndOfGame(true);
+      break;
+
+    case GameState::LevelUp:
+      delayLength = displayLevelUp();
+      break;
+
+    case GameState::NextLevel:
+      displayNextLevel();
+      break;
+
+    case GameState::EndOfGame:
+      displayEndOfGame(false);
+      break;
+
+    #ifdef USE_LARGE_MAP
+    case GameState::DisplayLargeMap:
+      displayLargeMap();
+      break;
+    #endif
+
+    default:
+      break;
+
+  }
+
+  arduboy.display(true);
+  delay(delayLength);
+}
+}
+
+//
 /* -----------------------------------------------------------------------------------------------------------------------------
  *  Setup ..
  * -----------------------------------------------------------------------------------------------------------------------------
@@ -91,6 +181,7 @@ void setup() {
   #endif
 
   initialiseGame();
+  xTaskCreatePinnedToCore(gameLogic, "g", 4096, nullptr, 1, nullptr, 0);
 
 }
 
