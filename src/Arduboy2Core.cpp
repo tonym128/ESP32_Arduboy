@@ -30,7 +30,7 @@ void compositeCore(void *data)
   {
     //just send the graphics frontbuffer whithout any interruption 
     composite.sendFrameHalfResolution(&graphics.frame);
-    Serial.write(".");
+    //Serial.write(".");
   }
 }
 
@@ -165,15 +165,15 @@ static const int BIT_P2_Top = 128;
 static bool inputSetup = false;
 
 static bool buttonRun = false;
-int player = 0;
+int ps3player = 0;
 int battery = 0;
 
 void onConnect(){
     Serial.println("PS3 GamePad Connected.");
-    Serial.print("Setting LEDs to player "); Serial.println(player, DEC);
-    Ps3.setPlayer(player);
-    player += 1;
-    if(player > 10) player = 0;
+    Serial.print("Setting LEDs to player "); Serial.println(ps3player, DEC);
+    Ps3.setPlayer(ps3player);
+    ps3player += 1;
+    if(ps3player > 10) ps3player = 0;
 }
 
 bool ps3left = 0;

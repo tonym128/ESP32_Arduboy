@@ -92,7 +92,9 @@ void gameLogic(void *) {
 }
 
 void gameLogicLoop(void *) {
+  for (;;) {
   gameLogic(nullptr);
+  }
 }
 
 void loop() {
@@ -106,5 +108,5 @@ void setup() {
   arduboy.audio.begin();
   //ATM.play(titleSong);
   arduboy.setFrameRate(60);                                 // set the frame rate of the game at 60 fps
-  xTaskCreatePinnedToCore(gameLogic, "g", 4096, nullptr, 1, nullptr, 0);
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
 }
