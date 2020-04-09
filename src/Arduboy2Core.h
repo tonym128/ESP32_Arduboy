@@ -9,8 +9,6 @@
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
-#define XMULT 4
-#define YMULT 6
 
 #define PS3GAMEPAD
 
