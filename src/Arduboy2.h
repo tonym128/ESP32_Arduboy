@@ -396,7 +396,7 @@ class Arduboy2Base : public Arduboy2Core
    * \see begin() boot()
    */
   void waitNoButtons();
-
+  
   /** \brief
    * Clear the display buffer.
    *

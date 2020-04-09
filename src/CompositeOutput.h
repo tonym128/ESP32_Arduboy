@@ -196,11 +196,12 @@ class CompositeOutput
     fillValues(i, levelSync, samplesSync);
     fillValues(i, levelBlank, samplesBlank);
     fillValues(i, levelBlack, samplesBlackLeft);
-    for(int x = 0; x < targetXres / 2; x++)
+    for(int x = 0; x < targetXres / XMULT; x++)
     {
       short pix = (pixels[x] ? levelWhite : levelBlack) << 8;
-      line[i++^1] = pix;
-      line[i++^1]   = pix;
+      for (int xmul = 0; xmul < 4; xmul++) {
+        line[i++^1] = pix;
+      }
     }
     fillValues(i, levelBlack, samplesBlackRight);
     fillValues(i, levelBlank, samplesBack);
@@ -250,7 +251,7 @@ class CompositeOutput
       sendLine();
     for(int y = 0; y < targetYresEven; y++)
     {
-      bool *pixels = (*frame)[y];
+      bool *pixels = (*frame)[y/YMULT/2];
       fillLine(pixels);
       sendLine();
     }
@@ -280,7 +281,7 @@ class CompositeOutput
       sendLine();
     for(int y = 0; y < targetYresOdd; y++)
     {
-      bool *pixels = (*frame)[y];
+      bool *pixels = (*frame)[y/YMULT/2];
       fillLine(pixels);
       sendLine();
     }

@@ -7,8 +7,11 @@
 #ifndef ARDUBOY2_CORE_H
 #define ARDUBOY2_CORE_H
 
-#define SCREEN_WIDTH 160
-#define SCREEN_HEIGHT 100
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define XMULT 4
+#define YMULT 6
+
 #define PS3GAMEPAD
 
 #include <Arduino.h>
@@ -77,10 +80,9 @@ class Arduboy2Core
   public:
   
     static uint8_t sBuffer[(HEIGHT*WIDTH)/8];
-    
+
     Arduboy2Core();
 
-	
     /** \brief
      * Idle the CPU to save power.
      *

@@ -917,7 +917,6 @@ void Arduboy2Base::clear()
 }
 
 static bool initSprite = false;
-static const int maxPixel = SCREEN_WIDTH * SCREEN_HEIGHT;
 int counter = 0;
 void Arduboy2Base::display()
 {

@@ -6,6 +6,11 @@
 
 #include "Arduboy2Core.h"
 
+#include "secrets.h"
+#include <ESPmDNS.h>
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
+
 const int XRES = SCREEN_WIDTH;
 const int YRES = SCREEN_HEIGHT;
 
@@ -13,7 +18,7 @@ const int YRES = SCREEN_HEIGHT;
 CompositeGraphics graphics(XRES, YRES);
 //Composite output using the desired mode (PAL/NTSC) and twice the resolution. 
 //It will center the displayed image automatically
-CompositeOutput composite(CompositeOutput::NTSC, XRES * 2, YRES * 2);
+CompositeOutput composite(CompositeOutput::NTSC, XRES * XMULT, YRES * YMULT);
 
 #include <Ps3Controller.h>
 
@@ -34,6 +39,51 @@ void compositeCore(void *data)
   }
 }
 
+void initOTA() {
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+    Serial.print("Attempting to connect to network, SSID: ");
+    Serial.println(ssid);
+    WiFi.begin(ssid, password);
+    // wait 10 seconds for connection:
+    delay(10000);
+  }
+
+  ArduinoOTA
+    .onStart([]() {
+      String type;
+      if (ArduinoOTA.getCommand() == U_FLASH)
+        type = "sketch";
+      else // U_SPIFFS
+        type = "filesystem";
+
+      // NOTE: if updating SPIFFS this would be the place to unmount SPIFFS using SPIFFS.end()
+      Serial.println("Start updating " + type);
+    })
+    .onEnd([]() {
+      Serial.println("\nEnd");
+    })
+    .onProgress([](unsigned int progress, unsigned int total) {
+      Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+    })
+    .onError([](ota_error_t error) {
+      Serial.printf("Error[%u]: ", error);
+      if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+      else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+      else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+      else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+      else if (error == OTA_END_ERROR) Serial.println("End Failed");
+    });
+
+  ArduinoOTA.begin();
+
+  Serial.println("Ready");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+
 Arduboy2Core::Arduboy2Core() {}
 
 void Arduboy2Core::boot()
@@ -41,14 +91,18 @@ void Arduboy2Core::boot()
   Serial.begin(115200);
   esp_timer_init();
 
+  // Start OTA
+  Serial.write("Start OTA\n");
+  initOTA();
+  Serial.write("Start OTA Done\n");
+
   //initializing DMA buffers and I2S
   composite.init();
   //initializing graphics double buffer
   graphics.init();
-  Serial.write("Screen Init\r\n");
+  Serial.write("Screen Init\n");
   delay(100);
   Serial.write("Boot Done!");
-
   xTaskCreatePinnedToCore(compositeCore, "c", 1024, NULL, 1, NULL, 1);
 }
 
