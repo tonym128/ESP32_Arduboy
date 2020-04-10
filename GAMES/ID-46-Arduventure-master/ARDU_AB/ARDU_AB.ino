@@ -98,7 +98,8 @@ void gameLogicLoop(void *) {
 }
 
 void loop() {
-  delay(1000);
+  delay(100);
+  ArduinoOTA.handle();
 }
 
 void setup() {

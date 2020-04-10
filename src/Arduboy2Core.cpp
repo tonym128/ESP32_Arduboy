@@ -18,7 +18,7 @@ const int YRES = SCREEN_HEIGHT;
 CompositeGraphics graphics(XRES, YRES);
 //Composite output using the desired mode (PAL/NTSC) and twice the resolution. 
 //It will center the displayed image automatically
-CompositeOutput composite(CompositeOutput::NTSC, XRES * 5, YRES * 6);
+CompositeOutput composite(CompositeOutput::NTSC, XRES * 4, YRES * 4);
 
 #include <Ps3Controller.h>
 
@@ -92,9 +92,9 @@ void Arduboy2Core::boot()
   esp_timer_init();
 
   // Start OTA
-  // Serial.write("Start OTA\n");
-  // initOTA();
-  // Serial.write("Start OTA Done\n");
+  Serial.write("Start OTA\n");
+  initOTA();
+  Serial.write("Start OTA Done\n");
 
   //initializing DMA buffers and I2S
   composite.init();

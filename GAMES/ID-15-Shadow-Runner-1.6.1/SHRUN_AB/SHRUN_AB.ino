@@ -43,17 +43,29 @@ const FunctionPointer PROGMEM mainGameLoop[] = {
   stateGameOver,
 };
 
-void setup () {
-  arduboy.begin();
-  arduboy.setFrameRate(60);
-  arduboy.initRandomSeed();
-}
-
-void loop() {
+void gameLogic() {
   if (!(arduboy.nextFrame())) return;
   arduboy.pollButtons();
   arduboy.clear();
   ((FunctionPointer) pgm_read_dword (&mainGameLoop[gameState]))();
   arduboy.display();
   delay(1);
+}
+
+void gameLogicLoop(void *) {
+  for (;;) {
+    gameLogic();
+  }
+}
+
+void setup () {
+  arduboy.begin();
+  arduboy.setFrameRate(60);
+  arduboy.initRandomSeed();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
+}
+
+void loop() {
+  delay(100);
+  ArduinoOTA.handle();
 }

@@ -194,10 +194,9 @@ public:
     fillValues(i, levelSync, samplesSync);
     fillValues(i, levelBlank, samplesBlank);
     fillValues(i, levelBlack, samplesBlackLeft);
-    for (int x = 0; x < targetXres / 5; x++)
+    for (int x = 0; x < targetXres / 4; x++)
     {
       short pix = (pixels[x] ? levelWhite : levelBlack) << 8;
-      line[i++ ^ 1] = pix;
       line[i++ ^ 1] = pix;
       line[i++ ^ 1] = pix;
       line[i++ ^ 1] = pix;
@@ -256,7 +255,7 @@ public:
       sendLine();
     for (int y = 0; y < targetYresEven; y++)
     {
-      bool *pixels = (*frame)[y / 3];
+      bool *pixels = (*frame)[y / 2];
       fillLine(pixels);
       sendLine();
     }
@@ -293,7 +292,7 @@ public:
       sendLine();
     for (int y = 0; y < targetYresOdd; y++)
     {
-      bool *pixels = (*frame)[y / 3];
+      bool *pixels = (*frame)[y / 2];
       fillLine(pixels);
       sendLine();
     }

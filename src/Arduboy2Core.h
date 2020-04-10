@@ -17,6 +17,9 @@
 #include "CompositeGraphics.h"
 #include "CompositeOutput.h"
 #include <soc/rtc.h>
+#include <ESPmDNS.h>
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
 
 #include <limits.h>
 
