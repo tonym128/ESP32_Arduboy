@@ -2245,24 +2245,7 @@ void gameloop() {
 	}
 }
 
-void setup() {
-  //WiFi.mode(WIFI_OFF);
-	arduboy.begin();
-	arduboy.setFrameRate(FRAMERATE);
-	beep.begin();
-	arduboy.setRGBled(0, 0, 0);
-
-	EEPROM.get(SAVELOCATION, maxlevel);
-	if(maxlevel >= LEVELS) {
-		maxlevel = 0;
-		EEPROM.put(SAVELOCATION, maxlevel);
-	}
-	menulevel = maxlevel;
-	
-	//Serial.begin(9600);
-}
-
-void loop() {
+void gameLogic(void *) {
 	if(!arduboy.nextFrame()) {
 		return;
 	}
@@ -2282,4 +2265,35 @@ void loop() {
 	gameloop();
 
 	arduboy.display();
+}
+
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    gameLogic(nullptr);
+    ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  //WiFi.mode(WIFI_OFF);
+	arduboy.begin();
+	arduboy.setFrameRate(FRAMERATE);
+	beep.begin();
+	arduboy.setRGBled(0, 0, 0);
+
+	EEPROM.get(SAVELOCATION, maxlevel);
+	if(maxlevel >= LEVELS) {
+		maxlevel = 0;
+		EEPROM.put(SAVELOCATION, maxlevel);
+	}
+	menulevel = maxlevel;
+	
+	//Serial.begin(9600);
+	xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
+}
+
+void loop()
+{
+  delay(60000);
 }

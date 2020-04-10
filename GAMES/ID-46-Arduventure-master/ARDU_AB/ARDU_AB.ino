@@ -91,15 +91,16 @@ void gameLogic(void *) {
   arduboy.display();
 }
 
-void gameLogicLoop(void *) {
+void gameLogicLoop(void *)
+{
   for (;;) {
-  gameLogic(nullptr);
+    gameLogic(nullptr);
+    ArduinoOTA.handle();
   }
 }
 
 void loop() {
-  delay(100);
-  ArduinoOTA.handle();
+  delay(60000);
 }
 
 void setup() {

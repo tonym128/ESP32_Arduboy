@@ -168,8 +168,6 @@ void Platform::ExpectLoadDelay()
 
 void gameLogic(void *)
 {
-  for (;;)
-  {
     static int16_t tickAccum = 0;
     unsigned long timingSample = millis();
     tickAccum += (timingSample - lastTimingSample);
@@ -206,6 +204,13 @@ void gameLogic(void *)
 
       arduboy.display(false);
     }
+}
+
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    gameLogic(nullptr);
+    ArduinoOTA.handle();
   }
 }
 
@@ -228,11 +233,10 @@ void setup()
   arduboy.setFrameRate(TARGET_FRAMERATE);
   Game::Init();
   lastTimingSample = millis();
-  xTaskCreatePinnedToCore(gameLogic, "g", 4096, nullptr, 1, nullptr, 0);
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
 }
 
 void loop()
 {
-  delay(100);
-  ArduinoOTA.handle();
+  delay(60000);
 }

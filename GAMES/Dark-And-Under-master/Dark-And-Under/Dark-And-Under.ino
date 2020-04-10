@@ -160,6 +160,7 @@ void gameLogicLoop(void *)
 {
   for (;;) {
     gameLogic(nullptr);
+    ArduinoOTA.handle();
   }
 }
 //
@@ -194,8 +195,7 @@ void setup() {
  * -----------------------------------------------------------------------------------------------------------------------------
  */
 void loop() {
-  delay(100);
-  ArduinoOTA.handle();
+  delay(60000);
 }
 
 

@@ -43,7 +43,7 @@ const FunctionPointer PROGMEM mainGameLoop[] = {
   stateGameOver,
 };
 
-void gameLogic() {
+void gameLogic(void *) {
   if (!(arduboy.nextFrame())) return;
   arduboy.pollButtons();
   arduboy.clear();
@@ -52,11 +52,14 @@ void gameLogic() {
   delay(1);
 }
 
-void gameLogicLoop(void *) {
+void gameLogicLoop(void *)
+{
   for (;;) {
-    gameLogic();
+    gameLogic(nullptr);
+    ArduinoOTA.handle();
   }
 }
+
 
 void setup () {
   arduboy.begin();
@@ -66,6 +69,5 @@ void setup () {
 }
 
 void loop() {
-  delay(100);
-  ArduinoOTA.handle();
+  delay(60000);
 }
