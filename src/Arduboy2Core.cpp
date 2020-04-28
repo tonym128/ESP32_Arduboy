@@ -4,21 +4,32 @@
  * The Arduboy2Core class for Arduboy hardware initilization and control.
  */
 
+#include "ESPboyOTA.h"
 #include "Arduboy2Core.h"
+#include "ESPboyOTA.h"
 TFT_eSPI screen;
 Adafruit_MCP23017 mcp;
 Adafruit_MCP4725 dac;
 ESPboyLED myled;
+ESPboyOTA* OTAobj = NULL;
 
 uint8_t Arduboy2Core::sBuffer[];
+uint16_t Arduboy2Core::colors[19] = { 
+            LHSWAP((uint16_t)TFT_BLACK), LHSWAP((uint16_t)TFT_NAVY), LHSWAP((uint16_t)TFT_DARKGREEN), LHSWAP((uint16_t)TFT_DARKCYAN), LHSWAP((uint16_t)TFT_MAROON),
+            LHSWAP((uint16_t)TFT_PURPLE), LHSWAP((uint16_t)TFT_OLIVE), LHSWAP((uint16_t)TFT_LIGHTGREY), LHSWAP((uint16_t)TFT_DARKGREY), 
+            LHSWAP((uint16_t)TFT_BLUE), LHSWAP((uint16_t)TFT_GREEN), LHSWAP((uint16_t)TFT_CYAN),
+            LHSWAP((uint16_t)TFT_RED), LHSWAP((uint16_t)TFT_MAGENTA), LHSWAP((uint16_t)TFT_YELLOW), LHSWAP((uint16_t)TFT_WHITE), 
+            LHSWAP((uint16_t)TFT_ORANGE), LHSWAP((uint16_t)TFT_GREENYELLOW), LHSWAP((uint16_t)TFT_PINK)
+};
+uint8_t Arduboy2Core::foregroundclr = 14;
+uint8_t Arduboy2Core::backgroundclr = 0;
 
 Arduboy2Core::Arduboy2Core() {}
 
 
 void Arduboy2Core::boot(){
-  Serial.begin(9600);                           
+  Serial.begin(9600);         
   
-  WiFi.mode(WIFI_OFF);
   delay(100);
 
 //LED init
@@ -69,6 +80,11 @@ void Arduboy2Core::boot(){
   dac.setVoltage(4095, true);
   delay(500);
   screen.fillScreen(TFT_BLACK);
+  
+   // check OTA
+  if ((~mcp.readGPIOAB() & 255)&PAD_ACT || (~mcp.readGPIOAB() & 255)&PAD_ESC) OTAobj = new ESPboyOTA(&screen, &mcp);
+  
+  WiFi.mode(WIFI_OFF);
 }
 
 
@@ -172,8 +188,9 @@ void Arduboy2Core::digitalWriteRGB(uint8_t color, uint8_t val){
 
 /* Buttons */
 uint8_t Arduboy2Core::buttonsState(){
-  uint8_t buttons = 0;	
-  uint16_t keystate;
+  static uint8_t buttons;	
+  static uint16_t keystate;
+  buttons = 0;
   keystate = ~mcp.readGPIOAB() & 255;
     // LEFT_BUTTON, RIGHT_BUTTON, UP_BUTTON, DOWN_BUTTON, A_BUTTON, B_BUTTON
   if (keystate&PAD_ANY){
@@ -183,6 +200,8 @@ uint8_t Arduboy2Core::buttonsState(){
     if (keystate&PAD_DOWN)  { buttons |= DOWN_BUTTON; }  // down
     if (keystate&PAD_ACT)   { buttons |= A_BUTTON; }  // a?
     if (keystate&PAD_ESC)   { buttons |= B_BUTTON; }  // b?
+    if (keystate&PAD_RGT)   { foregroundclr++; if (foregroundclr>18) foregroundclr=0; delay(300);} 
+    if (keystate&PAD_LFT)   { backgroundclr++; if (backgroundclr>18) backgroundclr=0; delay(300);} 
   }
   return buttons;
 }

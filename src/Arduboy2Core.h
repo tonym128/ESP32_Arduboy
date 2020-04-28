@@ -7,7 +7,7 @@
 #ifndef ARDUBOY2_CORE_H
 #define ARDUBOY2_CORE_H
 
-#include <ESP8266WiFi.h>
+//#include <ESP8266WiFi.h>
 #include <Arduino.h>
 #include <SPI.h>
 #include "TFT_eSPI.h"
@@ -83,6 +83,11 @@ class Arduboy2Core
   public:
   
     static uint8_t sBuffer[(HEIGHT*WIDTH)/8];
+    
+    static uint16_t colors[19];
+    
+    static uint8_t foregroundclr;
+    static uint8_t backgroundclr;
     
     Arduboy2Core();
 
