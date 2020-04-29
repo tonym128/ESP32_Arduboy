@@ -61,6 +61,25 @@ private:
   Adafruit_MCP23017 *mcp; 
   TFT_eSPI *tft;
 
+  std::vector<wf> wfList;  // WiFi list
+  std::vector<fw> fwList;  // Firmware list
+
+  struct keyboardParameters{
+    uint8_t renderLine;
+    uint8_t displayMode;
+    uint8_t shiftOn;
+    int8_t selX;
+    int8_t selY;
+    String typing;
+  }keybParam;
+
+
+  struct wificlient{
+    String ssid;
+    String pass;
+  HTTPSRedirect *clientD;
+  }wificl;
+
   const static uint8_t keybOnscr[2][3][21] PROGMEM;
   const static char PROGMEM *hostD;
   const static char PROGMEM *urlPost;

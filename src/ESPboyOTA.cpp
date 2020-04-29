@@ -13,32 +13,12 @@ const uint8_t ESPboyOTA::keybOnscr[2][3][21] PROGMEM = {
  {"+1234567890ABCDEFGHI", "JKLMNOPQRSTUVWXYZ -=", "?!@$%&*()_[]\":;.,^<E",}
 };
 
-
-String *ESPboyOTA::consoleStrings;
-uint16_t *ESPboyOTA::consoleStringsColor;
-
-struct keyboardParameters{
-  uint8_t renderLine;
-  uint8_t displayMode;
-  uint8_t shiftOn;
-  int8_t selX;
-  int8_t selY;
-  String typing;
-}keybParam;
-
-
-std::vector<wf> wfList;  // WiFi list
-std::vector<fw> fwList;  // Firmware list
-
 const char PROGMEM* ESPboyOTA::hostD = "script.google.com";
 const char PROGMEM* ESPboyOTA::urlPost = "/macros/s/AKfycbxIfj1Eqi1eupe9Vmkhk0liuNrhSvM1Sx65qxocbBsd4jl0e7yj/exec";
 const uint16_t PROGMEM ESPboyOTA::httpsPort = 443;
 
-struct wificlient{
-  String ssid;
-  String pass;
-  HTTPSRedirect *clientD;
-}wificl;
+String *ESPboyOTA::consoleStrings;
+uint16_t *ESPboyOTA::consoleStringsColor;
 
 
 ESPboyOTA::ESPboyOTA(TFT_eSPI* tftOTA, Adafruit_MCP23017* mcpOTA) {
@@ -428,6 +408,7 @@ void ESPboyOTA::OTAprogress(int cur, int total) {
 
 void ESPboyOTA::OTAerror(int err) {
   // Serial.print(F("Error: ")); Serial.print(err);
+  printConsole("Error: "+String(err), TFT_RED, 1, 0);
   printConsole(ESPhttpUpdate.getLastErrorString(), TFT_RED, 1, 0);
   delay(3000);
   ESP.reset();
@@ -533,7 +514,7 @@ firmware ESPboyOTA::getFirmware() {
   } else
     printConsole(F("Loading failed"), TFT_RED, 0, 0);
 
-  for (int i = 0; i < fwList.size(); i++) {
+  for (uint8_t i = 0; i < fwList.size(); i++) {
     String toprint = (String)(i + 1) + " " + fwList[i].fwName;
     printConsole(toprint, TFT_GREEN, 0, 0);
   }
@@ -578,6 +559,7 @@ firmware ESPboyOTA::getFirmware() {
   char approve = 0;
   while (approve == 0) {
     printConsole(F("Download App?  [y/n]"), TFT_MAGENTA, 0, 0);
+    keybParam.typing="y";
     approve = getUserInput()[0];
   }
 
