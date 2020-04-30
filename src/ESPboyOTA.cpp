@@ -1,12 +1,13 @@
 /*
 ESPboyOTA class -- ESPboy App Store client core
-for www.ESPboy.com project by RomanS
+for www.ESPboy.com project 
 https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun
 thanks to DmitryL (Plague) for help, tests and advices
 */
 
 #include "ESPboyOTA.h"
 #define SOUNDPIN D3
+#define OTAv 13
 
 const uint8_t ESPboyOTA::keybOnscr[2][3][21] PROGMEM = {
  {"+1234567890abcdefghi", "jklmnopqrstuvwxyz -=", "?!@$%&*()_[]\":;.,^<E",},
@@ -23,7 +24,8 @@ uint16_t *ESPboyOTA::consoleStringsColor;
 
 ESPboyOTA::ESPboyOTA(TFT_eSPI* tftOTA, Adafruit_MCP23017* mcpOTA) {
    consoleStrings = new String[OTA_MAX_CONSOLE_STRINGS+1];
-   consoleStringsColor = new uint16_t [OTA_MAX_CONSOLE_STRINGS+1];
+   consoleStringsColor = new uint16_t[OTA_MAX_CONSOLE_STRINGS+1];
+   line_bf = new uint16_t[46];
    keybParam.renderLine = 0;
    keybParam.displayMode = 0;
    keybParam.shiftOn = 0;
@@ -205,13 +207,15 @@ void ESPboyOTA::drawConsole(uint8_t onlyLastLine) {
   if (!onlyLastLine) {
     for (uint8_t i = OTA_MAX_CONSOLE_STRINGS - lines - keybParam.renderLine + 1;
          i < OTA_MAX_CONSOLE_STRINGS - keybParam.renderLine + 1; i++) {
-      tft->setTextColor(consoleStringsColor[i], TFT_BLACK);
-      tft->drawString(consoleStrings[i], 4, offsetY);
+      //tft->setTextColor(consoleStringsColor[i], TFT_BLACK);
+      //tft->drawString(consoleStrings[i], 4, offsetY);
+      printFast(4, offsetY, consoleStrings[i], consoleStringsColor[i], TFT_BLACK);
       offsetY += 8;
     }
   } else {
-    tft->setTextColor(consoleStringsColor[OTA_MAX_CONSOLE_STRINGS], TFT_BLACK);
-    tft->drawString(consoleStrings[OTA_MAX_CONSOLE_STRINGS], 4, 8 * (lines - 1) + 3);
+    //tft->setTextColor(consoleStringsColor[OTA_MAX_CONSOLE_STRINGS], TFT_BLACK);
+    //tft->drawString(consoleStrings[OTA_MAX_CONSOLE_STRINGS], 4, 8 * (lines - 1) + 3);
+    printFast(4, 8 * (lines - 1) + 3, consoleStrings[OTA_MAX_CONSOLE_STRINGS], consoleStringsColor[OTA_MAX_CONSOLE_STRINGS], TFT_BLACK);
   }
 }
 
@@ -229,25 +233,29 @@ void ESPboyOTA::drawKeyboard(uint8_t slX, uint8_t slY, uint8_t onlySelected) {
 
   if (!onlySelected) {
     tft->fillRect(1, 128 - 24, 126, 23, TFT_BLACK);
-    tft->setTextColor(TFT_YELLOW, TFT_BLACK);
+    //tft->setTextColor(TFT_YELLOW, TFT_BLACK);
     for (uint8_t j = 0; j < 3; j++)
       for (uint8_t i = 0; i < 20; i++) {
         chr[0] = pgm_read_byte(&keybOnscr[keybParam.shiftOn][j][i]);
-        tft->drawString(&chr[0], i * 6 + 4, 128 - 2 - 8 * (3 - j));
+        //tft->drawString(&chr[0], i * 6 + 4, 128 - 2 - 8 * (3 - j));
+        printFast(i * 6 + 4, 128 - 2 - 8 * (3 - j), &chr[0], TFT_YELLOW, TFT_BLACK);
       }
   }
 
-  tft->setTextColor(TFT_YELLOW, TFT_BLACK);
+  //tft->setTextColor(TFT_YELLOW, TFT_BLACK);
   chr[0] = pgm_read_byte(&keybOnscr[keybParam.shiftOn][prevY][prevX]);
-  tft->drawString(&chr[0], prevX * 6 + 4, 128 - 24 + prevY * 8 - 2);
+  //tft->drawString(&chr[0], prevX * 6 + 4, 128 - 24 + prevY * 8 - 2);
+  printFast(prevX * 6 + 4, 128 - 24 + prevY * 8 - 2, &chr[0], TFT_YELLOW, TFT_BLACK);
 
-  tft->setTextColor(TFT_WHITE, TFT_BLACK);
-  tft->drawString("^<E", 6 * 17 + 4, 128 - 24 + 2 * 8 - 2);
+  //tft->setTextColor(TFT_WHITE, TFT_BLACK);
+  //tft->drawString("^<E", 6 * 17 + 4, 128 - 24 + 2 * 8 - 2);
+  printFast(6 * 17 + 4, 128 - 24 + 2 * 8 - 2, "^<E", TFT_WHITE, TFT_BLACK);
 
-  tft->setTextColor(TFT_YELLOW, TFT_RED);
+  //tft->setTextColor(TFT_YELLOW, TFT_RED);
   chr[0] = pgm_read_byte(&keybOnscr[keybParam.shiftOn][slY][slX]);
-  tft->drawString(&chr[0], slX * 6 + 4, 128 - 24 + slY * 8 - 2);
-
+  //tft->drawString(&chr[0], slX * 6 + 4, 128 - 24 + slY * 8 - 2);
+  printFast(slX * 6 + 4, 128 - 24 + slY * 8 - 2, &chr[0], TFT_YELLOW, TFT_RED);
+  
   prevX = slX;
   prevY = slY;
 
@@ -261,11 +269,13 @@ void ESPboyOTA::drawTyping(uint8_t changeCursor) {
   if(changeCursor) cursorTypeFlag=!cursorTypeFlag;
   tft->fillRect(1, 128 - 5 * 8, 126, 10, TFT_BLACK);
   if (keybParam.typing.length() < 20) {
-    tft->setTextColor(TFT_WHITE, TFT_BLACK);
-    tft->drawString(keybParam.typing + cursorType[cursorTypeFlag], 4, 128 - 5 * 8 + 1);
+    //tft->setTextColor(TFT_WHITE, TFT_BLACK);
+    //tft->drawString(keybParam.typing + cursorType[cursorTypeFlag], 4, 128 - 5 * 8 + 1);
+    printFast(4, 128 - 5 * 8 + 1, keybParam.typing + cursorType[cursorTypeFlag], TFT_WHITE, TFT_BLACK);
   } else {
-    tft->setTextColor(TFT_WHITE, TFT_BLACK);
-    tft->drawString("<" + keybParam.typing.substring(keybParam.typing.length() - 18) +cursorType[cursorTypeFlag], 4, 128 - 5 * 8 + 1);
+    //tft->setTextColor(TFT_WHITE, TFT_BLACK);
+    //tft->drawString("<" + keybParam.typing.substring(keybParam.typing.length() - 18) +cursorType[cursorTypeFlag], 4, 128 - 5 * 8 + 1);
+    printFast(4, 128 - 5 * 8 + 1, "<" + keybParam.typing.substring(keybParam.typing.length() - 18) +cursorType[cursorTypeFlag], TFT_WHITE, TFT_BLACK);
   }
 }
 
@@ -278,7 +288,7 @@ void ESPboyOTA::drawBlinkingCursor() {
 }
 
 uint16_t ESPboyOTA::scanWiFi() {
-  printConsole(F("Scaning WiFi...\n"), TFT_MAGENTA, 1, 0);
+  printConsole(F("Scaning WiFi..."), TFT_MAGENTA, 1, 0);
   int16_t WifiQuantity = WiFi.scanNetworks();
   if (WifiQuantity != -1 && WifiQuantity != -2 && WifiQuantity != 0) {
     for (uint8_t i = 0; i < WifiQuantity; i++) wfList.push_back(wf());
@@ -398,7 +408,7 @@ void ESPboyOTA::OTAstarted() {
 void ESPboyOTA::OTAfinished() {
   printConsole(F("Downloading OK"), TFT_GREEN, 0, 0);
   printConsole(F("Restarting..."), TFT_MAGENTA, 0, 0);
-  printConsole(F("And then reset it again by yourself"), TFT_MAGENTA, 1, 0);
+  printConsole(F("And then reset it again by yourself"), TFT_RED, 1, 0);
   ESP.reset();
 }
 
@@ -408,7 +418,7 @@ void ESPboyOTA::OTAprogress(int cur, int total) {
 
 void ESPboyOTA::OTAerror(int err) {
   // Serial.print(F("Error: ")); Serial.print(err);
-  printConsole("Error: "+String(err), TFT_RED, 1, 0);
+  //printConsole("Error: "+String(err), TFT_RED, 1, 0);
   printConsole(ESPhttpUpdate.getLastErrorString(), TFT_RED, 1, 0);
   delay(3000);
   ESP.reset();
@@ -427,27 +437,45 @@ void ESPboyOTA::updateOTA(String otaLink) {
 
 String ESPboyOTA::fillPayload(String downloadID, String downloadName) {
   String payload = "{\"values\": \"";
-  payload += "0";   // session
-  payload += ", ";  // date/time
-  payload += ", " + WiFi.localIP().toString();
-  payload += ", " + downloadID;    // download ID
-  payload += ", " + downloadName;  // download name
-  payload += ", " + (String)ESP.getFreeHeap();
-  payload += ", " + (String)ESP.getFreeContStack();
-  payload += ", " + (String)ESP.getChipId();
-  payload += ", " + (String)ESP.getFlashChipId();
-  payload += ", " + (String)ESP.getCoreVersion();
-  payload += ", " + (String)ESP.getSdkVersion();
-  payload += ", " + (String)ESP.getCpuFreqMHz();
-  payload += ", " + (String)ESP.getSketchSize();
-  payload += ", " + (String)ESP.getFreeSketchSpace();
-  payload += ", " + (String)ESP.getSketchMD5();
-  payload += ", " + (String)ESP.getFlashChipSize();
-  payload += ", " + (String)ESP.getFlashChipRealSize();
-  payload += ", " + (String)ESP.getFlashChipSpeed();
-  payload += ", " + (String)ESP.getCycleCount();
-  payload += ", " + WiFi.SSID();
-  payload += "\"}";
+  payload += F("0");   // session
+  payload += F(", ");  // date/time
+  payload +=F(", "); 
+  payload += WiFi.localIP().toString();
+  payload += F(", "); 
+  payload += downloadID;    // download ID
+  payload += F(", "); 
+  payload += downloadName;  // download name
+  payload += F(", "); 
+  payload += (String)ESP.getFreeHeap();
+  payload += F(", "); 
+  payload += (String)ESP.getFreeContStack();
+  payload += F(", "); 
+  payload += (String)ESP.getChipId();
+  payload += F(", "); 
+  payload += (String)ESP.getFlashChipId();
+  payload += F(", "); 
+  payload += (String)ESP.getCoreVersion();
+  payload += F(", "); 
+  payload += (String)ESP.getSdkVersion();
+  payload += F(", "); 
+  payload += (String)ESP.getCpuFreqMHz();
+  payload += F(", "); 
+  payload += (String)ESP.getSketchSize();
+  payload += F(", "); 
+  payload += (String)ESP.getFreeSketchSpace();
+  payload += F(", "); 
+  payload += (String)ESP.getSketchMD5();
+  payload += F(", "); 
+  payload += (String)ESP.getFlashChipSize();
+  payload += F(", "); 
+  payload += (String)ESP.getFlashChipRealSize();
+  payload += F(", "); 
+  payload += (String)ESP.getFlashChipSpeed();
+  payload += F(", ");
+  payload += (String)ESP.getCycleCount();
+  payload += F(", "); 
+  payload += WiFi.SSID();
+  payload += F("\"}");
 
   return (payload);
 }
@@ -583,7 +611,9 @@ void ESPboyOTA::checkOTA() {
   WiFi.setAutoConnect(true);
   WiFi.mode(WIFI_STA);
   wifi_station_disconnect();
-  printConsole(F("ESPboy App store"), TFT_YELLOW, 1, 0);
+  String toprint = F("ESPboy App store v");
+  toprint += (String)OTAv;
+  printConsole(toprint, TFT_YELLOW, 1, 0);
   // Serial.println(F("\n\nWiFi init OK"));
   while (!connectWifi()) delay(1500);
   postLog("no", "no");
@@ -595,4 +625,29 @@ void ESPboyOTA::checkOTA() {
   updateOTA(fmw.firmwareLink);
   wifi_station_disconnect();
   delay(5000);
+}
+
+
+void ESPboyOTA::drawCharFast(uint16_t x, uint16_t y, uint8_t c, uint16_t color, uint16_t bg){
+ uint16_t i, j, c16, line;
+  for (i = 0; i < 5; ++i){
+    line = pgm_read_byte(&font[c * 5 + i]);
+    for (j = 0; j < 8; ++j){
+      c16 = (line & 1) ? color : bg;
+      line_bf[j * 5 + i] = LHSWAP_(c16);
+      line >>= 1;
+    }
+  }
+  tft->pushImage(x, y, 5, 8, line_bf);
+}
+
+
+void ESPboyOTA::printFast(int x, int y, String str, int16_t color, uint16_t bg){
+ char c, i=0;
+  while (1){
+    c =  str[i++];
+    if (!c) break;
+    drawCharFast(x, y, c, color, bg);
+    x += 6;
+  }
 }

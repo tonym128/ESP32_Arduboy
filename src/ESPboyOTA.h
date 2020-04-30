@@ -1,12 +1,14 @@
 /*
 ESPboyOTA class -- ESPboy App Store client core
-for www.ESPboy.com project by RomanS
+for www.ESPboy.com project 
 https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun
 thanks to DmitryL (Plague) for help, tests and advices
 */
 
 #ifndef ESPboy_OTA
 #define ESPboy_OTA
+
+#define LHSWAP_(w)       (((w)>>8)|((w)<<8))
 
 #include <Adafruit_MCP23017.h>
 #include <TFT_eSPI.h>
@@ -88,6 +90,7 @@ private:
   static String *consoleStrings;
   static uint16_t *consoleStringsColor;
 
+  uint16_t *line_bf;
 
 	uint8_t keysAction();
 	void toggleDisplayMode(uint8_t mode);
@@ -112,6 +115,8 @@ private:
 	void checkOTA();
 	void printConsole(String bfrstr, uint16_t color, uint8_t ln, uint8_t noAddLine);
   String getUserInput();
+  void drawCharFast(uint16_t x, uint16_t y, uint8_t c, uint16_t color, uint16_t bg);
+  void printFast(int x, int y, String str, int16_t color, uint16_t bg);
   
 public:
 	ESPboyOTA(TFT_eSPI *tftOTA, Adafruit_MCP23017 *mcpOTA);
