@@ -16,6 +16,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - change EEPROM.update() to EEPORM.write()
 - add EEPROM.commit() after the last EEPROM.put(), EEPORM.write() of each blocks of code.
 - remove any reference to the **"ATMlib"**, **"ArduboyPlaytune"** that require timers to play background music. That libraries has not been ported yet.
+- you have to put delay(1); in all loops like while(1) {...}. EPS8266 needs time to process WiFi stack and other internal SDK interrupts and can do it during the pauses like delay(1). Otherwise it watchdog resets.
 - games that directly control the SPI or I2C bus to write to OLED display need much more work to port instead of the simple steps above.
 - font() array is used in TFT_eSPI display library so you have to change all "font" to "font_"
 - min() and max() macros are used in TFT_eSPI display library so you have to change all min() and max() to minVal() and maxVal() correspondenly
