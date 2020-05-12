@@ -21,6 +21,8 @@
 #define CSTFTPIN        8 //CS MCP23017 PIN to TFT
 #define MCP23017address 0 // actually it's 0x20 but in <Adafruit_MCP23017.h> lib there is (x|0x20) :)
 #define MCP4725address  0x60 //DAC driving LCD backlit
+#define LEDLOCK 		9
+
 
 #define maxVal(a,b) ((a)>(b)?(a):(b))
 #define minVal(a,b) ((a)<(b)?(a):(b))

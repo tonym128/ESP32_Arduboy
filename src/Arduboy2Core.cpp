@@ -32,8 +32,6 @@ void Arduboy2Core::boot(){
   
   delay(100);
 
-//LED init
-  myled.begin();
 
 //DAC init, LCD backlit off
   dac.begin(MCP4725address);
@@ -49,6 +47,11 @@ void Arduboy2Core::boot(){
     mcp.pinMode(i, INPUT);
     mcp.pullUp(i, HIGH);
   }
+  
+  //LED init
+  myled.begin();
+  mcp.pinMode(LEDLOCK, OUTPUT);
+  mcp.digitalWrite(LEDLOCK, HIGH);
 
 //Sound init and test
   pinMode(PIN_SPEAKER_1, OUTPUT);
