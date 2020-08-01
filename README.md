@@ -85,7 +85,7 @@ If authors against posting the code in this repository for the purpose of learni
 - **Crates 3D** (MIT) by [Badja (original) & Brian (port)](https://community.arduboy.com/t/crates-3d-a-port-of-the-ti-83-puzzle-game/1540)
 - **JetPac** (Proprietary) by [Mike McRoberts](https://community.arduboy.com/t/arduboy-jet-pac/2888)
 - **Squario** (Proprietary) Squario by [arduboychris](https://community.arduboy.com/t/squario-the-ultimate-adventure/1257)
-- **Circuit Dude** (Proprietary) by [Jonathan Holmes](http://www.crait.net)
+- **Circuit Dude** (Proprietary) by [Jonathan Holmes](http://www.crait.net), [upgrade to full color game!](http://circuitdude.com)
 - **Omega Horizon** (Proprietary) by [shdwwzrd](http://neoretro.games)
 - **Ard-Drivin** (MIT) by [Rem and LP](https://community.arduboy.com/t/ard-drivin-fast-paced-racing-sim/3178)
 - **Tamaguino** (GNU GPL v3.0) by [Alojz Jakob](https://alojzjakob.github.io/Tamaguino/), ported to Arduboy by [Scott R](https://community.arduboy.com/t/tamaguino-ab-tamagotchi-for-arduino/4806)
