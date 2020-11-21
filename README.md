@@ -62,6 +62,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **ArduBloxx** (Apache-2.0) by [NoobGeek Ilya](https://community.arduboy.com/t/ardubloxx-remake-of-city-bloxx/9420)
 - **Catacombs of the damned** (MIT) by [James Howard](https://community.arduboy.com/t/catacombs-of-the-damned-formerly-another-fps-style-3d-demo/6565 "James Howard")
 - **Mystic Balloon** (MIT) by [TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
 - **Sirene** (MIT) by [TEAM ARG](http://www.team-arg.org/ " by TEAM ARG")
@@ -96,6 +97,7 @@ If authors against posting the code in this repository for the purpose of learni
 - **Tackle Box** (MIT) by [Matt](https://www.city41.games/tacklebox)
 - **Not Just a Hat Rack** (Proprietary) by [Hundstrasse](https://hundstrasse.com/arduboy-games/not-just-a-hat-rack/)
 - **Super-Crate-Buino-branched** (LGPL-3.0-or-later) by [Aurélien Rodot](http://legacy.gamebuino.com/forum/viewtopic.php?f=17&t=3151) [(ported by uXe)](https://github.com/Rodot/Super-Crate-Buino)
+- **JumpBoy** (Proprietary) by [t-iwasaki](https://community.arduboy.com/t/jumpboy-action-game/2469)
 - **ESP8266_ArduBOYNG** - UNKNOWN
 - **ESP8266_breakout-v** - UNKNOWN
 - **ESP8266_picovaders** - UNKNOWN

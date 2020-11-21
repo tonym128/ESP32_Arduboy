@@ -719,7 +719,7 @@ void Arduboy2Base::drawSlowXYBitmap(int16_t x, int16_t y, const uint8_t *bitmap,
 
   for(yi = 0; yi < h; yi++) {
     for(xi = 0; xi < w; xi++ ) {
-      if(!(pgm_read_byte(bitmap + yi * byteWidth + xi / 8) & (128 >> (xi & 7)))) {		
+      if((pgm_read_byte(bitmap + yi * byteWidth + xi / 8) & (128 >> (xi & 7)))) {		
         drawPixel(x + xi, y + yi, color);
       }
     }
