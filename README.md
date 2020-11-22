@@ -62,6 +62,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Ardubullet** (MIT) by [OBONO](https://community.arduboy.com/t/ardubullets-a-short-time-shmups-game/8684)
 - **ArduBloxx** (Apache-2.0) by [NoobGeek Ilya](https://community.arduboy.com/t/ardubloxx-remake-of-city-bloxx/9420)
 - **Catacombs of the damned** (MIT) by [James Howard](https://community.arduboy.com/t/catacombs-of-the-damned-formerly-another-fps-style-3d-demo/6565 "James Howard")
 - **Mystic Balloon** (MIT) by [TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
