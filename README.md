@@ -21,8 +21,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - games that directly control the SPI or I2C bus to write to OLED display need much more work to port instead of the simple steps above.
 - font() array is used in TFT_eSPI display library so you have to change all "font" to "font_"
 - min() and max() macros are used in TFT_eSPI display library so you have to change all min() and max() to minVal() and maxVal() correspondenly
-- there is a problem with a "char" data (this is the signed/unsigned problem). The game variables which are not really char or char* should be changed correspondingly "unsigned char" to "uint8_t" and "char" or "signed char" to "int8_t". Don't forget to set #include "Arduino.h" at the first line.
-- it's better to change all "short" to "int16_t", "unsigned shot" to "uint16_t", "byte" to "uint8_t", "int" to "int16_t", "unsigned int" to "uint16_t", "long" to "int32_t", "unsigned long" to "uint32_t" 
+- there is a problem with a "char" data (signed/unsigned problem). By default Arduino "char" is signed and ESP "char" is unsigned. So you have to change all ingame "char" to "signed char".
+- it's also better to change all "short" to "int16_t", "unsigned shot" to "uint16_t", "byte" to "uint8_t", "int" to "int16_t", "unsigned int" to "uint16_t", "long" to "int32_t", "unsigned long" to "uint32_t" 
 
 
 # Advantages of ESPboy (ESP8266)
@@ -62,6 +62,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Hollow Seeker** (MIT) by [OBONO](https://community.arduboy.com/t/hollow-seeker-a-simple-action-game/2594)
 - **Ardubullet** (MIT) by [OBONO](https://community.arduboy.com/t/ardubullets-a-short-time-shmups-game/8684)
 - **ArduBloxx** (Apache-2.0) by [NoobGeek Ilya](https://community.arduboy.com/t/ardubloxx-remake-of-city-bloxx/9420)
 - **Catacombs of the damned** (MIT) by [James Howard](https://community.arduboy.com/t/catacombs-of-the-damned-formerly-another-fps-style-3d-demo/6565 "James Howard")
