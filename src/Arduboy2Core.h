@@ -15,6 +15,7 @@
 #include "Adafruit_MCP4725.h"
 #include "ESPboyLogo.h"
 #include "ESPboy_LED.h"
+#include <ESP_EEPROM.h>
 
 #include <limits.h>
 

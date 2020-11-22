@@ -7,6 +7,9 @@
 #include "ESPboyOTA.h"
 #include "Arduboy2Core.h"
 #include "ESPboyOTA.h"
+#include <ESP_EEPROM.h>
+
+
 TFT_eSPI screen;
 Adafruit_MCP23017 mcp;
 Adafruit_MCP4725 dac;
@@ -28,10 +31,12 @@ Arduboy2Core::Arduboy2Core() {}
 
 
 void Arduboy2Core::boot(){
-  Serial.begin(9600);         
-  
+  Serial.begin(115200);         
+  EEPROM.begin(1500);
   delay(100);
 
+//LED init
+  myled.begin();
 
 //DAC init, LCD backlit off
   dac.begin(MCP4725address);
@@ -47,17 +52,12 @@ void Arduboy2Core::boot(){
     mcp.pinMode(i, INPUT);
     mcp.pullUp(i, HIGH);
   }
-  
-  //LED init
-  myled.begin();
-  mcp.pinMode(LEDLOCK, OUTPUT);
-  mcp.digitalWrite(LEDLOCK, HIGH);
 
 //Sound init and test
   pinMode(PIN_SPEAKER_1, OUTPUT);
-  tone(PIN_SPEAKER_1, 200, 100);
+  //tone(PIN_SPEAKER_1, 200, 100);
   delay(100);
-  tone(PIN_SPEAKER_1, 100, 100);
+  //tone(PIN_SPEAKER_1, 100, 100);
   delay(100);
   noTone(PIN_SPEAKER_1);
 
