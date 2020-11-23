@@ -9,7 +9,7 @@
 #define PLAYER_SLOW_MAX 8
 #define PLAYER_FIRE_MAX 12
 #define PLAYER_FIRE_INT 3
-#define BULLET_MAX      32//64
+#define BULLET_MAX      64
 #define BULLET_SPD_MAX  31
 #define BULLET_SPD_MIN  1
 #define BULLET_BASE_SPD 4
@@ -21,7 +21,7 @@
 #define GROUP_INT       (FPS * 5)
 #define ENEMY_UNITY     5
 #define ENEMY_MAX       (GROUP_MAX * ENEMY_UNITY)
-#define ENEMY_LIFE_INIT 10 //15
+#define ENEMY_LIFE_INIT 10//15
 #define ENEMY_ACTIVE    (FPS * 12)
 #define ENEMY_FADE      6
 #define START_OMIT      FPS
@@ -162,14 +162,23 @@ static bool     isDefeated, isMenu;
 static bool     isMuteki = false;
 #endif
 
+
+int32_t min(int32_t a, int32_t b){
+  return ((a>b)?b:a);
+};
+
+
+int32_t max(int32_t a, int32_t b){
+  return ((a>b)?a:b);
+};
+
 /*---------------------------------------------------------------------------*/
 /*                              Main Functions                               */
 /*---------------------------------------------------------------------------*/
 
 void initGame(void)
 {
-    //pt.playScore(soundStart, SND_PRIO_START);
-    pt.playScore(soundStart);
+    plTune.playScore(soundStart);
     initGameParams();
     counter = 0;
     ledLevel = 0;
@@ -297,13 +306,11 @@ static void handlePlaying()
 
     if (isDefeated || isCleared) {
         if (isDefeated) {
-            //pt.playScore(soundOver, SND_PRIO_OVER);
-            pt.playScore(soundOver);
+            plTune.playScore(soundOver);
             sparkleLed(LED_IDX_OVER);
             dprintln(F("Game over..."));
         } else {
-            //pt.playScore(soundClear, SND_PRIO_OVER);
-            pt.playScore(soundClear);
+            plTune.playScore(soundClear);
             record.isCleared = true;
             dprintln(F("Clear!!"));
         }
@@ -357,7 +364,6 @@ static void sparkleLed(uint8_t idx)
     ledGreen = ledValue / 5 % 5;
     ledBlue = ledValue % 5;
     ledLevel = (idx == LED_IDX_OVER) ? LED_LEVEL_OVER : LED_LEVEL_NORMAL;
-
 }
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -487,7 +493,7 @@ static bool updateEnemies(void)
         if (enemyFrames > ENEMY_ACTIVE) pE->life = 0;
         if (state != STATE_PLAYING) continue;
         if (enemyFrames < ENEMY_FADE || enemyFrames > ENEMY_ACTIVE - ENEMY_FADE) {
-            if (enemyFrames == 0) pt.playScore(soundEntry); //pt.playScore(soundEntry, SND_PRIO_ENTRY);
+            if (enemyFrames == 0) plTune.playScore(soundEntry);
             continue;
         }
 
@@ -498,7 +504,7 @@ static bool updateEnemies(void)
         enemyRect.y = enemyPoint.y - 3;
         enemyRect.width = 7;
         enemyRect.height = 7;
-        for (SHOT_T *pS = shots; pE->life > 0 && pS < &shots[SHOT_MAX]; pS++) {
+         for (SHOT_T *pS = shots; pE->life > 0 && pS < &shots[SHOT_MAX]; pS++) {
             Point tmpPoint;
             tmpPoint.x = pS->x;
             tmpPoint.y = pS->y;
@@ -509,8 +515,7 @@ static bool updateEnemies(void)
             }
         }
         if (pE->life == 0) { // Defeat!
-            pt.playScore(soundDefeat);
-            //pt.playScore(soundDefeat, SND_PRIO_DEFEAT);
+            plTune.playScore(soundDefeat);
             sparkleLed(pG->type);
             explo.x = enemyPoint.x;
             explo.y = enemyPoint.y;
@@ -562,7 +567,7 @@ static bool updateEnemies(void)
             break;
         }
     }
-    if (isDamaged) pt.tone(200, 10);
+    if (isDamaged) plTune.tone(200, 10);
     return (enemyLives == 0 && gameFrames >= GAME_DURATION);
 }
 
@@ -619,7 +624,6 @@ static bool updateBullets(void)
     playerRect.y = playerY / PLAYER_SCALE - 1;
     playerRect.width = 3;
     playerRect.height = 3;
-    
     for (BULLET_T *pB = bullets; pB < &bullets[BULLET_MAX]; pB++) {
         if (pB->spd) {
             pB->rad += pB->spd;
@@ -733,7 +737,7 @@ static void drawEnemies(void)
             enemyFrames -= (pG->entryInt + 1) * 4;
         }
         if (pE->life > 0) {
-            int fade = enemyFrames - ENEMY_ACTIVE / 2;
+            int16_t fade = enemyFrames - ENEMY_ACTIVE / 2;
             fade = abs(fade) - (ENEMY_ACTIVE / 2 - ENEMY_FADE);
             Point enemyPoint = getEnemyCoords(pG, pE, enemyFrames);
             if (fade <= 0) {

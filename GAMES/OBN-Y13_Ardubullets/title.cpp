@@ -42,16 +42,8 @@ static void drawSettings(void);
 static void drawCredit(void);
 static void drawCodeEntry(void);
 static void drawTitleLogo(void);
+static void drawText(const char *p, int16_t lines);
 
-void drawText(const char *p, int16_t y)
-{
-    while (pgm_read_byte(p) != '\e') {
-        uint8_t len = strnlen_P(p, 21);
-        arduboy.printEx(64 - len * 3, y, (const __FlashStringHelper *) p);
-        p += len + 1;
-        y += (len == 0) ? 2 : 6;
-    }
-}
 
 /*  Local Functions (macros)  */
 
@@ -138,14 +130,14 @@ static bool     isSettingChenged;
 /*---------------------------------------------------------------------------*/
 
 void initTitle(void)
-{
+{   
+    arduboy.setRGBled(0, 0, 0);
     if (state == STATE_INIT) {
-        //pt.initAudio(1);
-        if(arduboy.isAudioEnabled())pt.initChannel(1);
+        //arduboy.initAudio(1);
+        plTune.initChannel(1);
         readRecord();
     }
     onTop();
-    arduboy.setRGBled(0, 0, 0);
 }
 
 MODE_T updateTitle(void)
@@ -319,7 +311,6 @@ static void onMenuDifficulty(void)
 static void onMenuToggleItem(void)
 {
     playSoundClick();
-    #define bitToggle(PORT, BIT)    ((PORT) ^= 1<< (BIT))
     bitToggle(*((uint8_t *)&record + 3), getMenuItemPos() + 3); // Trick!!
     isSettingChenged = true;
 }
@@ -416,4 +407,14 @@ static void drawTitleLogo(void)
 #ifdef DEBUG
     arduboy.printEx(98, 30, F("DEBUG"));
 #endif
+}
+
+static void drawText(const char *p, int16_t y)
+{
+    while (pgm_read_byte(p) != '\e') {
+        uint8_t len = strnlen_P(p, 21);
+        arduboy.printEx(64 - len * 3, y, (const __FlashStringHelper *) p);
+        p += len + 1;
+        y += (len == 0) ? 2 : 6;
+    }
 }

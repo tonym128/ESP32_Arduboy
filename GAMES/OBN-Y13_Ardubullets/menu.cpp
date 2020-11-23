@@ -110,8 +110,8 @@ void handleMenu(void)
     }
     if (isControlSound && arduboy.buttonDown(A_BUTTON)) {
         setSound(!arduboy.isAudioEnabled());
-        if(!arduboy.isAudioEnabled())pt.closeChannels();
-        else pt.initChannel(1);
+        if(!arduboy.isAudioEnabled())plTune.closeChannels();
+        else plTune.initChannel(1);
         playSoundClick();
         isInvalidMenu = true;
     }

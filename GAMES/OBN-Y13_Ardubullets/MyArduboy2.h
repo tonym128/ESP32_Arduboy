@@ -1,6 +1,6 @@
 #pragma once
-#include <Arduboy2.h>
 
+#include <Arduboy2.h>
 //#if ARDUBOY_LIB_VER != 50201
 //#error Unexpected version of Arduboy Library
 //#endif // It may work even if you use other version. So comment out the above line.
@@ -27,9 +27,9 @@ public:
     void    setAudioEnabled(bool on);
     void    toggleAudioEnabled(void);
     void    saveAudioOnOff(void);
-    void    playTone(uint16_t frequency, uint16_t duration, uint8_t priority = 0xFF, uint8_t dutyCycle = 2);
-    void    playScore(const byte *score, uint8_t priority = 0, int8_t pitch = 0);
-    void    stopScore(void);
+    //void    playTone(uint16_t frequency, uint16_t duration, uint8_t priority = 0xFF, uint8_t dutyCycle = 2);
+    //void    playScore(const byte *score, uint8_t priority = 0, int8_t pitch = 0);
+    //void    stopScore(void);
 
 private:
     void    drawChar(int16_t x, int16_t y, unsigned char c, uint8_t color, uint8_t bg, uint8_t size);

@@ -3,6 +3,8 @@
 #include "MyArduboy2.h"
 #include <ESPboyPlaytune.h>
 
+#define bitToggle(PORT, BIT)    ((PORT) ^= 1<< (BIT))
+
 /*  Defines  */
 
 //#define DEBUG
@@ -19,7 +21,6 @@
 #define GAME_SEED_TOKEN_MAX 5
 #define GAME_SEED_TOKEN_VAL 27
 #define GAME_SEED_TOKEN_ALP 26
-
 
 enum MODE_T : uint8_t {
     MODE_LOGO = 0,
@@ -54,6 +55,16 @@ void    setSound(bool on);
 void    playSoundTick(void);
 void    playSoundClick(void);
 
+void    eepSeek(uint32_t addr);
+uint8_t eepRead8(void);
+uint16_t eepRead16(void);
+uint32_t eepRead32(void);
+void    eepReadBlock(int8_t *p, int8_t n);
+void    eepWrite8(uint8_t val);
+void    eepWrite16(uint16_t val);
+void    eepWrite32(uint32_t val);
+void    eepWriteBlock(int8_t *p, int8_t n);
+
 /*  Global Functions (Menu)  */
 
 void    clearMenuItems(void);
@@ -83,11 +94,11 @@ void    drawGame(void);
 
 /*  Global Variables  */
 
-extern ESPboyPlaytune pt;
 extern MyArduboy2   arduboy;
+extern ESPboyPlaytune plTune;
 extern RECORD_T     record;
 
-extern int  counter;
+extern uint8_t  counter;
 extern int8_t   padX, padY, padRepeatCount;
 extern bool     isInvalid, isRecordDirty;
 

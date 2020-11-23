@@ -29,7 +29,7 @@
  */
 
 #include "MyArduboy2.h"
-//#include <avr/power.h>
+#include <avr/power.h>
 
 /*  Defines  */
 

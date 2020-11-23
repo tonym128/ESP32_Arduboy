@@ -58,8 +58,7 @@ MODE_T updateLogo(void)
 void drawLogo(void)
 {
     bool isSignalOn = (SIGNAL_PTN >> (counter - FPS / 4) / (FPS / 20)) & 1;
-    //arduboy.setRGBled(0, 0, isSignalOn * 127);
-    arduboy.setRGBled(0, 0, isSignalOn*2);
+    arduboy.setRGBled(0, 0, isSignalOn * 127/10);
     arduboy.clear();
     int shake = (COUNTER_MAX - counter) / (44 * FPS / 60);
     for (int i = 0; i < 3; i++) {

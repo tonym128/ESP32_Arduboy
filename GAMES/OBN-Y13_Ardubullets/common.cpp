@@ -3,7 +3,7 @@
 /*  Defines  */
 
 #define EEPROM_ADDR_BASE    1008
-uint32_t EEPROM_SIGNATURE=0x134E424FUL; // "OBN\x13"
+#define EEPROM_SIGNATURE    0x134E424FUL // "OBN\x13"
 
 #define PAD_REPEAT_DELAY    (FPS / 4)
 #define PAD_REPEAT_INTERVAL (FPS / 12)
@@ -19,18 +19,28 @@ enum RECORD_STATE_T {
 
 /*  Global Variables  */
 
-boolean outEn() { return true;}
-ESPboyPlaytune pt(outEn);
-
 MyArduboy2  arduboy;
+boolean outEn() { return true;}
+ESPboyPlaytune plTune(outEn);
+
 RECORD_T    record;
-int     counter;
+uint8_t     counter;
 int8_t      padX, padY, padRepeatCount;
 bool        isInvalid, isRecordDirty;
 
 /*  Local Functions  */
 
-static uint16_t calcCheckSum();
+uint16_t calcCheckSum();
+
+void     eepSeek(uint32_t addr);
+uint8_t  eepRead8(void);
+uint16_t eepRead16(void);
+uint32_t eepRead32(void);
+void     eepReadBlock(uint8_t  *p, uint8_t n);
+void     eepWrite8(uint8_t val);
+void     eepWrite16(uint16_t val);
+void     eepWrite32(uint32_t val);
+void     eepWriteBlock(uint8_t *p, uint8_t n);
 
 /*  Local Variables  */
 
@@ -49,23 +59,11 @@ static int16_t          eepAddr;
 void readRecord(void)
 {
     bool isVerified = false;
-    uint32_t addr = EEPROM_ADDR_BASE;
-    uint32_t readedsignature;
-    uint16_t readedchecksum;
-    
-    EEPROM.get(addr,readedsignature);
-    addr+=sizeof(EEPROM_SIGNATURE);
-        
-    if (readedsignature == EEPROM_SIGNATURE) {
-        EEPROM.get(addr,record);
-        addr+=sizeof(record);
-        EEPROM.get(addr,readedchecksum);
-        isVerified = (readedchecksum == calcCheckSum());
-        dprintln(F("EEPROM signature OK"));
+    eepSeek(EEPROM_ADDR_BASE);
+    if (eepRead32() == EEPROM_SIGNATURE) {
+        eepReadBlock((uint8_t *)&record, sizeof(record));
+        isVerified = (eepRead16() == calcCheckSum());
     }
-
-    if (isVerified) dprintln(F("EEPROM checksumm OK"));
-    else dprintln(F("EEPROM checksumm FAIL"));
 
     if (isVerified) {
         recordState = RECORD_STORED;
@@ -78,43 +76,43 @@ void readRecord(void)
         record.isBlinkLED = true;
         recordState = RECORD_INITIAL;
         isRecordDirty = true;
-        writeRecord();
     }
     setSound(arduboy.isAudioEnabled()); // Load Sound ON/OFF
 }
 
 void writeRecord(void)
 {
-    uint32_t addr = EEPROM_ADDR_BASE;
-    if (isRecordDirty) clearRecord;
-    EEPROM.put(addr, EEPROM_SIGNATURE);
-    addr += sizeof(EEPROM_SIGNATURE);
-    EEPROM.put(addr, record);
-    addr += sizeof(record);
-    EEPROM.put(addr,calcCheckSum());
+    if (!isRecordDirty) return;
+    if (recordState == RECORD_INITIAL) {
+        eepSeek(EEPROM_ADDR_BASE);
+        eepWrite32(EEPROM_SIGNATURE);
+    } else {
+        eepSeek(EEPROM_ADDR_BASE + 4);
+    }
+    eepWriteBlock((uint8_t *)&record, sizeof(record));
+    eepWrite16(calcCheckSum());
     arduboy.audio.saveOnOff(); // Save Sound ON/OFF
-    EEPROM.commit();
     recordState = RECORD_STORED;
     isRecordDirty = false;
     dprintln(F("Write record to EEPROM"));
 }
 
-static uint16_t calcCheckSum()
+uint16_t calcCheckSum()
 {
-    uint16_t checkSum = 0x13;
-    uint8_t *p = (uint8_t *) &record;
-    for (int i = 0; i < sizeof(record); i++)  
-      checkSum += p[i];
+    uint16_t checkSum = (EEPROM_SIGNATURE & 0xFFFF) + (EEPROM_SIGNATURE >> 16) * 3;
+    uint16_t *p = (uint16_t *) &record;
+    for (int i = 0; i < sizeof(record) / 2; i++) {
+        checkSum += *p++ * (i * 2 + 5);
+    }
     return checkSum;
 }
 
 void clearRecord(void)
 {
-    uint32_t addr = EEPROM_ADDR_BASE;
-    for (int i = 0; i < (sizeof(record)+sizeof(EEPROM_SIGNATURE)+sizeof(uint16_t)); i++) {
-        EEPROM.put(addr+i,0);
+    eepSeek(EEPROM_ADDR_BASE);
+    for (int i = 0; i < (sizeof(record) + 6) / 4; i++) {
+        eepWrite32(0);
     }
-    EEPROM.commit();
     recordState = RECORD_INITIAL;
     dprintln(F("Clear EEPROM"));
 }
@@ -191,10 +189,129 @@ void setSound(bool on)
 
 void playSoundTick(void)
 {
-    pt.tone(440, 10);
+    plTune.tone(440, 10);
 }
 
 void playSoundClick(void)
 {
-    pt.tone(587, 20);
+    plTune.tone(587, 20);
+}
+
+/*---------------------------------------------------------------------------*/
+/*                             EEPROM Functions                              */
+/*---------------------------------------------------------------------------*/
+
+void eeprom_busy_wait(){};
+
+uint8_t eeprom_read_byte(uint16_t eepAddr){
+  uint8_t dta;
+  EEPROM.get(eepAddr, dta);
+  return (dta);  
+};
+
+uint16_t eeprom_read_word(uint16_t eepAddr){
+  uint16_t dta;
+  EEPROM.get(eepAddr, dta);
+  return (dta);  
+};
+
+uint32_t eeprom_read_dword(uint16_t eepAddr){
+  uint32_t dta;
+  EEPROM.get(eepAddr, dta);
+  return (dta); 
+};
+
+void eeprom_read_block(uint8_t *p, uint16_t  eepAddr, uint8_t n){
+  uint8_t dta;
+  for (uint8_t i=0; i<n; i++){
+    EEPROM.get(eepAddr+i, dta);
+    p[i]=dta;
+    };
+};
+
+void eeprom_write_byte(uint16_t eepAddr, uint8_t val){
+  EEPROM.put(eepAddr, val);
+  EEPROM.commit();
+};
+
+void eeprom_write_word(uint16_t eepAddr, uint16_t val){
+  EEPROM.put(eepAddr, val);
+  EEPROM.commit();
+  };
+
+void eeprom_write_dword(uint16_t eepAddr, uint32_t val){
+  EEPROM.put(eepAddr, val);
+  EEPROM.commit();
+  };
+
+void eeprom_write_block(uint8_t *p, uint16_t eepAddr, uint8_t n){
+  for (uint8_t i=0; i<n; i++){
+    EEPROM.put(eepAddr+i, p[i]);
+  }
+  EEPROM.commit();
+};
+
+
+
+void eepSeek(uint32_t addr)
+{
+    //eepAddr = max(addr, EEPROM_STORAGE_SPACE_START);
+    eepAddr = addr;
+}
+
+uint8_t eepRead8(void)
+{
+    eeprom_busy_wait();
+    return eeprom_read_byte(eepAddr++);
+}
+
+uint16_t eepRead16(void)
+{
+    eeprom_busy_wait();
+    uint16_t ret = eeprom_read_word(eepAddr);
+    eepAddr += 2;
+    return ret;
+}
+
+uint32_t eepRead32(void)
+{
+    eeprom_busy_wait();
+    uint32_t ret = eeprom_read_dword(eepAddr);
+    eepAddr += 4;
+    return ret;
+}
+
+void eepReadBlock(uint8_t *p, uint8_t n)
+{
+    eeprom_busy_wait();
+    eeprom_read_block(p,eepAddr, n);
+    eepAddr += n;
+}
+
+void eepWrite8(uint8_t val)
+{
+    eeprom_busy_wait();
+    eeprom_write_byte(eepAddr, val);
+    eepAddr++;
+}
+
+void eepWrite16(uint16_t val)
+{
+    eeprom_busy_wait();
+    eeprom_write_word(eepAddr, val);
+    eepAddr += 2;
+}
+
+void eepWrite32(uint32_t val)
+{
+    eeprom_busy_wait();
+    eeprom_write_dword(eepAddr, val);
+    eepAddr += 4;
+}
+
+void eepWriteBlock(uint8_t *p, uint8_t n)
+{
+    eeprom_busy_wait();
+    eeprom_write_block(p, eepAddr, n);
+    eepAddr += n;
 }

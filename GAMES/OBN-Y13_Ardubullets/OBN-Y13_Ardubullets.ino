@@ -1,28 +1,26 @@
 #include "common.h"
 
+/*  Typedefs  */
+
+typedef struct
+{
+    void(*initFunc)(void);
+    MODE_T(*updateFunc)(void);
+    void(*drawFunc)(void);
+} MODULE_FUNCS;
+
+/*  Local Variables  */
+
+PROGMEM static const MODULE_FUNCS moduleTable[] = {
+    { initLogo,     updateLogo,     drawLogo },
+    { initTitle,    updateTitle,    drawTitle },
+    { initGame,     updateGame,     drawGame },
+};
+
 static MODE_T mode;
 
-void callInitFunc(MODE_T mode_){
-  if(mode == MODE_LOGO) initLogo();
-  if(mode == MODE_TITLE) initTitle();
-  if(mode == MODE_GAME) initGame();
-};
-
-MODE_T callUpdateFunc(MODE_T mode_){
-  if(mode == MODE_LOGO) return (updateLogo());
-  if(mode == MODE_TITLE) return (updateTitle());
-  if(mode == MODE_GAME) return (updateGame());
-};
-
-void callDrawFunc(MODE_T mode_){
-  if(!pt.playing()) pt.stopScore();
-  if(mode == MODE_GAME) drawGame();
-  if(mode == MODE_LOGO) drawLogo();
-  if(mode == MODE_TITLE) drawTitle();
-};
-
-
 /*  For Debugging  */
+
 #ifdef DEBUG
 bool    dbgPrintEnabled = true;
 char    dbgRecvChar = '\0';
@@ -59,28 +57,25 @@ void setup()
     arduboy.setFrameRate(FPS);
     //arduboy.setTextColors(WHITE, WHITE);
     mode = MODE_LOGO;
-    callInitFunc(mode);
+    moduleTable[mode].initFunc();
 }
 
 void loop()
 {
-  delay(0);
 #ifdef DEBUG
     dbgCheckSerialRecv();
 #endif
     if (!(arduboy.nextFrame())) return;
-    MODE_T nextMode = callUpdateFunc(mode);
-    callDrawFunc(mode);
+    MODE_T nextMode = moduleTable[mode].updateFunc();
+    moduleTable[mode].drawFunc();
 #ifdef DEBUG
     dbgRecvChar = '\0';
 #endif
     arduboy.display();
     if (mode != nextMode) {
         mode = nextMode;
-#ifdef DEBUG        
         dprint(F("mode="));
         dprintln(mode);
-#endif
-        callInitFunc(mode);
+        moduleTable[mode].initFunc();
     }
 }
