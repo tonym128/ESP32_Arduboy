@@ -23,10 +23,7 @@ typedef struct {
 
 /*  Global Variables  */
 
-boolean outEn() {
-  return true;
-}
-
+boolean outEn() {return true;}
 MyArduboy arduboy;
 ESPboyPlaytune pTunes(outEn);
 
