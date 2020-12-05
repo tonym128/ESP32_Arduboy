@@ -1,7 +1,9 @@
 #include "MyArduboy.h"
 
 
-extern ESPboyPlaytune pTunes;
+boolean outEn() { return true;}
+ESPboyPlaytune pTunes(outEn);
+
 
 PROGMEM static const uint32_t imgFont[] = {
     0x00000000, 0x00017000, 0x000C00C0, 0x0A7CA7CA, 0x0855F542, 0x19484253, 0x1251F55E, 0x00003000,
@@ -18,10 +20,9 @@ PROGMEM static const uint32_t imgFont[] = {
 
 #define myAudio     audio
 
+
 MyArduboy::MyArduboy(void)
 {
-    //pTunes = new ArduboyPlaytune(myAudio.enabled);
-    //pTunes.initChannel(PIN_SPEAKER_1);
 }
 
 void MyArduboy::beginNoLogo(void)
@@ -78,7 +79,7 @@ void MyArduboy::beginNoLogo(void)
             idle(); // infinite loop
         }
     }
-    pTunes.initChannel(PIN_SPEAKER_1);
+    pTunes->initChannel(PIN_SPEAKER_1);
     pinMode(PIN_SPEAKER_2, OUTPUT); // trick
     myAudio.begin();
 }
