@@ -62,6 +62,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Reversi** (MIT) by [OBONO](https://community.arduboy.com/t/reversi-a-simple-board-game/6754)
 - **Hopper** (MIT) by [OBONO](https://community.arduboy.com/t/hopper-a-simple-action-game/4293)
 - **Evasion** (MIT) by [OBONO](https://community.arduboy.com/t/evasion-a-simple-action-game/9226)
 - **Hollow Seeker** (MIT) by [OBONO](https://community.arduboy.com/t/hollow-seeker-a-simple-action-game/2594)
