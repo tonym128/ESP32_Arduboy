@@ -16,10 +16,10 @@
 //#include <SPI.h>
 #include <Arduboy2.h>
 #include <ESPboyPlaytune.h>
-
 //#include <EEPROM.h>
 #include "progmemData.h"
 #include "Asteroids.h"
+
 Arduboy2 display;
 boolean outEn() {return true;}
 ESPboyPlaytune pTunes(outEn);
@@ -54,7 +54,7 @@ byte saucerHeading;
 byte saucerType;
 unsigned int score;
 signed char remainingShips;
-signed char initials[3];
+char initials[3];
 boolean fired = false;
 boolean scored = false;
 byte currentTonePriority = 0;
@@ -1186,13 +1186,13 @@ void enterInitials() {
   while (true) {
     //tv.print_signed char(56, 20, initials[0]);
     display.setCursor(56,20);
-    display.print(initials[0]);
+    display.print((char)initials[0]);
     //tv.print_signed char(64, 20, initials[1]);
     display.setCursor(64,20);
-    display.print(initials[1]);
+    display.print((char)initials[1]);
     //tv.print_signed char(72, 20, initials[2]);
     display.setCursor(72,20);
-    display.print(initials[2]);
+    display.print((char)initials[2]);
     for(byte i=0;i<3;i++) {
       //tv.draw_line(56 + (i*8), 27, 56 + (i*8) + 6, 27, 1);
       display.drawLine(56 + (i*8), 27, 56 + (i*8) + 6, 27, 1);
@@ -1271,7 +1271,7 @@ void enterHighScore(byte file) {
   // is 5 bytes long:  3 bytes for initials and two bytes for score.
   int address = file*10*5;
   byte hi, lo;
-  signed char tmpInitials[3];
+  char tmpInitials[3];
   unsigned int tmpScore = 0;
 
   // High score processing
@@ -1295,9 +1295,9 @@ void enterHighScore(byte file) {
 	} else {
 	  tmpScore = (hi << 8) | lo;
 	}
-	tmpInitials[0] = (signed char)EEPROM.read(address + (5*j) + 2);
-	tmpInitials[1] = (signed char)EEPROM.read(address + (5*j) + 3);
-	tmpInitials[2] = (signed char)EEPROM.read(address + (5*j) + 4);
+	tmpInitials[0] = (char)EEPROM.read(address + (5*j) + 2);
+	tmpInitials[1] = (char)EEPROM.read(address + (5*j) + 3);
+	tmpInitials[2] = (char)EEPROM.read(address + (5*j) + 4);
 
 	// tmpScore and tmpInitials now hold what we want to write in the next slot.
 
@@ -1341,7 +1341,7 @@ boolean displayHighScores(byte file) {
   for(int i=0;i<10;i++) {
     sprintf(s, "%2d", i+1);
     //tv.print(x, y+(i*8), s);
-    display.setCursor(x, y+(i*8));
+    display.setCursor(x, y+(i*8)-1);
     display.print(s);
 
     hi = EEPROM.read(address + (5*i));
@@ -1358,7 +1358,7 @@ boolean displayHighScores(byte file) {
     if (score > 0) {
       sprintf(s, "%c%c%c %u", initials[0], initials[1], initials[2], score);
       //tv.print(x+24, y+(i*8), s);
-      display.setCursor(x+24, y+(i*8));
+      display.setCursor(x+24, y+(i*8)-1);
       display.print(s);
     }
   }
