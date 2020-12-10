@@ -71,6 +71,7 @@ If authors against posting the code in this repository for the purpose of learni
 - **ArduBloxx** (Apache-2.0) by [NoobGeek Ilya](https://community.arduboy.com/t/ardubloxx-remake-of-city-bloxx/9420)
 - **Catacombs of the damned** (MIT) by [James Howard](https://community.arduboy.com/t/catacombs-of-the-damned-formerly-another-fps-style-3d-demo/6565 "James Howard")
 - **Mystic Balloon** (MIT) by [TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
+- **Sun Fire** (MIT) by [TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
 - **Sirene** (MIT) by [TEAM ARG](http://www.team-arg.org/ " by TEAM ARG")
 - **Arduventure** (MIT) by [TEAM ARG](http://www.team-arg.org/ "by TEAM ARG")
 - **CastleBoy** (MIT) by [jlauener](https://github.com/ArduboyCollection/CastleBoy)
