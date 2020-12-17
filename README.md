@@ -61,6 +61,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Midnight Wild** (Proprietary) by [Jonathan Holmes (crait) & Mario Vespa (greycove)](http://www.crait.net)
 - **Helii** (MIT)[BHSPitMonkey](https://github.com/BHSPitMonkey/Helii-Arduboy)
 - **Pocket Fighter** (unknown) [WangRenxin](https://community.arduboy.com/t/pocket-fighter-an-ftg/2989)
 - **Ardu Indy** (unknown) by [Jacoste](https://github.com/JacosteCode/ArduIndy)
