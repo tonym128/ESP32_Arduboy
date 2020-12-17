@@ -61,6 +61,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Helii** (MIT)[BHSPitMonkey](https://github.com/BHSPitMonkey/Helii-Arduboy)
+- **Pocket Fighter** (unknown) [WangRenxin](https://community.arduboy.com/t/pocket-fighter-an-ftg/2989)
 - **Ardu Indy** (unknown) by [Jacoste](https://github.com/JacosteCode/ArduIndy)
 - **Chrome Dyno** (unknown) by [flaki](https://github.com/ArduboyCollection/arduboy-rund-ino)
 - **Space rocks** (LGPL-2.1) by [nootropicdesign](https://github.com/nootropicdesign/arduino-asteroids)
