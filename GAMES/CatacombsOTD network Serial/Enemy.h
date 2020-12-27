@@ -5,20 +5,16 @@
 #include "Defines.h"
 #include "Draw.h"
 
-#ifdef ESP8266
-enum EnemyType
-#else
 enum class EnemyType : uint8_t
-#endif
 {
 	Skeleton,
 	Mage,
 	Bat,
 	Spider,
 	NumEnemyTypes,
+	Player,
 	None = NumEnemyTypes
 };
-
 
 enum EnemyState 
 {
@@ -43,8 +39,7 @@ struct EnemyArchetype
 	uint8_t spriteScale;
 	AnchorType spriteAnchor;
 
-  uint16_t* GetSpriteData() const   { return (uint16_t*) pgm_read_ptr(&spriteData); }
- 
+	uint16_t* GetSpriteData() const		{ return (uint16_t*) pgm_read_ptr(&spriteData); }
 	uint8_t GetHP() const				{ return pgm_read_byte(&hp); }
 	uint8_t GetMovementSpeed() const	{ return pgm_read_byte(&movementSpeed); }
 	uint8_t GetAttackStrength() const	{ return pgm_read_byte(&attackStrength); }
@@ -61,7 +56,7 @@ public:
 	void Init(EnemyType type, int16_t x, int16_t y);
 	void Tick();
 	bool IsValid() const { return type != EnemyType::None; }
-	void Damage(uint8_t amount);
+	void Damage(Entity* source, uint8_t amount);
 	void Clear() { type = EnemyType::None; }
 	const EnemyArchetype* GetArchetype() const;
 	EnemyState GetState() const { return state; }
@@ -69,6 +64,8 @@ public:
 
 private:
 	static const EnemyArchetype archetypes[(int)EnemyType::NumEnemyTypes];
+
+	bool CanSeePlayer(class Player& player) const;
 
 	bool ShouldFireProjectile() const;
 	bool FireProjectile(uint8_t angle);
@@ -78,12 +75,13 @@ private:
 	void PickNewTargetCell();
 	bool TryPickCells(int8_t deltaX, int8_t deltaY);
 	bool TryPickCell(int8_t newX, int8_t newY);
-	uint8_t GetPlayerCellDistance() const;
+	uint8_t GetPlayerCellDistance(class Player& player) const;
 
-	EnemyType type : 3;
-	EnemyState state : 3;
-	uint8_t frameDelay : 2;
+	EnemyType type;
+	EnemyState state;
+	uint8_t frameDelay;
 	uint8_t hp;
+	uint8_t targetPlayer;
 	uint8_t targetCellX, targetCellY;
 };
 

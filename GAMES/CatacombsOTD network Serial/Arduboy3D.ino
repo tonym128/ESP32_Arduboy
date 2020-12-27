@@ -1,4 +1,3 @@
-#include <ESP8266WiFi.h>
 #include <Arduboy2.h>
 #include <ArduboyTones.h>
 #include "Game.h"
@@ -9,10 +8,6 @@
 Arduboy2Base arduboy;
 ArduboyTones sound(arduboy.audio.enabled);
 Sprites sprites;
-
-
-#define EEPROM_NEEDED_BYTES     1024
-
 
 uint8_t Platform::GetInput()
 {
@@ -53,7 +48,7 @@ void Platform::PlaySound(const uint16_t* audioPattern)
 
 void Platform::SetLED(uint8_t r, uint8_t g, uint8_t b)
 {
-  arduboy.setRGBled(r, g, b);
+  arduboy.digitalWriteRGB(r ? RGB_ON : RGB_OFF, g ? RGB_ON : RGB_OFF, b ? RGB_ON : RGB_OFF);
 }
 
 void Platform::PutPixel(uint8_t x, uint8_t y, uint8_t colour)
@@ -143,6 +138,7 @@ void Platform::FillScreen(uint8_t colour)
 }
 
 unsigned long lastTimingSample;
+unsigned long lastGoodTickTime;
 
 bool Platform::IsAudioEnabled()
 {
@@ -163,47 +159,105 @@ void Platform::ExpectLoadDelay()
 	lastTimingSample = millis();
 }
 
-void setup(){
-  WiFi.mode(WIFI_OFF);
+bool PlatformNet::IsAvailable()
+{
+	return Serial.available();
+}
 
-  // i think this is only needed for the esp8266 eeprom emulation
-  //EEPROM.begin(EEPROM_NEEDED_BYTES);
+bool PlatformNet::IsAvailableForWrite()
+{
+	return Serial.availableForWrite();
+}
 
-  arduboy.begin();
-//  arduboy.boot(); 
-//  arduboy.flashlight();
-//  arduboy.systemButtons();
-//  arduboy.bootLogo();
-//  arduboy.audio.off();
-//  Serial.begin(9600);
-//  SeedRandom((uint16_t) arduboy.generateRandomSeed());
+uint8_t PlatformNet::Read()
+{
+	return Serial.read();
+}
 
-  arduboy.setFrameRate(TARGET_FRAMERATE);
-  Game::Init();
-  lastTimingSample = millis();
+uint8_t PlatformNet::Peek()
+{ 
+	return Serial.peek();
+}
+
+void PlatformNet::Write(uint8_t data)
+{
+	Serial.write(data);
+}
+
+char PlatformNet::GenerateRandomNetworkToken()
+{
+  return (uint8_t) random(254);
+	//return (char) arduboy.generateRandomSeed() | 1;
 }
 
 
-void loop(){
+void setup()
+{
+  arduboy.boot();
+  arduboy.flashlight();
+  arduboy.systemButtons();
+  //arduboy.bootLogo();
+  arduboy.setFrameRate(TARGET_FRAMERATE);
+
+  //arduboy.audio.off();
+  
+  Serial.begin(9600);
+  delay(500);
+  Serial.flush();
+  while (Serial.available()) Serial.read();
+  Serial.flush();
+  while (Serial.available()) Serial.read();
+  
+
+  delay (1000+random(500));
+  
+//  SeedRandom((uint16_t) arduboy.generateRandomSeed());
+  Game::Init();
+  
+  lastTimingSample = millis();
+  lastGoodTickTime = millis();
+}
+
+void loop()
+{
   static int16_t tickAccum = 0;
   unsigned long timingSample = millis();
   tickAccum += (timingSample - lastTimingSample);
   lastTimingSample = timingSample;
-	
-#if DEV_MODE
+  
+/*#if DEV_MODE
   if(arduboy.nextFrameDEV())
 #else
   if(arduboy.nextFrame())
-#endif
+#endif*/
   {
 	constexpr int16_t frameDuration = 1000 / TARGET_FRAMERATE;
+	bool needsDraw = false;
+	
 	while(tickAccum > frameDuration)
 	{
-		Game::Tick();
-		tickAccum -= frameDuration;
+		if(Game::Tick())
+		{
+			needsDraw = true;
+			tickAccum -= frameDuration;
+			lastGoodTickTime = timingSample;
+		}
+		else 
+		{
+			break;
+		}
 	}
 	
-	Game::Draw();
+	if(needsDraw)
+	{
+		Game::Draw();
+	    arduboy.display(false);
+	}
+	else if((timingSample - lastGoodTickTime) > 5000)
+	{
+		void(* resetFunc) (void) = 0;
+		resetFunc();
+	}
     
     //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
 
@@ -218,7 +272,5 @@ void loop(){
 	}
 	screenPtr[100] = 0;
 #endif
-	
-    arduboy.display(false);
   }
 }
