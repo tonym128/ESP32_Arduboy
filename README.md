@@ -61,6 +61,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Square Nose** (by-nc-sa 4.0) by [JuiceLizard](https://community.arduboy.com/t/square-nose-the-squarrel/6226/27)
 - **Festive fight** (Proprietary) by [Jonathan Holmes (crait) & Mario Vespa (greycove)](http://www.crait.net)
 - **Kung-Fu escape** (MIT) by [Anthony Clarke (Sazazel)](https://github.com/MrSazazel/Kung_Fu_Escape)
 - **Midnight Wild** (Proprietary) by [Jonathan Holmes (crait) & Mario Vespa (greycove)](http://www.crait.net)

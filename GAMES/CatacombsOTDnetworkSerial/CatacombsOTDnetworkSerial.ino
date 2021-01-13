@@ -200,16 +200,16 @@ void setup()
   arduboy.setFrameRate(TARGET_FRAMERATE);
 
   //arduboy.audio.off();
-  
-  Serial.begin(9600);
-  delay(500);
-  Serial.flush();
-  while (Serial.available()) Serial.read();
-  Serial.flush();
-  while (Serial.available()) Serial.read();
-  
 
-  delay (1000+random(500));
+  Serial.setRxBufferSize(4096);
+  Serial.begin(57600);
+  
+  delay(200);
+  
+  Serial.flush();
+  while (Serial.available()) Serial.read();
+  Serial.flush();
+  while (Serial.available()) Serial.read();
   
 //  SeedRandom((uint16_t) arduboy.generateRandomSeed());
   Game::Init();
