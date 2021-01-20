@@ -1,0 +1,94 @@
+123456789012345678901
+**Upload
+Connect your arduboy
+to the pc. Keep
+pressing the down
+key.
+Select your game and
+upload. When upload
+is ready, release
+the down key.
+
+**Escape Success
+You run away.
+
+**Escape Failure
+You can't run away
+from a boss battle.
+
+**No Items
+You don't have any.
+
+**No Spells
+You don't know any.
+
+**Prologue0
+Long ago the world
+faced a great battle
+between the various
+factions and regions.
+
+**Prologue1
+The battle raged for
+many centuries and
+suffered many losses
+and threatened to
+destroy the world.
+
+**Prologue2
+Out of the darkness
+a great evil arose
+to power enslaving
+all before it.
+
+**Prologue3
+Soon a single warrior
+emerged and vowed to
+defeat the evil that
+saught to destory the
+land.
+
+123456789012345678901
+**Epilogue0
+Our hero has defeated
+the darkness that
+held dominion over
+this land.
+
+**Epilogue1
+However the darkness
+escaped through the
+portal to another
+world to once again
+wreak havoc.
+
+**Epilogue2
+You must journey
+through the portal
+and continue to fend
+off the darkness that
+threatens to destroy
+the world.
+
+**Epilogue3
+Progress saved
+
+Please load the game
+Shattered Lands 2
+and continue to fight
+the darkness.
+
+**Castle1
+YOU MUST TRAVEL TO
+THE NORTH-EAST TOWER
+FIRST. THEN TO THE
+NORTH-WEST THEN THE
+SOUTH-WEST AND THEN
+THE SOUTH-EAST. LAST
+THE TOWER RIGHT HERE.
+
+THERE IS A CASTLE
+NEAR EACH TOWER AND
+THE KING HAS THE KEY
+NEEDED TO ENTER THE
+TOWER. BE CAREFUL.
