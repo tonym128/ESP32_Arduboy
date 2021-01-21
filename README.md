@@ -12,8 +12,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - change **"#include arduboy.h"** to **"#include arduboy2.h"**
 - some games use a function pointer array to pass control to a different parts of the code as the game state changes. In ATMEGA32U4 the memory address is 2 bytes (single word) long, in ESP8266, the memory addresses is 4 bytes (double word) long, So you need to change all "pgm_read_word" to "pgm_read_dword" or "pgm_read_ptr" at the pointers
 - if EEPROM is used by the game to keep configs/high scores:
--- change EEPROM.update() to EEPORM.write()
--- add EEPROM.commit() after the last EEPROM.put(), EEPORM.write() of each blocks of code.
+- - change EEPROM.update() to EEPORM.write()
+- - add EEPROM.commit() after the last EEPROM.put(), EEPROM.write() of each blocks of code.
 - remove any reference to the **"ATMlib"** this library has not been ported yet.
 - For **"ArduboyPlaytune"** use [ESPboy ported verstion](https://github.com/ESPboy-edu/ESPboy_Playtune) and be sure you don't use "tone();" function anywhere (standard "tone();" function catches an interrupt which is ArduboyPlaytune also uses causing a reset)
 - you have to put delay(0); in all loops like while(1) {...}. EPS8266 needs time to process WiFi stack and other internal SDK interrupts and can do it during the pauses like delay(0). Otherwise it watchdog resets.
@@ -63,6 +63,7 @@ If authors against posting the code in this repository for the purpose of learni
 
 - **Shattered Lands - Towers Of Perdition** (MIT) by [tuxinator2009](https://github.com/tuxinator2009/ShatteredLands) 
 - **NewBlocksOnTheKid** (GNU) by [bateske Kevin](https://community.arduboy.com/t/new-blocks-on-the-kid/9197)
+- **unicorn_dash** (MIT) by [Yossa Von K](https://yossagames.itch.io/unicorn-dash)
 - **Square Nose** (by-nc-sa 4.0) by [JuiceLizard](https://community.arduboy.com/t/square-nose-the-squarrel/6226/27)
 - **Festive fight** (Proprietary) by [Jonathan Holmes (crait) & Mario Vespa (greycove)](http://www.crait.net)
 - **Kung-Fu escape** (MIT) by [Anthony Clarke (Sazazel)](https://github.com/MrSazazel/Kung_Fu_Escape)
