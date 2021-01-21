@@ -177,19 +177,19 @@ void drawChunk(const uint8_t *chunk, int16_t xOffset, int16_t yOffset)
     }
     return;
   }
-	uint16_t tiles = READ_WORD(chunk);
-	int8_t bitsPerTile = getChunkBits(tiles);
-	int8_t tileID = getChunkTileID(tiles, 0);
-	bitReaderInit(chunk + 5, 0);
-	for (uint8_t y = 0; y < 8; ++y)
-	{
-		for (uint8_t x = 0; x < 8; ++x)
-		{
-			if (bitsPerTile != 0)
-				tileID = getChunkTileID(tiles, bitReaderRead8(bitsPerTile));
-			arduboy.drawBitmap(x * 16 + xOffset, y * 16 + yOffset, tileBitmaps + (tilesetID * 16 + tileID) * 32, 16, 16);
-		}
-	}
+  uint16_t tiles = READ_WORD(chunk);
+  int8_t bitsPerTile = getChunkBits(tiles);
+  int8_t tileID = getChunkTileID(tiles, 0);
+  bitReaderInit(chunk + 5, 0);
+  for (uint8_t y = 0; y < 8; ++y)
+  {
+    for (uint8_t x = 0; x < 8; ++x)
+    {
+      if (bitsPerTile != 0)
+        tileID = getChunkTileID(tiles, bitReaderRead8(bitsPerTile));
+      arduboy.drawBitmap(x * 16 + xOffset, y * 16 + yOffset, tileBitmaps + (tilesetID * 16 + tileID) * 32, 16, 16);
+    }
+  }
 }
 
 void drawChests(uint8_t chunkID, int16_t xOffset, int16_t yOffset)
@@ -229,7 +229,7 @@ void drawMap()
 		xOff = startX + (i % 3) * 128 - 128;
 		yOff = startY + (i / 3) * 128 - 128;
 		drawChunk(getChunk(pMap, chunkIDs[i]), xOff, yOff);
-		//drawChests(chunkIDs[i], xOff, yOff);
+		drawChests(chunkIDs[i], xOff, yOff);
 	}
 	arduboy.drawBitmap(56, 24, playerMapSpriteMask + player.dir * 32, 16, 16, BLACK);
 	arduboy.drawBitmap(56, 24, playerMapSprite + player.dir * 32, 16, 16);
