@@ -61,6 +61,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **LeannaTheLionAB** (MIT) by [SHDWWZRD of Neo Retro Games](http://www.neoretro.games)
 - **Shattered Lands - Towers Of Perdition** (MIT) by [tuxinator2009](https://github.com/tuxinator2009/ShatteredLands) 
 - **NewBlocksOnTheKid** (GNU) by [bateske Kevin](https://community.arduboy.com/t/new-blocks-on-the-kid/9197)
 - **unicorn_dash** (MIT) by [Yossa Von K](https://yossagames.itch.io/unicorn-dash)
