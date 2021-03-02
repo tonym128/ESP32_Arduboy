@@ -61,6 +61,9 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **DarkStar** (CC0 1.0) by [Mr.Blinky](https://github.com/MrBlinky/DarkStar)
+- **Artillery** (???) by [Bergasms](http://www.bergasms.com/arduboy/Artillery.html)
+- **SanSan** (???) by [Chamekan](https://community.arduboy.com/t/sansan-son-son-rygar-inspired-action-game/4621)
 - **MicroTank** (Apache-2.0) by [Thomas Hartmann](https://github.com/hartmann1301/MicroTank)
 - **LeannaTheLionAB** (MIT) by [SHDWWZRD of Neo Retro Games](http://www.neoretro.games)
 - **Shattered Lands - Towers Of Perdition** (MIT) by [tuxinator2009](https://github.com/tuxinator2009/ShatteredLands) 
