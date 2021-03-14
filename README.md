@@ -61,6 +61,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **CyberHack** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/cyberhack-v1-0/9639)
 - **DarkStar** (CC0 1.0) by [Mr.Blinky](https://github.com/MrBlinky/DarkStar)
 - **Artillery** (???) by [Bergasms](http://www.bergasms.com/arduboy/Artillery.html)
 - **SanSan** (???) by [Chamekan](https://community.arduboy.com/t/sansan-son-son-rygar-inspired-action-game/4621)
