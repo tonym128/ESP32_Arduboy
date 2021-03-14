@@ -45,6 +45,7 @@ void EEPROM_Utils::initEEPROM(bool force) {
         EEPROM.put(EEPROM_START_C1, letter1);
         EEPROM.put(EEPROM_START_C2, letter2);
         EEPROM.put(EEPROM_START_GAME_SAVED, gameSaved);
+        EEPROM.commit();
 
     }
 
@@ -70,7 +71,7 @@ void EEPROM_Utils::saveGame(Player &player) {
 
     EEPROM.put(EEPROM_START_GAME_SAVED, 1);
     EEPROM.put(EEPROM_START_DATA, player);
-
+    EEPROM.commit();
 }
 
 
