@@ -61,6 +61,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Trolly Fish** (MIT) by [Team ARG](https://community.arduboy.com/t/trolly-fish-sixth-team-a-r-g-game/929)
+- **Kong** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/kong-1-0-3/7962)
 - **OilPanic** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/oil-panic-v1-0/9278)
 - **FirePanic** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/fire-panic-1-0/7468)
 - **Bomberboy** (???) by [evgenykzz2](https://github.com/evgenykzz2/Bomberboy)
