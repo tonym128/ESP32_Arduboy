@@ -20,8 +20,9 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - games that directly control the SPI or I2C bus to write to OLED display need much more work to port instead of the simple steps above.
 - font() array is used in TFT_eSPI display library so you have to change all "font" to "font_"
 - min() and max() macros are used in TFT_eSPI display library so you have to change all min() and max() to minVal() and maxVal() correspondenly
-- there is a problem with a "char" data (signed/unsigned problem). By default Arduino "char" is signed and ESP "char" is unsigned. So you have to change all ingame "char" to "signed char".
+- there is a problem with a "char" data (signed/unsigned problem). By default Arduino "char" is signed and ESP "char" is unsigned. So you have to change all "char" to "signed char".
 - it's also better to change all "short" to "int16_t", "unsigned shot" to "uint16_t", "byte" to "uint8_t", "int" to "int16_t", "unsigned int" to "uint16_t", "long" to "int32_t", "unsigned long" to "uint32_t" 
+- in AVR compiler "bool function();" return FALSE in case of function out without "return(value);", but in ESP8266 compiler it returns TRUE
 
 
 # Advantages of ESPboy (ESP8266)
@@ -61,6 +62,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Ninja Fuzzgrauth** (???) by [Hundstrasse](https://hundstrasse.com/arduboy-games/ninja-fuzzgrawth/)
+- **Puzzle pack** (???) by [Atomic](https://community.arduboy.com/t/atomic-puzzle-pack/459)
 - **Trolly Fish** (MIT) by [Team ARG](https://community.arduboy.com/t/trolly-fish-sixth-team-a-r-g-game/929)
 - **Kong** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/kong-1-0-3/7962)
 - **OilPanic** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/oil-panic-v1-0/9278)
