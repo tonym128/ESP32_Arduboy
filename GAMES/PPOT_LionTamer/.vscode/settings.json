@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "__node_handle": "cpp",
+        "algorithm": "cpp",
+        "bitset": "cpp",
+        "memory": "cpp",
+        "optional": "cpp",
+        "__functional_base": "cpp",
+        "array": "cpp",
+        "istream": "cpp",
+        "locale": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp",
+        "chrono": "cpp"
+    }
+}

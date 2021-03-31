@@ -62,6 +62,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Leon Tamer** (BSD 3-Clause) by [Press Play on Tape](https://github.com/Press-Play-On-Tape/Lion)
+- **Turtle bridge** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/turtle-bridge-1-3/7786)
 - **Ninja Fuzzgrauth** (???) by [Hundstrasse](https://hundstrasse.com/arduboy-games/ninja-fuzzgrawth/)
 - **Puzzle pack** (???) by [Atomic](https://community.arduboy.com/t/atomic-puzzle-pack/459)
 - **Trolly Fish** (MIT) by [Team ARG](https://community.arduboy.com/t/trolly-fish-sixth-team-a-r-g-game/929)
