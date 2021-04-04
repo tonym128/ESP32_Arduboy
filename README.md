@@ -62,6 +62,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Blade Runner** (Apache-2.0) by [NoobGeek Ilya](https://community.arduboy.com/t/blade-runner/9698/17)
 - **Leon Tamer** (BSD 3-Clause) by [Press Play on Tape](https://github.com/Press-Play-On-Tape/Lion)
 - **Turtle bridge** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/turtle-bridge-1-3/7786)
 - **Ninja Fuzzgrauth** (???) by [Hundstrasse](https://hundstrasse.com/arduboy-games/ninja-fuzzgrawth/)
