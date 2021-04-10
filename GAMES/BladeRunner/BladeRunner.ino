@@ -1,510 +1,9 @@
 #include <Arduboy2.h>
+#include "Images.h"
+#include "Init.h"
 Arduboy2 arduboy;
 BeepPin1 beep;
-#define ANIMATION_FRAMES 40
-#define PI_HALF (3.1415 / 2)
 
-int allMoney, cloudXTwo = 80, cloudXOne = 30, coinsCount, coinRandF = - 10, coinRandS = -10, perfect, gamestate, countPlatform, frames, randFirstWidth = 30, randFirstPos, randSecondWidth = 20, randSecondPos = 65, lineOnX = 29, lineOnY = 54, platformFirstMove, platformSecondMove = 2, lengthBridge;
-bool level, flipPlayer, middleOn, countOn, bridgeIsDown, bridgeOnPlatform, buttOn, collFirst, collSecond, playerOnPlatform, allowDrawLine = 1, spriteAnim;
-byte  soundTimer5, soundTimer4, coinFonTime, soundTimer3, perfectCount, soundTimer2, soundTimer, soundOn, markerPlayer,  markerPos, lineMarkerX, lineMarkerY, lineMarkerEndX, randCoin, Timer2, frameCoin,Timer;
-bool  soundEnable, choseClear,  ningaB = 1, victoriaB, mushB, senseiB, pandaB, filmoteB, MrBlinkyB, PharapB, drummyfishB, VampiricsB, mlxxxpB, ESPboyB;
-bool ningaCH = 1, victoriaCH, mushCH, senseiCH, pandaCH, filmoteCH, MrBlinkyCH, PharapCH, drummyfishCH, VampiricsCH, mlxxxpCH, ESPboyCH;
-byte ningaC, victoriaC = 20, mushC = 45, senseiC = 50, pandaC = 50, filmoteC = 75, MrBlinkyC = 75, PharapC = 75, drummyfishC = 75, VampiricsC = 75, mlxxxpC = 75, ESPboyC = 75;
-uint8_t const *selectedPlayer = nullptr;
-uint8_t const *selectedPlayer2 = nullptr;
-uint8_t buyPlayer[] = {ningaB, victoriaB, mushB, senseiB, pandaB, filmoteB, MrBlinkyB, PharapB, drummyfishB, VampiricsB, mlxxxpB, ESPboyB};
-uint8_t costPlayer[] = {ningaC, victoriaC, mushC, senseiC, pandaC, filmoteC, MrBlinkyC, PharapC, drummyfishC, VampiricsC, mlxxxpC, ESPboyC};
-uint8_t chosenPlayer[] = {ningaCH, victoriaCH, mushCH, senseiCH, pandaCH, filmoteCH, MrBlinkyCH, PharapCH, drummyfishCH, VampiricsCH, mlxxxpCH, ESPboyCH};
-
-
-const unsigned char PROGMEM tittle[] =
-{
-// width, height,
-128, 64,
-// FRAME 00
-0x00, 0x00, 0x00, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x80, 0x00, 0x00, 0x80, 0xc0, 0xc0, 0xc0, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0xc0, 0xc0, 0x80, 0x00, 0x00, 0x00, 0x80, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x80, 0x00, 0x00, 0x80, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 0x00, 0x80, 0xc0, 0xc0, 0xc0, 0x00, 0x00, 0x80, 0x80, 0xc0, 0xc0, 0x00, 0x80, 0xc0, 0xc0, 0xc0, 0x00, 0x00, 0x80, 0x80, 0xc0, 0xc0, 0x00, 0x80, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0x00, 0x00, 0x80, 0x80, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 0xc0, 
-0xc0, 0xf0, 0xfd, 0xfd, 0xdd, 0xcd, 0xcd, 0xed, 0xfd, 0x7d, 0x3d, 0x85, 0xe0, 0xfc, 0xfd, 0xfd, 0xed, 0xe1, 0xe0, 0xe0, 0xe0, 0xf0, 0xf8, 0x7c, 0x3c, 0x1d, 0x0d, 0x1d, 0xfd, 0xfd, 0xfd, 0xf8, 0xc0, 0xf8, 0xfd, 0xfd, 0xcd, 0xc1, 0xc1, 0xe1, 0xf1, 0x7d, 0x3d, 0x9c, 0xe0, 0xfd, 0xfd, 0xfd, 0xed, 0xed, 0xed, 0xed, 0x0d, 0x01, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xf9, 0xfd, 0x7d, 0x1d, 0x0d, 0x0d, 0xcd, 0xfd, 0xfd, 0x7d, 0x3d, 0x05, 0x70, 0xfd, 0xfd, 0xfd, 0xe1, 0xe0, 0xf0, 0xfc, 0x7d, 0x1d, 0xc1, 0xf0, 0xfc, 0x7d, 0x1d, 0x05, 0x1d, 0xfd, 0xfd, 0xfd, 0x3d, 0xc5, 0xf1, 0xfc, 0x7d, 0x1d, 0x05, 0x1d, 0xfd, 0xfd, 0xfd, 0x3d, 0x05, 0x81, 0xe0, 0xfd, 0xfd, 0xfd, 0xed, 0xed, 0xed, 0xed, 0x0d, 0x01, 0xc0, 0xf9, 0xfd, 0x7d, 0x1d, 0x0d, 0x0d, 0xcd, 0xfd, 0xfd, 0x7d, 0x3d, 0x05, 
-0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x10, 0xe0, 0x00, 0xf0, 0xd0, 0x00, 0x70, 0x80, 0xc0, 0x80, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x90, 0xd0, 0x00, 0xe0, 0x50, 0xe0, 0x00, 0xf0, 0x20, 0x40, 0x20, 0xf0, 0x00, 0xf0, 0xd0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xe0, 0x70, 0x78, 0xfc, 0xfc, 0xfe, 0x7e, 0x7e, 0xfe, 0xfc, 0xfc, 0x78, 0x70, 0xe0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x78, 0x18, 0x00, 0x78, 0x40, 0x00, 0x70, 0x28, 0x70, 0x00, 0x18, 0x60, 0x18, 0x00, 0x78, 0x68, 0x00, 0x78, 0x18, 0x60, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xe0, 0x70, 0x78, 0xfc, 0xfc, 0xfe, 0x7e, 0x7e, 0xfe, 0xfc, 0xfc, 0x78, 0x70, 0xe0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x1f, 0x38, 0x78, 0xff, 0xff, 0xf8, 0xf0, 0xf0, 0xf8, 0xff, 0xff, 0x78, 0x38, 0x1f, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x38, 0x00, 0x00, 0x00, 0x3c, 0x34, 0x00, 0x38, 0x14, 0x38, 0x00, 0x28, 0x34, 0x34, 0x00, 0x0c, 0x30, 0x0c, 0x00, 0x00, 0x00, 0x38, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x1f, 0x38, 0x78, 0xff, 0xff, 0xf8, 0xf0, 0xf0, 0xf8, 0xff, 0xff, 0x78, 0x38, 0x1f, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x14, 0x1a, 0x1a, 0x00, 0x1e, 0x12, 0x1e, 0x00, 0x1e, 0x10, 0x1e, 0x00, 0x1e, 0x02, 0x1c, 0x00, 0x1e, 0x12, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08, 0x08,
-};
-
-const unsigned char PROGMEM coinFon[] =
-{
-// width, height,
-16, 16,
-// FRAME 00
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xfe, 0xb7, 0xb7, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7f, 0xed, 0xed, 0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-};
-
-const unsigned char PROGMEM hard[] =
-{
-// width, height,
-15, 4,
-// FRAME 00
-0x0f, 0x0f, 0x04, 0x0f, 0x0f, 0x0f, 0x00, 0x0f, 0x0e, 0x0f, 0x05, 0x0f, 0x0e, 0x0f, 0x00, 
-0x0f, 0x0f, 0x0f, 0x03, 0x0f, 0x0c, 0x0f, 0x00, 0x0f, 0x0f, 0x0f, 0x09, 0x0f, 0x06, 0x0f,
-};
-
-const unsigned char PROGMEM on1[] =
-{
-// width, height,
-4, 3,
-// FRAME 00
-0x02, 0x04, 0x02, 0x01,
-};
-
-const unsigned char PROGMEM cloud[] =
-{
-// width, height,
-20, 4,
-// FRAME 00
-0x08, 0x08, 0x08, 0x08, 0x0c, 0x0e, 0x0e, 0x0e, 0x07, 0x0f, 0x06, 0x06, 0x0c, 0x0c, 0x0c, 0x04, 0x0c, 0x0c, 0x08, 0x08,
-};
-
-const unsigned char PROGMEM MPR[] =
-{
-// width, height,
-4, 7,
-// FRAME 00
-0x7f, 0x3e, 0x1c, 0x08,
-};
-
-const unsigned char PROGMEM MPL[] =
-{
-// width, height,
-4, 7,
-// FRAME 00
-0x08, 0x1c, 0x3e, 0x7f,
-};
-
-const unsigned char PROGMEM LOCK[] =
-{
-// width, height,
-5, 7,
-// FRAME 00
-0x7e, 0x79, 0x49, 0x79, 0x7e,
-};
-
-const unsigned char PROGMEM ninga[] =
-{
-// width, height,
-8, 12,
-//strate
-0x28, 0x28, 0x18, 0x18, 0xfc, 0xfc, 0x0e, 0xfe, 
-0xce, 0xfe, 0x0e, 0xfe, 0x2e, 0xfe, 0xfc, 0xfc, 
-0x00, 0x00, 0x00, 0x00, 0x0f, 0x0f, 0x02, 0x03, 
-0x02, 0x03, 0x02, 0x03, 0x02, 0x03, 0x0f, 0x0f,
-
-//go1
-0x50, 0x50, 0x30, 0x30, 0xf8, 0xf8, 0x1c, 0xfc, 
-0x9c, 0xfc, 0x1c, 0xfc, 0x5c, 0xfc, 0xf8, 0xf8, 
-0x00, 0x00, 0x00, 0x00, 0x03, 0x03, 0x0e, 0x0f, 
-0x03, 0x03, 0x0e, 0x0f, 0x02, 0x03, 0x03, 0x03,
-};
-
-const unsigned char PROGMEM ninga2[] =
-{
-// width, height,
-8, 12,
-//strateFlip
-0x80, 0x80, 0x00, 0x00, 0xfe, 0xfe, 0x08, 0xf8, 
-0x68, 0xf8, 0x08, 0xf8, 0x88, 0xf8, 0xfe, 0xfe, 
-0x02, 0x02, 0x03, 0x03, 0x07, 0x07, 0x0e, 0x0f, 
-0x0e, 0x0f, 0x0e, 0x0f, 0x0e, 0x0f, 0x07, 0x07,
-
-//goFlip
-0x40, 0x40, 0x80, 0x80, 0xf8, 0xf8, 0x0e, 0xfe, 
-0x38, 0xf8, 0x0e, 0xfe, 0x48, 0xf8, 0xf8, 0xf8, 
-0x01, 0x01, 0x01, 0x01, 0x03, 0x03, 0x07, 0x07, 
-0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x03, 0x03,
-
-
-};
-
-
-const unsigned char PROGMEM panda[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0x0e, 0x0e, 0xf9, 0xff, 0x3d, 0xff, 0x3f, 0xff, 
-0xfe, 0xfe, 0xfe, 0xfe, 0xce, 0xfe, 0xfc, 0xfc, 
-0x00, 0x00, 0x01, 0x01, 0x0e, 0x0f, 0x02, 0x03, 
-0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x0f, 0x0f,
-
-0x1c, 0x1c, 0xf2, 0xfe, 0x7a, 0xfe, 0x7e, 0xfe, 
-0xfc, 0xfc, 0xfc, 0xfc, 0x9c, 0xfc, 0xf8, 0xf8, 
-0x00, 0x00, 0x03, 0x03, 0x00, 0x03, 0x0c, 0x0f, 
-0x03, 0x03, 0x0f, 0x0f, 0x03, 0x03, 0x03, 0x03,
-};
-
-const unsigned char PROGMEM panda2[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0x00, 0x00, 0xf8, 0xf8, 0xc7, 0xff, 0xc4, 0xfc, 
-0xfc, 0xfc, 0xfc, 0xfc, 0x3c, 0xfc, 0xff, 0xff, 
-0x07, 0x07, 0x09, 0x0f, 0x0b, 0x0f, 0x0f, 0x0f, 
-0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x03, 0x03,
-
-0x80, 0x80, 0xfc, 0xfc, 0xe3, 0xff, 0xe0, 0xfc, 
-0xfc, 0xfc, 0xfc, 0xfc, 0x9c, 0xfc, 0xff, 0xff, 
-0x03, 0x03, 0x04, 0x07, 0x05, 0x07, 0x07, 0x07, 
-0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x01, 0x01,
-};
-
-const unsigned char PROGMEM sansay[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0xf0, 0xf0, 0x08, 0xf8, 0x04, 0xfc, 0xc4, 0xfc, 
-0x3e, 0xfe, 0xe2, 0xfe, 0xea, 0xfe, 0xfc, 0xfc, 
-0x01, 0x01, 0x0f, 0x0f, 0x02, 0x03, 0x02, 0x03, 
-0x02, 0x03, 0x0f, 0x0f, 0x03, 0x03, 0x07, 0x07,
-
-0xe0, 0xe0, 0x10, 0xf0, 0x08, 0xf8, 0x88, 0xf8, 
-0x7c, 0xfc, 0xc4, 0xfc, 0xd4, 0xfc, 0xf8, 0xf8, 
-0x01, 0x01, 0x02, 0x03, 0x0e, 0x0f, 0x03, 0x03, 
-0x0e, 0x0f, 0x03, 0x03, 0x03, 0x03, 0x07, 0x07,
-};
-
-const unsigned char PROGMEM sansay2[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0xf8, 0xf8, 0x0f, 0xff, 0x04, 0xfc, 0x34, 0xfc, 
-0xc4, 0xfc, 0x7f, 0xff, 0x7c, 0xfc, 0xfe, 0xfe, 
-0x00, 0x00, 0x01, 0x01, 0x02, 0x03, 0x02, 0x03, 
-0x07, 0x07, 0x04, 0x07, 0x05, 0x07, 0x03, 0x03,
-
-0x78, 0x78, 0x84, 0xfc, 0x07, 0xff, 0x1c, 0xfc, 
-0xe7, 0xff, 0x3c, 0xfc, 0xbc, 0xfc, 0xfe, 0xfe, 
-0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 
-0x03, 0x03, 0x02, 0x03, 0x02, 0x03, 0x01, 0x01,
-};
-
-const unsigned char PROGMEM girl[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0x00, 0x00, 0xfc, 0xfc, 0xfe, 0xfe, 0x1f, 0xff, 
-0x8f, 0xff, 0x07, 0xff, 0x17, 0xff, 0xfe, 0xfe, 
-0x00, 0x00, 0x01, 0x01, 0x0f, 0x0f, 0x02, 0x03, 
-0x03, 0x03, 0x02, 0x03, 0x02, 0x03, 0x0f, 0x0f,
-
-0x00, 0x00, 0xf8, 0xf8, 0xfc, 0xfc, 0x3e, 0xfe, 
-0x1e, 0xfe, 0x0e, 0xfe, 0x2e, 0xfe, 0xfc, 0xfc, 
-0x00, 0x00, 0x01, 0x01, 0x03, 0x03, 0x0e, 0x0f, 
-0x03, 0x03, 0x0e, 0x0f, 0x02, 0x03, 0x03, 0x03,
-};
-
-const unsigned char PROGMEM girl2[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0x00, 0x00, 0xf8, 0xf8, 0xff, 0xff, 0x84, 0xfc, 
-0x1c, 0xfc, 0x04, 0xfc, 0x84, 0xfc, 0xff, 0xff, 
-0x00, 0x00, 0x03, 0x03, 0x07, 0x07, 0x0f, 0x0f, 
-0x0f, 0x0f, 0x0e, 0x0f, 0x0e, 0x0f, 0x07, 0x07,
-
-0x00, 0x00, 0xf8, 0xf8, 0xfc, 0xfc, 0xc7, 0xff, 
-0x8c, 0xfc, 0x07, 0xff, 0x44, 0xfc, 0xfc, 0xfc, 
-0x00, 0x00, 0x01, 0x01, 0x03, 0x03, 0x07, 0x07, 
-0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x03, 0x03,
-};
-
-const unsigned char PROGMEM mush[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0xf0, 0xf0, 0x08, 0xf8, 0xc4, 0xfc, 0x24, 0xfc, 
-0x24, 0xfc, 0x24, 0xfc, 0xa4, 0xfc, 0xf8, 0xf8, 
-0x00, 0x00, 0x01, 0x01, 0x0f, 0x0f, 0x02, 0x03, 
-0x02, 0x03, 0x02, 0x03, 0x02, 0x03, 0x0f, 0x0f,
-
-0xe0, 0xe0, 0x10, 0xf0, 0x88, 0xf8, 0x48, 0xf8, 
-0x48, 0xf8, 0x48, 0xf8, 0x48, 0xf8, 0xf0, 0xf0, 
-0x01, 0x01, 0x02, 0x03, 0x07, 0x07, 0x0c, 0x0f, 
-0x04, 0x07, 0x0c, 0x0f, 0x05, 0x07, 0x07, 0x07,
-};
-
-const unsigned char PROGMEM mush2[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0xf0, 0xf0, 0x08, 0xf8, 0x3f, 0xff, 0x44, 0xfc, 
-0x44, 0xfc, 0x44, 0xfc, 0x54, 0xfc, 0xff, 0xff, 
-0x00, 0x00, 0x01, 0x01, 0x02, 0x03, 0x02, 0x03, 
-0x02, 0x03, 0x02, 0x03, 0x02, 0x03, 0x01, 0x01,
-
-0x78, 0x78, 0x84, 0xfc, 0x1e, 0xfe, 0x23, 0xff, 
-0x22, 0xfe, 0x23, 0xff, 0x2a, 0xfe, 0xfe, 0xfe, 
-0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 
-0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00,
-};
-
-const unsigned char PROGMEM filmote[] =
-{
-// width, height,
-9, 12,
-// FRAME 00
-0x00, 0x00, 0xd0, 0xd0, 0xa0, 0xe0, 0xe0, 0xe0, 0xe0, 
-0xe0, 0xe0, 0xe0, 0xa0, 0xe0, 0xd0, 0xd0, 0x00, 0x00, 
-0x0f, 0x0f, 0x01, 0x01, 0x03, 0x03, 0x05, 0x05, 0x01, 
-0x01, 0x05, 0x05, 0x03, 0x03, 0x01, 0x01, 0x0f, 0x0f,
-
-
-0x00, 0x00, 0xa0, 0xa0, 0x40, 0xc0, 0xc0, 0xc0, 0xc0, 
-0xc0, 0xc0, 0xc0, 0x40, 0xc0, 0xa0, 0xa0, 0x00, 0x00, 
-0x0e, 0x0e, 0x03, 0x03, 0x07, 0x07, 0x0b, 0x0b, 0x03, 
-0x03, 0x0b, 0x0b, 0x07, 0x07, 0x03, 0x03, 0x0e, 0x0e,
-};
-
-
-const unsigned char PROGMEM filmote2[] =
-{
-// width, height,
-9, 12,
-// FRAME 00
-0x07, 0x07, 0x5c, 0x5c, 0x2e, 0x3e, 0x3d, 0x3d, 0x3c, 
-0x3c, 0x3d, 0x3d, 0x2e, 0x3e, 0x5c, 0x5c, 0x07, 0x07, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-
-0x0f, 0x0f, 0xb8, 0xb8, 0x5c, 0x7c, 0x7a, 0x7a, 0x78, 
-0x78, 0x7a, 0x7a, 0x5c, 0x7c, 0xb8, 0xb8, 0x0f, 0x0f, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-};
-
-const unsigned char PROGMEM MrBlinky[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0xf8, 0xf8, 0x04, 0xfc, 0x32, 0xfe, 0x02, 0xfe, 
-0x02, 0xfe, 0x32, 0xfe, 0x04, 0xfc, 0xf8, 0xf8, 
-0x03, 0x03, 0x04, 0x07, 0x08, 0x0f, 0x04, 0x07, 
-0x02, 0x03, 0x02, 0x03, 0x04, 0x07, 0x03, 0x03,
-
-0xf8, 0xf8, 0x04, 0xfc, 0x32, 0xfe, 0x02, 0xfe, 
-0x02, 0xfe, 0x32, 0xfe, 0x04, 0xfc, 0xf8, 0xf8, 
-0x03, 0x03, 0x04, 0x07, 0x02, 0x03, 0x02, 0x03, 
-0x04, 0x07, 0x08, 0x0f, 0x04, 0x07, 0x03, 0x03,
-};
-
-const unsigned char PROGMEM MrBlinky2[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0xfc, 0xfc, 0x02, 0xfe, 0xc4, 0xfc, 0x04, 0xfc, 
-0x02, 0xfe, 0xc1, 0xff, 0x02, 0xfe, 0xfc, 0xfc, 
-0x01, 0x01, 0x02, 0x03, 0x04, 0x07, 0x04, 0x07, 
-0x04, 0x07, 0x04, 0x07, 0x02, 0x03, 0x01, 0x01,
-
-0xfc, 0xfc, 0x02, 0xfe, 0xc1, 0xff, 0x02, 0xfe, 
-0x04, 0xfc, 0xc4, 0xfc, 0x02, 0xfe, 0xfc, 0xfc, 
-0x01, 0x01, 0x02, 0x03, 0x04, 0x07, 0x04, 0x07, 
-0x04, 0x07, 0x04, 0x07, 0x02, 0x03, 0x01, 0x01,
-};
-
-const unsigned char PROGMEM Pharap[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0xf0, 0xf0, 0x08, 0xf8, 0x64, 0xfc, 0x04, 0xfc, 
-0x04, 0xfc, 0x64, 0xfc, 0x08, 0xf8, 0xf0, 0xf0, 
-0x00, 0x00, 0x01, 0x01, 0x0e, 0x0f, 0x08, 0x0f, 
-0x08, 0x0f, 0x0e, 0x0f, 0x01, 0x01, 0x00, 0x00,
-
-0xe0, 0xe0, 0x10, 0xf0, 0xc8, 0xf8, 0x08, 0xf8, 
-0x08, 0xf8, 0xc8, 0xf8, 0x10, 0xf0, 0xe0, 0xe0, 
-0x01, 0x01, 0x02, 0x03, 0x0c, 0x0f, 0x08, 0x0f, 
-0x08, 0x0f, 0x0c, 0x0f, 0x02, 0x03, 0x01, 0x01,
-};
-
-const unsigned char PROGMEM Pharap2[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0xf0, 0xf0, 0x08, 0xf8, 0x67, 0xff, 0x01, 0xff, 
-0x01, 0xff, 0x67, 0xff, 0x08, 0xf8, 0xf0, 0xf0, 
-0x00, 0x00, 0x01, 0x01, 0x02, 0x03, 0x02, 0x03, 
-0x02, 0x03, 0x02, 0x03, 0x01, 0x01, 0x00, 0x00,
-
-0x78, 0x78, 0x84, 0xfc, 0x33, 0xff, 0x01, 0xff, 
-0x01, 0xff, 0x33, 0xff, 0x84, 0xfc, 0x78, 0x78, 
-0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 
-0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00,
-};
-
-const unsigned char PROGMEM drummyfish[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0xe0, 0xe0, 0xa0, 0xe0, 0xe0, 0xe0, 0x80, 0x80, 
-0x07, 0x07, 0x0e, 0x0e, 0x0e, 0x0e, 0x0e, 0x0e, 
-0x07, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-
-0x00, 0x00, 0x40, 0x40, 0xc0, 0xc0, 0x00, 0x00, 
-0xe0, 0xe0, 0xa0, 0xe0, 0xe0, 0xe0, 0x80, 0x80, 
-0x07, 0x07, 0x0e, 0x0e, 0x0f, 0x0f, 0x0e, 0x0e, 
-0x07, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-};
-
-const unsigned char PROGMEM drummyfish2[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0x0e, 0x0e, 0x27, 0x27, 0x3f, 0x3f, 0x07, 0x07, 
-0x7e, 0x7e, 0x50, 0x70, 0x70, 0x70, 0x10, 0x10, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-
-0x0e, 0x0e, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 
-0x7e, 0x7e, 0x50, 0x70, 0x70, 0x70, 0x10, 0x10, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-};
-
-const unsigned char PROGMEM Vampirics[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0xc0, 0xc0, 0x20, 0xe0, 0x10, 0xf0, 0x30, 0xf0, 
-0x90, 0xf0, 0x50, 0x70, 0x20, 0x20, 0x00, 0x00, 
-0x03, 0x03, 0x04, 0x07, 0x08, 0x0f, 0x09, 0x0f, 
-0x0a, 0x0e, 0x0a, 0x0e, 0x04, 0x04, 0x00, 0x00,
-
-0xc0, 0xc0, 0x20, 0xe0, 0x10, 0xf0, 0x10, 0xf0, 
-0x10, 0xf0, 0x50, 0xf0, 0x20, 0xe0, 0xc0, 0xc0, 
-0x03, 0x03, 0x04, 0x07, 0x08, 0x0f, 0x09, 0x0f, 
-0x09, 0x0f, 0x09, 0x0f, 0x05, 0x07, 0x03, 0x03,
-};
-
-const unsigned char PROGMEM Vampirics2[] =
-{
-// width, height,
-8, 12,
-// FRAME 00
-0x3c, 0x3c, 0x42, 0x7e, 0x81, 0xff, 0xc9, 0xff, 
-0x95, 0xf7, 0xa5, 0xe7, 0x42, 0x42, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-
-0x3c, 0x3c, 0x42, 0x7e, 0x81, 0xff, 0x89, 0xff, 
-0x89, 0xff, 0xa9, 0xff, 0x4a, 0x7e, 0x3c, 0x3c, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-};
-
-
-const unsigned char PROGMEM mlxxxp[] =
-{
-// width, height,
-9, 12,
-// FRAME 00
-0xf0, 0xf0, 0x10, 0xf0, 0x50, 0xf0, 0x10, 0xf0, 0x30, 
-0xf0, 0x10, 0xf0, 0x90, 0xf0, 0x10, 0xf0, 0xf0, 0xf0, 
-0x0f, 0x0f, 0x01, 0x01, 0x0f, 0x0f, 0x01, 0x01, 0x0f, 
-0x0f, 0x01, 0x01, 0x0f, 0x0f, 0x01, 0x01, 0x0f, 0x0f,
-
-0xe0, 0xe0, 0x20, 0xe0, 0xa0, 0xe0, 0x20, 0xe0, 0x60, 
-0xe0, 0x20, 0xe0, 0x20, 0xe0, 0x20, 0xe0, 0xe0, 0xe0, 
-0x0f, 0x0f, 0x02, 0x03, 0x0e, 0x0f, 0x02, 0x03, 0x0e, 
-0x0f, 0x02, 0x03, 0x0f, 0x0f, 0x02, 0x03, 0x0f, 0x0f,
-};
-
-const unsigned char PROGMEM mlxxxp2[] =
-{
-// width, height,
-9, 12,
-// FRAME 00
-0x7f, 0x7f, 0x44, 0x7c, 0x57, 0x7f, 0x44, 0x7c, 0x67, 
-0x7f, 0x44, 0x7c, 0x4f, 0x7f, 0x44, 0x7c, 0x7f, 0x7f, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-
-0xff, 0xff, 0x88, 0xf8, 0xaf, 0xff, 0x88, 0xf8, 0xcf, 
-0xff, 0x88, 0xf8, 0x9f, 0xff, 0x88, 0xf8, 0xff, 0xff, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-};
-
-
-const unsigned char PROGMEM ESPboy[] =
-{
-// width, height,
-9, 12,
-// FRAME 00
-0x00, 0x00, 0x54, 0x54, 0x00, 0x00, 0x0e, 0x0e, 0xaa, 
-0xae, 0x0e, 0x0e, 0x00, 0x00, 0x54, 0x54, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x08, 0x08, 0x02, 0x02, 0x00, 
-0x00, 0x02, 0x02, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00,
-
-0x00, 0x00, 0xa8, 0xa8, 0x00, 0x00, 0x1c, 0x1c, 0x54, 
-0x5c, 0x1c, 0x1c, 0x00, 0x00, 0xa8, 0xa8, 0x00, 0x00, 
-0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x08, 0x05, 
-0x05, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-};
-
-const unsigned char PROGMEM ESPboy2[] =
-{
-// width, height,
-9, 12,
-// FRAME 00
-0x00, 0x00, 0xa0, 0xa0, 0x01, 0x01, 0x04, 0x04, 0x50, 
-0x50, 0x04, 0x04, 0x01, 0x01, 0xa0, 0xa0, 0x00, 0x00, 
-0x00, 0x00, 0x02, 0x02, 0x00, 0x00, 0x07, 0x07, 0x05, 
-0x07, 0x07, 0x07, 0x00, 0x00, 0x02, 0x02, 0x00, 0x00,
-
-0x00, 0x00, 0x50, 0x50, 0x00, 0x00, 0x81, 0x81, 0xaa, 
-0xaa, 0x81, 0x81, 0x00, 0x00, 0x50, 0x50, 0x00, 0x00, 
-0x00, 0x00, 0x01, 0x01, 0x00, 0x00, 0x03, 0x03, 0x02, 
-0x03, 0x03, 0x03, 0x00, 0x00, 0x01, 0x01, 0x00, 0x00,
-};
-
-
-const unsigned char PROGMEM coin[] =
-{
-// width, height,
-7, 7,
-// FRAME 00
-0x1c, 0x1c, 0x3e, 0x3e, 0x77, 0x7f, 0x6b, 
-0x7f, 0x77, 0x7f, 0x3e, 0x3e, 0x1c, 0x1c,
-
-0x00, 0x00, 0x00, 0x00, 0x3e, 0x3e, 0x63, 
-0x7f, 0x3e, 0x3e, 0x00, 0x00, 0x00, 0x00,
-};
-
-
-
-Rect rectFirst;
-Rect rectSecond;
-Rect player{15, 41, 8, 15};
-Rect endLine{-10, -10, 2, 2};
-Rect rectFirstMiddle{13, 55, 4, 2}; 
-Rect rectSecondMiddle{83, 55, 4, 2}; 
-Rect rectCoin{-10, 45, 5, 5};
 
 void setup() {
   arduboy.begin();
@@ -520,8 +19,6 @@ void setup() {
   rectSecond.y = 54;
   rectSecond.width = 20;
   rectSecond.height = 10;
-
-
 }
 
 void loop() {
@@ -531,62 +28,62 @@ if(!arduboy.nextFrame()) {
   beep.timer();
   arduboy.pollButtons();
   arduboy.clear();
-  YorPlayer();
-  
+  makePlayer();
+
   switch (gamestate){
    
   case 0: 
-  Sprites::drawOverwrite (0, 0, tittle, 0);
+  Sprites::drawOverwrite (0, 0, title, 0);
   coinFonTime++;
   if(coinFonTime > 15){
-    Sprites::drawOverwrite (96,33, coinFon, 0);
-    Sprites::drawOverwrite (16,33, coinFon, 0);
+     Sprites::drawOverwrite (96, 33, coinFon, 0);
+     Sprites::drawOverwrite (16, 33, coinFon, 0);
   }
-  if(coinFonTime == 30) coinFonTime = 0;
-  
-  Menu();
-  if (arduboy.justPressed(A_BUTTON) && markerPos == 0){
-    if(soundEnable == 0) beep.tone(beep.freq(1000), 1);
-    perfectCount = 0;
-    gamestate = 1;
-    soundOn = 0;
+  if(coinFonTime == 30)
+     coinFonTime = 0;  
+  updateMenu();
+  if(arduboy.justPressed(A_BUTTON) && (markerPos == 0)){
+     beep.tone(beep.freq(1000), 1);
+     perfectCount = 0;
+     gamestate = 1;
+     soundOn = 0;
   }
-  if (arduboy.justPressed(A_BUTTON) && markerPos == 1){
-    if(soundEnable == 0) beep.tone(beep.freq(1000), 1);
-    gamestate = 2;
+  if(arduboy.justPressed(A_BUTTON) && (markerPos == 1)){
+     beep.tone(beep.freq(1000), 1);
+     gamestate = 2;
   }
   break;
   
   case 1:
-  if (player.y > 64 || player.x > 128){
-    if(soundEnable == 0) beep.tone(beep.freq(50), 3);
+  if((player.y > 64) || (player.x > 128)){
+    beep.tone(beep.freq(50), 3);
     gamestate = 4;
   }
+  if((platformFirstMove == 0) && (platformSecondMove == 2))
+      platformStrate = true;
+  if((platformFirstMove == 2) && (platformSecondMove == 0))
+      platformStrate = false;   
+      
   gameBar();
-  MovePlayer();
-  Platform();
-  DrawLine();
-  Bonus();
-  DrawPlayer();
-  Sound();
-
-  
-  
-    if (arduboy.justPressed(A_BUTTON)){
+  movePlayer();
+  movePlatform();
+  drawLines();
+  getBonus();
+  drawPlayer();
+  doSound();
    
-    gamestate = 3;
-    }
+  if(arduboy.justPressed(A_BUTTON))
+     gamestate = 3;
   break;
 
- //player
   case 2:
   Players();
-  Sound();
-  if (arduboy.justPressed(A_BUTTON)) gamestate = 0;
+  doSound();
+  if(arduboy.justPressed(A_BUTTON))
+     gamestate = 0;
   break;
 
   case 3:
-
   arduboy.setCursor(26, 23);
   arduboy.print(F("Quit the game?"));
   arduboy.setCursor(0, 55);
@@ -595,10 +92,9 @@ if(!arduboy.nextFrame()) {
   arduboy.print(F("RIGHT-no"));
   arduboy.drawRoundRect(23, 20, 88, 13, 3);
   
-  if (arduboy.justPressed(RIGHT_BUTTON)) {
-    gamestate = 1; 
-  }
-  if (arduboy.justPressed(LEFT_BUTTON)){
+  if(arduboy.justPressed(RIGHT_BUTTON))
+     gamestate = 1; 
+  if(arduboy.justPressed(LEFT_BUTTON)){
     gamestate = 0;
     reset();
   }
@@ -612,78 +108,41 @@ if(!arduboy.nextFrame()) {
   arduboy.setCursor(0, 50);
   arduboy.drawRoundRect(37, 27, 53, 13, 3);
 
-  if (arduboy.justPressed(A_BUTTON)) {
+  if(arduboy.justPressed(A_BUTTON)) {
   reset();
   gamestate = 1; 
   }
 
   break;
+  
+  case 5:
+  if(arduboy.frameCount < 100)
+     Sprites::drawOverwrite (46, 23, logo, 0);
+  if(arduboy.frameCount == 100)
+     gamestate = 0;
+  break;
   }
   arduboy.display();
-
 }
 
 
-void YorPlayer(){
-    if(markerPlayer == 0){
-    selectedPlayer = ninga;
-    selectedPlayer2 = ninga2;
+void makePlayer(){
+  if((playerMarker >= 0) && (playerMarker <= 12))
+  {
+    selectedPlayer = players[playerMarker];
+    selectedPlayer2 = players2[playerMarker];
   }
-  if(markerPlayer == 1){
-    selectedPlayer = girl;
-    selectedPlayer2 = girl2;
-  }
-  if(markerPlayer == 2){
-    selectedPlayer = mush;
-    selectedPlayer2 = mush2;
-  }
-  if(markerPlayer == 3){
-    selectedPlayer = sansay;
-    selectedPlayer2 = sansay2;
-  }
-  if(markerPlayer == 4){
-    selectedPlayer = panda;
-    selectedPlayer2 = panda2;
-  }
-  if(markerPlayer == 5){
-    selectedPlayer = filmote;
-    selectedPlayer2 = filmote2;  
-  }
-  if(markerPlayer == 6){
-    selectedPlayer = MrBlinky;
-    selectedPlayer2 = MrBlinky2;  
-  }
-  if(markerPlayer == 7){
-    selectedPlayer = Pharap;
-    selectedPlayer2 = Pharap2;  
-  }
-  if(markerPlayer == 8){
-    selectedPlayer = drummyfish;
-    selectedPlayer2 = drummyfish2;  
-  }
-  if(markerPlayer == 9){
-    selectedPlayer = Vampirics;
-    selectedPlayer2 = Vampirics2;  
-  } 
-  if(markerPlayer == 10){
-    selectedPlayer = mlxxxp;
-    selectedPlayer2 = mlxxxp2;  
-  } 
-  if(markerPlayer == 11){
-    selectedPlayer = ESPboy;
-    selectedPlayer2 = ESPboy2;  
-  } 
 }
 
 void reset(){
-bridgeIsDown = 0;
-bridgeOnPlatform = 0;
-buttOn = 0;
-collFirst = 0;
-collSecond = 0;
+bridgeIsDown = false;
+bridgeOnPlatform = false;
+buttOn = false;
+collFirst = false;
+collSecond = false;
 playerOnPlatform = 0;
-allowDrawLine = 1;
-spriteAnim = 0;
+allowDrawLine = true;
+spriteAnim = false;
 frames = 0;
 randFirstWidth = 30;
 randFirstPos = 0;
@@ -693,7 +152,7 @@ lineOnX = 29;
 lineOnY = 54;
 platformFirstMove = 0;
 platformSecondMove = 2;
-lengthBridge = 0;
+bridgeLength = 0;
 player.x = 15;
 player.y = 41;
 rectFirst.x = 0;
@@ -705,438 +164,412 @@ rectSecond.y = 54;
 rectSecond.width = 20;
 rectSecond.height = 10; 
 countPlatform = 0;
-flipPlayer = 0;
+flipPlayer = false;
 coinRandF = - 10;
 coinRandS = -10;
 coinsCount = 0;
 perfect = 0;
 perfectCount = 0;
-spriteAnim = 0;
+spriteAnim = false;
 endLine.x = -100;
 }
 
 
-void DrawPlayer(){
-  
-  if(chosenPlayer[0] == 1){
-    selectedPlayer = ninga;
-    selectedPlayer2 = ninga2;
+void drawPlayer(){
+  for(uint8_t i = 0; i < 12; i++){
+      if(chosenPlayer == i){
+         selectedPlayer = players[i];
+         selectedPlayer2 = players2[i];
+      }
   }
-  if(chosenPlayer[1] == 1){
-    selectedPlayer = girl;
-    selectedPlayer2 = girl2;
-  }
-  if(chosenPlayer[2] == 1){
-    selectedPlayer = mush;
-    selectedPlayer2 = mush2;
-  }
-  if(chosenPlayer[3] == 1){
-    selectedPlayer = sansay;
-    selectedPlayer2 = sansay2;
-  }
-  if(chosenPlayer[4] == 1){
-    selectedPlayer = panda;
-    selectedPlayer2 = panda2;
-  }
-  if(chosenPlayer[5] == 1){
-  selectedPlayer = filmote;
-  selectedPlayer2 = filmote2;
-  }
-  if(chosenPlayer[6] == 1){
-  selectedPlayer = MrBlinky;
-  selectedPlayer2 = MrBlinky2;
-  }
-  if(chosenPlayer[7] == 1){
-  selectedPlayer = Pharap;
-  selectedPlayer2 = Pharap2;
-  }
-  if(chosenPlayer[8] == 1){
-  selectedPlayer = drummyfish;
-  selectedPlayer2 = drummyfish2;
-  }
-  if(chosenPlayer[9] == 1){
-  selectedPlayer = Vampirics;
-  selectedPlayer2 = Vampirics2;
-  }
-  if(chosenPlayer[10] == 1){
-  selectedPlayer = mlxxxp;
-  selectedPlayer2 = mlxxxp2;
-  }
-  if(chosenPlayer[11] == 1){
-  selectedPlayer = ESPboy;
-  selectedPlayer2 = ESPboy2;
-  }
-  if (arduboy.justPressed(B_BUTTON) && flipPlayer == 1 && Timer > 5){
-    if(soundEnable == 0) beep.tone(beep.freq(200), 3);
-    flipPlayer = 0;
+  if(arduboy.justPressed(B_BUTTON) && flipPlayer && Timer > 5){
+    beep.tone(beep.freq(200), 3);
+    flipPlayer = false;
     Timer = 0;
   }
-  if (spriteAnim == 0) frames = 0; 
+  
+  if(!spriteAnim)
+    frames = 0; 
   else{
-  if (arduboy.everyXFrames(8)) frames++;
-  if (frames > 1) frames = 0;  
+  if(arduboy.everyXFrames(8)) frames++;
+  if(frames > 1) frames = 0;  
   }
-  if (flipPlayer == 0){
+  
+  if(!flipPlayer){
     Sprites::drawPlusMask (player.x, player.y + 1, selectedPlayer, frames);
     Timer++;
   }
-  if (flipPlayer == 1){
+  if(flipPlayer){
     Sprites::drawPlusMask (player.x, player.y + 12, selectedPlayer2, frames);
     Timer++;
   }
-  
-  if (platformFirstMove == 0 && platformSecondMove == 2 && arduboy.justPressed(B_BUTTON) && flipPlayer == 0){
-  if (player.x > rectFirst.x + randFirstWidth && player.x < rectSecond.x && Timer > 5){
-    if(soundEnable == 0) beep.tone(beep.freq(200), 3);
-    flipPlayer = 1;
-    Timer = 0;
-  } 
+  if(platformStrate && arduboy.justPressed(B_BUTTON) && !flipPlayer){
+    if((player.x > (rectFirst.x + randFirstWidth)) && (player.x < rectSecond.x) && (Timer > 5)){
+       beep.tone(beep.freq(200), 3);
+       flipPlayer = true;
+       Timer = 0;
+    } 
   }
-  if (platformFirstMove == 2 && platformSecondMove == 0 && arduboy.justPressed(B_BUTTON) && flipPlayer == 0){
-  if (player.x > rectSecond.x + randSecondWidth && player.x < rectFirst.x && Timer > 5){
-    flipPlayer = 1;
-    Timer = 0;
-  }
-  }
-  
-}
-
-
-void MovePlayer(){  
-  
-  if (arduboy.collide(player, rectFirst) && player.x > rectFirst.x) collFirst = 1;
-  else collFirst = 0;
-  if (arduboy.collide(player, rectSecond) && player.x > rectSecond.x) collSecond = 1;
-  else collSecond = 0;
-  
-  if (platformFirstMove == 0 && platformSecondMove == 2){
-  if (flipPlayer == 1 && player.x + 8 > rectSecond.x) player.y = 65;
-  if (bridgeIsDown == 1 && player.x < lengthBridge + randFirstWidth + 1 && bridgeOnPlatform == 0){
-    player.x++;
-    spriteAnim = 1;
-  }
-  if(player.x < rectSecond.x + rectSecond.width - 12 && bridgeOnPlatform == 1){
-  player.x++;
-  spriteAnim = 1; 
-  }
-
-  if (player.x > lengthBridge + randFirstWidth && collSecond == 0 && bridgeOnPlatform == 0) player.y++;
-  }
-
-
-  
-  if (platformSecondMove == 0 && platformFirstMove == 2){
-  if (flipPlayer == 1 && player.x + 8 > rectFirst.x) player.y = 65; 
-  if (bridgeIsDown == 1 && player.x < lengthBridge + randSecondWidth + 1 && bridgeOnPlatform == 0){
-    player.x++;
-    spriteAnim = 1;
-  }
-
-  if(player.x < rectFirst.x + rectFirst.width - 12 && bridgeOnPlatform == 1){
-  player.x++;
-  spriteAnim = 1; 
-  }
-
-  if (player.x > lengthBridge + randSecondWidth && collFirst == 0 && bridgeOnPlatform == 0) player.y++;
-  }
-  if (player.x == rectFirst.x + rectFirst.width - 12 && platformSecondMove == 0 && platformFirstMove == 2 && bridgeOnPlatform == 1|| player.x  == rectSecond.x + rectSecond.width - 12 && platformSecondMove == 2 && platformFirstMove == 0  && bridgeOnPlatform == 1){
-    playerOnPlatform = 1;
-    bridgeIsDown = 0;
-  
-  }
-  else playerOnPlatform = 0;
-  if (platformFirstMove == 3 && bridgeOnPlatform == 1) player.x--;
-  if (platformSecondMove == 3 && bridgeOnPlatform == 1) player.x--;
-
-  
- 
-
-}
-
-void DrawLine(){
-if (arduboy.pressed(B_BUTTON) && allowDrawLine == 1){
-    if(platformFirstMove == 0 && platformSecondMove == 2 || platformSecondMove == 0 && platformFirstMove == 2 ){
-      buttOn = 1;
-      lengthBridge++;
+  if(!platformStrate && arduboy.justPressed(B_BUTTON) && !flipPlayer){
+    if((player.x > (rectSecond.x + randSecondWidth)) && (player.x < rectFirst.x) && (Timer > 5)){
+       flipPlayer = true;
+       Timer = 0;
     }
   }
-  else buttOn = 0;
-  if (lengthBridge > 0){
-  if (platformFirstMove == 0 && platformSecondMove == 2) drawBridge(rectFirst.x + randFirstWidth - 1,53, lengthBridge, arduboy.frameCount);
-  if (platformSecondMove == 0 && platformFirstMove == 2) drawBridge(rectSecond.x + randSecondWidth - 1,53, lengthBridge,arduboy.frameCount);
-  }
-  if (arduboy.collide(endLine, rectFirst) || arduboy.collide(endLine, rectSecond)) bridgeOnPlatform = 1;
-  if (buttOn == 0 && lengthBridge > 1) allowDrawLine = 0;
+  
+}
 
-  if  (playerOnPlatform == 1) endLine.x = -100;
+
+void movePlayer(){  
+  
+  if(arduboy.collide(player, rectFirst) && (player.x > rectFirst.x))
+     collFirst = true;
+  else 
+     collFirst = false;
+  
+  if(arduboy.collide(player, rectSecond) && (player.x > rectSecond.x))
+     collSecond = true;
+  else 
+     collSecond = false;
+  
+  if(((platformFirstMove == 0) && (platformSecondMove == 2))){
+      if(flipPlayer && (player.x + 8) > rectSecond.x)
+         player.y = 65;
+          if(bridgeIsDown && (player.x < (bridgeLength + randFirstWidth + 1)) && !bridgeOnPlatform){
+          player.x++;
+          spriteAnim = true;
+          }
+          if((player.x < (rectSecond.x + rectSecond.width - 13)) && bridgeOnPlatform){
+          player.x++;
+          spriteAnim = true; 
+          }
+          if((player.x > (bridgeLength + randFirstWidth)) && !collSecond && !bridgeOnPlatform)
+          player.y++;
+  }
+
+
+  
+  if(((platformFirstMove == 2) && (platformSecondMove == 0))){
+     if(flipPlayer && ((player.x + 8) > rectFirst.x))
+        player.y = 65; 
+        if(bridgeIsDown && player.x < bridgeLength + randSecondWidth + 1 && !bridgeOnPlatform){
+           player.x++;
+           spriteAnim = true;
+        }  
+        if(player.x < rectFirst.x + rectFirst.width - 13 && bridgeOnPlatform){
+           player.x++;
+           spriteAnim = true; 
+        }
+        if((player.x > (bridgeLength + randSecondWidth)) && !collFirst && !bridgeOnPlatform)
+           player.y++;
+  } 
+  
+  if((player.x == (rectFirst.x + rectFirst.width - 13)) && !platformStrate && bridgeOnPlatform || (player.x == (rectSecond.x + rectSecond.width - 13)) && platformStrate && bridgeOnPlatform){
+    playerOnPlatform = true;
+   
+  }
+  else 
+    playerOnPlatform = false;
+    
+  if((platformFirstMove == 3) && !bridgeOnPlatform)
+     player.x--;
+  if((platformSecondMove == 3) && !bridgeOnPlatform)
+     player.x--;
+}
+
+
+void drawLines(){
+  if(bridgeLength > 0){
+    if(platformStrate)
+        drawBridge(rectFirst.x + randFirstWidth - 1, 53, bridgeLength, arduboy.frameCount);
+    if(!platformStrate)
+        drawBridge(rectSecond.x + randSecondWidth - 1, 53, bridgeLength, arduboy.frameCount);
+  }
+  if(arduboy.pressed(B_BUTTON) && allowDrawLine){
+    if(((platformFirstMove == 0) && (platformSecondMove == 2))|| ((platformFirstMove == 2) && (platformSecondMove == 0))){
+         buttOn = true;
+         bridgeLength++;
+    }
+  }
+  else
+         buttOn = false;
+
+  if(arduboy.collide(endLine, rectFirst) || arduboy.collide(endLine, rectSecond))
+     bridgeOnPlatform = true;
+  if(!buttOn && (bridgeLength > 1))
+     allowDrawLine = false;
+
+  if  (playerOnPlatform)
+      endLine.x = -100;
  }
 
 
-void drawBridge(int x, int y, int length, int frame)
-{  
-
-  if (buttOn == 1){ // rising the bridge: draw growing vertical line
-    arduboy.drawLine(x,y,x,y - lengthBridge);
+void drawBridge(int x, int y, int length, int frame){  
+  if(buttOn){ 
+    arduboy.drawLine(x, y, x, y - bridgeLength);
     arduboy.frameCount = 20;
-    bridgeIsDown = 0;
+    bridgeIsDown = false;
     soundOn = 2;
   }
-  else if (frame < ANIMATION_FRAMES) // bridge falling: draw rotating line
-  {
-    float phase = ((frame - ANIMATION_FRAMES / 2) * PI_HALF) / ((float) ANIMATION_FRAMES / 2); // by reordering the operations here we avoid using float :)
-    arduboy.drawLine(x,y,x + sin(phase) * length,y - cos(phase) * length);
+  else if(frame < ANIMATION_FRAMES){
+    float phase = ((frame - ANIMATION_FRAMES / 2) * PI_HALF) / ((float) ANIMATION_FRAMES / 2); 
+    arduboy.drawLine(x, y, x + sin(phase) * length, y - cos(phase) * length);
   }
-  else{ // bridge on the ground: just draw a horizontal line
-    arduboy.drawLine(x,y,x + length,y);
-    if (lengthBridge > 1){
-      endLine.x = x + length;
-      endLine.y = y + 1;
-    }
-    
-
-    if (lengthBridge > 0) bridgeIsDown = 1;
-  }
-    
+    else{ // bridge on the ground: just draw a horizontal line
+       arduboy.drawLine(x, y, x + length, y);
+         if(bridgeLength > 1){
+         endLine.x = x + length;
+         endLine.y = y + 1;
+         }
+       if(bridgeLength > 0)
+          bridgeIsDown = true;
+    }   
 }
 
-void Platform(){
+void movePlatform(){
 
 // First
 
-if (rectFirst.x < 126 && platformFirstMove == 0 && playerOnPlatform == 1 && buttOn == 0 && platformSecondMove == 2){
+if((rectFirst.x < 126) && playerOnPlatform && !buttOn && platformStrate){
   platformFirstMove = 4;
-  spriteAnim = 0;
+  spriteAnim = false;
 }
-if (rectFirst.x == - 1){
+if(rectFirst.x == - 1){
   countPlatform++; 
-  lengthBridge = 0;
+  bridgeLength = 0;
+  bridgeIsDown = false;
 }
-if (platformFirstMove == 4) rectFirst.x--;
-if (rectFirst.x <= 0 - randFirstWidth) rectFirst.x = 128;
-if (rectFirst.x == 128){
-    if(level == 0){
-    randFirstWidth = random(15,40);
-    randFirstPos = random(randSecondWidth + 16,90);
-    randCoin = random(0,4);
+if(platformFirstMove == 4)
+   rectFirst.x--;
+if(rectFirst.x <= (0 - randFirstWidth))
+   rectFirst.x = 128;
+if(rectFirst.x == 128){
+    if(!level){
+       randFirstWidth = random(15, 40);
+       randFirstPos = random(randSecondWidth + 16, 90);
+       randCoin = random(0, 4);
     }
 
-    if(level == 1){
-    randFirstWidth = random(5,20);
-    randFirstPos = random(randSecondWidth + 16,90);
-    randCoin = random(0,3);
+    if(level){
+       randFirstWidth = random(5, 20);
+       randFirstPos = random(randSecondWidth + 16, 90);
+       randCoin = random(0, 3);
     }
-    platformFirstMove = 1; 
-    allowDrawLine = 1;
-    
-    
+platformFirstMove = 1; 
+allowDrawLine = true;  
   }
 
-  if (platformFirstMove == 1){
-    rectFirst.width = randFirstWidth;
-    if (rectFirst.x > randFirstPos) rectFirst.x --;
+  if(platformFirstMove == 1){
+     rectFirst.width = randFirstWidth;
+      if(rectFirst.x > randFirstPos)
+      rectFirst.x --;
   }
-  if (rectFirst.x == randFirstPos){
-    platformFirstMove = 2;
-  }
-  if (platformSecondMove == 0 && buttOn == 0 && platformFirstMove == 2 && playerOnPlatform == 1) platformFirstMove = 3;
-  if (platformFirstMove == 3 && rectFirst.x > 0 - randFirstWidth) rectFirst.x--;
-  if (rectFirst.x == 0){
+  if(rectFirst.x == randFirstPos)
+     platformFirstMove = 2;
+
+  if(!platformStrate && !buttOn && playerOnPlatform)
+      platformFirstMove = 3;
+  if((platformFirstMove == 3) && (rectFirst.x > (0 - randFirstWidth)))
+      rectFirst.x--;
+  if(rectFirst.x == 0){
     platformFirstMove = 0;
-    bridgeOnPlatform = 0;
+    bridgeOnPlatform = false;
   }
 
   
 //Second
 
-if (rectSecond.x < 126 && platformSecondMove == 0 && playerOnPlatform == 1 && buttOn == 0 && platformFirstMove >= 2){
-  platformSecondMove = 4;
-  spriteAnim = 0;
+if((rectSecond.x < 126) && playerOnPlatform && !buttOn && !platformStrate){
+    platformSecondMove = 4;
+    spriteAnim = false;
 }
-if (rectSecond.x == - 1){ 
-lengthBridge = 0;
-countPlatform++; 
+if(rectSecond.x == - 1){ 
+   bridgeLength = 0;
+   countPlatform++; 
+   bridgeIsDown = false;
 }
-if (platformSecondMove == 4) rectSecond.x--;
-if (rectSecond.x <= 0 - randSecondWidth) rectSecond.x = 128;
-if (rectSecond.x == 128){
-    if(level == 0){
-    randSecondWidth = random(15,40);
-    randSecondPos = random(randFirstWidth + 10,90);
-    randCoin = random(0,4);
+if(platformSecondMove == 4)
+   rectSecond.x--;
+if(rectSecond.x <= 0 - randSecondWidth)
+   rectSecond.x = 128;
+if(rectSecond.x == 128){
+    if(!level){
+       randSecondWidth = random(15, 40);
+       randSecondPos = random(randFirstWidth + 10, 90);
+       randCoin = random(0, 4);
     }
-    if(level == 1){
-    randSecondWidth = random(5,20);
-    randSecondPos = random(randFirstWidth + 10,90);
-    randCoin = random(0,3);
+    if(level){
+       randSecondWidth = random(5, 20);
+       randSecondPos = random(randFirstWidth + 10, 90);
+       randCoin = random(0, 3);
     }
-    platformSecondMove = 1; 
-    allowDrawLine = 1;
-    
-    
+   platformSecondMove = 1; 
+   allowDrawLine = true;   
   }
 
-  if (platformSecondMove == 1){
-    rectSecond.width = randSecondWidth;
-    if (rectSecond.x > randSecondPos) rectSecond.x --;
+  if(platformSecondMove == 1){
+     rectSecond.width = randSecondWidth;
+     if(rectSecond.x > randSecondPos) rectSecond.x --;
   }
-  if (rectSecond.x == randSecondPos){
-    platformSecondMove = 2;
+  if(rectSecond.x == randSecondPos){
+     platformSecondMove = 2;
   }
-  if (platformFirstMove == 4 && buttOn == 0 && platformSecondMove == 2  && playerOnPlatform == 1) platformSecondMove = 3;
-  if (platformSecondMove == 3 && rectSecond.x > 0 - randSecondWidth) rectSecond.x--;
-  if (rectSecond.x == 0){
-    platformSecondMove = 0;
-  }
-  if (platformSecondMove == 2 && platformFirstMove == 0 || platformFirstMove == 2 && platformSecondMove == 0) bridgeOnPlatform = 0;
+  if((platformFirstMove == 4) && !buttOn && (platformSecondMove == 2)  && playerOnPlatform)
+      platformSecondMove = 3;
+  if((platformSecondMove == 3) && (rectSecond.x > (0 - randSecondWidth)))
+      rectSecond.x--;
+  if(rectSecond.x == 0)
+     platformSecondMove = 0;
 
-
-  
+  if((platformStrate) || (!platformStrate))
+       bridgeOnPlatform = false;
+        
   arduboy.fillRect(rectFirst.x, rectFirst.y, rectFirst.width, rectFirst.height);
   arduboy.fillRect(rectSecond.x, rectSecond.y, rectSecond.width, rectSecond.height);
 }
 
-void Bonus(){
+void getBonus(){
   rectFirstMiddle.x = rectFirst.x + (rectFirst.width/2 - 2);
   rectSecondMiddle.x = rectSecond.x + (rectSecond.width/2 - 2);
-  
   arduboy.fillRect(rectFirstMiddle.x, rectFirstMiddle.y, rectFirstMiddle.width, rectFirstMiddle.height, BLACK);
   arduboy.fillRect(rectSecondMiddle.x, rectSecondMiddle.y, rectSecondMiddle.width, rectSecondMiddle.height, BLACK);
-
-  if (arduboy.collide(endLine, rectFirstMiddle) && middleOn == 0 || arduboy.collide(endLine, rectSecondMiddle) && middleOn == 0){
-    perfect++;
-    coinsCount++;
-    allMoney++;
-    middleOn = 1;
-    soundOn = 1;
-    perfectCount++;
-    if(level == 1){
+  if((arduboy.collide(endLine, rectFirstMiddle) && !middleOn) || (arduboy.collide(endLine, rectSecondMiddle) && !middleOn)){
+      perfect++;
       coinsCount++;
       allMoney++;
-    }
+      middleOn = true;
+      soundOn = 1;
+      perfectCount++;
+        if(level){
+           coinsCount++;
+           allMoney++;
+        }
   }
 
-  if(middleOn == 0 && bridgeIsDown == 1) perfectCount = 0;
+  if(!middleOn && bridgeIsDown)
+     perfectCount = 0;
   
-  if(middleOn == 1 && bridgeIsDown == 0) middleOn = 0;
+  if(middleOn && !bridgeIsDown)
+     middleOn = false;
 
   //coin
-  if (randCoin == 2){
-  if (platformSecondMove == 1){
-  if (rectSecond.x == randSecondPos + 1) coinRandF = random(rectFirst.x + randFirstWidth, rectSecond.x - 6);
-  }
-  if (platformFirstMove == 1){
-  if (rectFirst.x == randFirstPos + 1) coinRandS = random(rectSecond.x + randSecondWidth, rectFirst.x - 6);
-  }
+  if(randCoin == 2){
+    if(platformSecondMove == 1){
+      if(rectSecond.x == randSecondPos + 1)
+         coinRandF = random(rectFirst.x + randFirstWidth, rectSecond.x - 6);
+    }
+    if(platformFirstMove == 1){
+      if(rectFirst.x == randFirstPos + 1)
+         coinRandS = random(rectSecond.x + randSecondWidth, rectFirst.x - 6);
+    }
   }
   
-  if (platformFirstMove == 0 && platformSecondMove == 2) {
-    rectCoin.x = coinRandF;
-    Sprites::drawPlusMask (rectCoin.x, rectCoin.y + 12, coin, frameCoin);
+  if((platformFirstMove == 0) && (platformSecondMove == 2)) {
+      rectCoin.x = coinRandF;
+      Sprites::drawPlusMask (rectCoin.x, rectCoin.y + 12, coin, frameCoin);
   }
-  if (platformFirstMove == 2 && platformSecondMove == 0){
-    rectCoin.x = coinRandS;
-    Sprites::drawPlusMask (rectCoin.x, rectCoin.y + 12, coin, frameCoin);
+  if((platformFirstMove == 2) && (platformSecondMove == 0)){
+      rectCoin.x = coinRandS;
+      Sprites::drawPlusMask (rectCoin.x, rectCoin.y + 12, coin, frameCoin);
   }
   Timer2++;
-  if (Timer2 < 10) frameCoin = 0;
-  if (Timer2 > 9) frameCoin = 1;
-  if (Timer2 == 20) Timer2 = 0;
+  if(Timer2 < 10)
+     frameCoin = 0;
+  if(Timer2 > 9)
+     frameCoin = 1;
+  if(Timer2 == 20)
+     Timer2 = 0;
   
-    if (arduboy.collide(player, rectCoin) && flipPlayer == 1){ 
-
+    if(arduboy.collide(player, rectCoin) && flipPlayer){ 
     soundOn = 1;
     coinsCount++;
     allMoney++;
     coinRandF = - 10;
     coinRandS = - 10;
-
-    if(level = 2) {
-    coinsCount++;
-    allMoney++;  
+      if(level) {
+         coinsCount++;
+         allMoney++;  
+      }
     }
-  }
 
   if(perfectCount == 5){
-  soundOn = 3;
-  allMoney = allMoney + 5; 
-  coinsCount = coinsCount + 5;
-  perfectCount = 0;
-  if(level == 1){
-  allMoney = allMoney + 5; 
-  coinsCount = coinsCount + 5;
-  }
+     soundOn = 3;
+     allMoney = allMoney + 5; 
+     coinsCount = coinsCount + 5;
+     perfectCount = 0;
+      if(level){
+         allMoney = allMoney + 5; 
+         coinsCount = coinsCount + 5;
+      }
   }
 
   if(soundOn == 3){
-    if(level == 1){
-    arduboy.setCursor(105,12);
-    arduboy.print(F("+10"));  
+    if(level){
+       arduboy.setCursor(105, 12);
+       arduboy.print(F("+10"));  
     }
-    else{
-    arduboy.setCursor(110,12);
-    arduboy.print(F("+5"));
-    }
-  }
-  
-    
+     else{
+       arduboy.setCursor(110, 12);
+       arduboy.print(F("+5"));
+     }
+  }  
 }
 
-void Menu(){  
-
- 
-  if (arduboy.justPressed(DOWN_BUTTON) && markerPos < 3){
-    if(soundEnable == 0) beep.tone(beep.freq(300), 1);
-    markerPos++;
+void updateMenu(){   
+  if(arduboy.justPressed(DOWN_BUTTON) && (markerPos < 3)){
+     beep.tone(beep.freq(300), 1);
+     markerPos++;
   }
-  if (arduboy.justPressed(UP_BUTTON) && markerPos > 0){
-    if(soundEnable == 0) beep.tone(beep.freq(300), 1);
-    markerPos--;
+  if(arduboy.justPressed(UP_BUTTON) && (markerPos > 0)){
+     beep.tone(beep.freq(300), 1);
+     markerPos--;
   }
   
   if(markerPos == 0){
-  lineMarkerX = 47;
-  lineMarkerY = 33;
-  lineMarkerEndX = 81;
+     lineMarkerX = 47;
+     lineMarkerY = 33;
+     lineMarkerEndX = 81;
   }
 
   if(markerPos == 1){
-  lineMarkerX = 53;
-  lineMarkerY = 40;
-  lineMarkerEndX = 74; 
+     lineMarkerX = 53;
+     lineMarkerY = 40;
+     lineMarkerEndX = 74; 
   }
 
   if(markerPos == 2){
-  lineMarkerX = 56;
-  lineMarkerY = 47;
-  lineMarkerEndX = 71; 
+     lineMarkerX = 56;
+     lineMarkerY = 47;
+     lineMarkerEndX = 71; 
   }
 
   if(markerPos == 3){
-  lineMarkerX = 53;
-  lineMarkerY = 54;
-  lineMarkerEndX = 73; 
+     lineMarkerX = 53;
+     lineMarkerY = 54;
+     lineMarkerEndX = 73; 
   }
-  if (arduboy.justPressed(LEFT_BUTTON) && markerPos == 2){
-    if(soundEnable == 0) beep.tone(beep.freq(300), 1);
-    level = 0;
+  if(arduboy.justPressed(LEFT_BUTTON) && (markerPos == 2)){
+     beep.tone(beep.freq(300), 1);
+     level = false;
   }
-  if (arduboy.justPressed(RIGHT_BUTTON) && markerPos == 2){
-    if(soundEnable == 0) beep.tone(beep.freq(300), 1);
-    level = 1;
+  if(arduboy.justPressed(RIGHT_BUTTON) && (markerPos == 2)){
+     beep.tone(beep.freq(300), 1);
+     level = true;
   }
-  if (level == 1) Sprites::drawPlusMask (57, 42, hard, 0);
-  
-  
-  arduboy.drawLine(lineMarkerX,lineMarkerY,lineMarkerEndX,lineMarkerY);
-  
-  if (arduboy.justPressed(B_BUTTON) && markerPos == 3) soundEnable = 1;
-  if (arduboy.justPressed(A_BUTTON) && markerPos == 3) soundEnable = 0;
-
-  if(soundEnable == 0) Sprites::drawOverwrite (76, 49, on1, 0);
+  if(level)
+     Sprites::drawPlusMask (57, 42, hard, 0); 
+  arduboy.drawLine(lineMarkerX, lineMarkerY, lineMarkerEndX, lineMarkerY);
+   
+  if(arduboy.justPressed(B_BUTTON) && (markerPos == 3))
+     arduboy.audio.off();
+  if(arduboy.justPressed(A_BUTTON) && (markerPos == 3)){
+     arduboy.audio.on();
+  }  
+  if(arduboy.audio.enabled())
+     Sprites::drawOverwrite (76, 49, on1, 0);
 }
 
 void Players(){
-  uint8_t i;
   Sprites::drawPlusMask (5, 57, coin, 0);
   arduboy.setCursor(15, 57);
   arduboy.print(allMoney);
@@ -1144,141 +577,73 @@ void Players(){
   arduboy.setCursor(10, 5);
   arduboy.print(F("Choose your runner"));
 
-  if (arduboy.everyXFrames(10)) frames++;
-  if (frames > 1) frames = 0;  
-
-  if(arduboy.justPressed(RIGHT_BUTTON) &&  markerPlayer < 11){
-    if(soundEnable == 0) beep.tone(beep.freq(100), 2);
-    markerPlayer++;
-    
+  if(arduboy.everyXFrames(10))
+     frames++;
+  if(frames > 1)
+     frames = 0;  
+  if(arduboy.justPressed(RIGHT_BUTTON) &&  (playerMarker < 11)){
+     beep.tone(beep.freq(100), 2);
+     playerMarker++;   
   }
-  if(arduboy.justPressed(LEFT_BUTTON) &&  markerPlayer > 0){
-    if(soundEnable == 0) beep.tone(beep.freq(100), 2);
-    markerPlayer--;
-    
+  if(arduboy.justPressed(LEFT_BUTTON) &&  (playerMarker > 0)){
+     beep.tone(beep.freq(100), 2);
+     playerMarker--;  
   }
   
   Sprites::drawPlusMask (60, 35, selectedPlayer, frames);
-  if(markerPlayer < 11) Sprites::drawOverwrite (75, 38, MPR, 0);
-  if(markerPlayer > 0) Sprites::drawOverwrite (50, 38, MPL, 0);
+  if(playerMarker < 11)
+     Sprites::drawOverwrite (75, 38, MPR, 0);
+  if(playerMarker > 0)
+     Sprites::drawOverwrite (50, 38, MPL, 0);
+  if(playerMarker > 1)
+     Sprites::drawPlusMask (35, 85, coin, 0);
+     
+  arduboy.setCursor(xCursor[playerMarker], 53);   
+  arduboy.print(names[playerMarker]);
 
-  if(markerPlayer > 1) Sprites::drawPlusMask (35, 85, coin, 0);
-  if(markerPlayer == 0){
-  arduboy.setCursor(50, 53);
-  arduboy.print(F("NINJA"));  
-  }
-
-    if(markerPlayer == 1){       
-  arduboy.setCursor(42, 53);
-  arduboy.print(F("VICTORIA")); 
-   
-  }
-
-    if(markerPlayer == 2){
-  arduboy.setCursor(44, 53);
-  arduboy.print(F("MUSHBOY"));  
-  }
-
-    if(markerPlayer == 3){
-  arduboy.setCursor(46, 53);
-  arduboy.print(F("SENSEI"));  
-  }
-
-    if(markerPlayer == 4){
-  arduboy.setCursor(50, 53);
-  arduboy.print(F("PANDA"));  
-  }
-
-    if(markerPlayer == 5){
-  arduboy.setCursor(45, 53);
-  arduboy.print(F("FILMOTE"));  
-  }
+    for (uint8_t i = 0; i < 12; i++){
+       if((costPlayer[i] <= allMoney) && arduboy.justPressed(B_BUTTON) && (buyPlayer[i] == false) && (playerMarker == i)){
+          buyPlayer[i] = true;     
+          allMoney = allMoney - costPlayer[i];
+          soundOn = 3;
+       }
+      if((buyPlayer[i] == false) && (playerMarker == i)){
+          Sprites::drawOverwrite (62, 25, LOCK, 0);
+          Sprites::drawPlusMask (25, 41, coin, 0);
+          arduboy.drawRoundRect(0, 25, 42, 27, 5);
+          arduboy.setCursor(5, 30);
+          arduboy.print(F("Price:"));
+            if(costPlayer[i] < 100)
+               arduboy.setCursor(13, 41);
+            else
+               arduboy.setCursor(7, 41);
+          arduboy.println(costPlayer[i]);
+      }
   
-    if(markerPlayer == 6){
-  arduboy.setCursor(38, 53);
-  arduboy.print(F("MR.BLINKY"));  
-  }  
-
-    if(markerPlayer == 7){
-  arduboy.setCursor(48, 53);
-  arduboy.print(F("PHARAP"));  
-  }
-
-    if(markerPlayer == 8){
-  arduboy.setCursor(35, 53);
-  arduboy.print(F("DRUMMYFISH"));  
-  }
-
-    if(markerPlayer == 9){
-  arduboy.setCursor(35, 53);
-  arduboy.print(F("VAMPIRICS"));  
-  }
-
-    if(markerPlayer == 10){
-  arduboy.setCursor(48, 53);
-  arduboy.print(F("MLXXXp"));  
-  }
-
-    if(markerPlayer == 11){
-  arduboy.setCursor(47, 53);
-  arduboy.print(F("ESPboy"));  
-  }
-  
-    for (i = 0; i < 12; i++){
-    if(costPlayer[i] <= allMoney && arduboy.justPressed(B_BUTTON) && buyPlayer[i] == 0 && markerPlayer == i ){
-      buyPlayer[i] = 1;     
-      allMoney = allMoney - costPlayer[i];
-      soundOn = 3;
-    }
-    if(buyPlayer[i] == 0 && markerPlayer == i){
-      Sprites::drawOverwrite (62, 25, LOCK, 0);
-      Sprites::drawPlusMask (25, 41, coin, 0);
-      arduboy.drawRoundRect(0, 25, 42, 27, 5);
-      arduboy.setCursor(5, 30);
-      arduboy.print(F("Price:"));
-      if(costPlayer[i] < 100)arduboy.setCursor(13, 41);
-      else arduboy.setCursor(7, 41);
-      arduboy.println(costPlayer[i]);
-    }
-    if(buyPlayer[i] == 1 && markerPlayer == i && arduboy.justPressed(B_BUTTON)){
-      chosenPlayer[0] = 0;
-      chosenPlayer[1] = 0;
-      chosenPlayer[2] = 0;
-      chosenPlayer[3] = 0;
-      chosenPlayer[4] = 0;
-      chosenPlayer[5] = 0;
-      chosenPlayer[6] = 0;
-      chosenPlayer[7] = 0;
-      chosenPlayer[8] = 0;
-      chosenPlayer[9] = 0;
-      chosenPlayer[10] = 0;
-      chosenPlayer[11] = 0;
-      chosenPlayer[i] = 1;
-      if(soundEnable == 0) beep.tone(beep.freq(800), 3);
-    } 
- 
+    selectedPlayer = players[playerMarker];
     
-    if(chosenPlayer[i] == 1 && markerPlayer == i){
-      
+    if((buyPlayer[i] == true) && (playerMarker == i) && arduboy.justPressed(B_BUTTON)){
+        chosenPlayer = i;
+        beep.tone(beep.freq(800), 3);
+    } 
+    
+    if(chosenPlayer == i && playerMarker == i){
       arduboy.setCursor(41, 23);
       arduboy.print(F("SELECTED"));
       arduboy.drawRoundRect(39, 21, 51, 11, 3);
     }
-
-
-    }
-    
+    }   
 }
 
 void gameBar(){
-
-  if (arduboy.everyXFrames(80)) cloudXOne--;
-  if (arduboy.everyXFrames(150)) cloudXTwo--; 
-  
-  
-  if(cloudXOne < -20) cloudXOne = 128;
-  if(cloudXTwo < -20) cloudXTwo = 128;
-  
+  if(arduboy.everyXFrames(80))
+     cloudXOne--;
+  if(arduboy.everyXFrames(150))
+     cloudXTwo--;  
+  if(cloudXOne < -20)
+     cloudXOne = 128;
+  if(cloudXTwo < -20)
+     cloudXTwo = 128;
   Sprites::drawOverwrite (cloudXOne, 20, cloud, 0);
   Sprites::drawOverwrite (cloudXTwo, 25, cloud, 0);
   arduboy.print(countPlatform);
@@ -1288,40 +653,42 @@ void gameBar(){
   arduboy.print(coinsCount);
 }
 
-void Sound(){
-    if(soundEnable == 0){
+void doSound(){
   //coin
-  
-    if (soundOn == 1 && soundOn != 3) soundTimer++;
-    if (soundTimer < 3 && soundTimer > 0) beep.tone(beep.freq(900), 3);
-    if (soundTimer > 3) beep.tone(beep.freq(1500), 3);
-    if (soundTimer == 6){
-      soundOn = 0;
-      soundTimer = 0;
+    if((soundOn == 1) && (soundOn != 3))
+        soundTimer++;
+    if((soundTimer < 3) && (soundTimer > 0))
+        beep.tone(beep.freq(900), 3);
+    if(soundTimer > 3)
+       beep.tone(beep.freq(1500), 3);
+    if(soundTimer == 6){
+       soundOn = 0;
+       soundTimer = 0;
     }
     
     //platform move up
-    if (soundOn == 2) soundTimer2++;
-    if (soundTimer2 < 8 && soundTimer2 > 0) beep.tone(beep.freq(50), 3);
-    if (soundTimer2 > 8) beep.tone(beep.freq(100), 3);
-    if (soundTimer2 == 13){
-      soundOn = 0;
-      soundTimer2 = 0;
+    if(soundOn == 2)
+       soundTimer2++;
+    if((soundTimer2 < 8) && (soundTimer2 > 0))
+        beep.tone(beep.freq(50), 3);
+    if(soundTimer2 > 8)
+       beep.tone(beep.freq(100), 3);
+    if(soundTimer2 == 13){
+       soundOn = 0;
+       soundTimer2 = 0;
     }
     
   //perfectCount
-    if (soundOn == 3 && soundOn != 1) soundTimer3++;
-    if (soundTimer3 < 5 && soundTimer3 > 0) beep.tone(beep.freq(300), 3);
-    if (soundTimer3 >= 5 && soundTimer3 < 10) beep.tone(beep.freq(600), 3);
-    if (soundTimer3 > 15) beep.tone(beep.freq(900), 3);
-    if (soundTimer3 == 20){
-      soundOn = 0;
-      soundTimer3 = 0;
+    if((soundOn == 3) && (soundOn != 1))
+        soundTimer3++;
+    if((soundTimer3 < 5) && (soundTimer3 > 0))
+        beep.tone(beep.freq(300), 3);
+    if((soundTimer3 >= 5) && (soundTimer3 < 10))
+        beep.tone(beep.freq(600), 3);
+    if(soundTimer3 > 15)
+       beep.tone(beep.freq(900), 3);
+    if(soundTimer3 == 20){
+       soundOn = 0;
+       soundTimer3 = 0;
     }
-    
-    }
-
-
-    
-
 }
