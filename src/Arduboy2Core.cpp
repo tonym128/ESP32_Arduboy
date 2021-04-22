@@ -6,15 +6,13 @@
 
 #include "ESPboyOTA.h"
 #include "Arduboy2Core.h"
-#include "ESPboyOTA.h"
 #include <ESP_EEPROM.h>
-
+#include <ESP8266WiFi.h>
 
 TFT_eSPI screen;
 Adafruit_MCP23017 mcp;
 Adafruit_MCP4725 dac;
 ESPboyLED myled;
-ESPboyOTA* OTAobj = NULL;
 
 uint8_t Arduboy2Core::sBuffer[];
 uint16_t Arduboy2Core::colors[19] = { 
@@ -83,9 +81,6 @@ void Arduboy2Core::boot(){
   dac.setVoltage(4095, true);
   delay(500);
   screen.fillScreen(TFT_BLACK);
-  
-   // check OTA
-  if ((~mcp.readGPIOAB() & 255)&PAD_ACT || (~mcp.readGPIOAB() & 255)&PAD_ESC) OTAobj = new ESPboyOTA(&screen, &mcp);
   
   WiFi.mode(WIFI_OFF);
 }
