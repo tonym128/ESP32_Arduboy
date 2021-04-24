@@ -7,33 +7,23 @@
 #ifndef ARDUBOY2_CORE_H
 #define ARDUBOY2_CORE_H
 
-//#include <ESP8266WiFi.h>
 #include <Arduino.h>
+#include <ESP8266WiFi.h>
 #include <SPI.h>
 #include "TFT_eSPI.h"
-#include "Adafruit_MCP23017.h"
-#include "Adafruit_MCP4725.h"
-#include "ESPboyLogo.h"
-#include "ESPboy_LED.h"
 #include <ESP_EEPROM.h>
+#include "ESPboyInit.h"
+
 
 #include <limits.h>
 
-#define CSTFTPIN        8 //CS MCP23017 PIN to TFT
-#define MCP23017address 0 // actually it's 0x20 but in <Adafruit_MCP23017.h> lib there is (x|0x20) :)
-#define MCP4725address  0x60 //DAC driving LCD backlit
-#define LEDLOCK 		9
-
-
-#define maxVal(a,b) ((a)>(b)?(a):(b))
-#define minVal(a,b) ((a)<(b)?(a):(b))
-#define LHSWAP(w) (uint16_t)((((uint16_t)w)>>8)|(((uint16_t)w)<<8))
+#define max(a,b) ((a)>(b)?(a):(b))
+#define min(a,b) ((a)<(b)?(a):(b))
 
 // there is only one pin for audio
 #define PIN_SPEAKER_1 D3
 #define PIN_SPEAKER_2 D3
 
-#define LEDPIN 	D4
 #define RGB_ON 	200
 #define RGB_OFF 0
 #define RED_LED  0
@@ -49,16 +39,6 @@
 #define DOWN_BUTTON  4  /**< The Down button value for functions requiring a bitmask */
 #define A_BUTTON 	 2     /**< The A button value for functions requiring a bitmask */
 #define B_BUTTON 	 1     /**< The B button value for functions requiring a bitmask */
-
-#define PAD_LEFT        0x01
-#define PAD_UP          0x02
-#define PAD_DOWN        0x04
-#define PAD_RIGHT       0x08
-#define PAD_ACT         0x10
-#define PAD_ESC         0x20
-#define PAD_LFT         0x40
-#define PAD_RGT         0x80
-#define PAD_ANY         0xff
 
 
 #define WIDTH 128 /**< The width of the display in pixels */

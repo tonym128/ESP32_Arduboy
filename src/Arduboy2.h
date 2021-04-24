@@ -202,6 +202,7 @@ class Arduboy2Base : public Arduboy2Core
    *
    * \see boot()
    */
+  void start();
   void begin();
 
   /** \brief
@@ -402,6 +403,9 @@ class Arduboy2Base : public Arduboy2Core
    *
    * \see display(bool)
    */
+   
+  void clearDisplay();
+   
   void clear();
 
   /** \brief

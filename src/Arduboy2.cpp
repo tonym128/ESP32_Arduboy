@@ -8,9 +8,7 @@
 #include "ab_logo.c"
 #include "glcdfont.c"
 
-extern TFT_eSPI screen;
-extern Adafruit_MCP23017 mcp;
-extern Adafruit_MCP4725 dac;
+extern ESPboyInit myESPboy;
 
 //========================================
 //========== class Arduboy2Base ==========
@@ -30,6 +28,27 @@ Arduboy2Base::Arduboy2Base()
 // functions called here should be public so users can create their
 // own init functions if they need different behavior than `begin`
 // provides by default
+
+
+void Arduboy2Base::start(){
+  boot(); // raw hardware
+  clear();  
+  display(); // blank the display (sBuffer is global, so cleared automatically)  
+  flashlight(); // light the RGB LED and screen if UP button is being held.
+  // check for and handle buttons held during start up for system control
+  systemButtons(); 
+  audio.begin();
+  bootLogo();
+  // alternative logo functions. Work the same as bootLogo() but may reduce
+  // memory size if the sketch uses the same bitmap drawing function
+//  bootLogoCompressed();
+//  bootLogoSpritesSelfMasked();
+//  bootLogoSpritesOverwrite();
+//  bootLogoSpritesBSelfMasked();
+//  bootLogoSpritesBOverwrite();
+  waitNoButtons(); // wait for all buttons to be release
+}
+
 void Arduboy2Base::begin(){
   boot(); // raw hardware
   clear();  
@@ -55,7 +74,7 @@ void Arduboy2Base::flashlight(){
     return;
   }
   digitalWriteRGB(RGB_ON, RGB_ON, RGB_ON);
-  screen.fillScreen(TFT_WHITE);
+  myESPboy.tft.fillScreen(TFT_WHITE);
   while (true) {
     idle();
   }
@@ -464,7 +483,7 @@ void Arduboy2Base::drawFastVLine
 (int16_t x, int16_t y, uint8_t h, uint8_t color)
 {	
   int16_t end = y+h;
-  for (int16_t a = maxVal(0,y); a < minVal(end,HEIGHT); a++)
+  for (int16_t a = max(0,y); a < min(end,HEIGHT); a++)
   {
     drawPixel(x,a,color);
   }
@@ -883,7 +902,7 @@ void Arduboy2Base::display(){
 			currentDataByte = currentDataByte >> 1;
 	  }
     }
-    screen.pushImage(0, 20+kPos*16, WIDTH, 16, oBuffer);
+    myESPboy.tft.pushImage(0, 20+kPos*16, WIDTH, 16, oBuffer);
   }
 }
 
@@ -1225,7 +1244,7 @@ uint8_t Arduboy2::getTextBackground(){
 
 void Arduboy2::setTextSize(uint8_t s){
   // size must always be 1 or higher
-  textSize = maxVal(1, s);
+  textSize = max(1, s);
 }
 
 

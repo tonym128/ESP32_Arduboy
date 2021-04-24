@@ -3,11 +3,13 @@ ESPboy LED class
 for www.ESPboy.com project by RomanS
 */
 
-#include "ESPboy_LED.h"
+#include "ESPboyLED.h"
 
 
-void ESPboyLED::begin(){
+void ESPboyLED::begin(Adafruit_MCP23017 *mcpGUI){
+  mcp = mcpGUI;
   pinMode(LEDPIN, OUTPUT);
+  mcp->pinMode(LEDLOCK, OUTPUT);
   LEDflagOnOff = 1;
   LEDr = 0; 
   LEDg = 0; 
@@ -82,8 +84,11 @@ void ICACHE_RAM_ATTR ESPboyLED::ledset(uint8_t rled, uint8_t gled, uint8_t bled)
  static uint_fast32_t i, t, c, startTime, pixel, mask, t0h, t1h, ttot;
  static uint8_t cpuFreq;
  static const uint32_t pinMask = 1<<LEDPIN;
+  
   GPIO_REG_WRITE(GPIO_OUT_W1TC_ADDRESS, pinMask);
   delay(1);
+
+  mcp->digitalWrite(LEDLOCK, HIGH); 
   
   cpuFreq = ESP.getCpuFreqMHz()/80;
   t0h  = 32*cpuFreq;  // 0.4us
@@ -91,9 +96,9 @@ void ICACHE_RAM_ATTR ESPboyLED::ledset(uint8_t rled, uint8_t gled, uint8_t bled)
   ttot = 100*cpuFreq; // 1.25us
   
   pixel = (gled<<16) + (rled<<8) + bled;
-  mask = 0x800000;
-  os_intr_lock(); 
+  mask = 0x800000; 
   startTime = 0;
+  os_intr_lock();
   for (i=0; i<24; i++){
     if (pixel & mask) t = t1h;
     else t = t0h;
@@ -107,4 +112,6 @@ void ICACHE_RAM_ATTR ESPboyLED::ledset(uint8_t rled, uint8_t gled, uint8_t bled)
   os_intr_unlock();
   delay(1);
   GPIO_REG_WRITE(GPIO_OUT_W1TS_ADDRESS, pinMask);
+
+  mcp->digitalWrite(LEDLOCK, LOW); 
 }

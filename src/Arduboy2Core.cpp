@@ -4,86 +4,35 @@
  * The Arduboy2Core class for Arduboy hardware initilization and control.
  */
 
-#include "ESPboyOTA.h"
 #include "Arduboy2Core.h"
-#include <ESP_EEPROM.h>
-#include <ESP8266WiFi.h>
 
-TFT_eSPI screen;
-Adafruit_MCP23017 mcp;
-Adafruit_MCP4725 dac;
-ESPboyLED myled;
+ESPboyInit myESPboy;
+
 
 uint8_t Arduboy2Core::sBuffer[];
 uint16_t Arduboy2Core::colors[19] = { 
-            LHSWAP((uint16_t)TFT_BLACK), LHSWAP((uint16_t)TFT_NAVY), LHSWAP((uint16_t)TFT_DARKGREEN), LHSWAP((uint16_t)TFT_DARKCYAN), LHSWAP((uint16_t)TFT_MAROON),
-            LHSWAP((uint16_t)TFT_PURPLE), LHSWAP((uint16_t)TFT_OLIVE), LHSWAP((uint16_t)TFT_LIGHTGREY), LHSWAP((uint16_t)TFT_DARKGREY), 
-            LHSWAP((uint16_t)TFT_BLUE), LHSWAP((uint16_t)TFT_GREEN), LHSWAP((uint16_t)TFT_CYAN),
-            LHSWAP((uint16_t)TFT_RED), LHSWAP((uint16_t)TFT_MAGENTA), LHSWAP((uint16_t)TFT_YELLOW), LHSWAP((uint16_t)TFT_WHITE), 
-            LHSWAP((uint16_t)TFT_ORANGE), LHSWAP((uint16_t)TFT_GREENYELLOW), LHSWAP((uint16_t)TFT_PINK)
-};
+            TFT_BLACK, TFT_NAVY, TFT_DARKGREEN, TFT_DARKCYAN, TFT_MAROON,
+            TFT_PURPLE, TFT_OLIVE, TFT_LIGHTGREY, TFT_DARKGREY, 
+            TFT_BLUE, TFT_GREEN, TFT_CYAN,
+            TFT_RED, TFT_MAGENTA, TFT_YELLOW, TFT_WHITE, 
+            TFT_ORANGE, TFT_GREENYELLOW, TFT_PINK};
+
 uint8_t Arduboy2Core::foregroundclr = 14;
 uint8_t Arduboy2Core::backgroundclr = 0;
+
 
 Arduboy2Core::Arduboy2Core() {}
 
 
 void Arduboy2Core::boot(){
   Serial.begin(115200);         
-  EEPROM.begin(1500);
-  delay(100);
+  EEPROM.begin(2400);
 
-//LED init
-  myled.begin();
-
-//DAC init, LCD backlit off
-  dac.begin(MCP4725address);
-  delay(50);
-  dac.setVoltage(0, false);
-  delay(100);
-
-//MCP23017 and buttons init, should preceed the TFT init
-  mcp.begin(MCP23017address);
-  delay(100);
-
-  for (int i = 0; i < 8; ++i){
-    mcp.pinMode(i, INPUT);
-    mcp.pullUp(i, HIGH);
-  }
-
-//Sound init and test
-  pinMode(PIN_SPEAKER_1, OUTPUT);
-  //tone(PIN_SPEAKER_1, 200, 100);
-  delay(100);
-  //tone(PIN_SPEAKER_1, 100, 100);
-  delay(100);
-  noTone(PIN_SPEAKER_1);
-
-//TFT init
-  mcp.pinMode(CSTFTPIN, OUTPUT);
-  mcp.digitalWrite(CSTFTPIN, LOW);
-  screen.begin();
-  delay(200);
-  screen.setRotation(0);
-  screen.fillScreen(TFT_BLACK);
-
-//draw ESPboylogo
-  screen.drawXBitmap(30, 20, ESPboyLogo, 68, 64, TFT_YELLOW);
-  screen.setTextSize(1);
-  screen.setTextColor(TFT_YELLOW);
-  screen.setCursor(13, 95);
-  screen.print(F("Arduboy2 lib port"));
-
-//LCD backlit on
-  for (uint8_t bcklt=0; bcklt<100; bcklt++){
-    dac.setVoltage(bcklt*20, false);
-    delay(10);}
-  dac.setVoltage(4095, true);
-  delay(500);
-  screen.fillScreen(TFT_BLACK);
-  
-  WiFi.mode(WIFI_OFF);
+  //Init ESPboy
+  myESPboy.begin(((String)F("Arduboy2 lib port")).c_str());
 }
+
+
 
 
 void Arduboy2Core::setCPUSpeed8MHz() {};
@@ -121,13 +70,13 @@ delay(1);
 
 // Shut down the display
 void Arduboy2Core::displayOff() {
-dac.setVoltage(0, false);
+myESPboy.dac.setVoltage(0, false);
 };
 
 
 // Restart the display after a displayOff()
 void Arduboy2Core::displayOn() {
-dac.setVoltage(4095, false);
+myESPboy.dac.setVoltage(4095, false);
 };
 
 uint8_t Arduboy2Core::width() { return WIDTH; }
@@ -155,32 +104,32 @@ void Arduboy2Core::paintScreen(uint8_t image[], bool clear) {
 
 /* RGB LED */
 void Arduboy2Core::setRGBled(uint8_t red, uint8_t green, uint8_t blue){
-  myled.setRGB (red, green, blue);
+  myESPboy.myLED.setRGB (red, green, blue);
 };
 
 void Arduboy2Core::setRGBled(uint8_t color, uint8_t val){
-  if (color == RED_LED)   myled.setR (val);
+  if (color == RED_LED)   myESPboy.myLED.setR (val);
   else
-    if (color == GREEN_LED) myled.setG (val);
+    if (color == GREEN_LED) myESPboy.myLED.setG (val);
     else
-      if (color == BLUE_LED)  myled.setB (val);
+      if (color == BLUE_LED)  myESPboy.myLED.setB (val);
 };
 
 
 void Arduboy2Core::digitalWriteRGB(uint8_t red, uint8_t green, uint8_t blue){
-  if (red) myled.setR (200); else myled.setR (0); 
-  if (green) myled.setG (200); else myled.setG (0); 
-  if (blue) myled.setB (200); else myled.setB (0); 
+  if (red) myESPboy.myLED.setR (200); else myESPboy.myLED.setR (0); 
+  if (green) myESPboy.myLED.setG (200); else myESPboy.myLED.setG (0); 
+  if (blue) myESPboy.myLED.setB (200); else myESPboy.myLED.setB (0); 
 };
 
 
 void Arduboy2Core::digitalWriteRGB(uint8_t color, uint8_t val){
   if (color == 0)
-  	if(val) myled.setR (200); else myled.setR (0);
+  	if(val) myESPboy.myLED.setR (200); else myESPboy.myLED.setR (0);
   if (color == 1)
-    if(val) myled.setG (200); else myled.setG (0);
+    if(val) myESPboy.myLED.setG (200); else myESPboy.myLED.setG (0);
   if (color == 2)
-    if(val) myled.setB (200); else myled.setB (0);
+    if(val) myESPboy.myLED.setB (200); else myESPboy.myLED.setB (0);
 }
 
 
@@ -189,7 +138,7 @@ uint8_t Arduboy2Core::buttonsState(){
   static uint8_t buttons;	
   static uint16_t keystate;
   buttons = 0;
-  keystate = ~mcp.readGPIOAB() & 255;
+  keystate = myESPboy.getKeys();
     // LEFT_BUTTON, RIGHT_BUTTON, UP_BUTTON, DOWN_BUTTON, A_BUTTON, B_BUTTON
   if (keystate&PAD_ANY){
     if (keystate&PAD_LEFT)  { buttons |= LEFT_BUTTON; }  // left
