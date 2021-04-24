@@ -1,4 +1,3 @@
-#include <ESP8266WiFi.h>
 #include <Arduboy2.h>
 #include <ArduboyTones.h>
 #include "Game.h"
@@ -164,9 +163,6 @@ void Platform::ExpectLoadDelay()
 }
 
 void setup(){
-  WiFi.mode(WIFI_OFF);
-
-  // i think this is only needed for the esp8266 eeprom emulation
   //EEPROM.begin(EEPROM_NEEDED_BYTES);
 
   arduboy.begin();

@@ -5,7 +5,6 @@
 */
 
 
-#include <ESP8266WiFi.h>
 #include "global.h"
 #include "assets.h"
 #include "intro.h"
@@ -29,7 +28,6 @@ const FunctionPointer PROGMEM mainGameLoop[] = {
 };
 
 void setup() {
-  WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
   ab.begin();
   //beep.begin();
   //tunestunes.initChannel(PIN_SPEAKER_1);
