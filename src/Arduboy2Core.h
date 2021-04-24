@@ -19,6 +19,8 @@
 
 #define max(a,b) ((a)>(b)?(a):(b))
 #define min(a,b) ((a)<(b)?(a):(b))
+#define maxVal(a,b) ((a)>(b)?(a):(b))
+#define minVal(a,b) ((a)<(b)?(a):(b))
 
 // there is only one pin for audio
 #define PIN_SPEAKER_1 D3

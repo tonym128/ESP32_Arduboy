@@ -17,7 +17,6 @@
 //determine the game
 #define GAME_ID 46
 
-#include <ESP8266WiFi.h>
 #include "globals.h"
 #include "songs.h"
 #include "menu.h"
@@ -71,8 +70,6 @@ int main() {
 }
 
 void setup() {
-  WiFi.mode(WIFI_OFF);
-  EEPROM.begin(100);
   arduboy.boot();
   arduboy.audio.begin();
   //ATM.play(titleSong);
