@@ -13,16 +13,19 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 4. Copy "ESPboy_Arduboy2_lib" folder into Arduino\libraries folder and rename it to "Arudboy2".
 
 -- If you had downloaded the code as zip file instead of git clone, then you will have ESPboy_Arduboy2_lib_master folder instead of ESPboy_Arduboy2_lib.
+
 5. From within this new Arudboy2 folder, goto libs folder and remove "_master" from both directories.
 
 -- ArduboyTones-master --> ArduboyTones
 
 -- FixedPointsArduino --> FixedPointsArduino
+
 6. Copy the newly renamed "ArduboyTones" & "FixedPointsArduino" folder into the main Arduino\libraries folder.
 7. Clone/download the [ESPboy_Playtune](https://github.com/ESPboy-edu/ESPboy_Playtune) repo somewhere on your computer.
 8. Copy "ESPboy_Playtune" folder into Arduino\libraries folder.
 
 -- If you had downloaded the code as zip file instead of git clone, then you will have ESPboy_Playtune_master folder instead of ESPboy_Playtune.
+
 9. Goto Arduino\libraries\Arudboy2\GAMES folder and try to compile any main .ino file to check if everything is working fine; example Karateka\Karateka.ino.
 
 -- Note: the name of the game folder directory should be exactly same as the main .ino file; please rename the game folder directory as required, example "PPOT RoadTrip" --> "RoadTrip"
