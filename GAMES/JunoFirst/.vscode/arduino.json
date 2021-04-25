@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:leonardo",
+    "port": "COM9",
+    "sketch": "JunoFirst\\JunoFirst.ino",
+    "output": "../build"
+}

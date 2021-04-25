@@ -6,6 +6,22 @@ It supports ESPboy buttons, LED, sound (thanks to ported **"Arduboy PlayTones" l
 This port compiles for ESP8266 ESPboy, existing Arduboy2-compatible games and apps. 
 Some of them can use it as a drop-in replacement for the original **"Arduboy2" library**, other games will run after the slight modifications.
 
+# Setting up Arduino IDE
+1. Clone/download this repo somewhere on your computer.
+2. Now, we are going to replace the existing Arduboy2 libraries on your computer (if you have them installed).
+3. Navigate to Arduino\libraries folder on your computer and delete "Arudboy2" and "ArduboyTones" folders; take backup of both of them, if required.
+4. Copy "ESPboy_Arduboy2_lib" folder into Arduino\libraries folder and rename it to "Arudboy2".
+    - If you had downloaded the code as zip file instead of git clone, then you will have ESPboy_Arduboy2_lib_master folder instead of ESPboy_Arduboy2_lib.
+5. From within this new Arudboy2 folder, goto libs folder and remove "_master" from both directories.
+    - ArduboyTones-master --> ArduboyTones
+    - FixedPointsArduino-master --> FixedPointsArduino
+6. Copy the newly renamed "ArduboyTones" & "FixedPointsArduino" folder into the main Arduino\libraries folder.
+7. Clone/download the [ESPboy_Playtune](https://github.com/ESPboy-edu/ESPboy_Playtune) repo somewhere on your computer.
+8. Copy "ESPboy_Playtune" folder into Arduino\libraries folder.
+    - If you had downloaded the code as zip file instead of git clone, then you will have ESPboy_Playtune_master folder instead of ESPboy_Playtune.
+9. Goto Arduino\libraries\Arudboy2\GAMES folder and try to compile any main .ino file to check if everything is working fine; example Karateka\Karateka.ino.
+    - Note: the name of the game folder directory should be exactly same as the main .ino file; please rename the game folder directory as required, example "PPOT RoadTrip" --> "RoadTrip"
+
 # Migrating the game from Arduboy to ESPboy
 1. replace the **"Arduboy2" library** and **"Arduboy tones" library** in your Arduino Studio libraries folder with these versions.
 2. do ingame modifications according to the following notes:
@@ -62,6 +78,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Juno First** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/juno-first-1-01/5554)
 - **Domino** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/domino-all-fives-two-player/8087)
 - **Road Trip** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/road-trip-v1-0/9716)
 - **Blade Runner** (Apache-2.0) by [NoobGeek Ilya](https://community.arduboy.com/t/blade-runner/9698/17)
