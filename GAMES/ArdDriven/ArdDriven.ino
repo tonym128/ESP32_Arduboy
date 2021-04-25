@@ -15,7 +15,7 @@ version 2.1 of the License, or (at your option) any later version.
 #define GAME_FRAME_RATE 60
 
 //#include "ArduboyRem.h"
-#include <ESP8266WiFi.h>
+//#include <ESP8266WiFi.h>
 #include "Arduboy2.h"
 #include <ArduboyTones.h>
 #include "pics/playercar.h"

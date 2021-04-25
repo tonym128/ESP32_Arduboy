@@ -63,7 +63,7 @@ ArduboyTones::ArduboyTones(bool (*outEn)()){
   toneSequence[MAX_TONES * 2] = TONES_END;
 
   // sets the update call interval
-  //tonesTicker.attach_ms(10, updateTones);
+  //tonesTicker.attach_ms(1000, updateTones);
 }
 
 void ArduboyTones::tone(uint16_t freq, uint16_t dur){

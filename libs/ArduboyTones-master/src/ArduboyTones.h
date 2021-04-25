@@ -36,6 +36,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 *****************************************************************************/
 
+#pragma once
+
 #ifndef ARDUBOY_TONES_H
 #define ARDUBOY_TONES_H
 
