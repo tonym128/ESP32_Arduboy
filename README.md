@@ -19,10 +19,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 7. Clone/download the [ESPboy_Playtune](https://github.com/ESPboy-edu/ESPboy_Playtune) repo somewhere on your computer.
 8. Copy "ESPboy_Playtune" folder into Arduino\libraries folder.
     - If you had downloaded the code as zip file instead of git clone, then you will have ESPboy_Playtune_master folder instead of ESPboy_Playtune.
-
 9. Goto Arduino\libraries\Arudboy2\GAMES folder and try to compile any main .ino file to check if everything is working fine; example Karateka\Karateka.ino.
-
--- Note: the name of the game folder directory should be exactly same as the main .ino file; please rename the game folder directory as required, example "PPOT RoadTrip" --> "RoadTrip"
+    - Note: the name of the game folder directory should be exactly same as the main .ino file; please rename the game folder directory as required, example "PPOT RoadTrip" --> "RoadTrip"
 
 # Migrating the game from Arduboy to ESPboy
 1. replace the **"Arduboy2" library** and **"Arduboy tones" library** in your Arduino Studio libraries folder with these versions.
