@@ -31,11 +31,11 @@ void ESPboyInit::begin(const char *appName) {
 
 //sound init and test
   pinMode(SOUNDPIN, OUTPUT);
-  playTone(200, 100); 
-  delay(100);
-  playTone(100, 100);
-  delay(100);
-  noPlayTone();
+  //playTone(200, 100); 
+  //delay(100);
+  //playTone(100, 100);
+  //delay(100);
+  //noPlayTone();
   
 //LCD TFT init
   mcp.pinMode(CSTFTPIN, OUTPUT);
