@@ -14,7 +14,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
     - If you had downloaded the code as zip file instead of git clone, then you will have ESPboy_Arduboy2_lib_master folder instead of ESPboy_Arduboy2_lib.
 5. From within this new Arudboy2 folder, goto libs folder and remove "_master" from both directories.
     - ArduboyTones-master --> ArduboyTones
-    - FixedPointsArduino --> FixedPointsArduino
+    - FixedPointsArduino-master --> FixedPointsArduino
 6. Copy the newly renamed "ArduboyTones" & "FixedPointsArduino" folder into the main Arduino\libraries folder.
 7. Clone/download the [ESPboy_Playtune](https://github.com/ESPboy-edu/ESPboy_Playtune) repo somewhere on your computer.
 8. Copy "ESPboy_Playtune" folder into Arduino\libraries folder.
@@ -78,6 +78,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Juno First** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/juno-first-1-01/5554)
 - **Domino** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/domino-all-fives-two-player/8087)
 - **Road Trip** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/road-trip-v1-0/9716)
 - **Blade Runner** (Apache-2.0) by [NoobGeek Ilya](https://community.arduboy.com/t/blade-runner/9698/17)
