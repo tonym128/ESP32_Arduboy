@@ -62,6 +62,7 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Bomberman** (???) by [LHW-HWT](https://github.com/createskyblue/Bomberman)
 - **Domino** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/domino-all-fives-two-player/8087)
 - **Road Trip** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/road-trip-v1-0/9716)
 - **Blade Runner** (Apache-2.0) by [NoobGeek Ilya](https://community.arduboy.com/t/blade-runner/9698/17)

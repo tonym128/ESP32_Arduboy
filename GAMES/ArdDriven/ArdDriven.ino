@@ -16,7 +16,7 @@ version 2.1 of the License, or (at your option) any later version.
 
 //#include "ArduboyRem.h"
 //#include <ESP8266WiFi.h>
-#include "Arduboy2.h"
+#include <Arduboy2.h>
 #include <ArduboyTones.h>
 #include "pics/playercar.h"
 #include "pics/playercar_bottom.h"
@@ -281,7 +281,7 @@ void prnt(String str){
 // use it for anything that needs to be set only once in your game.
 void setup() {
 	//initiate arduboy instance
-  WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
+  //WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
 	arduboy.boot(); // raw hardware
 	arduboy.blank(); // blank the display
 	arduboy.flashlight(); // light the RGB LED and screen if UP button is being held.
