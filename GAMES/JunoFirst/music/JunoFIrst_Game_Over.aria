@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<seqview xscroll="0.000000" yscroll="0" zoom="100">
+<sequence maintempo="350" measureAmount="16" currentTrack="0" beatResolution="960" internalName="Juno FIrst" fileFormatVersion="4" channelManagement="auto" metronome="false">
+
+<measure  firstMeasure="0" denom="4" num="4"/>
+
+<tempo>
+</tempo>
+<text>
+</text>
+<copyright>
+</copyright>
+<defaultkeysig keytype="2" keysymbolamount="0" />
+
+
+<track name="JUNO FIRST" id="0" channel="0" muted="false" soloed="false" volume="100" default_volume="80">
+  <key type="C" />
+  <editors height="128">
+    <score enabled="false" musical_notation="true" linear_notation="true" g_clef="true" f_clef="true" scroll="0.547945"/>
+    <keyboard enabled="true" scroll="0.647008" proportion="1.000000"/>
+    <guitar enabled="false"/>
+    <drum enabled="false" scroll="0.000000"/>
+    <controller enabled="false" controller="7"/>
+  </editors>
+  <magneticgrid divider="8" triplet="false" dotted="false"/>
+  <instrument id="0"/>
+  <drumkit id="0" collapseView="false"/>
+  <guitartuning  string0="67" string1="72" string2="76" string3="81" string4="86" string5="91"/>
+
+  <note pitch="83" start="0" end="480" volume="80"/>
+  <note pitch="83" start="960" end="1440" volume="80"/>
+  <note pitch="83" start="1920" end="2400" volume="80"/>
+  <note pitch="83" start="2880" end="3360" volume="80"/>
+  <note pitch="82" start="3840" end="4320" volume="80"/>
+  <note pitch="83" start="4800" end="5280" volume="80"/>
+  <note pitch="83" start="7680" end="8160" volume="80"/>
+  <note pitch="83" start="8640" end="9120" volume="80"/>
+  <note pitch="83" start="9600" end="10080" volume="80"/>
+  <note pitch="83" start="10560" end="11040" volume="80"/>
+  <note pitch="82" start="11520" end="12000" volume="80"/>
+  <note pitch="83" start="12480" end="12960" volume="80"/>
+  <note pitch="83" start="15360" end="16320" volume="80"/>
+  <note pitch="83" start="17280" end="18240" volume="80"/>
+  <note pitch="82" start="19200" end="21120" volume="80"/>
+  <note pitch="83" start="23520" end="24000" volume="80"/>
+  <note pitch="83" start="24480" end="24960" volume="80"/>
+  <note pitch="83" start="25440" end="25920" volume="80"/>
+  <note pitch="83" start="26400" end="26880" volume="80"/>
+  <note pitch="82" start="27360" end="27840" volume="80"/>
+  <note pitch="83" start="28320" end="28800" volume="80"/>
+  <note pitch="83" start="31200" end="31680" volume="80"/>
+  <note pitch="83" start="32160" end="32640" volume="80"/>
+  <note pitch="83" start="33120" end="33600" volume="80"/>
+  <note pitch="83" start="34080" end="34560" volume="80"/>
+  <note pitch="82" start="35040" end="35520" volume="80"/>
+  <note pitch="83" start="36000" end="36480" volume="80"/>
+  <note pitch="83" start="38880" end="39360" volume="80"/>
+  <note pitch="82" start="39840" end="40320" volume="80"/>
+  <note pitch="81" start="40800" end="41280" volume="80"/>
+  <note pitch="82" start="41760" end="42240" volume="80"/>
+  <note pitch="83" start="42720" end="43200" volume="80"/>
+  <controlevent type="7" tick="0" value="0.00000000"/>
+  <controlevent type="0" tick="0" value="127.00000000"/>
+  <controlevent type="127" tick="65279" value="127.00000000"/>
+</track>
+
+</sequence></seqview>
