@@ -16,7 +16,6 @@
 #define DISPLAY_WIDTH 128
 #define DISPLAY_HEIGHT 64
 #define SOUNDS
-#define _SHOW_GOAL
 
 #define UPM 64 // int16_ts per meter
 
@@ -32,7 +31,7 @@ namespace Constants {
     constexpr uint8_t PlayerCarHeightPX = 17;
     constexpr uint8_t OtherCarWidthUnits = 74;
     constexpr uint8_t OtherCarLengthUnits = 60;
-    constexpr uint8_t CollisionTollerance_X = 68;
+    constexpr uint8_t CollisionTollerance_X = 65;
     constexpr uint8_t CollisionTollerance_Z = 50;
 
     constexpr uint16_t SpeedDiv = 1800;//3000;
@@ -52,16 +51,16 @@ namespace Constants {
     constexpr uint16_t Gear5Max = 50000;
 
     constexpr uint16_t Gear0Min = 0;
-    constexpr uint16_t Gear1Min = Gear1Max / 3u * 4u;
-    constexpr uint16_t Gear2Min = Gear2Max / 3u * 4u;
-    constexpr uint16_t Gear3Min = Gear3Max / 3u * 4u;
-    constexpr uint16_t Gear4Min = Gear4Max / 3u * 4u;
-    constexpr uint16_t Gear5Min = Gear5Max / 3u * 4u;
+    constexpr uint16_t Gear1Min = Gear1Max / 3 * 4;
+    constexpr uint16_t Gear2Min = Gear2Max / 3 * 4;
+    constexpr uint16_t Gear3Min = Gear3Max / 3 * 4;
+    constexpr uint16_t Gear4Min = Gear4Max / 3 * 4;
+    constexpr uint16_t Gear5Min = Gear5Max / 3 * 4;
 
     constexpr uint16_t GearsMin[] = { Gear0Min, Gear1Min, Gear2Min, Gear3Min, Gear4Min, Gear5Min };
     constexpr uint16_t GearsMax[] = { Gear0Max, Gear1Max, Gear2Max, Gear3Max, Gear4Max, Gear5Max };
 
-    constexpr uint8_t PROGMEM GearboxX[] = { 0, 1, 1, 7, 7, 13 };
+    constexpr uint8_t PROGMEM GearboxX[] = { 0, 5, 5, 11, 11, 17 };
     constexpr uint8_t PROGMEM GearboxY[] = { 0, 1, 13, 1, 13, 1 };
 
     constexpr uint8_t NewDayBannerDelay = 100;

@@ -53,7 +53,13 @@ void title() {
             switch (titleVars.cursor) {
         
                 case 0:
-                    titleVars.titleState = TitleState::Aim;
+                    if (titleVars.seenAim)  {
+                        titleVars.titleState = TitleState::SelectTransmission;
+                    }
+                    else {
+                        titleVars.titleState = TitleState::Aim;
+                        titleVars.seenAim = true;
+                    }
                     titleVars.flyIn = true;
                     break;
         

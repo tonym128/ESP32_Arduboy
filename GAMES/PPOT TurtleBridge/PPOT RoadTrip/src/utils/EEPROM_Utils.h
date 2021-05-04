@@ -61,7 +61,8 @@ void EEPROM_Utils::initEEPROM(bool forceClear) {
         }
 
     }
-  EEPROM.commit();
+    EEPROM.commit();
+
 }
 
 
@@ -122,9 +123,10 @@ uint8_t EEPROM_Utils::saveScore(uint16_t distance) {
         EEPROM.write(EEPROM_TOP_START + (EEPROM_ENTRY_SIZE * idx) + 1, 0);
         EEPROM.write(EEPROM_TOP_START + (EEPROM_ENTRY_SIZE * idx) + 2, 0);
         EEPROM.put(EEPROM_TOP_START + (EEPROM_ENTRY_SIZE * idx) + 3, distance);
-    }
 
+    }
     EEPROM.commit();
+
     return idx;
 
 }
@@ -138,5 +140,7 @@ void EEPROM_Utils::writeChars(uint8_t slotIndex, HighScore &highScore) {
     EEPROM.write(EEPROM_TOP_START + (EEPROM_ENTRY_SIZE * slotIndex), highScore.getChar(0));
     EEPROM.write(EEPROM_TOP_START + (EEPROM_ENTRY_SIZE * slotIndex) + 1, highScore.getChar(1));
     EEPROM.write(EEPROM_TOP_START + (EEPROM_ENTRY_SIZE * slotIndex) + 2, highScore.getChar(2));
+    
     EEPROM.commit();
+
 }

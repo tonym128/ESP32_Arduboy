@@ -307,6 +307,7 @@ void houseKeeping() {
         cameraPos.decZ();
         car.decZ();
         world.decZ();
+        gamePlayVars.decZ();
 
         for (uint8_t i = 0; i < gamePlayVars.numberOfOtherCars; i++) {
 

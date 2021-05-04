@@ -1,8 +1,5 @@
 #include <stdint.h>
 
-#define max(a,b) ((a>b)?a:b)
-#define min(a,b) ((a<b)?a:b)
-
 
 // ----------------------------------------------------------------------------
 //  Initialise state ..
@@ -152,7 +149,7 @@ void game() {
     houseKeeping();
 
     #ifdef CACTII
-      moveCactii();
+        moveCactii();
     #endif
     
 
@@ -376,8 +373,6 @@ void game() {
     }
 
 }
-
-
 
 
 // ----------------------------------------------------------------------------

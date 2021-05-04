@@ -10,12 +10,12 @@ void renderHud() {
         case TransmissionType::Manual:
             {
                 uint8_t frame = arduboy.getFrameCount(8) / 2;
-                Sprites::drawPlusMask(1, 1, Images::Gearbox, 0);
+                Sprites::drawPlusMask(5, 1, Images::Gearbox, 0);
 
                 switch (car.getGear()) {
 
                     case 0:
-                        Sprites::drawPlusMask(7 + ((frame % 3) - 1), 7 + ((frame % 3) - 1), Images::Gearbox_Knob, 0);
+                        Sprites::drawPlusMask(11 + ((frame % 3) - 1), 7 + ((frame % 3) - 1), Images::Gearbox_Knob, 0);
                         break;
 
                     case 1 ... 5:
@@ -43,34 +43,27 @@ void renderHud() {
 
     {
         uint8_t tacho = car.getTacho();
-        uint8_t offset = car.getTransmissionType() == TransmissionType::Manual ? 0 : 4;
-        
-        Sprites::drawExternalMask(26 + offset, 1, Images::Tacho, Images::Tacho_Mask, 0, 0);
+
+        Sprites::drawOverwrite(28, 1, Images::Tacho, 0); // Render Tachometer gauge
+        arduboy.drawFastHLine(28, 9, 27, BLACK); // Lower horizontal line of frame
 
         if (tacho == 1) {
-
+            // Flash a solid bar to warn when under revving
             if (arduboy.getFrameCountHalf(32)) {
-
-                arduboy.drawRect(28 + offset, 3, 2, 5, BLACK);
-
+                arduboy.drawRect(30, 3, 2, 5, BLACK);
             }
 
         }
         else {
 
-            for (uint8_t i = 0, x = 28; i < tacho; i++, x = x + 3) {
-
+            for (uint8_t i = 0, x = 30; i < tacho; i++, x = x + 3) {
                 switch (i) {
-
                     case 0 ... 5:
-                        arduboy.drawFastVLine(x + offset, 3, 5, BLACK);
+                        arduboy.drawFastVLine(x, 3, 5, BLACK); // Render low revs line
                         break;
-
-                    case 6 ... 7:
-
-                        arduboy.drawRect(x + offset, 3, 2, 5, BLACK);
+                    default:
+                        arduboy.drawRect(x, 3, 2, 5, BLACK); // Render high revs bar
                         break;
-
                 }
 
             } 
@@ -80,31 +73,24 @@ void renderHud() {
     }
 
 
-    // Render distance travelled ..
+    // Render distance travelled (score)..
 
     {
-		uint8_t digits[5] = {};
-		extractDigits(digits, (uint16_t)(gamePlayVars.distance / 10));
-		
-		for (uint8_t i = 0, x2 = 84 ; i < 5; ++i, x2 -= 6) {
-			Sprites::drawOverwrite(x2, 1, Images::numbers_white, digits[i]);
-		}
-
-		Sprites::drawOverwrite(90, 1, Images::numbers_black, gamePlayVars.distance % 10);
-        arduboy.drawFastHLine(60, 1, 37, BLACK);
-        arduboy.drawFastHLine(60, 9, 37, BLACK);
-
-        arduboy.drawFastVLine(90, 1, 8, BLACK);
-
-        if (gamePlayVars.getTimeOfDay() == TimeOfDay::Day) {
-            arduboy.drawFastVLine(96, 1, 8, BLACK);
-        }
-        else {
-           arduboy.drawFastVLine(97, 2, 7, BLACK);
-           arduboy.drawFastVLine(96, 2, 7, WHITE);
+        uint8_t digits[5] = {};
+        extractDigits(digits, (uint8_t)(gamePlayVars.distance / 10));
+        
+        for (uint8_t i = 0, x2 = 84 ; i < 5; ++i, x2 -= 6) {
+            Sprites::drawOverwrite(x2, 1, Images::numbers_white, digits[i]);
         }
 
-	}
+        Sprites::drawOverwrite(90, 1, Images::numbers_black, gamePlayVars.distance % 10);
+        arduboy.drawFastHLine(60, 9, 37, BLACK); // Lower horizontal line of frame
+
+        if (gamePlayVars.getTimeOfDay() != TimeOfDay::Day) {
+            arduboy.drawFastVLine(96, 2, 7, WHITE); // Highlight right vertical line of frame
+        }
+
+    }
 
 
 
@@ -311,98 +297,43 @@ void renderRoad_Dither_Light(int16_t &startPos, int16_t endPos, int16_t y, bool 
 
 void renderDayBanner() {
 
-    #ifdef SHOW_GOAL
-        
-        uint8_t x = 0;
-        uint8_t noToRender = 0;
-        uint8_t const *image = nullptr;
+    uint8_t x = 0;
 
-        if (gamePlayVars.showDayBannerCount > 0) {
+    if (gamePlayVars.showDayBannerCount > 0) {
 
-            Sprites::drawExternalMask(16, 8, Images::StartOfDay, Images::StartOfDay_Mask, 0, 0);
+        Sprites::drawExternalMask(16, 8, Images::StartOfDay, Images::StartOfDay_Mask, 0, 0);
 
-            switch ((gamePlayVars.showDayBannerCount / 50) % 2) {
-
-                case true:
-                    x = 2;
-                    image = Images::Goal; 
-                    noToRender = gamePlayVars.carsPassed;
-                    break;
-
-                case false:
-                    x = 4;
-                    image = Images::Day; 
-                    noToRender = gamePlayVars.days;
-                    break;
-
-            }
-
-            switch (noToRender) {
-
-                case 1 ... 9:
-                    x = x + 49;
-                    break;
-
-                case 10 ... 99:
-                    x = x + 46;
-                    break;
-
-                case 100 ... 255:
-                    x = x + 44;
-                    break;
-
-            }
-
-            Sprites::drawOverwrite(x, 18, image, 0);
-            x = x + ((gamePlayVars.showDayBannerCount / 50) % 2 ? 22 : 18);
-
-            {
-                if (noToRender > 100)  { Sprites::drawOverwrite(x, 18, Images::Font4x6, ((noToRender / 100) + 26));  noToRender = noToRender - ((noToRender / 100) * 100); x = x + 5; }
-                if (noToRender > 10)   { Sprites::drawOverwrite(x, 18, Images::Font4x6, ((noToRender / 10) + 26));  noToRender = noToRender % 10; x = x + 5; }
-                Sprites::drawOverwrite(x, 18, Images::Font4x6, noToRender + 26);
-
-            }
-
+        switch (gamePlayVars.days) {
+            case 1 ... 9:
+                x = 48 + 5;
+                break;
+            case 10 ... 99:
+                x = 48 + 2;
+                break;
+            case 100 ... 9999:
+                x = 48;
+                break;
         }
 
-    #else
-        
-        uint8_t x = 0;
+        Sprites::drawOverwrite(x, 18, Images::Day, 0);
+        x = x + 18;
 
-        if (gamePlayVars.showDayBannerCount > 0) {
-
-            Sprites::drawExternalMask(16, 8, Images::StartOfDay, Images::StartOfDay_Mask, 0, 0);
-
-            switch (gamePlayVars.days) {
-
-                case 1 ... 9:
-                    x = 48 + 5;
-                    break;
-
-                case 10 ... 99:
-                    x = 48 + 2;
-                    break;
-
-                case 100 ... 9999:
-                    x = 48;
-                    break;
-
+        {
+            uint8_t newDay = gamePlayVars.days;
+            if (newDay >= 100)  {
+                Sprites::drawOverwrite(x, 18, Images::Font4x6, ((newDay / 100) + 26));
+                newDay = newDay - ((newDay / 100) * 100);
+                x = x + 5;
             }
-
-            Sprites::drawOverwrite(x, 18, Images::Day, 0);
-            x = x + 18;
-
-            {
-                uint8_t newDay = gamePlayVars.days;
-                if (newDay > 100)  { Sprites::drawOverwrite(x, 18, Images::Font4x6, ((newDay / 100) + 26));  newDay = newDay - ((newDay / 100) * 100); x = x + 5; }
-                if (newDay > 10)   { Sprites::drawOverwrite(x, 18, Images::Font4x6, ((newDay / 10) + 26));  newDay = newDay % 10; x = x + 5; }
-                Sprites::drawOverwrite(x, 18, Images::Font4x6, newDay + 26);
-
+            if (newDay >= 10)   {
+                Sprites::drawOverwrite(x, 18, Images::Font4x6, ((newDay / 10) + 26));
+                newDay = newDay % 10;
+                x = x + 5;
             }
-
+            Sprites::drawOverwrite(x, 18, Images::Font4x6, newDay + 26);
         }
 
-    #endif
+    }
 
 }
 
@@ -419,65 +350,54 @@ void renderLights() {
 
     if (gamePlayVars.showDayBannerCount > 0) {
 
-
         Sprites::drawExternalMask(3, 18, Images::Lights, Images::Lights_Mask, 0, 0);
 
         switch (gamePlayVars.showDayBannerCount) {
+        // NewDayBannerDelay count down from 130...
 
-            case 0 ... 19:
-                renderLights_Shown(7);
-                arduboy.setRGBled(0, 0, 0);
+            // Get Ready...
+            case 110:
+                arduboy.setRGBled(32, 0, 0); // Red
+                #ifdef SOUNDS
+                    sound.tones(Sounds::Lights_Short);
+                #endif
+                /*-fallthrough*/
+            case 81 ... 109:
+                arduboy.fillRect(11, 24, 3, 3, WHITE); // Illuminate light 1 (top)
                 break;
 
-            case 20 ... 49:
-                renderLights_Shown(7);
+            // Get Set...
+            case 80:
+                arduboy.setRGBled(24, 24, 0); // Amber
+                #ifdef SOUNDS
+                    sound.tones(Sounds::Lights_Short);
+                #endif
+                /*-fallthrough*/
+            case 51 ... 79:
+                arduboy.fillRect(11, 30, 3, 3, WHITE); // Illuminate light 2 (middle)
                 break;
 
+            // Go! ...
             case 50:
-                renderLights_Shown(7);
-                arduboy.setRGBled(0, 32, 0);
+                arduboy.setRGBled(0, 48, 0); // Green
                 #ifdef SOUNDS
                     sound.tones(Sounds::Lights_Long);
                 #endif
+                /*-fallthrough*/
+            case 20 ... 49:
+                arduboy.fillRect(11, 36, 3, 3, WHITE); // Illuminate light 3 (bottom)
+                break;
+                
+            case 0 ... 19:
+                arduboy.setRGBled(0, 0, 0);
+                arduboy.fillRect(11, 36, 3, 3, WHITE); // Illuminate light 3 (bottom)
                 break;
 
-            case 51 ... 79:
-                renderLights_Shown(3);
-                break;
-
-            case 80:
-                renderLights_Shown(3);
-                arduboy.setRGBled(32, 0, 32);
-                #ifdef SOUNDS
-                    sound.tones(Sounds::Lights_Short);
-                #endif
-                break;
-
-            case 81 ... 109:
-                renderLights_Shown(1);
-                break;
-
-            case 110:
-                renderLights_Shown(1);
-                arduboy.setRGBled(32, 0, 0);
-                #ifdef SOUNDS
-                    sound.tones(Sounds::Lights_Short);
-                #endif
-                break;
-
-            case 111 ... 130:
+            default:
                 break;
 
         }
 
     }
-
-}
-
-void renderLights_Shown(uint8_t lights) {
-
-    if (lights == 7)    arduboy.fillRect(11, 36, 3, 3, WHITE);
-    if (lights == 3)    arduboy.fillRect(11, 30, 3, 3, WHITE);
-    if (lights == 1)    arduboy.fillRect(11, 24, 3, 3, WHITE); 
 
 }
