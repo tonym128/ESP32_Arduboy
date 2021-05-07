@@ -1,0 +1,24 @@
+{
+    "files.associations": {
+        "cstddef": "cpp",
+        "limits": "cpp",
+        "type_traits": "cpp",
+        "__config": "cpp",
+        "__nullptr": "cpp",
+        "__bit_reference": "cpp",
+        "__string": "cpp",
+        "algorithm": "cpp",
+        "ios": "cpp",
+        "memory": "cpp",
+        "bitset": "cpp",
+        "optional": "cpp",
+        "__functional_base": "cpp",
+        "istream": "cpp",
+        "locale": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
+    },
+    "editor.detectIndentation": false,
+    "editor.fontSize": 13
+    
+  }

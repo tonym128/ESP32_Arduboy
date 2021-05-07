@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 2,
+  "title": "Humanity Revenge Director's Cut",
+  "description": "A Shoot 'Em Up for Arduboy",
+  "author": "giangregorio",
+  "version": "1.1",
+  "date": "2018-04-17",
+  "genre": "Shooter",
+  "sourceUrl": "https://github.com/giangregorio/Humanity_Revenge_DC",
+  "email": "giangregorio@gmail.com",
+  "banner": "banner.png",
+  "screenshots": [
+    {
+      "title": "title screen",
+      "filename": "screena.png"
+    },
+    {
+      "title": "ship selection",
+      "filename": "screenb.png"
+    },
+    {
+      "title": "level 1",
+      "filename": "screenc.png"
+    }
+  ],
+  "binaries": [
+    {
+      "title": "Humanity Revenge DC",
+      "filename": "Humanity_Revenge_DC.ino.leonardo.hex",
+      "device": "Arduboy"
+    }
+  ],
+  "buttons": [
+    {
+      "control": "A",
+      "action": "shoot"
+    },
+	{
+      "control": "B",
+      "action": "change weapon"
+    },
+    {
+      "control": "B while holding A",
+      "action": "bomb"
+    },
+    {
+      "control": "Up,Down,Left,Right",
+      "action": "move ship"
+    }
+  ]
+}

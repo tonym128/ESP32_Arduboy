@@ -1,0 +1,7 @@
+{
+    "sketch": "Invader/Invader.ino",
+    "board": "arduboy-homemade:avr:arduboy-homemade",
+    "output": "../build",
+    "port": "/dev/cu.usbmodem14601",
+    "configuration": "based_on=leonardo,boot=org,core=arduboy-core,display=ssd1306,flashselect=rx"
+}

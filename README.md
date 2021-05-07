@@ -78,6 +78,8 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **Humanity revenge** (???) by [Giangregorio](https://community.arduboy.com/t/humanity-revenge-a-simple-shoot-em-up/1475)
+- **1nvader** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/1nvader-v1-0/9665)
 - **Bomberman** (???) by [LHW-HWT](https://github.com/createskyblue/Bomberman)
 - **Juno First** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/juno-first-1-01/5554)
 - **Domino** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/domino-all-fives-two-player/8087)
