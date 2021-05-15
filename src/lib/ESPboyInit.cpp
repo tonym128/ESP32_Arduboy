@@ -5,6 +5,7 @@ https://hackaday.io/project/164830-espboy-games-iot-stem-for-education-fun
 v1.0
 */
 
+
 #include "ESPboyInit.h"
 
 ESPboyInit::ESPboyInit(){};
@@ -41,9 +42,9 @@ void ESPboyInit::begin(const char *appName) {
   mcp.pinMode(CSTFTPIN, OUTPUT);
   mcp.digitalWrite(CSTFTPIN, LOW);
   tft.begin();
+  tft.setSwapBytes(true);
   delay(100);
   //tft.setRotation(0);
-  tft.setSwapBytes(true);
   tft.fillScreen(TFT_BLACK);
 
 //draw ESPboylogo  

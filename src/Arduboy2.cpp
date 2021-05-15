@@ -888,8 +888,14 @@ void Arduboy2Base::display(){
   //foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
   //backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
   
-  foregroundColor = colors[foregroundclr];
-  backgroundColor = colors[backgroundclr];
+  if(!invert_flag){
+    foregroundColor = colors[foregroundclr];
+    backgroundColor = colors[backgroundclr];
+  }
+  else{
+    backgroundColor = colors[foregroundclr];
+    foregroundColor = colors[backgroundclr];
+  }
   
   for(kPos = 0; kPos<4; kPos++){  //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
     kkPos = kPos<<1;

@@ -19,6 +19,7 @@ uint16_t Arduboy2Core::colors[19] = {
 
 uint8_t Arduboy2Core::foregroundclr = 14;
 uint8_t Arduboy2Core::backgroundclr = 0;
+uint8_t Arduboy2Core::invert_flag = 0;
 
 
 Arduboy2Core::Arduboy2Core() {}
@@ -30,6 +31,8 @@ void Arduboy2Core::boot(){
 
   //Init ESPboy
   myESPboy.begin(((String)F("Arduboy2 lib port")).c_str());
+
+  
 }
 
 
@@ -53,7 +56,8 @@ void Arduboy2Core::allPixelsOn(bool on){};
 void Arduboy2Core::blank() {};
 // invert the display or set to normal
 // when inverted, a pixel set to 0 will be on
-void Arduboy2Core::invert(bool inverse){};
+void Arduboy2Core::invert(bool inverse){
+  invert_flag=inverse;};
 // flip the display vertically or set to normal
 void Arduboy2Core::flipVertical(bool flipped){};
 // flip the display horizontally or set to normal

@@ -12,10 +12,10 @@ v1.0
 #include <Adafruit_MCP23017.h> //to control buttons
 #include <Adafruit_MCP4725.h>  //to control the LCD display backlit
 #include "ESPboyLED.h"
+#include "ESPboylogo.h"
 
 #include <TFT_eSPI.h>          //to draw at LCD TFT
 #include <ESP8266WiFi.h>       //to control WiFi
-#include "lib/ESPboyLogo.h"
 
 #include <FS.h> 
 using fs::FS;

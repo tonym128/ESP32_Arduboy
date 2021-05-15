@@ -3,11 +3,11 @@ ESPboy LED class
 for www.ESPboy.com project by RomanS
 */
 
-#include <Arduino.h>
-#include <Adafruit_MCP23017.h> //to control LED lock
-
 #ifndef ESPboy_LED
 #define ESPboy_LED
+
+#include <Arduino.h>
+#include <Adafruit_MCP23017.h> //to control LED lock
 
 #define LEDPIN D4
 #define LEDLOCK 9

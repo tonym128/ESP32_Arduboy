@@ -12,8 +12,8 @@
 #include <SPI.h>
 #include "TFT_eSPI.h"
 #include <ESP_EEPROM.h>
-#include "ESPboyInit.h"
 
+#include "lib/ESPboyInit.h"
 
 #include <limits.h>
 
@@ -73,6 +73,7 @@ class Arduboy2Core
     
     static uint8_t foregroundclr;
     static uint8_t backgroundclr;
+    static uint8_t invert_flag;
     
     Arduboy2Core();
 
