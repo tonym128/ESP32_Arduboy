@@ -39,6 +39,7 @@ THE SOFTWARE.
 // this library is needed to get easy access to the esp82666 timer functions 
 #include <Ticker.h>
 
+
 Ticker tonesTicker;
 
 #include "ArduboyTones.h"
@@ -51,7 +52,7 @@ static volatile bool tonesPlaying = false;
 static volatile bool toneSilent;
 
 uint16_t *tonesStart;	
-uint16_t *tonesIndex;	
+uint16_t tonesIndex;	
 uint16_t toneSequence[MAX_TONES * 2 + 1];
 
 static volatile bool inProgmem;
@@ -68,7 +69,8 @@ ArduboyTones::ArduboyTones(bool (*outEn)()){
 
 void ArduboyTones::tone(uint16_t freq, uint16_t dur){
   inProgmem = false;
-  tonesStart = tonesIndex = toneSequence; // set to start of sequence array
+  tonesStart = toneSequence; 
+  tonesIndex =0; // set to start of sequence array
   toneSequence[0] = freq;
   toneSequence[1] = dur;
   toneSequence[2] = TONES_END; // set end marker
@@ -77,7 +79,8 @@ void ArduboyTones::tone(uint16_t freq, uint16_t dur){
 
 void ArduboyTones::tone(uint16_t freq1, uint16_t dur1, uint16_t freq2, uint16_t dur2){
   inProgmem = false;
-  tonesStart = tonesIndex = toneSequence; // set to start of sequence array
+  tonesStart = toneSequence; 
+  tonesIndex = 0;// set to start of sequence array
   toneSequence[0] = freq1;
   toneSequence[1] = dur1;
   toneSequence[2] = freq2;
@@ -88,7 +91,8 @@ void ArduboyTones::tone(uint16_t freq1, uint16_t dur1, uint16_t freq2, uint16_t 
 
 void ArduboyTones::tone(uint16_t freq1, uint16_t dur1, uint16_t freq2, uint16_t dur2, uint16_t freq3, uint16_t dur3){
   inProgmem = false;
-  tonesStart = tonesIndex = toneSequence; // set to start of sequence array
+  tonesStart = toneSequence;
+  tonesIndex = 0; // set to start of sequence array
   toneSequence[0] = freq1;
   toneSequence[1] = dur1;
   toneSequence[2] = freq2;
@@ -101,19 +105,20 @@ void ArduboyTones::tone(uint16_t freq1, uint16_t dur1, uint16_t freq2, uint16_t 
 
 void ArduboyTones::tones(const uint16_t *tones){
   inProgmem = true;
-  tonesStart = tonesIndex = (uint16_t *)tones; // set to start of sequence array
+  tonesStart = (uint16_t *)tones; // set to start of sequence array
+  tonesIndex = 0;
   nextTone(); // start playing
 }
 
 void ArduboyTones::tonesInRAM(uint16_t *tones){
   inProgmem = false;
-  tonesStart = tonesIndex = tones; // set to start of sequence array
+  tonesStart = tones;
+  tonesIndex = 0; // set to start of sequence array
   nextTone(); // start playing
 }
 
 void ArduboyTones::noTone(){
   ::noTone(TONES_PIN);
-  tonesPlaying = false;
 }
 
 void ArduboyTones::volumeMode(uint8_t mode){
@@ -124,20 +129,22 @@ bool ArduboyTones::playing(){
 }
 
 void ArduboyTones::nextTone(){
-  uint16_t freq;
-  uint16_t dur;
-  long toggleCount;
+  static uint16_t freq;
+  static uint16_t dur;
+  
   freq = getNext(); // get tone frequency
   if (freq == TONES_END) { // if freq is actually an "end of sequence" marker
     noTone(); // stop playing
+    tonesPlaying = false;
     return;
   }
 
   tonesPlaying = true;
 
   if (freq == TONES_REPEAT) { // if frequency is actually a "repeat" marker
-    tonesIndex = tonesStart; // reset to start of sequence
+    tonesIndex = 0; // reset to start of sequence
     freq = getNext();
+    return;
   }
 
   freq &= ~TONE_HIGH_VOLUME; // strip volume indicator from frequency
@@ -153,13 +160,6 @@ void ArduboyTones::nextTone(){
   if (!outputEnabled()) { // if sound has been muted
     toneSilent = true;
   }
-
-
-#ifdef TONES_SERIAL_DEBUG
-	Serial.print(millis(), DEC);
-	Serial.print(" freq:");
-	Serial.println(freq, DEC);
-#endif 
 	
 	// play the actual tone with the std tone library if not muted
 	if (toneSilent) {
@@ -170,31 +170,33 @@ void ArduboyTones::nextTone(){
 
   dur = getNext(); // get tone duration
 	
-
 #ifdef TONES_SERIAL_DEBUG
-	Serial.print(" next Tone in:");
+    Serial.println("INDEX START: " + (String)((uint32_t)tonesStart));
+    Serial.println("INDEX INDEX: " + (String)tonesIndex);
+	Serial.print("freq:");
+	Serial.println(freq, DEC);
+	Serial.print("delay:");
 	Serial.println(dur, DEC);
+	Serial.println("");
 #endif 
 	// set a timer to update the tone after its duration
 	tonesTicker.once_ms(dur, updateTones);
 }
 
+
 uint16_t ArduboyTones::getNext(){
-  if (inProgmem) {
-    return pgm_read_word(tonesIndex++);
-  }
-  return *tonesIndex++;
+  static uint16_t getTone;
+  if (inProgmem)
+    getTone = pgm_read_word((uint16_t *)((uint32_t)tonesStart+tonesIndex*sizeof(uint16_t)));
+  else getTone = tonesStart[tonesIndex];
+  tonesIndex++;
+  return (getTone);
 }
 
 void updateTones(){
-	//Serial.println("tik tok");
-	
-	// there is no need for toggling, this is the problem of tone()
-
 #ifdef TONES_SERIAL_DEBUG
 	Serial.print(millis(), DEC);
 	Serial.println(" nextTone()");
 #endif 
-
 	ArduboyTones::nextTone();
 }
