@@ -78,6 +78,10 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+- **MayQ** (Proprietary) by [cobinee](http://blog.livedoor.jp/cobinee/archives/1930726.html)
+- **SFZ** (Proprietary) by [cobinee](http://blog.livedoor.jp/cobinee/archives/1910024.html)
+- **Lagunita** (MIT) by [renato-grottesi](https://community.arduboy.com/t/lagunita-a-1d-wild-west-town-builder/8135)
+- **TeenyTank** (MIT) by [Jezzamon](https://community.arduboy.com/t/multiplayer-game-teenytank/585) 
 - **Humanity revenge** (???) by [Giangregorio](https://community.arduboy.com/t/humanity-revenge-a-simple-shoot-em-up/1475)
 - **1nvader** (BSD 3-Clause) by [Press Play on Tape](https://community.arduboy.com/t/1nvader-v1-0/9665)
 - **Bomberman** (???) by [LHW-HWT](https://github.com/createskyblue/Bomberman)
