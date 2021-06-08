@@ -269,6 +269,7 @@ int Arduboy2Base::cpuLoad(){
 }
 
 void Arduboy2Base::initRandomSeed(){
+
   randomSeed(ESP8266_DREG(0x20E44));
 }
 
@@ -880,13 +881,16 @@ void Arduboy2Base::clear(){
 }
 
 
-void Arduboy2Base::display(){ 
+void IRAM_ATTR Arduboy2Base::display(){ 
+//WARNING! flip_horizontal and flip_vertical control and render not implemented
+//but you can do it checking global 
+//bool flip_vertical_flag;
+//bool flip_horizontal_flag;
+//the same way as for bool invert_flag; or bool allpixelson_flag;
   static uint16_t oBuffer[WIDTH*16];
   static uint8_t currentDataByte;
   static uint16_t foregroundColor, backgroundColor, xPos, yPos, kPos, kkPos, addr;
 
-  //foregroundColor = LHSWAP((uint16_t)TFT_YELLOW);
-  //backgroundColor = LHSWAP((uint16_t)TFT_BLACK);
   
   if(!invert_flag){
     foregroundColor = colors[foregroundclr];
@@ -896,7 +900,9 @@ void Arduboy2Base::display(){
     backgroundColor = colors[foregroundclr];
     foregroundColor = colors[backgroundclr];
   }
-  
+
+ 
+if(!allpixelson_flag){
   for(kPos = 0; kPos<4; kPos++){  //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
     kkPos = kPos<<1;
     for (xPos = 0; xPos < WIDTH; xPos++) {
@@ -910,6 +916,10 @@ void Arduboy2Base::display(){
     }
     myESPboy.tft.pushImage(0, 20+kPos*16, WIDTH, 16, oBuffer);
   }
+}
+else myESPboy.tft.fillScreen(foregroundColor);
+
+
 }
 
 

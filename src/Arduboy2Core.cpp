@@ -8,6 +8,8 @@
 
 ESPboyInit myESPboy;
 
+ESPboyTerminalGUI *terminalGUIobj = NULL;
+ESPboyOTA2 *OTA2obj = NULL;
 
 uint8_t Arduboy2Core::sBuffer[];
 uint16_t Arduboy2Core::colors[19] = { 
@@ -19,8 +21,10 @@ uint16_t Arduboy2Core::colors[19] = {
 
 uint8_t Arduboy2Core::foregroundclr = 14;
 uint8_t Arduboy2Core::backgroundclr = 0;
-uint8_t Arduboy2Core::invert_flag = 0;
-
+bool Arduboy2Core::invert_flag = false;
+bool Arduboy2Core::flip_horizontal_flag = false;
+bool Arduboy2Core::flip_vertical_flag = false;
+bool Arduboy2Core::allpixelson_flag = false;
 
 Arduboy2Core::Arduboy2Core() {}
 
@@ -31,7 +35,12 @@ void Arduboy2Core::boot(){
 
   //Init ESPboy
   myESPboy.begin(((String)F("Arduboy2 lib port")).c_str());
-
+  
+    //Check OTA2
+  if (myESPboy.getKeys()&PAD_ACT || myESPboy.getKeys()&PAD_ESC) { 
+     terminalGUIobj = new ESPboyTerminalGUI(&myESPboy.tft, &myESPboy.mcp);
+     OTA2obj = new ESPboyOTA2(terminalGUIobj);
+  }
   
 }
 
@@ -50,20 +59,36 @@ void Arduboy2Core::bootPowerSaving() {};
 void Arduboy2Core::sendLCDCommand(uint8_t command){};
 void Arduboy2Core::exitToBootloader() {};
 void Arduboy2Core::mainNoUSB(){};
+void Arduboy2Core::blank() {};
+void Arduboy2Core::freeRGBled(){};
+
+
 // turn all display pixels on, ignoring buffer contents
 // or set to normal buffer display
-void Arduboy2Core::allPixelsOn(bool on){};
-void Arduboy2Core::blank() {};
+void Arduboy2Core::allPixelsOn(bool on){
+  allpixelson_flag=on;};
+
 // invert the display or set to normal
 // when inverted, a pixel set to 0 will be on
 void Arduboy2Core::invert(bool inverse){
   invert_flag=inverse;};
+
 // flip the display vertically or set to normal
-void Arduboy2Core::flipVertical(bool flipped){};
+void Arduboy2Core::flipVertical(bool flipped){
+  flip_vertical_flag=flipped;};
+
 // flip the display horizontally or set to normal
-void Arduboy2Core::flipHorizontal(bool flipped){};
-void Arduboy2Core::paint8Pixels(uint8_t pixels){}
-void Arduboy2Core::freeRGBled(){};
+void Arduboy2Core::flipHorizontal(bool flipped){
+  flip_horizontal_flag=flipped;};
+
+
+
+void Arduboy2Core::paint8Pixels(uint8_t pixels){
+   static uint8_t *addr=sBuffer;
+   addr[0]=pixels;
+   addr++;
+   if (((uint32_t)addr-(uint32_t)sBuffer)>HEIGHT*WIDTH) addr=sBuffer;
+}
 
 
 /* Power Management */
@@ -90,8 +115,8 @@ uint8_t Arduboy2Core::height() { return HEIGHT; }
 
 /* Drawing */
 
-void Arduboy2Core::paintScreen(const uint8_t *image){
-  //memcpy(sBuffer, image, HEIGHT*WIDTH/8);
+void Arduboy2Core::paintScreen(PGM_VOID_P image){
+  memcpy_P (sBuffer, image, HEIGHT*WIDTH/8);
 };
 
 // paint from a memory buffer, this should be FAST as it's likely what
@@ -100,9 +125,9 @@ void Arduboy2Core::paintScreen(const uint8_t *image){
 // The following assembly code runs "open loop". It relies on instruction
 // execution times to allow time for each byte of data to be clocked out.
 // It is specifically tuned for a 16MHz CPU clock and SPI clocking at 8MHz.
-void Arduboy2Core::paintScreen(uint8_t image[], bool clear) {
-//  memcpy(sBuffer, image, HEIGHT*WIDTH/8);
-//  if (clear) memset(sBuffer, 0, HEIGHT*WIDTH/8);
+void Arduboy2Core::paintScreen(uint8_t *image, bool clear) {
+  memcpy(sBuffer, image, HEIGHT*WIDTH/8);
+  if (clear) memset(image, 0, HEIGHT*WIDTH/8);
 };
 
 
