@@ -51,8 +51,12 @@ void Arduboy2Core::bootPowerSaving() {};
 void Arduboy2Core::sendLCDCommand(uint8_t command){};
 void Arduboy2Core::exitToBootloader() {};
 void Arduboy2Core::mainNoUSB(){};
-void Arduboy2Core::blank() {};
 void Arduboy2Core::freeRGBled(){};
+
+
+void Arduboy2Core::blank() {
+  memset(sBuffer, 0, HEIGHT*WIDTH/8);
+};
 
 
 // turn all display pixels on, ignoring buffer contents
