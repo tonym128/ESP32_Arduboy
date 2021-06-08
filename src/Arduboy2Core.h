@@ -14,8 +14,6 @@
 #include <ESP_EEPROM.h>
 
 #include "lib/ESPboyInit.h"
-#include "lib/ESPboyTerminalGUI.h"
-#include "lib/ESPboyOTA2.h"
 
 #include <limits.h>
 

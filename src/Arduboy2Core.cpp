@@ -8,8 +8,6 @@
 
 ESPboyInit myESPboy;
 
-ESPboyTerminalGUI *terminalGUIobj = NULL;
-ESPboyOTA2 *OTA2obj = NULL;
 
 uint8_t Arduboy2Core::sBuffer[];
 uint16_t Arduboy2Core::colors[19] = { 
@@ -35,12 +33,6 @@ void Arduboy2Core::boot(){
 
   //Init ESPboy
   myESPboy.begin(((String)F("Arduboy2 lib port")).c_str());
-  
-    //Check OTA2
-  if (myESPboy.getKeys()&PAD_ACT || myESPboy.getKeys()&PAD_ESC) { 
-     terminalGUIobj = new ESPboyTerminalGUI(&myESPboy.tft, &myESPboy.mcp);
-     OTA2obj = new ESPboyOTA2(terminalGUIobj);
-  }
   
 }
 
