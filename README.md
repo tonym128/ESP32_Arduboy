@@ -35,10 +35,9 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 - you have to put delay(0); in all loops like while(1) {...}. EPS8266 needs time to process WiFi stack and other internal SDK interrupts and can do it during the pauses like delay(0). Otherwise it watchdog resets.
 - games that directly control the SPI or I2C bus to write to OLED display need much more work to port instead of the simple steps above.
 - font() array is used in TFT_eSPI display library so you have to change all "font" to "font_"
-- min() and max() macros are used in TFT_eSPI display library so you have to change all min() and max() to minVal() and maxVal() correspondenly
 - there is a problem with a "char" data (signed/unsigned problem). By default Arduino "char" is signed and ESP "char" is unsigned. So you have to change all "char" to "signed char".
 - it's also better to change all "short" to "int16_t", "unsigned shot" to "uint16_t", "byte" to "uint8_t", "int" to "int16_t", "unsigned int" to "uint16_t", "long" to "int32_t", "unsigned long" to "uint32_t" 
-- in AVR compiler "bool function();" return FALSE in case of function out without "return(value);", but in ESP8266 compiler it returns TRUE
+- in AVR compiler "bool function();" returns FALSE in case of function out without "return(value);", but in ESP8266 compiler it returns TRUE
 
 
 # Advantages of ESPboy (ESP8266)
