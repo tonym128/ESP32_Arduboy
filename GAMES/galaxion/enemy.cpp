@@ -3,14 +3,13 @@
 //
 
 #include "game.h"
-#include "ArduboyTones.h"
-
+#include <ESPboyPlaytune.h>
 #include "bmp_chara.h"
 #include "sound.h"
 
 extern Arduboy2 mArduboy;
 extern Game mGame;
-extern ArduboyTones sound;
+extern ESPboyPlaytune pt;
 
 //=============================================================================
 static int get_dir(int dx)
@@ -486,10 +485,8 @@ int Convoy::defeat_alien(Position *missile)
       if (exp != NULL) delete exp;
       exp = new Explosion();
       exp->init(chk_x - 3, chk_y - 3, 0);
-      if (mArduboy.audio.enabled() && !sound.playing()) {
-	    //mArduboy.tunes.playScore(snd_zakoexp);
-      //sound.tones(snd_zakoexp);
-      sound.tone(300, 50, 200, 50, 100, 50);
+      if (mArduboy.audio.enabled()) {
+	pt.playScore(snd_zakoexp);
       }
 
       delete_alien(row, col);
@@ -528,9 +525,8 @@ int Convoy::defeat_alien(Position *missile)
 	exp->init(chk_x - 2, chk_y - 2, 0);
 
 	if (enemy[idx]->type == BOSS_ALIEN) {
-	  if (mArduboy.audio.enabled() && !sound.playing()) {
-	    //mArduboy.tunes.playScore(snd_bossexp);
-      //sound.tones(snd_zakoexp);
+	  if (mArduboy.audio.enabled()) {
+	    pt.playScore(snd_bossexp);
 	  }
 	  if (bscore != NULL) delete bscore;
 	  bscore = new BossScore();
@@ -555,9 +551,8 @@ int Convoy::defeat_alien(Position *missile)
 	    }
 	  }
 
-	  if (mArduboy.audio.enabled() && !sound.playing()) {
-	    //mArduboy.tunes.playScore(snd_zakoexp);
-      //sound.tones(snd_zakoexp);
+	  if (mArduboy.audio.enabled()) {
+	    pt.playScore(snd_zakoexp);
 	  }
 	}
 
@@ -835,10 +830,9 @@ void Convoy::do_state(int frame, bool attack, int ship_x, int ship_y)
     }
   }
   if (freq != 0) {
-    freq += (frame & 3) * 30;
-//    if (mArduboy.audio.enabled() && !mArduboy.tunes.playing()) {
-    if (mArduboy.audio.enabled() && !sound.playing()) {
-      if (freq>700) sound.tone(freq-300, 5);
+    freq += (frame & 3) * 10;
+    if (mArduboy.audio.enabled() && !pt.playing()) {
+      pt.tone(freq, 20);
     }
   }
 

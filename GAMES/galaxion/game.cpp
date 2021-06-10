@@ -3,15 +3,15 @@
 //
 
 #include "game.h"
-#include "ArduboyTones.h"
 
 extern Arduboy2 mArduboy;
 extern Game mGame;
-extern ArduboyTones sound;
+extern ESPboyPlaytune pt;
 
 #include "bmp_title.h"
 #include "bmp_chara.h"
 #include "sound.h"
+#include <ESPboyPlaytune.h>
 
 //=============================================================================
 struct {
@@ -58,20 +58,19 @@ void Game::init_stage()
 
 #if 0
   // ---------------------------------------------------- Play Credit Sound ---
-  if mArduboy.audio.enabled() && !sound.playing()) {
+  if (mArduboy.audio.enabled();) {
     for (int tone = 400; tone < 1000; tone += 10) {
-      sound.tone(tone, 10);
+      pt.tone(tone, 10);
       delay(10);
     }
-    sound.tone(1000, 60);
+    pt.tone(1000, 60);
     delay(200);
   }
 #endif
 
   // ---------------------------------------------- Play Game Opening Music ---
-  if (mArduboy.audio.enabled() && !sound.playing()) {
-    //mArduboy.tunes.playScore(snd_start);
-    //sound.tones(snd_start);
+  if (mArduboy.audio.enabled()) {
+    pt.playScore(snd_start);
   }
 }
 

@@ -78,6 +78,13 @@ Some of them can use it as a drop-in replacement for the original **"Arduboy2" l
 
 If authors against posting the code in this repository for the purpose of learning programming and fun, please let me know, I'll remove it.
 
+
+- **Diamonds** (MIT) by [redbug - Miguel Vanhove](https://community.arduboy.com/t/diamonds-a-breakout-puzzle-game-1st-kyuran-game/3368)
+- **Crates** (MIT) by [jessemillar](https://community.arduboy.com/t/crates-pedal-to-the-metal-car-crime/6744)
+- **CascadePath** (???) by [Chris](https://community.arduboy.com/t/cascade-path-wagon-train/1258) 
+- **AsteroidBelt** (???) by [Xhaku](https://community.arduboy.com/t/asteroid-belt-tower-shooter/5627)
+- **Arduminer** (???) by [Bergasms](https://community.arduboy.com/t/arduminer-terraria-like-game-by-bergasms/2939)
+- **Ardubrain** (???) by [renato-grottesi](https://community.arduboy.com/t/ardubrain-a-brain-trainer/8301)
 - **MayQ** (Proprietary) by [cobinee](http://blog.livedoor.jp/cobinee/archives/1930726.html)
 - **SFZ** (Proprietary) by [cobinee](http://blog.livedoor.jp/cobinee/archives/1910024.html)
 - **Lagunita** (MIT) by [renato-grottesi](https://community.arduboy.com/t/lagunita-a-1d-wild-west-town-builder/8135)

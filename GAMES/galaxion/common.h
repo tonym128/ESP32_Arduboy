@@ -6,6 +6,7 @@
 #define _COMMON_H
 
 #include "Arduboy2.h"
+#include <ESPboyPlaytune.h>
 
 //=============================================================================
 #define FRAMES_IN_SECOND (60)

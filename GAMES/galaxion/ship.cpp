@@ -3,13 +3,12 @@
 //
 
 #include "game.h"
-#include "ArduboyTones.h"
-
 #include "bmp_chara.h"
+#include <ESPboyPlaytune.h>
 
 extern Arduboy2 mArduboy;
 extern Game mGame;
-extern ArduboyTones sound;
+extern ESPboyPlaytune pt;
 
 //=============================================================================
 void Ship::init()
@@ -38,10 +37,6 @@ void Ship::check_input(int frame)
     if (dont_shoot <= 0
 	&& (mArduboy.pressed(A_BUTTON) || mArduboy.pressed(B_BUTTON))) {
       state = SHIP_ST_SHOOTING;
-      if (mArduboy.audio.enabled() && !sound.playing()) {
-        sound.tone(50, 30, 100, 30, 200, 30);
-      }
-      
       if (missile == NULL) {
 	missile = new Position(pos.get_x() + 2, pos.get_y());
       }
@@ -92,9 +87,8 @@ void Ship::do_state(int frame)
 	state = SHIP_ST_LOST;
       }
     }
-//    if (mArduboy.audio.enabled() && !mArduboy.tunes.playing()) {
-   if (mArduboy.audio.enabled() && !sound.playing()) {
-      sound.tone(100 + (frame & 3) * 10, 20);
+    if (mArduboy.audio.enabled() && !pt.playing()) {
+      pt.tone(100 + (frame & 3) * 10, 20);
     }
     break;
   case SHIP_ST_LOST:

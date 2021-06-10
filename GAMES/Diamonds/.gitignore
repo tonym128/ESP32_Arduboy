@@ -1,0 +1,9 @@
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+.DS_Store
+diamonds.arduboy
+src/src.ino.leonardo.hex
+src/src.ino.with_bootloader.leonardo.hex
+private

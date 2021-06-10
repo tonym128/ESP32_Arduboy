@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 2,
+  "title": "Arduminer",
+  "description": "Mining, crafting and combat on your arduboy. Explore 64 procedurally generated levels, conquer dungeons and upgrade your kit to survive progressively stronger enemies. Visit URL for full list of recipes and extra info.",
+  "author": "Bergasms",
+  "version": "1.1",
+  "date": "2018-04-22",
+  "genre": "RPG",
+  "publisher": "Bergasms",
+  "idea": "Bergasms",
+  "code": "Bergasms",
+  "art": "Bergasms",
+  "sound": "Bergasms",
+  "url": "www.bergasms.com/arduboy/Arduminer.html",
+  "sourceUrl": "www.bergasms.com/arduboy/Arduminer.html",
+  "email": "bergasms@bergasms.com",
+  "companion": "",
+  "banner": "Banner.png",
+  "screenshots": [
+    {
+      "title": "title",
+      "filename": "title.png"
+    },
+    {
+      "title": "start",
+      "filename": "start.png"
+    },
+    {
+      "title": "dungeon",
+      "filename": "dungeon.png"
+    },
+    {
+      "title": "caves",
+      "filename": "caves.png"
+    },
+    {
+      "title": "ore",
+      "filename": "ore.png"
+    },
+    {
+      "title": "baddies",
+      "filename": "baddies.png"
+    },
+    {
+      "title": "end",
+      "filename": "end.png"
+    },
+    {
+      "title": "craft",
+      "filename": "craft.png"
+    },
+    {
+      "title": "crafting",
+      "filename": "crafting.png"
+    },
+    {
+      "title": "upgrades",
+      "filename": "upgrades.png"
+    },
+    {
+      "title": "results",
+      "filename": "results.png"
+    }
+  ],
+  "binaries": [
+    {
+      "title": "Arduminer",
+      "filename": "Arduminer.hex",
+      "device": "Arduboy"
+    }
+  ],
+  "buttons": [
+    {
+      "control": "B",
+      "action": "Attack"
+    },
+    {
+      "control": "Hold A",
+      "action": "Action"
+    },
+    {
+      "control": "Up",
+      "action": "Jump"
+    },
+    {
+      "control": "Down",
+      "action": "Scroll Action"
+    },
+    {
+      "control": "Left",
+      "action": "Move Left"
+    },
+    {
+      "control": "Right",
+      "action": "Move Right"
+    }
+  ],
+  "eeprom": {
+    "variable": false,
+    "start": 128,
+    "end": 152
+  }
+}
