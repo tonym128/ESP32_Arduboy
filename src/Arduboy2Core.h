@@ -12,6 +12,7 @@
 
 #define PS3GAMEPAD
 
+#include "TFT_eSPI.h"
 #include <Arduino.h>
 #include <SPI.h>
 #include "CompositeGraphics.h"

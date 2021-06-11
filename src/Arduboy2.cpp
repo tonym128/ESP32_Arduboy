@@ -27,6 +27,7 @@ static uint64_t gameframeTime = 0;
 static uint64_t gamefps = 0;
 
 uint64_t inputfps = 0;
+TFT_eSPI tft = TFT_eSPI(135, 240);
 
 //========================================
 //========== class Arduboy2Base ==========
@@ -918,12 +919,18 @@ void Arduboy2Base::clear()
 
 static bool initSprite = false;
 int counter = 0;
+int myKpos = 0;
 void Arduboy2Base::display()
 {
+
     static uint8_t currentDataByte;
     static uint16_t xPos, yPos, kPos, kkPos, addr;
     static int loc;
     int xDst, yDst;
+    myKpos++;
+    if (myKpos == 4) myKpos = 0; 
+
+    tft.startWrite();
     graphics.begin(0);
     for (kPos = 0; kPos < 4; kPos++)
     { //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
@@ -939,24 +946,27 @@ void Arduboy2Base::display()
           yDst = (yPos + kPos * 16);
           loc = xDst + yDst * WIDTH;
           graphics.dot(xDst,yDst, (currentDataByte & 0x01));
+          if (myKpos == kPos)
+            tft.drawPixel(xDst, yDst, (currentDataByte & 0x01) ? TFT_GOLD : TFT_BLACK);
           currentDataByte = currentDataByte >> 1;
         }
       }
     }
     graphics.end();
-    
+    tft.endWrite();  
+  
   gamelastTime = gamecurrentTime;
   gamecurrentTime = esp_timer_get_time();
   gameframeTime = gamecurrentTime - gamelastTime;
   gamefps = 1000000 / gameframeTime;
-  if (counter % 100 == 0) {
-    Serial.write(printf("%d,",(int)heap_caps_get_free_size(MALLOC_CAP_DEFAULT)));
-    Serial.write(printf("%d\r\n",(int)gamefps);
+  if (counter % 10 == 0) {
+    // Serial.write(printf("%d,",(int)heap_caps_get_free_size(MALLOC_CAP_DEFAULT)));
+    Serial.write(printf("%d\r\n",(int)gamefps));
     counter = 0;
   }
   counter++;
-}
 
+}
 
 void Arduboy2Base::display(bool clear)
 {

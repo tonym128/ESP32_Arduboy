@@ -23,6 +23,7 @@ static uint64_t inputlastTime = 0;
 static uint64_t inputcurrentTime = 0;
 static uint64_t inputframeTime = 0;
 extern uint64_t inputfps;
+extern TFT_eSPI tft;
 
 uint8_t Arduboy2Core::sBuffer[];
 
@@ -101,6 +102,11 @@ void Arduboy2Core::boot()
   delay(100);
   Serial.write("Boot Done!");
   xTaskCreatePinnedToCore(compositeCore, "c", 1024, NULL, 1, NULL, 1);
+
+  tft.begin();            // initialize a ST7789 chip
+  tft.setSwapBytes(true); // Swap the byte order for pushImage() - corrects endianness
+  tft.fillScreen(TFT_BLACK);
+  tft.setRotation(1);
 }
 
 void Arduboy2Core::setCPUSpeed8MHz(){};

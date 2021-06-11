@@ -17,7 +17,7 @@
 #define DISPLAY_WIDTH 128
 #define DISPLAY_HEIGHT 64
 
-#define TARGET_FRAMERATE 30
+#define TARGET_FRAMERATE 60
 #define DEV_MODE 0
 
 #define INPUT_LEFT 1
