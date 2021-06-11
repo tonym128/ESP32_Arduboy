@@ -946,8 +946,9 @@ void Arduboy2Base::display()
           yDst = (yPos + kPos * 16);
           loc = xDst + yDst * WIDTH;
           graphics.dot(xDst,yDst, (currentDataByte & 0x01));
-          if (myKpos == kPos)
+          if (myKpos == kPos) {
             tft.drawPixel(xDst, yDst, (currentDataByte & 0x01) ? TFT_GOLD : TFT_BLACK);
+          }
           currentDataByte = currentDataByte >> 1;
         }
       }

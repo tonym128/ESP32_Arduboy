@@ -18,6 +18,12 @@ CompositeGraphics graphics(XRES, YRES);
 CompositeOutput composite(CompositeOutput::NTSC, XRES * 4, YRES * 4);
 
 #include <Ps3Controller.h>
+#include <Button2.h>
+#define BTN_UP 35 // Pinnumber for button for up/previous and select / enter actions (don't change this if you want to use the onboard buttons)
+#define BTN_DWN 0 // Pinnumber for button for down/next and back / exit actions (don't change this if you want to use the onboard buttons)
+Button2 btnUp(BTN_UP); // Initialize the up button
+Button2 btnDwn(BTN_DWN); // Initialize the down button
+
 
 static uint64_t inputlastTime = 0;
 static uint64_t inputcurrentTime = 0;
@@ -293,8 +299,8 @@ void ps3gamepad_init() {
 byte ps3gamepad_loop() {
   byte buttonVals = 0;
 
-  if(!Ps3.isConnected())
-    return 0;
+  // if(!Ps3.isConnected())
+  //   return 0;
 
   buttonVals = buttonVals | (ps3left  << P1_Left);
   buttonVals = buttonVals | (ps3right << P1_Right);
@@ -309,15 +315,47 @@ byte ps3gamepad_loop() {
   return buttonVals;
 }
 
+void button_init()
+{
+    btnUp.setReleasedHandler([](Button2 & b) {
+          ps3triangle = 0;
+          ps3square = 0;
+    });
+    
+    btnUp.setPressedHandler([](Button2 & b) {
+          ps3triangle = 1;
+          ps3square = 1;
+    });
+    
+    btnDwn.setReleasedHandler([](Button2 & b) {
+          ps3circle = 0;
+          ps3cross = 0;
+    });
+    
+    btnDwn.setPressedHandler([](Button2 & b) {
+          ps3circle = 1;
+          ps3cross = 1;
+    });
+}
+
+void button_loop()
+{
+    // Check for button presses
+    btnUp.loop();
+    btnDwn.loop();
+}
+
 static byte getReadPS3GamePad()
 {
   if (!buttonRun)
   {
+    button_init();
     ps3gamepad_init();
     buttonRun = true;
   }
   else
   {
+    button_loop();
     return ps3gamepad_loop();
   }
 
