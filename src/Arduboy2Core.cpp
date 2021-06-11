@@ -10,6 +10,8 @@
 TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
 #elif defined(IPS240)
 TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
+#elif defined(IPS135)
+TFT_eSPI screen = TFT_eSPI(SCREEN_WIDTH, SCREEN_HEIGHT);
 #elif defined(EPAPER130)
 GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper(GxEPD2_213_B73(/*CS=5*/ SS, /*DC=*/17, /*RST=*/16, /*BUSY=*/4)); // GDEH0213B73
 #endif

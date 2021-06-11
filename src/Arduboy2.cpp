@@ -12,6 +12,8 @@
 extern TFT_eSPI screen;
 #elif defined(IPS240)
 extern TFT_eSPI screen;
+#elif defined(IPS135)
+extern TFT_eSPI screen;
 #elif defined(EPAPER130)
 extern GxEPD2_BW<GxEPD2_213_B73, 250> displayEPaper; // GDEH0213B73
 #endif
