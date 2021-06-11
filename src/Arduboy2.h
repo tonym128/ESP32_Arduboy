@@ -7,6 +7,9 @@
 #ifndef ARDUBOY2_H
 #define ARDUBOY2_H
 
+// Define the Audio Out Pin
+#define D3 25
+
 #include "SPI.h"
 
 #include "TFT_eSPI.h"

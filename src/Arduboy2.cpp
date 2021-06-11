@@ -950,7 +950,8 @@ void Arduboy2Base::display()
   gameframeTime = gamecurrentTime - gamelastTime;
   gamefps = 1000000 / gameframeTime;
   if (counter % 100 == 0) {
-    Serial.write(printf("%d\r\n",(int)heap_caps_get_free_size(MALLOC_CAP_DEFAULT)));
+    Serial.write(printf("%d,",(int)heap_caps_get_free_size(MALLOC_CAP_DEFAULT)));
+    Serial.write(printf("%d\r\n",(int)gamefps);
     counter = 0;
   }
   counter++;

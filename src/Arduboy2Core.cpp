@@ -7,9 +7,6 @@
 #include "Arduboy2Core.h"
 
 #include "secrets.h"
-#include <ESPmDNS.h>
-#include <WiFiUdp.h>
-#include <ArduinoOTA.h>
 
 const int XRES = SCREEN_WIDTH;
 const int YRES = SCREEN_HEIGHT;
