@@ -12,21 +12,20 @@
 #endif
 
 // Pick One
-// #define IPS240
-#define IPS128
+#define IPS240
+#define IPS135
 // #define EPAPER130
 
-#if defined(IPS240)
+#if defined(IPS135)
+#define SCREEN_WIDTH 135
+#define SCREEN_HEIGHT 240 // 122 VIS
+#define PS3GAMEPAD
+#elif defined(IPS240)
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 240
 #define SCALE
 #define INTERLACED_UPDATE
 //#define GAMEPAD
-#define PS3GAMEPAD
-#elif defined(IPS135)
-#define SCREEN_WIDTH 240
-#define SCREEN_HEIGHT 135 // 122 VIS
-//#define ONE_BUTTON
 #define PS3GAMEPAD
 #elif defined(EPAPER130)
 #define SCREEN_WIDTH 250
@@ -42,8 +41,6 @@
 #if defined(ESP8266)
 #include "TFT_eSPI.h"
 #elif defined(IPS240)
-#include "TFT_eSPI.h"
-#elif defined(IPS135)
 #include "TFT_eSPI.h"
 #elif defined(EPAPER130)
 #include <GxEPD2_BW.h>
