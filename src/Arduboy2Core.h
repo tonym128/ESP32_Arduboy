@@ -71,9 +71,14 @@
 #define HEIGHT 64 /**< The height of the display in pixels */
 
 #define IPS240
+#define IPS135
+
 //#define EPAPER130
 
-#if defined(IPS240)
+#if defined(IPS135)
+#define SCREEN_WIDTH 135
+#define SCREEN_HEIGHT 240
+#elif defined(IPS240)
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 240
 #define SCALE
