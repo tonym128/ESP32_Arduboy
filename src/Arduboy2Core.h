@@ -76,8 +76,10 @@
 //#define EPAPER130
 
 #if defined(IPS135)
-#define SCREEN_WIDTH 135
-#define SCREEN_HEIGHT 240
+#define SCREEN_WIDTH 240
+#define SCREEN_HEIGHT 135
+#define IPS_ROTATE
+#define SCALE
 #elif defined(IPS240)
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 240

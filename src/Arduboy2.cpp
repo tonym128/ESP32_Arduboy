@@ -985,6 +985,9 @@ void Arduboy2Base::initDraw(void)
 #ifdef DEBUG_FPS
   currentTime = esp_timer_get_time();
 #endif
+#ifdef IPS_ROTATE
+  screen.setRotation(1);
+#endif
   xTaskCreatePinnedToCore(displayScreen, "Display", 4096, sprite, 1, &xHandle, 0);
   configASSERT(xHandle);
 }
@@ -1039,6 +1042,12 @@ void Arduboy2Base::display()
 #else
             sprite[loc] = 1;
   #ifdef SCALE // Optimisation for 128x64 to 240x240
+      #ifdef IPS135
+            if (loc + SCREEN_WIDTH < SCREEN_HEIGHT*SCREEN_WIDTH) sprite[loc + SCREEN_WIDTH] = 1;
+            if (loc + SCREEN_WIDTH*2 < SCREEN_HEIGHT*SCREEN_WIDTH) sprite[loc + SCREEN_WIDTH*2] = 1;
+            if (loc + 1 < SCREEN_HEIGHT*SCREEN_WIDTH) sprite[loc + 1 < SCREEN_HEIGHT*SCREEN_WIDTH] = 1;
+            if (loc + 1 + SCREEN_WIDTH < SCREEN_HEIGHT*SCREEN_WIDTH) sprite[loc + 1 + SCREEN_WIDTH] = 1;
+      #else
             sprite[loc + SCREEN_WIDTH] = 1;
             sprite[loc + SCREEN_WIDTH*2] = 1;
             sprite[loc + SCREEN_WIDTH*3] = 1;
@@ -1046,6 +1055,7 @@ void Arduboy2Base::display()
             sprite[loc + 1 + SCREEN_WIDTH] = 1;
             sprite[loc + 1 + SCREEN_WIDTH*2] = 1;
             sprite[loc + 1 + SCREEN_WIDTH*3] = 1;
+      #endif
   #endif
 #endif
           }
@@ -1056,6 +1066,12 @@ void Arduboy2Base::display()
 #else
             sprite[loc] = 0;
   #ifdef SCALE // Optimisation for 128x64 to 240x240
+      #ifdef IPS135
+            if (loc + SCREEN_WIDTH < SCREEN_HEIGHT*SCREEN_WIDTH) sprite[loc + SCREEN_WIDTH] = 0;
+            if (loc + SCREEN_WIDTH*2 < SCREEN_HEIGHT*SCREEN_WIDTH) sprite[loc + SCREEN_WIDTH*2] = 0;
+            if (loc + 1 < SCREEN_HEIGHT*SCREEN_WIDTH) sprite[loc + 1 < SCREEN_HEIGHT*SCREEN_WIDTH] = 0;
+            if (loc + 1 + SCREEN_WIDTH < SCREEN_HEIGHT*SCREEN_WIDTH) sprite[loc + 1 + SCREEN_WIDTH] = 0;
+      #else
             sprite[loc + SCREEN_WIDTH] = 0;
             sprite[loc + SCREEN_WIDTH*2] = 0;
             sprite[loc + SCREEN_WIDTH*3] = 0;
@@ -1063,6 +1079,7 @@ void Arduboy2Base::display()
             sprite[loc + 1 + SCREEN_WIDTH] = 0;
             sprite[loc + 1 + SCREEN_WIDTH*2] = 0;
             sprite[loc + 1 + SCREEN_WIDTH*3] = 0;
+      #endif
   #endif
 #endif
           }
