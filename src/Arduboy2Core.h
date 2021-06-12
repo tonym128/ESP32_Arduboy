@@ -3,14 +3,10 @@
  * \brief
  * The Arduboy2Core class for Arduboy hardware initilization and control.
  */
+#include "defines.h"
 
 #ifndef ARDUBOY2_CORE_H
 #define ARDUBOY2_CORE_H
-
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-
-#define PS3GAMEPAD
 
 #include "TFT_eSPI.h"
 #include <Arduino.h>

@@ -3,16 +3,15 @@
  * \brief
  * The Arduboy2Base and Arduboy2 classes and support objects and definitions.
  */
+#include "defines.h"
 
 #ifndef ARDUBOY2_H
 #define ARDUBOY2_H
 
-// Define the Audio Out Pin
-#define D3 25
-
 #include "SPI.h"
-
+#ifdef TFTESPI
 #include "TFT_eSPI.h"
+#endif
 
 #include <Arduino.h>
 

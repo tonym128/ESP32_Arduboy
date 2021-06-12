@@ -27,7 +27,9 @@ static uint64_t gameframeTime = 0;
 static uint64_t gamefps = 0;
 
 uint64_t inputfps = 0;
+#ifdef TFTESPI
 TFT_eSPI tft = TFT_eSPI(135, 240);
+#endif
 
 //========================================
 //========== class Arduboy2Base ==========
@@ -919,7 +921,9 @@ void Arduboy2Base::clear()
 
 static bool initSprite = false;
 int counter = 0;
+#ifdef TFTESPI
 int myKpos = 0;
+#endif
 void Arduboy2Base::display()
 {
 
@@ -927,10 +931,13 @@ void Arduboy2Base::display()
     static uint16_t xPos, yPos, kPos, kkPos, addr;
     static int loc;
     int xDst, yDst;
+#ifdef TFTESPI
     myKpos++;
     if (myKpos == 4) myKpos = 0; 
 
     tft.startWrite();
+#endif
+
     graphics.begin(0);
     for (kPos = 0; kPos < 4; kPos++)
     { //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
@@ -946,16 +953,20 @@ void Arduboy2Base::display()
           yDst = (yPos + kPos * 16);
           loc = xDst + yDst * WIDTH;
           graphics.dot(xDst,yDst, (currentDataByte & 0x01));
+#ifdef TFTESPI
           if (myKpos == kPos) {
             tft.drawPixel(xDst, yDst, (currentDataByte & 0x01) ? TFT_GOLD : TFT_BLACK);
           }
+#endif
           currentDataByte = currentDataByte >> 1;
         }
       }
     }
     graphics.end();
+#ifdef TFTESPI
     tft.endWrite();  
-  
+#endif
+
   gamelastTime = gamecurrentTime;
   gamecurrentTime = esp_timer_get_time();
   gameframeTime = gamecurrentTime - gamelastTime;

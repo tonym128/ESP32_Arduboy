@@ -5,8 +5,8 @@
  */
 
 #include "Arduboy2Core.h"
-
 #include "secrets.h"
+#include "defines.h"
 
 const int XRES = SCREEN_WIDTH;
 const int YRES = SCREEN_HEIGHT;
@@ -18,18 +18,22 @@ CompositeGraphics graphics(XRES, YRES);
 CompositeOutput composite(CompositeOutput::NTSC, XRES * 4, YRES * 4);
 
 #include <Ps3Controller.h>
+
+#ifdef BUTTON2
 #include <Button2.h>
 #define BTN_UP 35 // Pinnumber for button for up/previous and select / enter actions (don't change this if you want to use the onboard buttons)
 #define BTN_DWN 0 // Pinnumber for button for down/next and back / exit actions (don't change this if you want to use the onboard buttons)
 Button2 btnUp(BTN_UP); // Initialize the up button
 Button2 btnDwn(BTN_DWN); // Initialize the down button
-
+#endif
 
 static uint64_t inputlastTime = 0;
 static uint64_t inputcurrentTime = 0;
 static uint64_t inputframeTime = 0;
 extern uint64_t inputfps;
+#ifdef TFTESPI
 extern TFT_eSPI tft;
+#endif
 
 uint8_t Arduboy2Core::sBuffer[];
 
@@ -109,10 +113,12 @@ void Arduboy2Core::boot()
   Serial.write("Boot Done!");
   xTaskCreatePinnedToCore(compositeCore, "c", 1024, NULL, 1, NULL, 1);
 
+#ifdef TFTESPI
   tft.begin();            // initialize a ST7789 chip
   tft.setSwapBytes(true); // Swap the byte order for pushImage() - corrects endianness
   tft.fillScreen(TFT_BLACK);
   tft.setRotation(1);
+#endif
 }
 
 void Arduboy2Core::setCPUSpeed8MHz(){};
@@ -315,6 +321,7 @@ byte ps3gamepad_loop() {
   return buttonVals;
 }
 
+#ifdef BUTTON2
 void button_init()
 {
     btnUp.setReleasedHandler([](Button2 & b) {
@@ -336,6 +343,11 @@ void button_init()
           ps3circle = 1;
           ps3cross = 1;
     });
+
+    ps3triangle = 0;
+    ps3square = 0;
+    ps3circle = 0;
+    ps3cross = 0;
 }
 
 void button_loop()
@@ -344,18 +356,23 @@ void button_loop()
     btnUp.loop();
     btnDwn.loop();
 }
+#endif
 
 static byte getReadPS3GamePad()
 {
   if (!buttonRun)
   {
-    button_init();
     ps3gamepad_init();
+#ifdef BUTTON2
+    button_init();
+#endif
     buttonRun = true;
   }
   else
   {
+#ifdef BUTTON2
     button_loop();
+#endif
     return ps3gamepad_loop();
   }
 
