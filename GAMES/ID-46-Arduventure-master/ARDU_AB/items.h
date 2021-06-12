@@ -166,9 +166,9 @@ void selectItemsEquipment()
       if (player.itemsAmount[inventorySelection] == 0) bitClear(player.hasStuff[0], inventorySelection);
       // Item Effects
       if (inventorySelection < 2)
-        player.health = min(player.health + 10 + (40 * inventorySelection), player.healthTotal);
+        player.health = minVal(player.health + 10 + (40 * inventorySelection), player.healthTotal);
       else
-        player.magic = min(player.magic + 10 + (40 * (inventorySelection - 2)), player.magicTotal);
+        player.magic = minVal(player.magic + 10 + (40 * (inventorySelection - 2)), player.magicTotal);
     }
     break;
     case STATE_GAME_WEAPON:

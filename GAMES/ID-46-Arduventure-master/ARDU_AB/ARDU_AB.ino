@@ -17,10 +17,6 @@
 //determine the game
 #define GAME_ID 46
 
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
-
 #include "globals.h"
 #include "songs.h"
 #include "menu.h"
@@ -99,16 +95,14 @@ void gameLogicLoop(void *)
   }
 }
 
-void loop() {
-  delay(60000);
-}
-
 void setup() {
-  //WiFi.mode(WIFI_OFF);
-  EEPROM.begin(100);
   arduboy.boot();
   arduboy.audio.begin();
   //ATM.play(titleSong);
   arduboy.setFrameRate(60);                                 // set the frame rate of the game at 60 fps
   xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
+}
+
+void loop() {
+  delay(60000);
 }
