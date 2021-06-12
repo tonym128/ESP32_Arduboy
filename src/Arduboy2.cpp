@@ -952,7 +952,7 @@ void Arduboy2Base::display()
           xDst = xPos;
           yDst = (yPos + kPos * 16);
           loc = xDst + yDst * WIDTH;
-          graphics.dot(xDst,yDst, (currentDataByte & 0x01));
+          graphics.dotFast(xDst,yDst, (currentDataByte & 0x01));
 #ifdef TFTESPI
           if (myKpos == kPos) {
             tft.drawPixel(xDst, yDst, (currentDataByte & 0x01) ? TFT_GOLD : TFT_BLACK);
