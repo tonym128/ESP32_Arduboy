@@ -1449,6 +1449,7 @@ void onenter() {
 						menulevel = currentlevel;
 						maxlevel = currentlevel;
 						EEPROM.put(SAVELOCATION, maxlevel);
+						EEPROM.commit();
 						loadlevel(currentlevel, false);
 						buttonblock = 10;
 					} else {
@@ -2286,6 +2287,7 @@ void setup() {
 	if(maxlevel >= LEVELS) {
 		maxlevel = 0;
 		EEPROM.put(SAVELOCATION, maxlevel);
+		EEPROM.commit();
 	}
 	menulevel = maxlevel;
 	

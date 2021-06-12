@@ -453,6 +453,29 @@ void nextFrame()
 //----------------------------------------------------------------------------
 // Boot code
 //----------------------------------------------------------------------------
+void gameLogic(void *) 
+{
+    if (ardu.nextFrame())
+    {
+        ardu.pollButtons();
+        nextFrame();
+        ardu.display();
+    }    
+}
+
+void loop()
+{
+  delay(60000);
+}
+
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    gameLogic(nullptr);
+    ArduinoOTA.handle();
+  }
+}
+
 
 void setup() 
 {
@@ -478,14 +501,6 @@ void setup()
     game.buildings.add(75, 64-img_building4[1]+1); 
     game.buildings.add(128-img_building5[0], 64-img_building5[1]-4); 
     game.setState(Game::SPLASH);
-}
 
-void loop() 
-{
-    if (ardu.nextFrame())
-    {
-        ardu.pollButtons();
-        nextFrame();
-        ardu.display();
-    }    
+	xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
 }

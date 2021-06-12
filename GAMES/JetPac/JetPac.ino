@@ -1029,7 +1029,8 @@ void gameOn()
 void gameOver()
 {
         if (score > highScore) {
-           EEPROM.put(SAVELOCATION, score); EEPROM.commit();
+           EEPROM.put(SAVELOCATION, score); 
+           EEPROM.commit();
         }
         delay(100);
         arduboy.clear();
