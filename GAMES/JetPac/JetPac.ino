@@ -7,10 +7,11 @@ by Mike McRoberts (a.k.a. TheArduinoGuy)
 
 #define SAVELOCATION (/*EEPROM_STORAGE_SPACE_START +*/ 90)
 
+
 #include <Arduboy2.h>
 #include "bitmaps.h"
 #include <ArduboyTones.h>
-//#include <avr/pgmspace.h>
+//#include <pgmspace.h>
 //#include <EEPROM.h>
 
 Arduboy2 arduboy;
@@ -61,11 +62,11 @@ byte animToggle;
 unsigned long frameRate;
 unsigned long lastPressed;
 
-const byte platforms[] PROGMEM = {
+const byte platforms[]  = {
         2,4,3, 7,5,2, 11,3,3
 };
 
-const float rocketParts[] PROGMEM= {
+const float rocketParts[] = {
         24,24, 60,32, 76,55
 };
 
@@ -103,9 +104,10 @@ laserObjects laserbeams[20];
 byte laserIndex = 0;
 
 // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
-void setup()
+void inogamesetup()
 {
         //Serial.begin(115200);
+        WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
         EEPROM.begin(200);
         arduboy.boot(); // raw hardware
         arduboy.blank(); // blank the display
@@ -955,7 +957,7 @@ void checkJetManHit()
                         lives=lives-1;
                         if (lives<0) gameState = 2;
                         sound.tone(800,200, 600, 200, 200, 400);
-                        for (int x=0; x<300; x++)
+                        for (int x=0; x<120; x++)
                         {
                                 arduboy.clear();
                                 arduboy.drawFastHLine(0, 63, 128); // ground
@@ -965,6 +967,7 @@ void checkJetManHit()
                                 drawlasers();
                                 //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
                                 arduboy.display();
+                                delay(2);
                         }
 
                 }
@@ -1029,8 +1032,7 @@ void gameOn()
 void gameOver()
 {
         if (score > highScore) {
-           EEPROM.put(SAVELOCATION, score); 
-           EEPROM.commit();
+           EEPROM.put(SAVELOCATION, score); EEPROM.commit();
         }
         delay(100);
         arduboy.clear();
@@ -1359,7 +1361,7 @@ arduboy.clear();
 }
 
 // #=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=
-void loop() {
+void inogameloop() {
         if (!arduboy.nextFrame()) {delay(1); return;}  // Keep frame rate at 60fps
         arduboy.clear();
 
@@ -1385,4 +1387,20 @@ void loop() {
 
         //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
         arduboy.display();
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

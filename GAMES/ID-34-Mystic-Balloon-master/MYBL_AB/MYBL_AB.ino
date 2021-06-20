@@ -14,10 +14,6 @@
 //determine the game
 #define GAME_ID 34
 
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
-
 #include "globals.h"
 #include "menu.h"
 #include "game.h"
@@ -30,7 +26,7 @@
 
 typedef void (*FunctionPointer) ();
 
-const FunctionPointer PROGMEM  mainGameLoop[] = {
+const FunctionPointer   mainGameLoop[] = {
   stateMenuIntro,
   stateMenuMain,
   stateMenuHelp,
@@ -45,9 +41,7 @@ const FunctionPointer PROGMEM  mainGameLoop[] = {
   stateMenuPlayNew,
 };
 
-void setup(){
-  //WiFi.mode(WIFI_OFF);
-  EEPROM.begin(100);
+void inogamesetup(){
   arduboy.boot();                                           // begin with the boot logo en setting up the device to work
   arduboy.audio.begin();
   //arduboy.bootLogoSpritesSelfMasked();
@@ -55,11 +49,27 @@ void setup(){
   loadSetEEPROM();
 }
 
-void loop() {
+void inogameloop() {
   if (!(arduboy.nextFrame())) return;
   if (gameState < STATE_GAME_NEXT_LEVEL && arduboy.everyXFrames(10))sparkleFrames = (++sparkleFrames) % 5;
   arduboy.pollButtons();
   arduboy.clear();
   ((FunctionPointer) pgm_read_dword (&mainGameLoop[gameState]))();
   arduboy.display();
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

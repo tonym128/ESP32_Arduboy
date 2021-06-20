@@ -1,9 +1,6 @@
 #pragma once
 
-#ifdef ESP8266
-#include <avr/pgmspace.h>
-//#define pgm_read_ptr pgm_read_word
-#else
+#if _WIN32
 #include <stdint.h>
 #include <string.h>
 #define PROGMEM
@@ -12,6 +9,9 @@
 #define pgm_read_word(x) (*((uint16_t*)x))
 #define pgm_read_ptr(x) (*((uintptr_t*)x))
 #define strlen_P(x) strlen(x)
+#else
+#include <pgmspace.h>
+//#define pgm_read_ptr pgm_read_word
 #endif
 
 #define TILE_SIZE 8

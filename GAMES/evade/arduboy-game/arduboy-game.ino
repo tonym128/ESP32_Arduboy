@@ -4,6 +4,8 @@
  *  Author: Modus Create
  */
 
+
+
 #include "Arduboy2.h"
 #include "globals.h"
 #include "messagecatalog.h"
@@ -27,7 +29,7 @@ void playTone(byte tone_, byte duration) {
 #include <stddef.h>
 #include <inttypes.h>
 #include <Arduino.h>
-//#include <avr/pgmspace.h>
+//#include <pgmspace.h>
 //#include <EEPROM.h>
 
 
@@ -1122,7 +1124,8 @@ void resetHighScoreTable() {
  *******************************************************************************/
 
 // Runs once, initialization.
-void setup() {
+void inogamesetup() {
+  WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
   arduboy.begin();
   EEPROM.begin(100);
     
@@ -1176,7 +1179,7 @@ void setup() {
 }
 
 // Main program loop, runs attract loop
-void loop() {
+void inogameloop() {
   byte newHiScorePos;
 
   switch (titleScreen()) {
@@ -1201,4 +1204,20 @@ void loop() {
       highScoreScreen();
       break;
   }
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

@@ -1,7 +1,3 @@
-#ifndef ESP8266
-#define PROGMEM
-#endif
-
 #ifndef RUNNER_H
 #define RUNNER_H
 

@@ -1,7 +1,3 @@
-#ifndef ESP8266
-#define PROGMEM
-#endif
-
 /*
   SHADOW RUNNER: http://www.team-arg.org/shrun-manual.html
 
@@ -30,7 +26,7 @@
 
 typedef void (*FunctionPointer) ();
 
-const FunctionPointer PROGMEM mainGameLoop[] = {
+const FunctionPointer  mainGameLoop[] = {
   stateMenuIntro,
   stateMenuMain,
   stateMenuHelp,
@@ -43,7 +39,13 @@ const FunctionPointer PROGMEM mainGameLoop[] = {
   stateGameOver,
 };
 
-void gameLogic(void *) {
+void setup () {
+  arduboy.begin();
+  arduboy.setFrameRate(60);
+  arduboy.initRandomSeed();
+}
+
+void inogameloop() {
   if (!(arduboy.nextFrame())) return;
   arduboy.pollButtons();
   arduboy.clear();
@@ -51,23 +53,19 @@ void gameLogic(void *) {
   arduboy.display();
   delay(1);
 }
-
 void gameLogicLoop(void *)
 {
   for (;;) {
-    gameLogic(nullptr);
-    ArduinoOTA.handle();
+    inogameloop(); 
+    // ArduinoOTA.handle();
   }
 }
 
-
-void setup () {
-  arduboy.begin();
-  arduboy.setFrameRate(60);
-  arduboy.initRandomSeed();
-  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
 }
 
 void loop() {
-  delay(60000);
+	delay(60000);
 }

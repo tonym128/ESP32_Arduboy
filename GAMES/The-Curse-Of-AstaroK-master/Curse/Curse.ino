@@ -9,9 +9,6 @@
 #include "src/utils/FadeEffects.h"
 #include "src/ardBitmap/ArdBitmap.h"
 
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
 
 #include <ArduboyTones.h>
 #include "src/sounds/Sounds.h"
@@ -36,8 +33,8 @@ PlayGameStateVars playGameVars;
 GameOverStateVars gameOverVars;
 int8_t mrBlinky = 127;
 
-void setup() {
-  //WiFi.mode(WIFI_OFF);
+void inogamesetup() {
+  WiFi.mode(WIFI_OFF);
   EEPROM.begin(100);
 	arduboy.boot();
 	#ifndef SOUND_BUTTONS
@@ -48,7 +45,7 @@ void setup() {
 
 }
 
-void loop() {
+void inogameloop() {
 
 	if (!arduboy.nextFrame()) return;
 	arduboy.pollButtons();
@@ -89,4 +86,20 @@ void loop() {
 
 	}
 
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

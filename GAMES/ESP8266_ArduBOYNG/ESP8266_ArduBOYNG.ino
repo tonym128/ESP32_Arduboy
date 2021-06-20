@@ -595,7 +595,7 @@ float map_float(float x, float x0, float x1, float y0, float y1) {
 }
 
 // Einmalige Initialisierung bei Programmstart
-void setup() {
+void inogamesetup() {
   arduboy.begin();
 //  arduboy.beginNoLogo();                                      // Initialisiere arduboy, aber zeige kein Logo
   arduboy.setFrameRate(FPS);                                  // Setze die Framerate
@@ -604,7 +604,7 @@ void setup() {
 }
 
 // Hauptprogramm
-void loop() {
+void inogameloop() {
   // Warte bis der nächste Frame zu zeichnen ist
   if (!(arduboy.nextFrame()))
     return;
@@ -642,4 +642,20 @@ void loop() {
 
   // Zeige Bildschirminhalt
   arduboy.display();
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

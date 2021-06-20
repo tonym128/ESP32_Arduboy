@@ -29,7 +29,7 @@ const unsigned int FRAME_RATE = 60;
 
 
 // 3x6 pixel digit font
-const uint8_t digit[10][3] PROGMEM = {
+const uint8_t digit[10][3]  = {
   { 0x3f, 0x21, 0x3f },
   { 0x00, 0x3f, 0x00 },
   { 0x3d, 0x25, 0x27 },
@@ -164,22 +164,22 @@ boolean button_pressed(uint8_t button, boolean *b_state) {
 #define ALN_W_OF_ALIENS (ALN_COLUMN * (ALN_W + ALN_HSPACING) - ALN_HSPACING)
 #define ALN_H_OF_ALIENS (ALN_ROW * (ALN_H + ALN_VSPACING) - ALN_VSPACING)
 
-const uint8_t aln1_img[2][ALN_W] PROGMEM = {
+const uint8_t aln1_img[2][ALN_W]  = {
   { 0x00, 0x03, 0x06, 0x03, 0x00 },
   { 0x00, 0x06, 0x03, 0x06, 0x00 }
 };
 
-const uint8_t aln2_img[2][ALN_W] PROGMEM = {
+const uint8_t aln2_img[2][ALN_W]  = {
   { 0x03, 0x06, 0x03, 0x06, 0x03 },
   { 0x06, 0x03, 0x06, 0x03, 0x06 }
 };
 
-const uint8_t aln3_img[2][ALN_W] PROGMEM = {
+const uint8_t aln3_img[2][ALN_W]  = {
   { 0x03, 0x05, 0x06, 0x05, 0x03 },
   { 0x06, 0x05, 0x02, 0x05, 0x06 }
 };
 
-const uint8_t ALN_hit_img[ALN_W] PROGMEM =
+const uint8_t ALN_hit_img[ALN_W]  =
 { 0x05, 0x00, 0x05, 0x00, 0x05 };
 
 struct aliens_t {
@@ -387,10 +387,10 @@ void aliens_update(struct aliens_t *a) {
 #define UFO_WAIT (SCRN_FPS / 30)
 #define UFO_EXPLOSION (2 * SCRN_FPS)
 
-const uint8_t ufo_img[UFO_W] PROGMEM =
+const uint8_t ufo_img[UFO_W]  =
 { 0x06, 0x05, 0x07, 0x03, 0x07, 0x05, 0x06 };
 
-const uint8_t ufo_score_img[4][UFO_W] PROGMEM = {
+const uint8_t ufo_score_img[4][UFO_W]  = {
   { 0x00, 0x05, 0x03, 0x00, 0x06, 0x06, 0x00 },
   { 0x07, 0x00, 0x06, 0x06, 0x00, 0x06, 0x06 },
   { 0x07, 0x00, 0x05, 0x03, 0x00, 0x06, 0x06 },
@@ -499,7 +499,7 @@ void ufo_update(struct ufo_t *u) {
 #define BUNKER_SPACE 10
 #define BUNKER_NUM 4
 
-const uint8_t bunker_img[BUNKER_W] PROGMEM =
+const uint8_t bunker_img[BUNKER_W]  =
 { 0x3c, 0x3e, 0x1f, 0x0f, 0x0f, 0x1f, 0x3e, 0x3c };
 
 void draw_bunkers() {
@@ -650,7 +650,7 @@ void bomb_shot(struct bomb_t *b) {
 #define LASER_CNTR_MOD 15
 #define LASER_EXPLOSION ALN_EXPLOSION
 
-const uint8_t laser_explosion_img[3] PROGMEM = { 0x05, 0x02, 0x05 };
+const uint8_t laser_explosion_img[3]  = { 0x05, 0x02, 0x05 };
 
 struct laser_t {
   int16_t x;
@@ -793,10 +793,10 @@ uint8_t laser_update(struct laser_t *l) { // returns point if laser hits
 #define CANNON_TOP 61
 #define CANNON_EXPLOSION 127
 
-const uint8_t cannon_img[CANNON_W] PROGMEM =
+const uint8_t cannon_img[CANNON_W]  =
 { 0x06, 0x06, 0x07, 0x06, 0x06 };
 
-const uint8_t cannon_hit_img[2][CANNON_W] PROGMEM = {
+const uint8_t cannon_hit_img[2][CANNON_W]  = {
   { 0x01, 0x05, 0x06, 0x06, 0x05 },
   { 0x04, 0x07, 0x04, 0x05, 0x02 }
 };
@@ -953,7 +953,7 @@ void print_cannon_left(uint8_t n) {
 #define TITLE_H 8
 
 void game_title_draw() {
-  static const uint8_t title_img[TITLE_W] PROGMEM = {
+  static const uint8_t title_img[TITLE_W]  = {
     0xf8, 0xfc, 0x24, 0x24, 0x3c, 0x18, 0,
     0x3d, 0x3d, 0, 0,
     0x18, 0x3c, 0x24, 0x24, 0x24, 0,
@@ -1207,7 +1207,7 @@ void print_game_over() {
   G_PRINT(F("GAME OVER"));
 }
 
-void setup() {
+void inogamesetup() {
   arduboy.begin();
   arduboy.clear();
   arduboy.setFrameRate(SCRN_FPS);
@@ -1217,7 +1217,7 @@ void setup() {
 
 #define TITLE_TIME 200
 
-void loop() {
+void inogameloop() {
   if (!(arduboy.nextFrame()))
     return;
 
@@ -1311,4 +1311,20 @@ void loop() {
     }
   }
   arduboy.display();
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

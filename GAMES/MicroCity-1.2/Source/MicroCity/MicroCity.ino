@@ -1,6 +1,4 @@
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
+
 #include <Arduboy2.h>
 //#include <EEPROM.h>
 #include "Draw.h"
@@ -108,8 +106,8 @@ uint8_t* GetPowerGrid()
   return arduboy.getBuffer();
 }
 
-void setup(){ 
-  //WiFi.mode(WIFI_OFF);
+void inogamesetup(){ 
+  WiFi.mode(WIFI_OFF);
   EEPROM.begin(2000);
   arduboy.boot();
   arduboy.flashlight();
@@ -119,11 +117,27 @@ void setup(){
   InitGame();
 }
 
-void loop()
+void inogameloop()
 {
   if(arduboy.nextFrame())
   {
     TickGame();
     arduboy.display(false);
   }
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

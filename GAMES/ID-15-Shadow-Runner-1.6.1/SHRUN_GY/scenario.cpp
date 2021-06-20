@@ -1,4 +1,4 @@
-#include <avr/pgmspace.h>
+#include <pgmspace.h>
 #include <Gamby.h>
 
 #include "stage.h"

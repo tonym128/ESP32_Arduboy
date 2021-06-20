@@ -1,6 +1,3 @@
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
 
 #include "src/utils/Arduboy2Ext.h"
 #include "Enums.h"
@@ -67,9 +64,40 @@ LevelUpButtons levelUpButton = LevelUpButtons::None;
 uint8_t level = 0;          // Current map
 uint8_t playerLevel = 1;    // Levelup level
 
-void gameLogic(void *)
-{
-  
+
+/* -----------------------------------------------------------------------------------------------------------------------------
+ *  Setup ..
+ * -----------------------------------------------------------------------------------------------------------------------------
+ */
+void inogamesetup() {
+  WiFi.mode(WIFI_OFF);
+
+  EEPROM.begin(300);
+  arduboy.boot();
+  arduboy.flashlight();
+  arduboy.setFrameRate(30);
+
+  #ifdef USE_SOUNDS
+  arduboy.audio.begin();
+  #endif
+
+  arduboy.initRandomSeed();
+
+  #ifdef SAVE_GAME
+  initEEPROM();
+  #endif
+
+  initialiseGame();
+
+}
+
+
+/* -----------------------------------------------------------------------------------------------------------------------------
+ *  Main loop ..
+ * -----------------------------------------------------------------------------------------------------------------------------
+ */
+void inogameloop() {
+
   uint16_t delayLength = 0;
   if (!(arduboy.nextFrame())) return;
 
@@ -154,48 +182,7 @@ void gameLogic(void *)
 
   arduboy.display(true);
   delay(delayLength);
-}
 
-void gameLogicLoop(void *)
-{
-  for (;;) {
-    gameLogic(nullptr);
-    ArduinoOTA.handle();
-  }
-}
-//
-/* -----------------------------------------------------------------------------------------------------------------------------
- *  Setup ..
- * -----------------------------------------------------------------------------------------------------------------------------
- */
-void setup() {
-  //WiFi.mode(WIFI_OFF);
-
-  EEPROM.begin(300);
-  arduboy.boot();
-  arduboy.flashlight();
-  arduboy.setFrameRate(30);
-
-  #ifdef USE_SOUNDS
-  arduboy.audio.begin();
-  #endif
-
-  arduboy.initRandomSeed();
-
-  #ifdef SAVE_GAME
-  initEEPROM();
-  #endif
-
-  initialiseGame();
-  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
-}
-
-/* -----------------------------------------------------------------------------------------------------------------------------
- *  Main loop ..
- * -----------------------------------------------------------------------------------------------------------------------------
- */
-void loop() {
-  delay(60000);
 }
 
 
@@ -203,8 +190,8 @@ void loop() {
  *  Draw the outside frame ..
  * -----------------------------------------------------------------------------------------------------------------------------
  */ 
-const uint8_t frameHLineLookup[] PROGMEM = { 0, 2, 61, 63 };
-const uint8_t frameVLineLookup[] PROGMEM = { 0, 2, 125, 127 };
+const uint8_t frameHLineLookup[]  = { 0, 2, 61, 63 };
+const uint8_t frameVLineLookup[]  = { 0, 2, 125, 127 };
  
 void drawFrames() {
 
@@ -425,4 +412,20 @@ void displayEndOfGame(bool playerDead) {
 
   }
 
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

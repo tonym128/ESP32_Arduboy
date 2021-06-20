@@ -3,6 +3,7 @@
 // (c) 2019 Bert vt Veer
 //----------------------------------------------------------------------------
 
+
 #include <Arduboy2.h>
 #include <ArduboyTones.h>
 //#include <EEPROM.h>
@@ -453,31 +454,8 @@ void nextFrame()
 //----------------------------------------------------------------------------
 // Boot code
 //----------------------------------------------------------------------------
-void gameLogic(void *) 
-{
-    if (ardu.nextFrame())
-    {
-        ardu.pollButtons();
-        nextFrame();
-        ardu.display();
-    }    
-}
 
-void loop()
-{
-  delay(60000);
-}
-
-void gameLogicLoop(void *)
-{
-  for (;;) {
-    gameLogic(nullptr);
-    ArduinoOTA.handle();
-  }
-}
-
-
-void setup() 
+void inogamesetup() 
 {
     ardu.begin();
     ardu.setFrameRate(60);
@@ -501,6 +479,30 @@ void setup()
     game.buildings.add(75, 64-img_building4[1]+1); 
     game.buildings.add(128-img_building5[0], 64-img_building5[1]-4); 
     game.setState(Game::SPLASH);
+}
 
-	xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
+void inogameloop() 
+{
+    if (ardu.nextFrame())
+    {
+        ardu.pollButtons();
+        nextFrame();
+        ardu.display();
+    }    
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

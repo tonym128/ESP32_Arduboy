@@ -1136,7 +1136,7 @@ int main (int argc, char *argv[]) {
             fprintf(outfile, "//   Keyshift was %d chromatic notes\n", keyshift);
          if (define_progmem) {
             fprintf(outfile, "#ifdef __AVR__\n");
-            fprintf(outfile, "#include <avr/pgmspace.h>\n");
+            fprintf(outfile, "#include <pgmspace.h>\n");
             fprintf(outfile, "#else\n");
             fprintf(outfile, "#define PROGMEM\n");
             fprintf(outfile, "#endif\n");

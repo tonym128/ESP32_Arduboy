@@ -23,16 +23,7 @@ int objectX = 0;
 
 char displayText[60];
 
-void setup() {
-  arduboy.begin();
-  arduboy.setFrameRate(25);
-
-  beep.begin(); // Set up the hardware for playing tones
-
-  commandText("none - Press buttons");
-}
-
-void loop() {
+void gameLogic(void *) {
   if (!arduboy.nextFrame()) {
     return;
   }
@@ -121,6 +112,29 @@ void loop() {
 
   arduboy.display(CLEAR_BUFFER);
 }
+
+void loop() {
+  delay(100);
+}
+
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    gameLogic(nullptr);
+    ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  arduboy.begin();
+  arduboy.setFrameRate(25);
+
+  beep.begin(); // Set up the hardware for playing tones
+
+  commandText("none - Press buttons");
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
+}
+
 
 void commandText(const char* text) {
   strncpy(displayText, text, sizeof displayText);

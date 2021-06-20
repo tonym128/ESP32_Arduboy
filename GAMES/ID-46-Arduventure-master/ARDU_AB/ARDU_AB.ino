@@ -32,7 +32,7 @@
 
 typedef void (*FunctionPointer) ();
 
-const FunctionPointer PROGMEM mainGameLoop[] = {
+const FunctionPointer  mainGameLoop[] = {
   stateMenuIntro,
   stateMenuMain,
   stateMenuContinue,
@@ -69,7 +69,15 @@ int main() {
   return 0;
 }
 
-void gameLogic(void *) {
+void inogamesetup() {
+  arduboy.boot();
+  arduboy.audio.begin();
+  //ATM.play(titleSong);
+  arduboy.setFrameRate(60);                                 // set the frame rate of the game at 60 fps
+}
+
+
+void inogameloop() {
   if (!(arduboy.nextFrame())) return;
   //arduboy.fillScreen(1);
   arduboy.pollButtons();
@@ -86,23 +94,19 @@ void gameLogic(void *) {
   //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
   arduboy.display();
 }
-
 void gameLogicLoop(void *)
 {
   for (;;) {
-    gameLogic(nullptr);
-    ArduinoOTA.handle();
+    inogameloop(); 
+    // ArduinoOTA.handle();
   }
 }
 
 void setup() {
-  arduboy.boot();
-  arduboy.audio.begin();
-  //ATM.play(titleSong);
-  arduboy.setFrameRate(60);                                 // set the frame rate of the game at 60 fps
-  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 1, nullptr, 0);
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
 }
 
 void loop() {
-  delay(60000);
+	delay(60000);
 }

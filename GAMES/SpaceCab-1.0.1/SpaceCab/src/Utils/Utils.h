@@ -2,7 +2,7 @@
 
 #include "Arduboy2Ext.h"
 #include "Constants.h"
-#include <avr/pgmspace.h>
+#include <pgmspace.h>
 
 uint8_t fadeWidth;
 

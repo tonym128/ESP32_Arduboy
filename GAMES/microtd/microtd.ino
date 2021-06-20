@@ -13,6 +13,8 @@
   with gcc (or maybe even other compiler) for quick debug/tests on the PC.
 */
 
+
+
 #ifdef ARDUINO
   #include <stdint.h>
   #include <Arduboy2.h>
@@ -24,7 +26,7 @@
   #include <cstdint>
   using namespace std;
 
-  #define PROGMEM 
+  #define  
 
   #define A_BUTTON             0
   #define B_BUTTON             1
@@ -225,7 +227,7 @@ void playSound(IndexPointer sound)
 }
 #endif
 
-// A function is a simple way to store strings in PROGMEM :)
+// A function is a simple way to store strings in  :)
 void getUpgradeName(IndexPointer upgrade, char *dst)
 {
   dst[0] = '+';
@@ -262,13 +264,13 @@ void getUpgradeName(IndexPointer upgrade, char *dst)
 }
 
 /// 8 x 8 dithering pattern.
-const uint8_t PROGMEM ditherImage[] =
+const uint8_t  ditherImage[] =
 {
 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55, 0xaa, 0x55
 };
 
 /// 15 x 5 wave decoration image.
-const uint8_t PROGMEM waveImage[] =
+const uint8_t  waveImage[] =
 {
 0x19, 0x1c, 0x1c, 0x1c, 0x1c, 0x19,
 0x13, 0x13, 0x07, 0x07, 0x07, 0x07,
@@ -276,7 +278,7 @@ const uint8_t PROGMEM waveImage[] =
 };
 
 /// 25 x 18 logo image
-const uint8_t PROGMEM logoImage[] =
+const uint8_t  logoImage[] =
 {
 0xf7, 0x63, 0xb7, 0x5f, 0x5b, 0x41, 0x40, 0x41, 0x5b, 0x5f, 0x58, 0x41, 0x40,
 0x41, 0x58, 0x5f, 0x5b, 0x41, 0x40, 0x41, 0x5b, 0x5f, 0xaf, 0x47, 0xef, 0x80,
@@ -287,7 +289,7 @@ const uint8_t PROGMEM logoImage[] =
 };
 
 /// 8 x 8 map tiles, correspond to TILE_x tile types (NOT including TILE_TOWER)
-const uint8_t PROGMEM tileImages[] =
+const uint8_t  tileImages[] =
 {
 #if 0 // change to 0/1 for an alternate tileset!
 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // TILE_EMPTY 
@@ -323,7 +325,7 @@ const uint8_t PROGMEM tileImages[] =
 };
 
 /// 8 x 8 creep images, correspond to CREEP_x constants.
-const uint8_t PROGMEM creepSprites[] =
+const uint8_t  creepSprites[] =
 {
 8,8,  // width, height
 0x00, 0x00, 0x00, 0x54, 0x00, 0x7c, 0x00, 0x38, // CREEP_SPIDER 
@@ -351,7 +353,7 @@ const uint8_t PROGMEM creepSprites[] =
 };
 
 /// 8 x 8 tower images.
-const uint8_t PROGMEM towerSmallImages[] = 
+const uint8_t  towerSmallImages[] = 
 {
 0xff, 0xe7, 0x83, 0x81, 0x81, 0x83, 0xe7, 0xff, // TOWER_GUARD full  
 0xff, 0xe7, 0x8b, 0x8d, 0x8d, 0x8b, 0xe7, 0xff, // TOWER_GUARD upgrade 1
@@ -374,7 +376,7 @@ const uint8_t PROGMEM towerSmallImages[] =
 };
 
 /// 16 x 16 tower images.
-const uint8_t PROGMEM towerBigSprites[] = 
+const uint8_t  towerBigSprites[] = 
 {
 16,16, // width, height
 0xff, 0xff, 0x3f, 0x3f, 0x87, 0x93, 0xb9, 0xe5, // TOWER_WATER
@@ -396,7 +398,7 @@ const uint8_t PROGMEM towerBigSprites[] =
 };
 
 /// Menu item 8 x 8 icons.
-const uint8_t PROGMEM menuIcons[] =
+const uint8_t  menuIcons[] =
 {
 0xff, 0xc3, 0x99, 0xe5, 0xe5, 0x99, 0xc3, 0xff, // water tower 
 0xff, 0xc1, 0x99, 0xf3, 0xf3, 0x99, 0xc1, 0xff, // fire tower
@@ -2705,8 +2707,9 @@ void handleInputs()
 
 bool recordWritten = false; ///< For detecting records and writing to EEPROM.
 
-void setup()
+void inogamesetup()
 { 
+  WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
   EEPROM.begin(200);
   arduboy.begin();
   game.mSound = arduboy.audio.enabled();
@@ -2735,7 +2738,7 @@ void setup()
   }
 }
 
-void loop()
+void inogameloop()
 {
   if (!(arduboy.nextFrame()))
     return;
@@ -2912,3 +2915,19 @@ int main()
 }
 
 #endif
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
+}

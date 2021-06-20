@@ -19,11 +19,8 @@ enum class EnemyType : uint8_t
 	None = NumEnemyTypes
 };
 
-#ifdef ESP8266
-enum EnemyState
-#else
-enum class EnemyState : uint8_t
-#endif
+
+enum EnemyState 
 {
 	Idle,
 	Moving,

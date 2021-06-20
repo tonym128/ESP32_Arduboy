@@ -1,6 +1,4 @@
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
+
 
 #include "global.h"
 
@@ -10,15 +8,15 @@
 
 uint8_t bootCounter = 0;
 
-void setup(){
-  //WiFi.mode(WIFI_OFF);
+void inogamesetup(){
+  WiFi.mode(WIFI_OFF);
   ab.begin();
   ab.setFrameRate(FPS);
 
   Menu::showTitle();
 }
 
-void loop()
+void inogameloop()
 {
   if (!ab.nextFrame())
   {
@@ -56,4 +54,20 @@ void loop()
     flashCounter--;
   }
   ab.display();
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

@@ -427,7 +427,7 @@ void setup(void) {
   BallInit(&ball);
 }
 
-void loop()
+void inogameloop()
 {
   if (!(arduboy.nextFrame()))
     return;
@@ -475,4 +475,20 @@ void loop()
   game_move_racket();
   
   arduboy.display();
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

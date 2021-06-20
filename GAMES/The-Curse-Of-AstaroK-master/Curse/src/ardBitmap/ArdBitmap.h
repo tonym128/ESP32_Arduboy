@@ -95,7 +95,7 @@ void ArdBitmap<SB_WIDTH, SB_HEIGHT>::drawCompressed(int16_t sx, int16_t sy, cons
   scanMode = ((byte1 >> 6) & 0x01) > 0;
   scanZigZag = ((byte1 >> 7) & 0x01) > 0;
 
-  int yOffset = abs((int)sy) % 8;
+  int yOffset = abs(sy) % 8;
   int sRow = sy / 8;
   if (sy < 0 && yOffset > 0) {
     sRow--;

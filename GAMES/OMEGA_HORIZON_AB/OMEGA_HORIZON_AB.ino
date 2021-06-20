@@ -34,13 +34,10 @@
 
 */
 //#include <SPI.h>
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
 
 #include <Arduboy2.h>
-#include "Tinyfont.h"//830 PROGMEM - 28 RAM
-#include <ArduboyTones.h>//626 PROGMEM - 30 RAM
+#include "Tinyfont.h"//830  - 28 RAM
+#include <ArduboyTones.h>//626  - 30 RAM
 
 Arduboy2Base arduboy;
 ArduboyTones sound(arduboy.audio.enabled);
@@ -67,7 +64,7 @@ Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::heigh
 //IMAGES
 /////////////////////////////////////////////////////////////////////////////////
 
-const unsigned char PROGMEM neoretrologo2[] =
+const unsigned char  neoretrologo2[] =
 {
 // width, height,
 64, 64,
@@ -82,7 +79,7 @@ const unsigned char PROGMEM neoretrologo2[] =
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-const unsigned char PROGMEM logo[] =
+const unsigned char  logo[] =
 {
 // width, height,
 40, 64,
@@ -97,7 +94,7 @@ const unsigned char PROGMEM logo[] =
 0x00, 0x00, 0x00, 0x00, 0x00, 0x1f, 0x30, 0x6f, 0xd0, 0xa6, 0xa9, 0xa9, 0xa0, 0xd0, 0x6f, 0x40, 0x5d, 0x55, 0x53, 0x40, 0x5f, 0x51, 0x5f, 0x40, 0x40, 0x5f, 0x40, 0x40, 0x41, 0x41, 0x5f, 0x40, 0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-const unsigned char PROGMEM creators[] =
+const unsigned char  creators[] =
 {
 // width, height,
 128, 8,
@@ -105,7 +102,7 @@ const unsigned char PROGMEM creators[] =
 0xb8, 0xa8, 0xe8, 0x00, 0xf8, 0x20, 0xf8, 0x00, 0xf8, 0x88, 0x70, 0x00, 0xf8, 0x40, 0xf8, 0x00, 0xf8, 0x40, 0xf8, 0x00, 0xc8, 0xa8, 0x98, 0x00, 0xf8, 0x68, 0xb8, 0x00, 0xf8, 0x88, 0x70, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf8, 0x20, 0xd8, 0x00, 0xf8, 0x80, 0xf8, 0x00, 0xf8, 0x68, 0xb8, 0x00, 0xf8, 0x88, 0xf8, 0x00, 0xf8, 0x70, 0xf8, 0x00, 0xf8, 0x88, 0xf8, 0x00, 0xf8, 0x40, 0xf8, 0x00, 0xf8, 0x28, 0xf8, 0x00, 0xf8, 0x88, 0x88, 0x00, 0xf8, 0x20, 0xf8, 0x00, 0xf8, 0x28, 0xf8, 0x00, 0xf8, 0x70, 0xf8,
 };
 
-const unsigned char PROGMEM sound_icon[] =
+const unsigned char  sound_icon[] =
 {
 // width, height,
 8, 8,
@@ -113,7 +110,7 @@ const unsigned char PROGMEM sound_icon[] =
 0xff, 0x9f, 0x83, 0xf9, 0xcd, 0xc1, 0xff, 0xff,
 };
 
-const unsigned char PROGMEM omega_plus_mask[] =
+const unsigned char  omega_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -150,7 +147,7 @@ const unsigned char PROGMEM omega_plus_mask[] =
 0x53, 0xff, 0x24, 0x7f, 0x04, 0x2e, 0x04, 0x0e,
 };
 
-const unsigned char PROGMEM omegaone_plus_mask[] =
+const unsigned char  omegaone_plus_mask[] =
 {
 // width, height,
 16, 16,
@@ -173,7 +170,7 @@ const unsigned char PROGMEM omegaone_plus_mask[] =
 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-const unsigned char PROGMEM planet_plus_mask[] =
+const unsigned char  planet_plus_mask[] =
 {
 // width, height,
 32, 32,
@@ -189,7 +186,7 @@ const unsigned char PROGMEM planet_plus_mask[] =
 };
 
 //projectiles
-const unsigned char PROGMEM bullets_plus_mask[] =
+const unsigned char  bullets_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -206,7 +203,7 @@ const unsigned char PROGMEM bullets_plus_mask[] =
 0x18, 0x3c, 0x18, 0x3c, 0x18, 0x3c, 0x00, 0x18,
 };
 
-const unsigned char PROGMEM items_plus_mask[] =
+const unsigned char  items_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -239,7 +236,7 @@ const unsigned char PROGMEM items_plus_mask[] =
 0x08, 0x7f, 0x22, 0x7f, 0x08, 0x3e, 0x00, 0x08,
 };
 
-const unsigned char PROGMEM doors_plus_mask[] =
+const unsigned char  doors_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -260,7 +257,7 @@ const unsigned char PROGMEM doors_plus_mask[] =
 0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-const unsigned char PROGMEM exits_plus_mask[] =
+const unsigned char  exits_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -289,7 +286,7 @@ const unsigned char PROGMEM exits_plus_mask[] =
 0x5a, 0xff, 0x7e, 0xff, 0x5a, 0xff, 0x7e, 0xff,
 };
 
-const unsigned char PROGMEM koomer_plus_mask[] =
+const unsigned char  koomer_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -314,7 +311,7 @@ const unsigned char PROGMEM koomer_plus_mask[] =
 0xf0, 0xf8, 0xe0, 0xf0, 0x00, 0xe0, 0x00, 0x00,
 };
 
-const unsigned char PROGMEM herab_plus_mask[] =
+const unsigned char  herab_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -327,7 +324,7 @@ const unsigned char PROGMEM herab_plus_mask[] =
 0x38, 0x7c, 0x38, 0x7c, 0x30, 0x78, 0x10, 0x38,
 };
 
-const unsigned char PROGMEM grejen_plus_mask[] =
+const unsigned char  grejen_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -348,7 +345,7 @@ const unsigned char PROGMEM grejen_plus_mask[] =
 0x18, 0x3c, 0x04, 0x1f, 0x07, 0xff, 0xf8, 0xff,
 };
 
-const unsigned char PROGMEM krynder_plus_mask[] =
+const unsigned char  krynder_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -385,7 +382,7 @@ const unsigned char PROGMEM krynder_plus_mask[] =
 0x3e, 0xff, 0xbf, 0xff, 0xf3, 0xff, 0x66, 0xff,
 };
 
-const unsigned char PROGMEM koomerking_plus_mask[] =
+const unsigned char  koomerking_plus_mask[] =
 {
 // width, height,
 16, 8,
@@ -410,7 +407,7 @@ const unsigned char PROGMEM koomerking_plus_mask[] =
 0xfb, 0xff, 0xfb, 0xff, 0xfe, 0xff, 0xfc, 0xfe, 0x78, 0xfc, 0x00, 0x78, 0x00, 0x00, 0x00, 0x00,
 };
 
-const unsigned char PROGMEM blast_plus_mask[] =
+const unsigned char  blast_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -419,7 +416,7 @@ const unsigned char PROGMEM blast_plus_mask[] =
 0xbd, 0xff, 0x99, 0xff, 0x42, 0xff, 0x3c, 0x7e,
 };
 
-const unsigned char PROGMEM karame_plus_mask[] =
+const unsigned char  karame_plus_mask[] =
 {
 // width, height,
 16, 8,
@@ -440,7 +437,7 @@ const unsigned char PROGMEM karame_plus_mask[] =
 0x42, 0xff, 0x7e, 0xff, 0x7e, 0xff, 0x3c, 0x7e, 0x42, 0xff, 0x7e, 0xff, 0x7e, 0xff, 0x3c, 0x7e,
 };
 
-const unsigned char PROGMEM death_plus_mask[] =
+const unsigned char  death_plus_mask[] =
 {
 // width, height,
 8, 8,
@@ -607,7 +604,7 @@ int16_t WinY=0;
 #define ScreenHeight 10//viewable tiles in height
 int16_t mapDataStart=0;
 
-const uint8_t MapData[2732] PROGMEM = {
+const uint8_t MapData[2732]  = {
   //////////////////////////////////////
   //81 screens in 20 rooms
   /////////////////////////////////////
@@ -976,8 +973,8 @@ void findMapStart(int16_t id)
 }
 
 //type,x,y,dir or special,//
-//const int8_t ObjectData[1360] PROGMEM = {//16 entities per map - 20 rooms
-const int8_t ObjectData[636] PROGMEM = {
+//const int8_t ObjectData[1360]  = {//16 entities per map - 20 rooms
+const int8_t ObjectData[636]  = {
    //2,0,20,1,//door,x,y,dir,
    //3,3,18,1,//energy orb,x,y,dir,
    //4,4,18,1,//wall,x,y,dir,
@@ -1233,7 +1230,7 @@ int16_t findObjectStart(int16_t id)
   return i+1;
 }
 
-const unsigned char PROGMEM tileset[] =
+const unsigned char  tileset[] =
 {
 // width, height,
 8, 8,
@@ -1372,8 +1369,8 @@ const unsigned char PROGMEM tileset[] =
 
 
 
-//drawNumbersFromRAM - 104 PROGMEM
-const unsigned char PROGMEM numbers[] =
+//drawNumbersFromRAM - 104 
+const unsigned char  numbers[] =
 {
 // width, height,
 5, 8,
@@ -1423,8 +1420,8 @@ int16_t counter=0;
 uint32_t game_timer=0;
 bool video_out = false;
 
-void setup() {
-  //WiFi.mode(WIFI_OFF);
+void inogamesetup() {
+  WiFi.mode(WIFI_OFF);
   arduboy.boot(); // raw hardware
   arduboy.blank(); // blank the display
   arduboy.flashlight(); // light the RGB LED and screen if UP button is being held.  
@@ -1440,32 +1437,32 @@ void setup() {
   gameState  = STATE_MENU_INTRO;
 }
 
-const uint16_t SND_WELL_DONE[] PROGMEM = {
+const uint16_t SND_WELL_DONE[]  = {
   220,100, 0,25, 600,100, 0, 25, 880,500,
   TONES_END 
 };
 
-const uint16_t SND_ENTITY_DEATH[] PROGMEM = {
+const uint16_t SND_ENTITY_DEATH[]  = {
   //kill creature
   120,100,TONES_END
 };
 
-const uint16_t SND_OBTAIN_ITEM[] PROGMEM = {
+const uint16_t SND_OBTAIN_ITEM[]  = {
   //obtain item
   220,100,0,25,600,100,0,25,880,500,TONES_END
 };
 
-const uint16_t SND_COMPLETE_MISSION[] PROGMEM = {
+const uint16_t SND_COMPLETE_MISSION[]  = {
   //win game
   220,100,0,25,600,100,0,25,880,500,0,300,600,100,0,25,220,100,0,25,600,100,0,25,220,100,0,25,1000,600,TONES_END
 };
 
-const uint16_t SND_GAME_OVER[] PROGMEM = {
+const uint16_t SND_GAME_OVER[]  = {
   //lose game
   150,600,0,200,100,600,0,200,50,1000,TONES_END
 };
 
-const uint16_t SND_TITLE_SCREEN[] PROGMEM = {
+const uint16_t SND_TITLE_SCREEN[]  = {
   //title screen  
   200,200,400,200,200,200,400,200,587,200,150,100,0,100,150,100,0,100,150,100,0,100,
   200,200,400,200,200,200,400,200,784,200,150,100,0,100,150,100,0,100,150,100,0,100,  
@@ -1473,19 +1470,19 @@ const uint16_t SND_TITLE_SCREEN[] PROGMEM = {
   TONES_END 
 };
 
-const uint16_t SND_MISSION_SCREEN[] PROGMEM = {
+const uint16_t SND_MISSION_SCREEN[]  = {
   2400,200,100,200,2400,200,100,1000,
   2600,200,100,200,2600,200,100,1000,
   2500,200,100,200,2500,200,100,1000,
   0,100,100,1000,TONES_END
 };
 
-const char story_text[] PROGMEM = "THE PLANET OF TURNAX\nHAS EXTENSIVE MINERAL\nDEPOSITS OF HIGH\nVALUE TO THE\nINTERPLANETARY ALLIED\nCONFEDERATION (IPAC).\nRECENT UNANTICIPATED\nATTACKS BY PRIMATIVE\nSPECIES HAVE PROVEN\nDAMAGING TO MINING\nOPERATIONS. ";
+const char story_text[]  = "THE PLANET OF TURNAX\nHAS EXTENSIVE MINERAL\nDEPOSITS OF HIGH\nVALUE TO THE\nINTERPLANETARY ALLIED\nCONFEDERATION (IPAC).\nRECENT UNANTICIPATED\nATTACKS BY PRIMATIVE\nSPECIES HAVE PROVEN\nDAMAGING TO MINING\nOPERATIONS. ";
 int16_t x;
 int16_t y;
 int16_t lspeed;
   
-void loop() {
+void inogameloop() {
   // put your main code here, to run repeatedly:
   if (!(arduboy.nextFrame())) return;
   arduboy.pollButtons();//polls for buttons down, up and clicked
@@ -1506,7 +1503,7 @@ void loop() {
         initRainDrops();
       }
       if (arduboy.justPressed(LEFT_BUTTON)) {//activate video out
-        //Serial.begin(9600);
+        Serial.begin(9600);
         video_out=true;
       } 
       break;
@@ -2841,4 +2838,20 @@ int8_t TileCollision(Rect rect, int8_t RX, int8_t RY, int8_t map_id){
   }
  }
  return 0;
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

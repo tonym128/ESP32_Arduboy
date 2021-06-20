@@ -5,7 +5,7 @@
  */
 
 #ifdef ESP8266
-#include <avr/pgmspace.h>
+#include <pgmspace.h>
 //#define pgm_read_ptr pgm_read_word
 #else
 #include <stdint.h>

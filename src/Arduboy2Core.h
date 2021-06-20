@@ -25,8 +25,8 @@
 #define LHSWAP(w) (uint16_t)((((uint16_t)w)>>8)|(((uint16_t)w)<<8))
 
 // there is only one pin for audio
-#define PIN_SPEAKER_1 D3
-#define PIN_SPEAKER_2 D3
+#define PIN_SPEAKER_1 AUDIO_PORT
+#define PIN_SPEAKER_2 AUDIO_PORT
 
 #define LEDPIN 	D4
 #define RGB_ON 	200

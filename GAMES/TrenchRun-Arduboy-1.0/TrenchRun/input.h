@@ -19,7 +19,7 @@ void checkInput() {
       if (ab.justPressed(A_BUTTON | B_BUTTON)) {
         gameState = STATE_WARMUP;
 //        beep.tone(beep.freq(587.330), 5);
-      //tone(D3, 587.330, 5);
+      tone(D3, 587.330, 5);
       }
       break;
     case STATE_GAME:

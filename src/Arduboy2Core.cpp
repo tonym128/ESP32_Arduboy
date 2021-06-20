@@ -100,17 +100,17 @@ void Arduboy2Core::boot()
   esp_timer_init();
 
   // Start OTA
-  Serial.write("Start OTA\n");
+  // Serial.write("Start OTA\n");
   initOTA();
-  Serial.write("Start OTA Done\n");
+  // Serial.write("Start OTA Done\n");
 
   //initializing DMA buffers and I2S
   composite.init();
   //initializing graphics double buffer
   graphics.init();
-  Serial.write("Screen Init\n");
-  delay(100);
-  Serial.write("Boot Done!");
+  // Serial.write("Screen Init\n");
+  // delay(100);
+  // Serial.write("Boot Done!");
   xTaskCreatePinnedToCore(compositeCore, "c", 1024, NULL, 1, NULL, 1);
 
 #ifdef TFTESPI

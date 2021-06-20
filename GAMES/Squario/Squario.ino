@@ -1,9 +1,6 @@
 //#include <SPI.h>
 //#include <EEPROM.h>
 
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
 
 #include <Arduboy2.h>
 #include "SquarioGame.h"
@@ -23,8 +20,8 @@ uint32_t currTime;
 uint32_t prevTime = 0;
 bool SoundOn = true;
 
-void setup() {
-  //WiFi.mode(WIFI_OFF);
+void inogamesetup() {
+  WiFi.mode(WIFI_OFF);
   EEPROM.begin(200);
   display.begin();
 }
@@ -95,7 +92,7 @@ void SoundEngine() {
   }
 }
 
-void loop() {
+void inogameloop() {
   TitleScreen();
   Game.NewGame( );
   while ( Game.Event ) { // 0 is Off
@@ -280,4 +277,20 @@ void displayHighScores(uint8_t file) {
     delay(1);
     if ( display.buttonsState() && Game.ButtonOffCD() ) return;
   }
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

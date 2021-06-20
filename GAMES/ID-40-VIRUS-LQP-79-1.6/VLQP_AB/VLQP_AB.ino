@@ -26,7 +26,7 @@ WiFi.mode(WIFI_OFF);
 
 
 typedef void (*FunctionPointer) ();
-const FunctionPointer PROGMEM mainGameLoop[] =
+const FunctionPointer  mainGameLoop[] =
 {
   stateMenuIntro,
   stateMenuMain,
@@ -45,8 +45,8 @@ const FunctionPointer PROGMEM mainGameLoop[] =
   stateGameMayhem,
 };
 
-void setup(){
-  //WiFi.mode(WIFI_OFF);
+void inogamesetup(){
+  WiFi.mode(WIFI_OFF);
   EEPROM.begin(200);
   arduboy.boot();                                           // begin with the boot logo en setting up the device to work
   arduboy.audio.begin();
@@ -56,11 +56,27 @@ void setup(){
   //Serial.begin(9600);
 }
 
-void loop() {
+void inogameloop() {
   if (!(arduboy.nextFrame())) return;
   arduboy.pollButtons();
   arduboy.clear();
   ((FunctionPointer) pgm_read_dword (&mainGameLoop[gameState]))();
   arduboy.display();
   //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

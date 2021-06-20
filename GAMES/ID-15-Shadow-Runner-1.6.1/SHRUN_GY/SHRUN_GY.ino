@@ -12,20 +12,10 @@
 //determine the game
 #define GAME_ID 15
 
+
+
 #include <Gamby.h>
-#ifdef ESP8266
-#include <avr/pgmspace.h>
-//#define pgm_read_ptr pgm_read_word
-#else
-#include <stdint.h>
-#include <string.h>
-#define PROGMEM
-#define PSTR
-#define pgm_read_byte(x) (*((uint8_t*)x))
-#define pgm_read_word(x) (*((uint16_t*)x))
-#define pgm_read_ptr(x) (*((uintptr_t*)x))
-#define strlen_P(x) strlen(x)
-#endif
+#include <pgmspace.h>
 
 #define PAUSE_BETWEEN_ACTIONS 80
 #define PAUSE_BETWEEN_MENUS   180
@@ -68,6 +58,7 @@ int runnerY = 0;
 boolean show_runner = false;
 
 void setup () {
+  WiFi.mode(WIFI_OFF); //disable wifi to save some battery power
   randomSeed(analogRead(0));
   gamby.drawPattern = PATTERN_BLACK;
   gamby.rect(0,0,95,63);
@@ -283,4 +274,20 @@ void game_over()
   gamby.rect(0,0,95,63);
   gamby.drawSprite(18,16,gameover_bitmap);
   score_draw(14,40);
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

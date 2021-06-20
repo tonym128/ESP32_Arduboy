@@ -1,7 +1,3 @@
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
-
 #include "src/utils/Arduboy2Ext.h"
 //#include <ArduboyTones.h>
 #include "src/images/sounds.h"
@@ -54,8 +50,7 @@ uint8_t getNearestY(int8_t margin = HALF_GRID_SIZE);
 // --------------------------------------------------------------------------------------
 //  Setup ..
 //
-void setup() {
-  //WiFi.mode(WIFI_OFF);
+void inogamesetup() {
   arduboy.boot();
   arduboy.flashlight();
   arduboy.systemButtons();
@@ -107,7 +102,7 @@ void setup() {
 // --------------------------------------------------------------------------------------
 //  Main Loop ..
 //
-void loop() {
+void inogameloop() {
 
   if (!(arduboy.nextFrame())) return;
   arduboy.pollButtons();
@@ -764,3 +759,19 @@ void CompleteSeries() {
 
 }
 //#endif
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
+}

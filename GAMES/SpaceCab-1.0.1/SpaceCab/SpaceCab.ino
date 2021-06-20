@@ -1,8 +1,6 @@
 #include "src/Utils/Arduboy2Ext.h"
 
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
+
 #include <ArduboyTones.h>
 #include "src/Images/Images.h"
 #include "src/Entities/Entities.h"
@@ -55,8 +53,8 @@ Level level;
 //  Setup 
 //------------------------------------------------------------------------------
 
-void setup() {
-  //WiFi.mode(WIFI_OFF);
+void inogamesetup() {
+  WiFi.mode(WIFI_OFF);
   arduboy.boot();
   arduboy.display();
   arduboy.flashlight();
@@ -69,7 +67,7 @@ void setup() {
     
 }
 
-void loop() {
+void inogameloop() {
   
   if (!(arduboy.nextFrame())) return;
 
@@ -179,4 +177,20 @@ void loop() {
 
   }
 
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

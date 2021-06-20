@@ -157,15 +157,31 @@ void TestSQ7x8(void)
 	Serial.println();
 }
 
-void setup()
+void inogamesetup()
 {
-	//Serial.begin(9600);
-	//while(!Serial);
+	Serial.begin(9600);
+	while(!Serial);
 
 	TestUQ8x8();
 	TestSQ7x8();
 }
 
-void loop()
+void inogameloop()
 {
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }

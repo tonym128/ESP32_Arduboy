@@ -967,6 +967,7 @@ void Arduboy2Base::display()
     tft.endWrite();  
 #endif
 
+#ifdef DEBUG_FPS
   gamelastTime = gamecurrentTime;
   gamecurrentTime = esp_timer_get_time();
   gameframeTime = gamecurrentTime - gamelastTime;
@@ -977,6 +978,7 @@ void Arduboy2Base::display()
     counter = 0;
   }
   counter++;
+#endif
 
 }
 

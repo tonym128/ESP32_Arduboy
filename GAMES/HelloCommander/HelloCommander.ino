@@ -1,6 +1,3 @@
-#ifdef ESP8266
-#include <ESP8266WiFi.h>
-#endif
 
 #include "globals.h"
 #include "world.h"
@@ -43,8 +40,8 @@ void stateRoundStart(){
         gameState = stateBossTalk;
 }
 
-void setup() {
-  //WiFi.mode(WIFI_OFF);
+void inogamesetup() {
+  WiFi.mode(WIFI_OFF);
   arduboy.boot();
   arduboy.flashlight();
   arduboy.setFrameRate(10);
@@ -75,7 +72,7 @@ void post(){
     arduboy.display();
 }
 
-void loop() {
+void inogameloop() {
     
     if (!(arduboy.nextFrame()))
         return;
@@ -95,4 +92,20 @@ void loop() {
     
     post();
     
+}
+void gameLogicLoop(void *)
+{
+  for (;;) {
+    inogameloop(); 
+    // ArduinoOTA.handle();
+  }
+}
+
+void setup() {
+  inogamesetup();
+  xTaskCreatePinnedToCore(gameLogicLoop, "g", 4096, nullptr, 0, nullptr, 0);
+}
+
+void loop() {
+	delay(60000);
 }
