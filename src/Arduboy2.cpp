@@ -169,9 +169,9 @@ void Arduboy2Base::drawLogoSpritesBOverwrite(int16_t y){
 void Arduboy2Base::bootLogoShell(void (*drawLogo)(int16_t)){	
   bool showLEDs = readShowBootLogoLEDsFlag();
 
-  if (!readShowBootLogoFlag()) {
-    return;
-  }
+  //if (!readShowBootLogoFlag()) {
+  //  return;
+  //}
 
   if (showLEDs) {
     setRGBled(RED_LED, 4);
@@ -1088,9 +1088,9 @@ Arduboy2::Arduboy2()
 // if changes are made to one, equivalent changes should be made to the other
 void Arduboy2::bootLogoText(){
   bool showLEDs = readShowBootLogoLEDsFlag();
-  if (!readShowBootLogoFlag()) {
-    return;
-  }
+  //if (!readShowBootLogoFlag()) {
+  //  return;
+ // }
 
   if (showLEDs) {
     digitalWriteRGB(RED_LED, RGB_ON);

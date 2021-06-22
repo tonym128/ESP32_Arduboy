@@ -58,7 +58,7 @@ void ESPboyInit::begin(const char *appName) {
     dac.setVoltage(bcklt, false);
     delay(10);}
 
-  delay(1000);
+  delay(500);
 
 //clear TFT and backlit on high
   dac.setVoltage(4095, true);

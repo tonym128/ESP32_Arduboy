@@ -952,13 +952,12 @@ bool CPGSprite::CycleNext( CPGSprite * First ) {
         if ( p->next->IsIn( next->x, next->y ) ) {
           First->meat += p->next->meat;
           p->DeleteNext();
-          return(true);
         }
       }
     }
   }
   if ( next ) next->CycleNext( First );
-  if ( next->IsOffscreen() ) DeleteNext();
+  if ( next && next->IsOffscreen() ) DeleteNext();
   return true;
 }
 
