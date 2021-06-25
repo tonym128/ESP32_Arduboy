@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<seqview xscroll="0.000000" yscroll="0" zoom="100">
+<sequence maintempo="192" measureAmount="6" currentTrack="0" beatResolution="960" internalName="Untitled" fileFormatVersion="4" channelManagement="auto" metronome="false">
+
+<measure  firstMeasure="0" denom="8" num="12"/>
+
+<tempo>
+</tempo>
+<text>
+</text>
+<copyright>
+</copyright>
+<defaultkeysig keytype="2" keysymbolamount="0" />
+
+
+<track name="Untitled" id="0" channel="13" muted="false" soloed="false" volume="100" default_volume="80">
+  <key type="C" />
+  <editors height="128">
+    <score enabled="true" musical_notation="true" linear_notation="true" g_clef="true" f_clef="true" scroll="0.547945" proportion="1.000000"/>
+    <keyboard enabled="false" scroll="0.551605"/>
+    <guitar enabled="false"/>
+    <drum enabled="false" scroll="0.000000"/>
+    <controller enabled="false" controller="7"/>
+  </editors>
+  <magneticgrid divider="8" triplet="false" dotted="false"/>
+  <instrument id="25"/>
+  <drumkit id="0" collapseView="false"/>
+  <guitartuning  string0="67" string1="72" string2="76" string3="81" string4="86" string5="91"/>
+
+  <note pitch="76" start="0" end="960" volume="95"/>
+  <note pitch="69" start="960" end="1440" volume="95"/>
+  <note pitch="76" start="1440" end="2400" volume="95"/>
+  <note pitch="69" start="2400" end="3840" volume="95"/>
+  <note pitch="64" start="3840" end="4320" volume="95"/>
+  <note pitch="77" start="4320" end="4800" volume="95"/>
+  <note pitch="76" start="4800" end="5280" volume="95"/>
+  <note pitch="72" start="5280" end="5760" volume="95"/>
+  <note pitch="67" start="5760" end="6720" volume="95"/>
+  <note pitch="77" start="6720" end="7200" volume="95"/>
+  <note pitch="76" start="7200" end="8160" volume="95"/>
+  <note pitch="72" start="8160" end="9600" volume="95"/>
+  <note pitch="64" start="9600" end="10560" volume="95"/>
+  <note pitch="77" start="10080" end="10560" volume="95"/>
+  <note pitch="76" start="10560" end="11040" volume="95"/>
+  <note pitch="72" start="11040" end="11520" volume="95"/>
+  <note pitch="76" start="11520" end="12480" volume="95"/>
+  <note pitch="69" start="12480" end="12960" volume="95"/>
+  <note pitch="76" start="12960" end="13920" volume="95"/>
+  <note pitch="69" start="13920" end="15360" volume="95"/>
+  <note pitch="64" start="15360" end="15840" volume="95"/>
+  <note pitch="77" start="15840" end="16320" volume="95"/>
+  <note pitch="76" start="16320" end="16800" volume="95"/>
+  <note pitch="72" start="16800" end="17280" volume="95"/>
+  <note pitch="67" start="17280" end="18240" volume="95"/>
+  <note pitch="77" start="18240" end="18720" volume="95"/>
+  <note pitch="76" start="18720" end="19680" volume="95"/>
+  <note pitch="72" start="19680" end="21120" volume="95"/>
+  <note pitch="64" start="21120" end="22080" volume="95"/>
+  <note pitch="77" start="21600" end="22080" volume="95"/>
+  <note pitch="76" start="22080" end="22560" volume="95"/>
+  <note pitch="72" start="22560" end="23040" volume="95"/>
+  <note pitch="71" start="23040" end="23520" volume="95"/>
+  <note pitch="67" start="23520" end="24000" volume="95"/>
+  <note pitch="64" start="24000" end="24480" volume="95"/>
+  <note pitch="69" start="24480" end="25440" volume="95"/>
+  <note pitch="64" start="25440" end="25920" volume="95"/>
+  <note pitch="72" start="25920" end="26400" volume="95"/>
+  <note pitch="69" start="26400" end="26880" volume="95"/>
+  <note pitch="64" start="26880" end="27360" volume="95"/>
+  <note pitch="69" start="27360" end="28800" volume="95"/>
+  <note pitch="69" start="28800" end="34560" volume="95"/>
+  <controlevent type="200" tick="0" value="63.49612427"/>
+  <controlevent type="95" tick="0" value="127.00000000"/>
+  <controlevent type="93" tick="0" value="127.00000000"/>
+  <controlevent type="92" tick="0" value="127.00000000"/>
+  <controlevent type="91" tick="0" value="127.00000000"/>
+  <controlevent type="11" tick="0" value="0.00000000"/>
+  <controlevent type="10" tick="0" value="88.00000000"/>
+  <controlevent type="7" tick="0" value="0.00000000"/>
+  <controlevent type="203" tick="0" value="25.00000000"/>
+</track>
+
+</sequence></seqview>

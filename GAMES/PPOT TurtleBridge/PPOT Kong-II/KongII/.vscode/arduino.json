@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:leonardo",
+    "sketch": "KongII.ino",
+    "port": "/dev/cu.usbmodem14301",
+    "output": "../../build"
+}

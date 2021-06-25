@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+
+####################
+# Arduboy functions
+# Note: These functions were created and used during visual asset development of Crates (https://github.com/compycore/crates)
+####################
+
+function ardbitmap() {
+	# Deal with GIFs
+	if [[ $1 == *.gif ]]
+	then
+		# The image we're currently on
+		COUNTER=0
+
+		# Create a directory to put the frames into
+		mkdir ardbitmap
+		# Rip the GIF into frames
+		convert $1 ardbitmap/frame%03d.png
+
+		# Loop through the frames
+		for IMAGE in ardbitmap/*
+		do
+			# Run the compressor on the single frame
+			java -jar ~/.ardbitmap/compressor.jar $IMAGE >> $2
+
+			# Number the frame in the output file using the counter
+			sed -i '' -e 's/OUT\[\]/OUT_'$COUNTER'\[\]/g' $2
+
+			# Add a couple newlines to the output file
+			echo >> $2
+			echo >> $2
+
+			# Increment the counter
+			COUNTER=$((COUNTER+1))
+
+			# Preview the image if we passed a third argument
+			if [[ $3 ]]
+			then
+				java -jar ~/.ardbitmap/compressor.jar $IMAGE -v
+			fi
+		done
+
+		# Cleanup
+		rm -rf ardbitmap
+	else
+		# Run the compressor on the single frame
+		java -jar ~/.ardbitmap/compressor.jar $1 >> $2
+
+		# Preview the image if we passed a third argument
+		if [[ $3 ]]
+		then
+			java -jar ~/.ardbitmap/compressor.jar $1 -v
+		fi
+	fi
+}
+
+function maskify() {
+	if [[ $1 == *.gif ]]
+	then
+		# Get just the filename
+		FILENAME="${1%.*}"
+
+		# Make directories for organization
+		mkdir -p maskify/black
+		mkdir -p maskify/white
+
+		# Split the animation
+		convert $1 maskify/frame%03d.png
+
+		# Make the masks
+		cd maskify/black
+		convert ../*.png -transparent white -opaque black -fill white -set filename:f '%t-mask-black.%e' +adjoin '%[filename:f]'
+		# Make an animation
+		convert -delay 10 -dispose previous -loop 0 *.png ../../$FILENAME-mask-black.gif
+		cd ../..
+
+		cd maskify/white
+		convert ../*.png -transparent black -set filename:f '%t-mask-white.%e' +adjoin '%[filename:f]'
+		# Make an animation
+		convert -delay 10 -dispose previous -loop 0 *.png ../../$FILENAME-mask-white.gif
+		cd ../..
+
+		# Cleanup
+		rm -rf maskify
+	else
+		convert $1 -transparent white -opaque black -fill white -set filename:f '%t-mask-black.%e' +adjoin '%[filename:f]'
+		convert $1 -transparent black -set filename:f '%t-mask-white.%e' +adjoin '%[filename:f]'
+	fi
+}
+
+function bitify() {
+	if [[ -z $1 || -z $2 || -z $3 ]]
+	then
+		echo "One or more arguments are missing"
+	elif (( $3 % 8 != 0 ))
+	then
+		echo "Image height must be a multiple of 8"
+	else
+		# Make an animation
+		convert -monochrome -scale 500% -delay 10 -dispose previous -loop 0 *.png ../$1.gif
+		# Make the individual frames
+		convert *.png -gravity center -crop $2x$3+0+0 -set filename:f '%t-cropped.%e' +adjoin '%[filename:f]'
+		# Make an opacity mask sprite sheet
+		convert *-cropped.png -append -fill white -colorize 100% -background black -alpha remove mask.png
+		# Combine and dither frames into a sprite sheet
+		convert *-cropped.png -append -monochrome sheet.png
+		# Copy opacity into the dithered sprite sheet
+		convert sheet.png mask.png -alpha off -compose CopyOpacity -composite ../$1_$2x$3.png
+		# Clean up
+		rm *-cropped.png
+		rm mask.png
+		rm sheet.png
+	fi
+}
+
+function gifify() {
+	if [[ -z $1 || -z $2 || -z $3 ]]
+	then
+		echo "One or more arguments are missing"
+	elif (( $3 % 8 != 0 ))
+	then
+		echo "Image height must be a multiple of 8"
+	else
+		for IMAGE in *
+		do
+			# Get just the filename (no extension)
+			FILENAME="${IMAGE%.*}"
+			# Make the individual frames
+			convert $IMAGE -gravity center -crop $2x$3+0+0 +repage -set filename:f '%t-cropped.%e' +adjoin '%[filename:f]'
+			# Make an opacity mask sprite sheet
+			convert $FILENAME-cropped.png -fill white -colorize 100% -background black -alpha remove -set filename:f '%t-mask.%e' +adjoin '%[filename:f]'
+			# Make the cropped frames monochrome
+			convert $FILENAME-cropped.png -monochrome -set filename:f '%t-monochrome.%e' +adjoin '%[filename:f]'
+			# Copy opacity into the dithered sprite sheet
+			convert $FILENAME-cropped-monochrome.png $FILENAME-cropped-mask.png -alpha off -compose CopyOpacity -composite $FILENAME-final.png
+		done
+
+		# Make an animation
+		convert -delay 10 -dispose previous -loop 0 *-final.png ../$1.gif
+
+		# Clean up
+		rm *-cropped.png
+		rm *-cropped-monochrome.png
+		rm *-cropped-mask.png
+		rm *-final.png
+	fi
+}
+

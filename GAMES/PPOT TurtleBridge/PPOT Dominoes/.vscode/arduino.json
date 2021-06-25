@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:leonardo",
+    "output": "../build",
+    "sketch": "DominoesArduboy.ino",
+    "port": "/dev/cu.usbmodem14601"
+}

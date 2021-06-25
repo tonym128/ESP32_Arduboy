@@ -1,0 +1,34 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/Applications/Programming/Arduino.app/Contents/Java/hardware/tools/**",
+                "/Users/simonholmes/Documents/Arduino/libraries/**",
+                "/Applications/Programming/Arduino.app/Contents/Java/libraries/**",
+                "/Users/simonholmes/Library/Arduino15/packages/arduboy-homemade/hardware/avr/1.2.7/**",
+                "/Users/simonholmes/Library/Arduino15/packages/arduino/tools/**",
+                "/Users/simonholmes/Library/Arduino15/packages/arduino/hardware/avr/1.6.22/**",
+                "/Applications/Programming/Arduino.app/Contents/Java/hardware/arduino/avr/**",
+                "/Applications/Programming/Arduino.app/Contents/Java/tools/**",
+                "C:\\Users\\simon.holmes\\AppData\\Local\\Arduino15\\packages\\arduboy-homemade\\hardware\\avr\\1.2.9\\**",
+                "C:\\Program Files (x86)\\Arduino\\portable\\libraries\\**",
+                "C:\\Users\\simon.holmes\\Documents\\Arduino\\libraries\\**",
+                "/Users/simonholmes/Library/Arduino15/packages/arduboy-homemade/hardware/avr/1.2.9/**"
+            ],
+            "forcedInclude": [],
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ],
+            "intelliSenseMode": "clang-x64",
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "defines": [
+                "USBCON"
+            ]
+        }
+    ],
+    "version": 4
+}

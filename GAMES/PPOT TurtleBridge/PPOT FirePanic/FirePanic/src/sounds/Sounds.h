@@ -1,0 +1,40 @@
+#pragma once
+
+#include <ArduboyTones.h>
+
+namespace Sounds {
+
+  const uint16_t VictimSaved[]  = { 220,50, 440,50, 880,50, TONES_END };
+
+  const uint16_t VictimDead[]  = { 660,50, 440,50, 180,50, TONES_END };
+
+  const uint16_t VictimBounced_1[]  = { 580,50, TONES_END };
+
+  const uint16_t VictimBounced_2[]  = { 620,50, TONES_END };
+
+  const uint16_t VictimBounced_3[]  = { 660,50, TONES_END };
+
+  const uint16_t Coin[]  = { 220,50, 440,50, 880,50, TONES_END };
+
+  const uint16_t Crash[]  = { 30,35, 65,20, 110,15, 85,45, TONES_END };
+
+  const uint16_t Siren1[]  = { 400,45, TONES_END };
+  const uint16_t Siren2[]  = { 600,45, TONES_END };
+
+  const uint16_t Score[]  = {
+    NOTE_E5,316, NOTE_REST,83, NOTE_B5,316, NOTE_REST,83, NOTE_E6,316, NOTE_REST,83, NOTE_B5,158, NOTE_REST,41,
+    NOTE_E6,158, NOTE_REST,41, NOTE_E5,316, NOTE_REST,83, NOTE_B5,400, NOTE_E6,316, NOTE_REST,483, 
+    
+    NOTE_E5,316, NOTE_REST,83, NOTE_B5,316, NOTE_REST,83, NOTE_E6,316, NOTE_REST,83, NOTE_B5,158, NOTE_REST,41, 
+    NOTE_E6,158, NOTE_REST,41, NOTE_E5,316, NOTE_REST,83, NOTE_B5,400, NOTE_E6,316, NOTE_REST,483, 
+    
+    NOTE_CS5,316, NOTE_REST,83, NOTE_GS5,316, NOTE_REST,83, NOTE_CS6,316, NOTE_REST,83, NOTE_GS5,158, NOTE_REST,41, 
+    NOTE_CS6,158, NOTE_REST,41, NOTE_CS5,316, NOTE_REST,83, NOTE_GS5,400, NOTE_CS6,316, NOTE_REST,483, 
+    
+    NOTE_CS5,316, NOTE_REST,83, NOTE_GS5,316, NOTE_REST,83, NOTE_CS6,316, NOTE_REST,83, NOTE_GS5,158, NOTE_REST,41, 
+    NOTE_CS6,158, NOTE_REST,41, NOTE_CS5,316, NOTE_REST,83, NOTE_GS5,400, NOTE_CS6,316, NOTE_REST,483, 
+    
+     NOTE_REST, 5000, TONES_REPEAT
+  };
+
+}

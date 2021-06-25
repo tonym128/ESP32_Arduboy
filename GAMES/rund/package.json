@@ -1,0 +1,22 @@
+{
+  "name": "arduboy-rund-ino",
+  "version": "0.1.0",
+  "description": "The famous offline hero totally disconnected and goes on a rampage in your pockets.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flaki/arduboy-rund-ino.git"
+  },
+  "keywords": [
+    "arduboy"
+  ],
+  "author": "Flaki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flaki/arduboy-rund-ino/issues"
+  },
+  "homepage": "https://github.com/flaki/arduboy-rund-ino#readme"
+}

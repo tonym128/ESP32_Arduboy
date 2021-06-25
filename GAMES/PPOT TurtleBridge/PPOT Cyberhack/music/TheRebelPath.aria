@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<seqview xscroll="0.000000" yscroll="0" zoom="100">
+<sequence maintempo="90" measureAmount="8" currentTrack="0" beatResolution="384" internalName="" fileFormatVersion="4" channelManagement="auto" metronome="false">
+
+<measure  firstMeasure="0" denom="4" num="4"/>
+
+<tempo>
+</tempo>
+<text>
+</text>
+<copyright>
+</copyright>
+<defaultkeysig keytype="2" keysymbolamount="0" />
+
+
+<track name="Synth Pluck" id="0" channel="0" muted="false" soloed="false" volume="100" default_volume="80">
+  <key type="C" />
+  <editors height="128">
+    <score enabled="true" musical_notation="true" linear_notation="true" g_clef="true" f_clef="true" scroll="0.547945" proportion="1.000000"/>
+    <keyboard enabled="false" scroll="0.500000"/>
+    <guitar enabled="false"/>
+    <drum enabled="false" scroll="0.000000"/>
+    <controller enabled="false" controller="7"/>
+  </editors>
+  <magneticgrid divider="8" triplet="false" dotted="false"/>
+  <instrument id="87"/>
+  <drumkit id="0" collapseView="false"/>
+  <guitartuning  string0="67" string1="72" string2="76" string3="81" string4="86" string5="91"/>
+
+  <note pitch="62" start="0" end="192" volume="50" fret="5" string="0"/>
+  <note pitch="67" start="192" end="576" volume="50" fret="0" string="0"/>
+  <note pitch="64" start="576" end="768" volume="50" fret="3" string="0"/>
+  <note pitch="69" start="768" end="960" volume="50" fret="3" string="1"/>
+  <note pitch="64" start="1152" end="1536" volume="50" fret="3" string="0"/>
+  <note pitch="67" start="1536" end="2112" volume="50" fret="0" string="0"/>
+  <note pitch="67" start="2112" end="2304" volume="50" fret="0" string="0"/>
+  <note pitch="62" start="2496" end="2688" volume="50" fret="5" string="0"/>
+  <note pitch="67" start="2688" end="3072" volume="50" fret="0" string="0"/>
+  <note pitch="64" start="3072" end="3264" volume="50" fret="3" string="0"/>
+  <note pitch="69" start="3264" end="3456" volume="50" fret="3" string="1"/>
+  <note pitch="64" start="3648" end="4032" volume="50" fret="3" string="0"/>
+  <note pitch="67" start="4032" end="4608" volume="50" fret="0" string="0"/>
+  <note pitch="67" start="4608" end="5184" volume="50" fret="0" string="0"/>
+  <note pitch="62" start="5376" end="5568" volume="50" fret="5" string="0"/>
+  <note pitch="67" start="5568" end="5952" volume="50" fret="0" string="0"/>
+  <note pitch="64" start="5952" end="6144" volume="50" fret="3" string="0"/>
+  <note pitch="69" start="6144" end="6336" volume="50" fret="3" string="1"/>
+  <note pitch="64" start="6528" end="6912" volume="50" fret="3" string="0"/>
+  <note pitch="67" start="6912" end="7488" volume="50" fret="0" string="0"/>
+  <note pitch="67" start="7488" end="8064" volume="50" fret="0" string="0"/>
+  <note pitch="62" start="8256" end="8448" volume="50" fret="5" string="0"/>
+  <note pitch="67" start="8448" end="8832" volume="50" fret="0" string="0"/>
+  <note pitch="64" start="8832" end="9024" volume="50" fret="3" string="0"/>
+  <note pitch="69" start="9024" end="9216" volume="50" fret="3" string="1"/>
+  <note pitch="64" start="9408" end="9792" volume="50" fret="3" string="0"/>
+  <note pitch="67" start="9792" end="11136" volume="50" fret="0" string="0"/>
+</track>
+
+</sequence></seqview>

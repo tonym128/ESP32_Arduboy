@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:leonardo",
+    "sketch": "OilPanic/OilPanic.ino",
+    "port": "/dev/tty.usbmodem14601",
+    "output": "../../build"
+}

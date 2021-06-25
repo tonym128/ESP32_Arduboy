@@ -1,0 +1,149 @@
+CRATES 3D v1.1.1                                        20 May 2003
+================
+ for Venus on the TI-83
+
+ Ion version by Badja
+ 3 July 2001
+ http://badja.calc.org
+ badja@calc.org
+
+ ported to Venus by Tijl Coosemans
+ 27 February 2002
+ http://tijl.studentenweb.org/
+ tijl@ulyssis.org
+
+
+Changes in Version 1.1
+======================
+The level editor is now compatible with TI-86 level sets.
+
+
+How to Run
+==========
+Crates 3D requires Venus 2.x to run.
+
+To run Crates 3D, make sure Venus is installed on your calculator.
+
+Send CRATES.83P and C3DSTD.83P to your calculator.
+
+Start Crates 3D by selecting CRATES from the PRGM-menu and hitting enter.
+
+
+About
+=====
+Crates 3D is an original puzzle game in which you must guide yourself
+through a three-dimensional world of moveable crates to the exit. You
+can view the world from four different angles. The game comes with 16
+standard levels, and a level editor is included so that you can create
+your own.
+
+
+How to Play
+===========
+At the title screen, press the 2ND key to play the selected level set.
+Crates 3D comes with one level set called "Standard".
+
+Each level is built entirely from white crates. You control a black
+crate, which you can move around with the arrow keys. The aim in each
+level is to reach the other black crate and stand on top of it. The
+first three levels in the Standard set are training levels.
+
+On level 1, move all the way to the right. You will find yourself
+hidden by a wall. You need to rotate the view with the Y= and WINDOW
+keys to see what is behind the wall. Once you have moved past the wall,
+move across to the black crate and stand on top of it to win the level.
+
+On level 2, you will see that you can use crates as steps, just by
+moving onto then in the normal fashion. You cannot step up or down more
+than one crate high.
+
+On level 3, you will encounter a gap that is too deep to cross. You need
+to push a crate into the gap to continue. Position yourself behind the
+single crate, hold down the 2ND key and move in the direction you want
+to push it. The crate will fall into the gap, allowing you to pass.
+
+You can change between levels with the plus and minus keys, and restart
+a level by pressing DEL. Press CLEAR to return to the menu. When you
+play the level set again, you will be returned to the start of the level
+that you were on.
+
+
+Laws of Crates 3D
+=================
+Whilst playing level 3, you may have noticed the following three rules:
+
+* Crates 3D does not obey the law of conservation of crates.
+If a crate does not have anything to fall onto, it will disappear into
+nothingness.
+
+* Inert crates are not affected by gravity.
+If a crate is pushed out from underneath another crate, the top crate
+will not fall down but will remain suspended in mid-air.
+
+* Some crates are immovable.
+For a crate to be moveable, there must be a crate below it, but no crate
+in its way.
+
+
+Tips
+====
+The standard levels are arranged in order of difficulty, so tackle them
+in sequence.
+
+The three-dimensional view can sometimes bring about optical illusions,
+although the standard levels have been carefully designed to avoid this
+wherever possible. If you cannot see a part of a level properly, always
+rotate the view so that you can. There is usually at least one angle
+that will let you see clearly. Even for the more difficult levels, it
+won't take long for you to obtain a strong grasp of the three-
+dimensional layout of the level.
+
+Although not a common situation, crates cannot be pushed outside the
+invisible bounds of the 32x24x8 levels.
+
+
+Level Editor
+============
+The level editor runs under Windows 3.1 or above. Just extract the
+contents of the ZIP file into a directory and run CRATES3D.EXE.
+
+The level editor is easy-to-use and provides a three-dimensional 
+preview. It opens and saves 83P and 8XP files, so once you have created
+a level set you can send it directly to your calculator.
+
+Avoid creating levels that have lots of crates around the one area, as
+this will cause the game to run slowly. Even crates that are completely
+hidden by other crates will slow the game down, so if a crate is not
+necessary, remove it. For example, a pyramid of crates should be hollow
+and have no base, since any crates inside would not be visible from any
+angle.
+
+When creating levels, keep an eye on the 3D preview to prevent optical
+illusions. Leave generous gaps between different sections of your levels
+so that, from at least one angle, they don't overlap in the 3D view.
+
+Send any level sets that you create to me and/or to web sites such as
+ticalc.org, so that they can be enjoyed by other players of Crates 3D.
+
+
+Summary of Keys
+===============
+
+In game:
+------------------------------------------------------------
+Arrow keys  Move around; step up and down
+2nd         Push crate (used in conjunction with arrow keys)
+Y=, WINDOW  Rotate view of level
++, -        Change between levels
+DEL         Restart current level
+CLEAR       Exit game
+
+
+Credits
+=======
+RLE decompression routine by David Phillips <electrum@tfs.net>
+Sprite clipping routine by CrASH_Man <crashman@crashware.lfx.org>
+
+
+
+Send any comments, ideas, or other feedback to badja@calc.org

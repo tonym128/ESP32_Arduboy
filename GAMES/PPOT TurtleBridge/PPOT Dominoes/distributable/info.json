@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 2,
+  "title": "Dominoes",
+  "description": "A dominoes 'All Fives' game.",
+  "author": "Filmote",
+  "version": "1.0.0",
+  "date": "2017-06-30",
+  "genre": "Puzzle",
+  "publisher": "Filmote",
+  "idea": "Filmote",
+  "code": "Filmote",
+  "art": "Filmote",
+  "sound": "",
+  "url": "https://github.com/filmote/DominoesArduboy",
+  "sourceUrl": "https://github.com/filmote/DominoesArduboy",
+  "email": "simon@bloggingadeadhorse.com",
+  "companion": "",
+  "banner": "banner.png",
+  "screenshots": [
+    {
+      "title": "Splash Screen",
+      "filename": "screenshot00.png"
+    },
+    {
+      "title": "Selecting a bone from the player's hand.",
+      "filename": "screenshot01.png"
+    },
+    {
+      "title": "Playing a bone on the board.",
+      "filename": "screenshot02.png"
+    },
+    {
+      "title": "Selecting a bone from the graveyard.",
+      "filename": "screenshot03.png"
+    },
+    {
+      "title": "Computer's turn .. waiting.",
+      "filename": "screenshot04.png"
+    },
+    {
+      "title": "Computer's turn .. decision made.",
+      "filename": "screenshot05.png"
+    },
+    {
+      "title": "Playing all four sides of the spinner.",
+      "filename": "screenshot06.png"
+    }
+  ],
+  "binaries": [
+    {
+      "title": "The Game",
+      "filename": "Dominoes.hex",
+      "device": "Arduboy"
+    }
+  ]
+}

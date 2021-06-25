@@ -1,0 +1,48 @@
+﻿{
+	"schemaVersion": 2,
+	"title": "Diamonds",
+	"description": "A new twist on the breakout concept! You must break out each brick, depending on your current brick mode. There are 50 levels included, and each one is an increasingly harder puzzle to solve.",
+	"author": "RedBug",
+	"version": "0.1",
+	"date": "2017-04-23",
+	"genre": "Puzzle",
+	"publisher": "Kyuran",
+	"code": "RedBug",
+	"art": "Doug Cannon",
+	"url": "http://www.kyuran.be/",
+	"sourceUrl": "https://github.com/kyuranGames/diamonds",
+	"email": "arduboy@kyuran.be",
+	"banner": "banner.png",
+	"binaries": [{
+		"title": "diamonds",
+		"filename": "diamonds.hex",
+		"device": "Arduboy"
+	}],
+	"screenshots": [{
+			"title": "Title",
+			"filename": "diamonds_1.png"
+		},
+		{
+			"title": "InGame",
+			"filename": "diamonds_2.png"
+		}
+	],
+	"buttons": [{
+			"control": "Up",
+			"action": "Move Up"
+		},
+		{
+			"control": "Down",
+			"action": "Move Down"
+		},
+		{
+			"control": "B",
+			"action": "Back to Menu"
+		}
+	],
+	"eeprom": {
+		"variable": false,
+		"start": 0,
+		"end": 0
+	}
+}
