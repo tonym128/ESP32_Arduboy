@@ -2,7 +2,7 @@
 
 #include "Defines.h"
 
-const uint8_t vectorTexture0[] PROGMEM =
+const uint8_t vectorTexture0[]  =
 {
 	5,
 	0, 43, 128, 43,
@@ -12,7 +12,7 @@ const uint8_t vectorTexture0[] PROGMEM =
 	64, 85, 64, 128,
 };
 
-const uint8_t vectorTexture1[] PROGMEM =
+const uint8_t vectorTexture1[]  =
 {
 	6,
 	0, 16, 128, 16 ,
@@ -29,7 +29,7 @@ const uint8_t vectorTexture1[] PROGMEM =
 	112, 16, 112, 128,*/
 };
 
-const uint8_t vectorTexture2[] PROGMEM =
+const uint8_t vectorTexture2[]  =
 {
 	12,
 	38,13,90,13,
@@ -46,7 +46,7 @@ const uint8_t vectorTexture2[] PROGMEM =
 	115,38,115,90,
 };
 
-const uint8_t* const textures[] PROGMEM =
+const uint8_t* const textures[]  =
 {
 	vectorTexture0,
 	vectorTexture1,

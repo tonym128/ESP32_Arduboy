@@ -1,5 +1,6 @@
 #pragma once
 #include "driver/i2s.h"
+#include "defines.h"
 
 typedef struct
 {
@@ -97,7 +98,11 @@ public:
 
   unsigned short *line;
 
+  #if TV_PORT == 25
   static const i2s_port_t I2S_PORT = (i2s_port_t)I2S_NUM_0;
+  #else
+  static const i2s_port_t I2S_PORT = (i2s_port_t)I2S_NUM_1;
+  #endif
 
   enum Mode
   {
@@ -175,7 +180,10 @@ public:
     SET_PERI_REG_BITS(I2S_CLKM_CONF_REG(0), I2S_CLKM_DIV_B_V, 1, I2S_CLKM_DIV_B_S);
     SET_PERI_REG_BITS(I2S_CLKM_CONF_REG(0), I2S_CLKM_DIV_NUM_V, 2, I2S_CLKM_DIV_NUM_S);
     SET_PERI_REG_BITS(I2S_SAMPLE_RATE_CONF_REG(0), I2S_TX_BCK_DIV_NUM_V, 2, I2S_TX_BCK_DIV_NUM_S);
-  }
+  
+    //untie DACs
+    SET_PERI_REG_BITS(I2S_CONF_CHAN_REG(0), I2S_TX_CHAN_MOD_V, 3, I2S_TX_CHAN_MOD_S);
+    SET_PERI_REG_BITS(I2S_FIFO_CONF_REG(0), I2S_TX_FIFO_MOD_V, 1, I2S_TX_FIFO_MOD_S);}
 
   void sendLine()
   {

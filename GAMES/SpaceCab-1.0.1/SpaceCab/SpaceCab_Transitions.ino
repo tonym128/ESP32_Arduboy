@@ -5,7 +5,7 @@ Vector2 stars[16];
 
 constexpr Vector2 centreScreen = Vector2(WIDTH / 2, HEIGHT / 2);
 
-const Vector2 offsets[16] PROGMEM = {
+const Vector2 offsets[16]  = {
 	Vector2(1.0000, 0.0000),
 	Vector2(0.9239, 0.3827),
 	Vector2(0.7071, 0.7071),

@@ -174,7 +174,7 @@ byte miniCamY = 176;
 int camX = 0;
 int camY = 0;
 
-const unsigned char PROGMEM eyesSeq[] = { 2, 1, 0, 1 };
+const unsigned char  eyesSeq[] = { 2, 1, 0, 1 };
 
 // Battle variables
 bool isBoss = false;

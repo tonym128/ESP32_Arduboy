@@ -109,7 +109,7 @@
 *
 *  -pi  Ignore notes in the MIDI percussion track 9 (also called 10 by some)
 *
-*  -dp  Generate IDE-dependent C code to define PROGMEM
+*  -dp  Generate IDE-dependent C code to define 
 *
 *  -r   Terminate the output file with a "restart" command instead of a "stop" command.
 *

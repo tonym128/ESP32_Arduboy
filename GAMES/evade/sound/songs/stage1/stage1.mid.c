@@ -1,6 +1,6 @@
 // Playtune bytestream for file "stage1.mid.mid" created by MIDITONES V1.14 on Wed Nov  9 08:58:33 2016
 // command line: miditones stage1.mid 
-const unsigned char PROGMEM score [] = {
+const unsigned char  score [] = {
 // Transport
 0x90,60, 0,1, 0x91,36, 0,105, 0x81, 0,81, 0x91,48, 0,105, 0x81, 0,8, 0x80, 0,72, 0x90,60, 0,0, 0x91,36, 
 0,105, 0x81, 0,5, 0x80, 0,75, 0x90,62, 0,0, 0x91,48, 0,105, 0x81, 0,81, 0x91,36, 0,37, 0x80, 0,69, 

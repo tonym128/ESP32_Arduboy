@@ -120,7 +120,7 @@ GameState battleEnemyDies(void)
   }
 }
 
-const uint8_t * const fight_actions[] PROGMEM =
+const uint8_t * const fight_actions[]  =
 {
   fight_actions_1,
   fight_actions_2,

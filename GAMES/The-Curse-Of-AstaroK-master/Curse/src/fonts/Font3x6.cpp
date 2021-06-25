@@ -34,7 +34,7 @@
 #define FONT_QUOTE_INDEX 70
 #define FONT_NUMBER_INDEX 52
 
-const uint8_t PROGMEM font_images[] = {
+const uint8_t  font_images[] = {
   3, 8,
   0x00, 0x00, 0x00,  // SPACE
   0x00, 0x2F, 0x00,  // !

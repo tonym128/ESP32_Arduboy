@@ -2,7 +2,7 @@
 // command line: miditones stage1.mid 
  // Playtune bytestream for file "stage1.mid.mid" created by MIDITONES V1.14 on Wed Nov  9 08:58:33 2016
 // command line: miditones stage1.mid 
-const unsigned char PROGMEM stage1Music [] = {
+const unsigned char  stage1Music [] = {
 // Transport
 0x90,60, 0,1, 0x91,36, 0,105, 0x81, 0,81, 0x91,48, 0,105, 0x81, 0,8, 0x80, 0,72, 0x90,60, 0,0, 0x91,36, 
 0,105, 0x81, 0,5, 0x80, 0,75, 0x90,62, 0,0, 0x91,48, 0,105, 0x81, 0,81, 0x91,36, 0,37, 0x80, 0,69, 
@@ -62,7 +62,7 @@ const unsigned char PROGMEM stage1Music [] = {
 // command line: miditones stage1.mid 
 // Playtune bytestream for file "stage2.mid.mid" created by MIDITONES V1.14 on Thu Nov 10 12:25:33 2016
 // command line: miditones stage2.mid 
-const unsigned char PROGMEM stage2Music [] = {
+const unsigned char  stage2Music [] = {
 // Transport
 0,2, 0x90,55, 0x91,70, 0,40, 0x80, 0,1, 0x81, 0,52, 0x90,67, 0,66, 0x80, 0,25, 0x90,36, 0,1, 0x91,55, 
 0x92,70, 0,40, 0x81, 0,26, 0x82, 0,27, 0x91,67, 0,10, 0x80, 0,56, 0x81, 0,24, 0x90,48, 0,1, 0x91,55, 
@@ -131,7 +131,7 @@ const unsigned char PROGMEM stage2Music [] = {
 // command line: miditones stage1.mid 
  // Playtune bytestream for file "stage1.mid.mid" created by MIDITONES V1.14 on Wed Nov  9 08:58:33 2016
 // command line: miditones stage1.mid 
-const unsigned char PROGMEM stage3Music [] = {
+const unsigned char  stage3Music [] = {
 // Transport
 0x90,60, 0,1, 0x91,36, 0,105, 0x81, 0,81, 0x91,48, 0,105, 0x81, 0,8, 0x80, 0,72, 0x90,60, 0,0, 0x91,36, 
 0,105, 0x81, 0,5, 0x80, 0,75, 0x90,62, 0,0, 0x91,48, 0,105, 0x81, 0,81, 0x91,36, 0,37, 0x80, 0,69, 
@@ -188,7 +188,7 @@ const unsigned char PROGMEM stage3Music [] = {
 
 // Playtune bytestream for file "boss-160bpm.mid.mid" created by MIDITONES V1.14 on Wed Nov  9 09:41:49 2016
 // command line: miditones boss-160bpm.mid 
-const unsigned char PROGMEM bossMusic [] = {
+const unsigned char  bossMusic [] = {
 // Transport
 0,1, 0x90,87, 0x91,36, 0,55, 0x80, 0x81, 0,37, 0x90,84, 0x91,48, 0,57, 0x80, 0x81, 0,35, 0x90,75, 0x91,36, 
 0,57, 0x80, 0x81, 0,37, 0x90,72, 0x91,48, 0,55, 0x80, 0x81, 0,37, 0x90,84, 0x91,48, 0,57, 0x80, 0x81, 0,37, 

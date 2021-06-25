@@ -17,6 +17,7 @@ CompositeGraphics graphics(XRES, YRES);
 //It will center the displayed image automatically
 CompositeOutput composite(CompositeOutput::NTSC, XRES * 4, YRES * 4);
 
+
 #include <Ps3Controller.h>
 
 #ifdef BUTTON2
@@ -50,13 +51,14 @@ void compositeCore(void *data)
 void initOTA() {
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-
-  while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+  int counter = 0;
+  while (WiFi.waitForConnectResult() != WL_CONNECTED && counter < 10) {
     Serial.print("Attempting to connect to network, SSID: ");
     Serial.println(ssid);
     WiFi.begin(ssid, password);
-    // wait 10 seconds for connection:
-    delay(10000);
+    // wait 1 seconds for connection:
+    delay(1000);
+    counter++;
   }
 
   ArduinoOTA
@@ -108,9 +110,11 @@ void Arduboy2Core::boot()
   composite.init();
   //initializing graphics double buffer
   graphics.init();
+
   // Serial.write("Screen Init\n");
   // delay(100);
   // Serial.write("Boot Done!");
+
   xTaskCreatePinnedToCore(compositeCore, "c", 1024, NULL, 1, NULL, 1);
 
 #ifdef TFTESPI
@@ -307,7 +311,7 @@ byte ps3gamepad_loop() {
 
   // if(!Ps3.isConnected())
   //   return 0;
-
+  
   buttonVals = buttonVals | (ps3left  << P1_Left);
   buttonVals = buttonVals | (ps3right << P1_Right);
   buttonVals = buttonVals | (ps3up    << P1_Top);

@@ -88,7 +88,7 @@ void initialiseLevel(Player *myHero, Level *myLevel, const uint8_t *level) {
 /* -----------------------------------------------------------------------------------------------------------------------------
  *  Initialise Level - load items.
  *
- *  Initialise the item and door items from progmem using the 'idx' variable as an index reference.
+ *  Initialise the item and door items from  using the 'idx' variable as an index reference.
  *
  *  Returns the 'idx' index reference so the next process can continue reading from that location onwards.
  *
@@ -120,7 +120,7 @@ uint8_t loadItems(const uint8_t *level, Item * items, uint8_t idx, uint8_t max) 
 /* -----------------------------------------------------------------------------------------------------------------------------
  *  Initialise Level - load enemies.
  *
- *  Initialise the enemies items from progmem using the 'idx' variable as an index reference.
+ *  Initialise the enemies items from  using the 'idx' variable as an index reference.
  *
  *  Returns the 'idx' index reference so the next process can continue reading from that location onwards.
  *
@@ -130,7 +130,7 @@ uint8_t loadEnemies(const uint8_t * level, Enemy * enemies, uint8_t idx, uint8_t
 
   struct StatSet { uint8_t hp, ap, xp; bool moving; };
 
-  static const StatSet loadEnemiesStats[] PROGMEM {
+  static const StatSet loadEnemiesStats[]  {
     { ENEMY_OCCULAR_HP, ENEMY_OCCULAR_AP, ENEMY_OCCULAR_XP, ENEMY_OCCULAR_MV },
     { ENEMY_SKELETON_HP, ENEMY_SKELETON_AP, ENEMY_SKELETON_XP, ENEMY_SKELETON_MV },
     { ENEMY_SPARKAT_HP, ENEMY_SPARKAT_AP, ENEMY_SPARKAT_XP, ENEMY_SPARKAT_MV },

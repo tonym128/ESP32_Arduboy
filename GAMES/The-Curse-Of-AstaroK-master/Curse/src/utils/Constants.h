@@ -13,7 +13,7 @@
 #define _TWO_TREE_TYPES
 
 
-const uint8_t PROGMEM Levels[] = {
+const uint8_t  Levels[] = {
   // EnemyType,                                     DEF,  HP,   MinAttack, MaxAttack, MinSP,  MaxSP,  MinGP, MaxGP, Items
   static_cast<uint8_t>(EnemyType::Skeleton),        0,    25,   0,         11,        2,      4,      3,     9,     static_cast<uint8_t>(DungeonDecorations::Pumpkin) | static_cast<uint8_t>(DungeonDecorations::BricksRHS1) | static_cast<uint8_t>(DungeonDecorations::BricksRHS2) | static_cast<uint8_t>(DungeonDecorations::Skull),
   static_cast<uint8_t>(EnemyType::SmallWerewolf),   0,    35,   0,         14,        2,      5,      5,     11,    static_cast<uint8_t>(DungeonDecorations::BricksLHS) | static_cast<uint8_t>(DungeonDecorations::BricksMID),
@@ -34,7 +34,7 @@ const uint8_t PROGMEM Levels[] = {
 };
 
 
-const uint8_t PROGMEM RuneCombinations[] = {
+const uint8_t  RuneCombinations[] = {
                                         // 1,2,3,4,5, SP (cost), DMG1, DMG2, DMG3, HP
   1, 1, 7, 4, 4, 30, 20, 5, 5, 0,       // Fire Blaze
   2, 2, 4, 4, 4, 25, 25, 0, 0, 20,      // Healing Wind
@@ -42,8 +42,8 @@ const uint8_t PROGMEM RuneCombinations[] = {
   6, 6, 6, 6, 6, 30, 20, 2, 2, 0,       // Venom Mist
 };
 
-const uint8_t PROGMEM multiPart_ArrayIndex[3] = { 0, 5, 10 };
-const uint8_t PROGMEM multiPart_LinesOverall[3] = { 5, 5, 7 };
+const uint8_t  multiPart_ArrayIndex[3] = { 0, 5, 10 };
+const uint8_t  multiPart_LinesOverall[3] = { 5, 5, 7 };
 
 constexpr const static uint8_t UPLOAD_DELAY = 16;
 
@@ -125,5 +125,5 @@ namespace Constants {
   constexpr int16_t SavingPost_Location = -110;
 }
                                     // 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3
-const uint8_t RandomNames[] PROGMEM = "TARATOMAMOMENOVASOSIKAKIMUNUTUSURESETEPEPOPIPA";
+const uint8_t RandomNames[]  = "TARATOMAMOMENOVASOSIKAKIMUNUTUSURESETEPEPOPIPA";
 const uint8_t RandomNames_Count = 23; 

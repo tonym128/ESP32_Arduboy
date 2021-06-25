@@ -100,7 +100,7 @@ bool isBossAlive,
 // Which tune is currently playing
 byte currentSong = 255;
 
-// General purpose text buffer for string concatenation and read from progmem
+// General purpose text buffer for string concatenation and read from 
 char textBuf[23];
 
 #endif

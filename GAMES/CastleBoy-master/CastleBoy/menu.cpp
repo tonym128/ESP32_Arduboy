@@ -23,7 +23,7 @@ int8_t offset;
 #define B_XX 140
 #define B_XXXX 280
 
-const uint16_t beat_game_finished[] PROGMEM = {
+const uint16_t beat_game_finished[]  = {
   // 1:1 ----------------------------------
   NOTE_C5,  B_X,
   NOTE_C4,  B_X,

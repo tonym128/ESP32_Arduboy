@@ -1,4 +1,4 @@
-const unsigned char PROGMEM tiles[] = {
+const unsigned char  tiles[] = {
 // width, height,
 16, 16,
 // 0

@@ -5,7 +5,7 @@
 #include "globals.h"
 
 byte sequenceFrame;
-const unsigned char PROGMEM frameSequences[] = {
+const unsigned char  frameSequences[] = {
   // bouncing Ball Frame Sequence
   0, 1, 2, 0, 0, 0, 0, 0,
   // bouncing Ball Height Sequence

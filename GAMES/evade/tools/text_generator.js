@@ -56,7 +56,7 @@ var endStr = '\n\n';
 credits.forEach(function(creditStr, index) {
   creditStr = creditStr.toUpperCase();
     
-    var header = `\n\n//${creditStr}\nPROGMEM const uint8_t credits${index}[] = {\n`,
+    var header = `\n\n//${creditStr}\n const uint8_t credits${index}[] = {\n`,
       outStr = '';
     creditStr = creditStr.split('');
     

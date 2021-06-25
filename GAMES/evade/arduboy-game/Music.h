@@ -8,7 +8,7 @@
  */
 #define TONES_END 0x8000
 
-const uint16_t PROGMEM stage1MusicDoubleTrack[] = {
+const uint16_t  stage1MusicDoubleTrack[] = {
   // Transport
   0x90,60, 0,1, 0x91,36, 0,105, 0x81, 0,81, 0x91,48, 0,105, 0x81, 0,8, 0x80, 0,72, 0x90,60, 0,0, 0x91,36, 
   0,105, 0x81, 0,5, 0x80, 0,75, 0x90,62, 0,0, 0x91,48, 0,105, 0x81, 0,81, 0x91,36, 0,37, 0x80, 0,69, 
@@ -65,7 +65,7 @@ const uint16_t PROGMEM stage1MusicDoubleTrack[] = {
 
 // Playtune bytestream for file "boss-140bpm-bass-only.mid.mid" created by MIDITONES V1.14 on Sat Nov 19 21:29:42 2016
 // command line: miditones boss-140bpm-bass-only.mid 
-const uint16_t PROGMEM bossMusicSingleTrackFast[] = {
+const uint16_t  bossMusicSingleTrackFast[] = {
   // Transport
   0,1, 0x90,36, 0,63, 0x80, 0,42, 0x90,48, 0,65, 0x80, 0,41, 0x90,36, 0,65, 0x80, 0,42, 0x90,48, 0,63, 
   0x80, 0,42, 0x90,48, 0,65, 0x80, 0,42, 0x90,36, 0,63, 0x80, 0,42, 0x90,48, 0,65, 0x80, 0,41, 0x90,36, 
@@ -107,7 +107,7 @@ const uint16_t PROGMEM bossMusicSingleTrackFast[] = {
 
 // Playtune bytestream for file "boss-225bpm-dual-track.mid.mid" created by MIDITONES V1.14 on Thu Dec  1 09:49:48 2016
 // command line: miditones boss-225bpm-dual-track.mid 
-const uint16_t PROGMEM bossMusicSingleTrack [] = {
+const uint16_t  bossMusicSingleTrack [] = {
   // Transport
   0,1, 0x90,75, 0x91,36, 0,36, 0x81, 0,17, 0x80, 0,65, 0x90,36, 0x91,72, 0,37, 0x80, 0,17, 0x81, 0,65, 
   0x90,36, 0x91,63, 0,37, 0x80, 0,15, 0x81, 0,66, 0x90,36, 0x91,60, 0,36, 0x80, 0,17, 0x81, 0,65, 0x90,36, 
@@ -129,7 +129,7 @@ const uint16_t PROGMEM bossMusicSingleTrack [] = {
 
 // Playtune bytestream for file "gameOver-deeper.mid.mid" created by MIDITONES V1.14 on Tue Nov 22 16:11:12 2016
 // command line: miditones gameOver-deeper.mid 
-const uint16_t PROGMEM gameOverMusic [] = {
+const uint16_t  gameOverMusic [] = {
   // Transport
   0x90,41, 0,200, 0x90,44, 2,88, 0x90,49, 0,200, 0x90,48, 3,232, 0x80, 0xf0, TONES_END
 };
@@ -137,7 +137,7 @@ const uint16_t PROGMEM gameOverMusic [] = {
 
 // Playtune bytestream for file "title.mid.mid" created by MIDITONES V1.14 on Sun Nov 13 11:01:26 2016
 // command line: miditones title.mid 
-const uint16_t PROGMEM introMusic [] = {
+const uint16_t  introMusic [] = {
   // Transport
   0x90,63, 0,100, 0x90,65, 0,100, 0x90,67, 0,100, 0x90,70, 1,144, 0x80, 0xf0, TONES_END
 };
@@ -145,7 +145,7 @@ const uint16_t PROGMEM introMusic [] = {
 
 // Playtune bytestream for file "youWin.mid.mid" created by MIDITONES V1.14 on Tue Nov 22 16:32:34 2016
 // command line: miditones youWin.mid 
-const uint16_t PROGMEM youWin [] = {
+const uint16_t  youWin [] = {
   // Transport
   0x90,60, 1,11, 0x90,68, 0,160, 0x90,67, 1,11, 0x90,70, 0,160, 0x90,72, 2,130, 0x80, 0xf0, TONES_END
 };

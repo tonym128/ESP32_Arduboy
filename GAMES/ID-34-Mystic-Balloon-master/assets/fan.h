@@ -1,4 +1,4 @@
-PROGMEM const unsigned char fan[] = {
+ const unsigned char fan[] = {
 // Bitmap Image. No transparency
 // Width: 16 Height: 16
 16, 16, 

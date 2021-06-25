@@ -1,6 +1,6 @@
 // Playtune bytestream for file "boss-160bpm.mid.mid" created by MIDITONES V1.14 on Wed Nov  9 09:41:49 2016
 // command line: miditones boss-160bpm.mid 
-const unsigned char PROGMEM score [] = {
+const unsigned char  score [] = {
 // Transport
 0,1, 0x90,87, 0x91,36, 0,55, 0x80, 0x81, 0,37, 0x90,84, 0x91,48, 0,57, 0x80, 0x81, 0,35, 0x90,75, 0x91,36, 
 0,57, 0x80, 0x81, 0,37, 0x90,72, 0x91,48, 0,55, 0x80, 0x81, 0,37, 0x90,84, 0x91,48, 0,57, 0x80, 0x81, 0,37, 

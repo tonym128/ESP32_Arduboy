@@ -53,8 +53,8 @@ byte coolDownMax[] = { WEAPON_COOLDOWN_TRIDENT, WEAPON_COOLDOWN_BUBBLES, WEAPON_
 byte bulletSpeed[] = {BULLET_SPEED_TRIDENT, BULLET_SPEED_BUBBLES, BULLET_SPEED_SEASHELL, BULLET_SPEED_MAGIC};
 byte bulletDamage[] = {DAMAGE_TRIDENT, DAMAGE_BUBBLES, DAMAGE_SEASHELL, DAMAGE_MAGIC};
 byte bulletCollisionOffset[] = {TRIDENT_COLLISION_OFFSET, BUBBLES_COLLISION_OFFSET, SEASHELL_COLLISION_OFFSET, MAGIC_COLLISION_OFFSET};
-const unsigned char PROGMEM shieldX[] = {11, 7, 3, 1, 0, 1, 4, 7, 12, 16, 20, 22, 23, 22, 19, 16};
-const unsigned char PROGMEM shieldY[] = {0, 1, 4, 7, 12, 16, 20, 22, 23, 22, 19, 16, 11, 7, 3, 1};
+const unsigned char  shieldX[] = {11, 7, 3, 1, 0, 1, 4, 7, 12, 16, 20, 22, 23, 22, 19, 16};
+const unsigned char  shieldY[] = {0, 1, 4, 7, 12, 16, 20, 22, 23, 22, 19, 16, 11, 7, 3, 1};
 
 
 

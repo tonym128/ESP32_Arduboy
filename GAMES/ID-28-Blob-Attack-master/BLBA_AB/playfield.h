@@ -44,27 +44,27 @@ int randomBlobPit[6];
 int blobNumbers;
 byte blobFrame;
 
-const unsigned char PROGMEM elfStressedBodySequenceY[] = {34, 32, 33};
-const unsigned char PROGMEM elfStressedHeadSequenceY[] = {0, 4, 2};
-const unsigned char PROGMEM elfStressedWandSequenceX[] = {51, 51, 50};
-const unsigned char PROGMEM elfStressedWandSequenceY[] = {26, 24, 26};
+const unsigned char  elfStressedBodySequenceY[] = {34, 32, 33};
+const unsigned char  elfStressedHeadSequenceY[] = {0, 4, 2};
+const unsigned char  elfStressedWandSequenceX[] = {51, 51, 50};
+const unsigned char  elfStressedWandSequenceY[] = {26, 24, 26};
 
-const unsigned char PROGMEM elfPausedBodySequenceY[] = {38, 37, 37, 37, 37, 37, 37, 38, 40, 41, 42, 42, 42, 42, 42, 42, 42, 42, 41, 40, 39,};
-const unsigned char PROGMEM elfPausedHeadSequenceX[] = {50, 50, 50, 50, 50, 50, 50, 50, 51, 51, 52, 52, 52, 52, 52, 52, 52, 51, 51, 50, 50,};
-const unsigned char PROGMEM elfPausedHeadSequenceY[] = { 4, 4, 4, 4, 4, 4, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4,};
-const unsigned char PROGMEM elfPausedWandSequenceX[] = {100, 100, 100, 100, 100, 100, 100, 101, 100, 99, 98, 97, 97, 97, 97, 97, 97, 97, 97, 98, 99, 100,};
-const unsigned char PROGMEM elfPausedWandSequenceY[] = { 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 2, 1, 1, 1, 1, 1, 1, 0, 1, 2, 3,};
-const unsigned char PROGMEM elfPausedMouthSequence[] = {0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 4, 3, 2, 2, 5};
+const unsigned char  elfPausedBodySequenceY[] = {38, 37, 37, 37, 37, 37, 37, 38, 40, 41, 42, 42, 42, 42, 42, 42, 42, 42, 41, 40, 39,};
+const unsigned char  elfPausedHeadSequenceX[] = {50, 50, 50, 50, 50, 50, 50, 50, 51, 51, 52, 52, 52, 52, 52, 52, 52, 51, 51, 50, 50,};
+const unsigned char  elfPausedHeadSequenceY[] = { 4, 4, 4, 4, 4, 4, 4, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4,};
+const unsigned char  elfPausedWandSequenceX[] = {100, 100, 100, 100, 100, 100, 100, 101, 100, 99, 98, 97, 97, 97, 97, 97, 97, 97, 97, 98, 99, 100,};
+const unsigned char  elfPausedWandSequenceY[] = { 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 2, 1, 1, 1, 1, 1, 1, 0, 1, 2, 3,};
+const unsigned char  elfPausedMouthSequence[] = {0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 4, 3, 2, 2, 5};
 
-const unsigned char PROGMEM thumbsUpSequence[] = {0, 0, 0, 1, 2, 3, 3, 3, 3, 3};
-const unsigned char PROGMEM nodSequence[] = {0, 0, 0, 1, 2, 3 };
-const unsigned char PROGMEM popSequence[] = {0, 1, 2, 3 };
+const unsigned char  thumbsUpSequence[] = {0, 0, 0, 1, 2, 3, 3, 3, 3, 3};
+const unsigned char  nodSequence[] = {0, 0, 0, 1, 2, 3 };
+const unsigned char  popSequence[] = {0, 1, 2, 3 };
 
-const unsigned char PROGMEM elfNormalEyesSequence[] = {0, 1, 2, 3, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+const unsigned char  elfNormalEyesSequence[] = {0, 1, 2, 3, 4, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
 
-const unsigned char PROGMEM speedSequenceY[] = {0, 6, 12, 14, 16, 14, 16, 16};
-const unsigned char PROGMEM upSequenceY[] = {48, 42, 36, 34, 32, 34, 32, 32};
-const unsigned char PROGMEM chainSequenceY[] = {32, 32, 32, 32, 34, 32, 16, 0};
+const unsigned char  speedSequenceY[] = {0, 6, 12, 14, 16, 14, 16, 16};
+const unsigned char  upSequenceY[] = {48, 42, 36, 34, 32, 34, 32, 32};
+const unsigned char  chainSequenceY[] = {32, 32, 32, 32, 34, 32, 16, 0};
 
 byte elfStressedFrame;
 byte elfPausedFrame;

@@ -3,7 +3,7 @@
 
 #include "globals.h"
 
-#define Song const uint8_t PROGMEM
+#define Song const uint8_t 
 
 Song nameSong[] = {             // total song in bytes = 49
   0x04,                         // Number of tracks

@@ -2,7 +2,7 @@
 
 #include "Font4x6.h"
 
-const uint8_t PROGMEM font4x6_Full[] = {
+const uint8_t  font4x6_Full[] = {
 4, 8,
 0x3E,	0x09,	0x09,	0x3E,	//A
 0x3F,	0x25,	0x25,	0x1A,	
@@ -74,7 +74,7 @@ const uint8_t PROGMEM font4x6_Full[] = {
 0x00,   0x04,   0x04,   0x00,   //-
 };
 
-const unsigned char PROGMEM font3x5_Numbers[] = {
+const unsigned char  font3x5_Numbers[] = {
 3, 5,
 0x1F, 0x11, 0x1F, // 0  
 0x00, 0x1F, 0x00,

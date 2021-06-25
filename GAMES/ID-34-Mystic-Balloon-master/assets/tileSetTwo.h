@@ -1,4 +1,4 @@
-PROGMEM const unsigned char tileSetTwo[] = {
+ const unsigned char tileSetTwo[] = {
 // Bitmap Image. No transparency
 // Width: 16 Height: 16
 16, 16, 

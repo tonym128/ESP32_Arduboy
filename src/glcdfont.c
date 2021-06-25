@@ -11,7 +11,6 @@
 #else
 #include <stdint.h>
 #include <string.h>
-#define PROGMEM
 #define PSTR
 #define pgm_read_byte(x) (*((uint8_t*)x))
 #define pgm_read_word(x) (*((uint16_t*)x))
@@ -25,7 +24,7 @@
 // standard ascii 5x7 font
 
 #ifndef ESP8266
-static const unsigned char font[] PROGMEM =
+static const unsigned char font[]  =
 #else
 static const unsigned char font[] =
 #endif

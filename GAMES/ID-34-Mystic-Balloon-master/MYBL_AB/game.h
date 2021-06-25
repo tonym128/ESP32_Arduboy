@@ -10,7 +10,7 @@
 #include "levels.h"
 
 #define TOTAL_TONES 10
-PROGMEM const byte tones[] = {
+ const byte tones[] = {
   //200, 100, 250, 125, 300, 150, 350, 400, 425, 475
   131, 145, 139, 152, 131, 172, 200, 188, 213, 255
 };

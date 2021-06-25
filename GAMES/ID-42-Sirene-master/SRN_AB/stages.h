@@ -358,7 +358,7 @@ void wave255()
 
 
 typedef void (*FunctionPointer) ();
-const FunctionPointer PROGMEM stages[TOTAL_AMOUNT_OF_STAGES][TOTAL_AMOUNT_OF_WAVES] =
+const FunctionPointer  stages[TOTAL_AMOUNT_OF_STAGES][TOTAL_AMOUNT_OF_WAVES] =
 {
   //PART 1
   { //STAGE 1

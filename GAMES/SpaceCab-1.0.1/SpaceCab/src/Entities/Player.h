@@ -197,7 +197,7 @@ struct Player {
     void reset(Level &level) {
 
       LevelDefinition levelDefinition;
-      ProgmemCopy(levelDefinition, &levelInit[level.getLevelNumber()]);
+      Copy(levelDefinition, &levelInit[level.getLevelNumber()]);
 
       _xDelta = 0;
       _yDelta = 0;

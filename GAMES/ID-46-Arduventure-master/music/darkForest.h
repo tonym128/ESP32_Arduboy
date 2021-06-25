@@ -3,7 +3,7 @@
 
 #include "globals.h"
 
-#define Song const uint8_t PROGMEM
+#define Song const uint8_t 
 
 Song darkForest[] = {                // total song in bytes = 114
   0x09,                         // Number of tracks

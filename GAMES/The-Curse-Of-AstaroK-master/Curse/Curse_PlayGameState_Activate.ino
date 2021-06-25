@@ -1,6 +1,6 @@
 #include "src/utils/Arduboy2Ext.h"
 
-constexpr World world PROGMEM {
+constexpr World world  {
 	30,  /* cloudsXPos */
 	120, /* buildingXPos */
 	60,  /* foregroundXPos */
@@ -27,7 +27,7 @@ constexpr World world PROGMEM {
 	}
 };
 
-constexpr uint8_t player[] PROGMEM {  
+constexpr uint8_t player[]  {  
 	100, //HP
 	5, // gp
 	0, // sp

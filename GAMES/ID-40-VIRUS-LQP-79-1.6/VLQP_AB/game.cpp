@@ -187,7 +187,7 @@ void nextLevelEnd()
 }
 
 typedef void (*FunctionPointer) ();
-const FunctionPointer PROGMEM nextLevelFases[] =
+const FunctionPointer  nextLevelFases[] =
 {
   nextLevelStart,
   nextLevelWait,
@@ -236,7 +236,7 @@ void gameOverEnd()
 
 
 typedef void (*FunctionPointer) ();
-const FunctionPointer PROGMEM gameOverFases[] =
+const FunctionPointer  gameOverFases[] =
 {
   nextLevelWait,
   nextLevelWait,

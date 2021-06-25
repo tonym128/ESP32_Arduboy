@@ -21,7 +21,7 @@ extern uint16_t nextMap, prevMap;
 
 typedef const __FlashStringHelper *PGMSTR;
 
-extern const int8_t PROGMEM sincos_[];
+extern const int8_t  sincos_[];
 
 inline int8_t SIN( int16_t x){
     if( x < 0 )
@@ -43,10 +43,10 @@ extern uint8_t printstrX, printstrY;
 #define MAX_ENEMY_COUNT 10
 #define MAX_PARTY_SIZE 4
 
-extern const char PROGMEM TXT_A[];
-extern const char PROGMEM TXT_AP[];
-extern const char PROGMEM TXT_COST[];
-extern const char PROGMEM TXT_NOAP[];
+extern const char  TXT_A[];
+extern const char  TXT_AP[];
+extern const char  TXT_COST[];
+extern const char  TXT_NOAP[];
 
 void stateReset();
 void stateGameStart();

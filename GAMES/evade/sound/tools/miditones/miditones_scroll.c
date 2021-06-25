@@ -474,7 +474,7 @@ int main (int argc, char *argv[]) {
       fprintf (outfile, "// Playtune bytestream for file \"%s.bin\"", filebasename);
       fprintf (outfile, " created by MIDITONES_SCROLL V%s on %s\n", VERSION,
                asctime (localtime (&rawtime)));
-      fprintf (outfile, "const byte PROGMEM score [] = {\n");
+      fprintf (outfile, "const byte  score [] = {\n");
    }
 
    /* Check for the optional self-describing file header */

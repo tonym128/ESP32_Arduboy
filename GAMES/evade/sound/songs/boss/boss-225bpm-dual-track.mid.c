@@ -1,6 +1,6 @@
 // Playtune bytestream for file "boss-225bpm-dual-track.mid.mid" created by MIDITONES V1.14 on Thu Dec  1 09:49:48 2016
 // command line: miditones boss-225bpm-dual-track.mid 
-const unsigned char PROGMEM score [] = {
+const unsigned char  score [] = {
 // Transport
 0,1, 0x90,75, 0x91,36, 0,36, 0x81, 0,17, 0x80, 0,65, 0x90,36, 0x91,72, 0,37, 0x80, 0,17, 0x81, 0,65, 
 0x90,36, 0x91,63, 0,37, 0x80, 0,15, 0x81, 0,66, 0x90,36, 0x91,60, 0,36, 0x80, 0,17, 0x81, 0,65, 0x90,36, 

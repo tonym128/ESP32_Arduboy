@@ -61,7 +61,7 @@ void Platform::PutPixel(uint8_t x, uint8_t y, uint8_t colour)
 }
 
 // Adpated from https://github.com/a1k0n/arduboy3d/blob/master/draw.cpp
-// since the AVR has no barrel shifter, we'll do a progmem lookup
+// since the AVR has no barrel shifter, we'll do a  lookup
 const uint8_t topmask_[]  = {
   0xff, 0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80 };
 const uint8_t bottommask_[]  = {

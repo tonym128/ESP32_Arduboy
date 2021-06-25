@@ -48,7 +48,7 @@ extern Door exitDoor;
 
 
 // format: <survivor1x> <survivor1y> <survivor2x> <survivor2y> <survivor3x> <survivor3y> <survivor4x> <survivor4y> <survivor5x> <survivor5y>
-PROGMEM const uint8_t survivorLocation[] = {
+ const uint8_t survivorLocation[] = {
   24, 29,  4, 12, 47, 11,  2, 28, 58, 28, // MAP01
   31, 25,  3,  6, 60,  2, 12, 18, 45, 12, // MAP02
   38, 16, 16, 22, 50,  4,  2, 28, 56, 25, // MAP03
@@ -85,7 +85,7 @@ PROGMEM const uint8_t survivorLocation[] = {
 
 
 //format: <player x> <player y> <exit x> <exit y>
-PROGMEM const uint8_t playerAndExitLocation[] =
+ const uint8_t playerAndExitLocation[] =
 {
   // first run
   56, 23, 21,  0,  //LEVEL001
@@ -227,7 +227,7 @@ PROGMEM const uint8_t playerAndExitLocation[] =
 
 
 
-PROGMEM const uint8_t blocks[16][64] = {
+ const uint8_t blocks[16][64] = {
   {
     //BLOCK 00
     11, 11, 11, 11, 11, 11, 11, 11,
@@ -393,7 +393,7 @@ PROGMEM const uint8_t blocks[16][64] = {
 
 
 
-PROGMEM const uint8_t maps[][16] = {
+ const uint8_t maps[][16] = {
   {
     // map 00
     0x01, 0x11, 0x11, 0x12,
@@ -590,7 +590,7 @@ PROGMEM const uint8_t maps[][16] = {
 };
 
 
-const uint8_t PROGMEM tileset[] =
+const uint8_t  tileset[] =
 {
   // width, height,
   8, 8,

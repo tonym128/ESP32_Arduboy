@@ -1,4 +1,4 @@
-PROGMEM prog_uchar runner_bitmap[] =
+ prog_uchar runner_bitmap[] =
 {
   28,24,
   0b00000000, 0b00000000, 0b00000000, //                         
@@ -285,7 +285,7 @@ PROGMEM prog_uchar runner_bitmap[] =
 
 
 
-PROGMEM prog_uchar runnermask[] =
+ prog_uchar runnermask[] =
 {
   28,24,
   0b00000000, 0b00000000, 0b00000000, //                         

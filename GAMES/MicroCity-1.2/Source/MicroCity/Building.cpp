@@ -3,7 +3,7 @@
 #include "Connectivity.h"
 #include "Draw.h"
 
-const BuildingInfo BuildingMetaData[] PROGMEM =
+const BuildingInfo BuildingMetaData[]  =
 {
 	// None,
 	{ 0, 0, 0, 0 },

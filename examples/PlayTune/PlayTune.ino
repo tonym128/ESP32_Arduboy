@@ -20,7 +20,7 @@ With the DevKit only one part is played.
 #include <ArduboyPlaytune.h>
 
 // 2 Part Inventions No. 3 - J.S. Bach
-const byte score[] PROGMEM = {
+const byte score[]  = {
  2,154, 0x90,62, 0,166, 0x90,64, 0,166, 0x90,66, 0,166, 0x90,64, 0,166,
  0x90,67, 0,166, 0x90,66, 0,166, 0x90,64, 0,166, 0x90,62, 0,166, 0x90,69,
  0,166, 0x90,67, 0,166, 0x90,66, 0,166, 0x90,64, 0,166, 0x91,50, 0x90,66,

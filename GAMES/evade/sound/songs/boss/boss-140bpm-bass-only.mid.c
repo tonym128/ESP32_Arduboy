@@ -1,6 +1,6 @@
 // Playtune bytestream for file "boss-140bpm-bass-only.mid.mid" created by MIDITONES V1.14 on Sat Nov 19 21:29:42 2016
 // command line: miditones boss-140bpm-bass-only.mid 
-const unsigned char PROGMEM score [] = {
+const unsigned char  score [] = {
 // Transport
 0,1, 0x90,36, 0,63, 0x80, 0,42, 0x90,48, 0,65, 0x80, 0,41, 0x90,36, 0,65, 0x80, 0,42, 0x90,48, 0,63, 
 0x80, 0,42, 0x90,48, 0,65, 0x80, 0,42, 0x90,36, 0,63, 0x80, 0,42, 0x90,48, 0,65, 0x80, 0,41, 0x90,36, 

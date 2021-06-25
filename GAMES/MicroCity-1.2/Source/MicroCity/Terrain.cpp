@@ -3,22 +3,22 @@
 #include "Game.h"
 #include "Defines.h"
 
-const uint8_t Terrain1Data[] PROGMEM =
+const uint8_t Terrain1Data[]  =
 {
 #include "Terrain1.inc.h"
 };
-const uint8_t Terrain2Data[] PROGMEM =
+const uint8_t Terrain2Data[]  =
 {
 #include "Terrain2.inc.h"
 };
-const uint8_t Terrain3Data[] PROGMEM =
+const uint8_t Terrain3Data[]  =
 {
 #include "Terrain3.inc.h"
 };
 
-const char Terrain1Str[] PROGMEM = "River";
-const char Terrain2Str[] PROGMEM = "Island";
-const char Terrain3Str[] PROGMEM = "Lake";
+const char Terrain1Str[]  = "River";
+const char Terrain2Str[]  = "Island";
+const char Terrain3Str[]  = "Lake";
 
 const char* GetTerrainDescription(uint8_t index)
 {

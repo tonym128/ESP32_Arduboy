@@ -31,7 +31,7 @@ uint8_t Renderer::numBufferSlicesFilled = 0;
 QueuedDrawable Renderer::queuedDrawables[MAX_QUEUED_DRAWABLES];
 uint8_t Renderer::numQueuedDrawables = 0;
 
-const uint8_t scaleDrawWriteMasks[] PROGMEM =
+const uint8_t scaleDrawWriteMasks[]  =
 {
 	(1),
 	(1 << 1),
@@ -43,7 +43,7 @@ const uint8_t scaleDrawWriteMasks[] PROGMEM =
 	(1 << 7)
 };
 
-const uint16_t scaleDrawReadMasks[] PROGMEM =
+const uint16_t scaleDrawReadMasks[]  =
 {
 	(1),
 	(1 << 1),

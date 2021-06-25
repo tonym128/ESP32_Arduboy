@@ -67,7 +67,7 @@
 
 ///////////////// Menu bitmaps ////////////////////
 ///////////////////////////////////////////////////
-const unsigned char PROGMEM titleSwordGrip[] =
+const unsigned char  titleSwordGrip[] =
 {
   // width, height,
   8, 16,
@@ -75,7 +75,7 @@ const unsigned char PROGMEM titleSwordGrip[] =
   0x00, 0x00, 0x55, 0x55, 0x55, 0x55, 0x00, 0x00,
 };
 
-const unsigned char PROGMEM titleSwordGuard[] =
+const unsigned char  titleSwordGuard[] =
 {
   // width, height,
   24, 8,
@@ -83,7 +83,7 @@ const unsigned char PROGMEM titleSwordGuard[] =
 };
 
 
-const unsigned char PROGMEM titleText[] =
+const unsigned char  titleText[] =
 {
   // width, height,
   96, 24,
@@ -92,7 +92,7 @@ const unsigned char PROGMEM titleText[] =
   0x03, 0x03, 0x03, 0x00, 0x00, 0x03, 0x03, 0x03, 0x00, 0x01, 0x01, 0x01, 0x00, 0x00, 0x09, 0xf9, 0x09, 0x00, 0xf8, 0x28, 0xd0, 0x00, 0xf0, 0x28, 0xf0, 0x00, 0xf8, 0x00, 0xf8, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x70, 0x88, 0x70, 0x00, 0xf8, 0x28, 0x08, 0x00, 0x00, 0xff, 0xff, 0xf7, 0x08, 0xfb, 0x0b, 0x00, 0xf8, 0x20, 0xf8, 0x00, 0xf8, 0xa8, 0x88, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf8, 0xa8, 0x50, 0x00, 0xf8, 0x80, 0x80, 0x00, 0xf0, 0x28, 0xf0, 0x00, 0xf8, 0x88, 0x70, 0x00, 0xf9, 0xa9, 0x89, 0x00, 0x00, 0x01, 0x01, 0x01, 0x00, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03,
 };
 
-const unsigned char PROGMEM titleSword[] =
+const unsigned char  titleSword[] =
 {
   // width, height,
   6, 16,
@@ -100,7 +100,7 @@ const unsigned char PROGMEM titleSword[] =
   0x0f, 0x3f, 0xff, 0x00, 0x3f, 0x0f,
 };
 
-const unsigned char PROGMEM titleStartMask[] =
+const unsigned char  titleStartMask[] =
 {
   // width, height,
   6, 8,
@@ -111,7 +111,7 @@ const unsigned char PROGMEM titleStartMask[] =
 
 ////////// Font bitmaps //////////////////////
 //////////////////////////////////////////////
-PROGMEM const unsigned char font_[] = {
+ const unsigned char font_[] = {
   // width, height
   5, 8,
   // SPACE on PLACE 0
@@ -233,7 +233,7 @@ PROGMEM const unsigned char font_[] = {
 
 ////////// Player bitmaps ////////////////////
 //////////////////////////////////////////////
-const unsigned char PROGMEM eyesBlinking[] =
+const unsigned char  eyesBlinking[] =
 {
   // width, height,
   4, 8,
@@ -245,7 +245,7 @@ const unsigned char PROGMEM eyesBlinking[] =
   0x00, 0x00, 0x00, 0x00,
 };
 
-const unsigned char PROGMEM playerHead_plus_mask[] =
+const unsigned char  playerHead_plus_mask[] =
 {
   // width, height,
   12, 8,
@@ -266,7 +266,7 @@ const unsigned char PROGMEM playerHead_plus_mask[] =
   0x3e, 0xff, 0xde, 0xff, 0x6c, 0xfe, 0xda, 0xff, 0x1c, 0xfe, 0x00, 0x1c,
 };
 
-const unsigned char PROGMEM playerFeet_plus_mask[] =
+const unsigned char  playerFeet_plus_mask[] =
 {
   // width, height,
   12, 8,
@@ -319,7 +319,7 @@ const unsigned char PROGMEM playerFeet_plus_mask[] =
   0x16, 0x7f, 0x07, 0xff, 0x18, 0xff, 0x1b, 0x7f, 0x00, 0x1b, 0x00, 0x00,
 };
 
-const unsigned char PROGMEM playerDead[] =
+const unsigned char  playerDead[] =
 {
   // width, height,
   16, 16,
@@ -332,7 +332,7 @@ const unsigned char PROGMEM playerDead[] =
 
 ////////// enemy sprites ///////////////////
 ///////////////////////////////////////////
-PROGMEM const unsigned char enemyHeads[] = {
+ const unsigned char enemyHeads[] = {
   // Bitmap Image. No transparency
   // Width: 14 Height: 8
   14, 8, 
@@ -362,7 +362,7 @@ PROGMEM const unsigned char enemyHeads[] = {
   0x87, 0x43, 0xED, 0x7D, 0xFE, 0x6E, 0xC6, 0xF6, 0x7E, 0x3E, 0x7D, 0x3B, 0x1B, 0x87, 
 };
 
-PROGMEM const unsigned char enemyFeet[] = {
+ const unsigned char enemyFeet[] = {
   // Bitmap Image. No transparency
   // Width: 16 Height: 8
   16, 8, 
@@ -384,7 +384,7 @@ PROGMEM const unsigned char enemyFeet[] = {
 
 ////////// boss sprites ///////////////////
 ///////////////////////////////////////////
-PROGMEM const unsigned char bossSprites[] = {
+ const unsigned char bossSprites[] = {
   // Bitmap Image. No transparency
   // Width: 24 Height: 24
   24, 24, 
@@ -411,7 +411,7 @@ PROGMEM const unsigned char bossSprites[] = {
 
 ////////// worldmap tiles /////////////////
 ///////////////////////////////////////////
-const unsigned char PROGMEM tileSheet[] =
+const unsigned char  tileSheet[] =
 {
   // width, height,
   16, 16,
@@ -596,7 +596,7 @@ const unsigned char PROGMEM tileSheet[] =
 
 ////////// worldmap chunks ////////////////
 ///////////////////////////////////////////
-const unsigned char PROGMEM chunks[] =
+const unsigned char  chunks[] =
 {
    // chunk: 0
    // chunk name: CA0000
@@ -936,7 +936,7 @@ const unsigned char PROGMEM chunks[] =
 
 ////////// worldmap regions ///////////////
 ///////////////////////////////////////////
-const unsigned char PROGMEM regions[] =
+const unsigned char  regions[] =
 {
   // REGION_FIELDS_SWAMP           0
   0x0F, 0x0F, 0x01, 0x0F,
@@ -984,7 +984,7 @@ const unsigned char PROGMEM regions[] =
 
 ////////// worldmap solid map /////////////
 ///////////////////////////////////////////
-const unsigned char PROGMEM solid_map[] =
+const unsigned char  solid_map[] =
 {
   0xC8, 0xF0, 0xFF, 0xFF, 
   0x3A, 0x0D, 0x03, 0x96, 
@@ -1022,7 +1022,7 @@ const unsigned char PROGMEM solid_map[] =
 
 ////////// worldmap door location /////////
 ///////////////////////////////////////////
-const unsigned char PROGMEM doors[] =
+const unsigned char  doors[] =
 {
   // x,y, tile coördinate for each door
 
@@ -1123,7 +1123,7 @@ const unsigned char PROGMEM doors[] =
 
 ////////// transition /////////////////////
 ///////////////////////////////////////////
-const unsigned char PROGMEM transitionSet[] =
+const unsigned char  transitionSet[] =
 {
   // width, height,
   8, 8,
@@ -1148,7 +1148,7 @@ const unsigned char PROGMEM transitionSet[] =
 
 ////////// mini map sheet /////////////////
 ///////////////////////////////////////////
-const unsigned char PROGMEM miniMapSheet[] =
+const unsigned char  miniMapSheet[] =
 {
   // width, height,
   8, 8,
@@ -1172,7 +1172,7 @@ const unsigned char PROGMEM miniMapSheet[] =
   0xff, 0xfd, 0xff, 0xbf, 0xff, 0xff, 0xf7, 0xff,
 };
 
-const unsigned char PROGMEM miniMapPlayer[] =
+const unsigned char  miniMapPlayer[] =
 {
   // width, height,
   8, 8,
@@ -1189,7 +1189,7 @@ const unsigned char PROGMEM miniMapPlayer[] =
 ////////////////// People /////////////////
 ///////////////////////////////////////////
 
-const unsigned char PROGMEM peopleHead_plus_mask[] =
+const unsigned char  peopleHead_plus_mask[] =
 {
   // width, height,
   14, 8,
@@ -1210,7 +1210,7 @@ const unsigned char PROGMEM peopleHead_plus_mask[] =
   0xbe, 0xff, 0x5e, 0xff, 0x5c, 0xfe, 0x38, 0xfc, 0xc0, 0xf8, 0x00, 0xc0, 0x00, 0x00,
 };
 
-const unsigned char PROGMEM npcBody_plus_mask[] =
+const unsigned char  npcBody_plus_mask[] =
 {
   // width, height,
   10, 8,
@@ -1236,7 +1236,7 @@ const unsigned char PROGMEM npcBody_plus_mask[] =
 };
 
 
-const unsigned char PROGMEM npcHead_plus_mask[] =
+const unsigned char  npcHead_plus_mask[] =
 {
   // width, height,
   16, 16,
@@ -1277,7 +1277,7 @@ const unsigned char PROGMEM npcHead_plus_mask[] =
   0x03, 0x07, 0x01, 0x07, 0x03, 0x0f, 0x0c, 0x1f, 0x07, 0x0f, 0x0e, 0x1f, 0x00, 0x0e, 0x00, 0x00,*/
 };
 
-const unsigned char PROGMEM npcHands_plus_mask[] =
+const unsigned char  npcHands_plus_mask[] =
 {
   // width, height,
   12, 8,

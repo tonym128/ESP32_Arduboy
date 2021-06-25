@@ -11,12 +11,14 @@
 #include "TFT_eSPI.h"
 #include <Arduino.h>
 #include <SPI.h>
-#include "CompositeGraphics.h"
-#include "CompositeOutput.h"
+
 #include <soc/rtc.h>
 #include <ESPmDNS.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
+
+#include "CompositeGraphics.h"
+#include "CompositeOutput.h"
 
 #include <limits.h>
 

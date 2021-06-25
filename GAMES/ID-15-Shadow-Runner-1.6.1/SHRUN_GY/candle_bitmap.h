@@ -1,4 +1,4 @@
-PROGMEM prog_uchar candle_bitmap[] =
+ prog_uchar candle_bitmap[] =
 {
   13,32,
   0b11111111, 0b11111111, 0b11111000, 0b00011111, // #####################      #####
@@ -16,7 +16,7 @@ PROGMEM prog_uchar candle_bitmap[] =
   0b00000000, 0b00000000, 0b00000000, 0b00000001, //                                #
 };
 
-PROGMEM prog_uchar flame_bitmap[] =
+ prog_uchar flame_bitmap[] =
 {
   7,16,
   0b10001111, 0b11111111, // #   ############

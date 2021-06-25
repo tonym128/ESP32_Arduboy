@@ -32,7 +32,7 @@
 
 unsigned char textBox[75];
 
-PROGMEM const unsigned char library[] =
+ const unsigned char library[] =
 {
   // PLACE  0 : empty
   1,
@@ -779,7 +779,7 @@ PROGMEM const unsigned char library[] =
 };
 
 
-PROGMEM const unsigned char sentences[] =
+ const unsigned char sentences[] =
 {
   // PLACE 0 : NEW GAME    SND   CREDITS!
   15,

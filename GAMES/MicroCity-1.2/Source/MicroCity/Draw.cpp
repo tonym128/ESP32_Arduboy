@@ -4,7 +4,7 @@
 #include "Font.h"
 #include "Strings.h"
 
-const uint8_t TileImageData[] PROGMEM =
+const uint8_t TileImageData[]  =
 {
 #include "TileData.h"
 };
@@ -18,10 +18,10 @@ uint8_t AnimationFrame = 0;
 
 // A map of which tiles should be on fire when a building is on fire
 #define FIREMAP_SIZE 16
-const uint8_t FireMap[FIREMAP_SIZE] PROGMEM =
+const uint8_t FireMap[FIREMAP_SIZE]  =
 { 1,2,3,1,2,3,1,3,1,2,3,2,2,1,3,1 };
 
-const uint8_t BuildingPopulaceMap[] PROGMEM =
+const uint8_t BuildingPopulaceMap[]  =
 { 1,0xd,5,0xb,7,0xe,3,4,1,6,0xc,2,0xa,9,0xb,8 };
 
 const uint8_t* GetTileData(uint8_t tile)
@@ -553,7 +553,7 @@ void DrawRect(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t colour)
 	}
 }
 
-const char FireReportedStr[] PROGMEM = "Fire reported!";
+const char FireReportedStr[]  = "Fire reported!";
 
 void DrawUI()
 {
@@ -693,13 +693,13 @@ void DrawInGame()
 	DrawUI();
 }
 
-const char SaveCityStr[] PROGMEM = "Save City";
-const char LoadCityStr[] PROGMEM = "Load City";
-const char NewCityStr[] PROGMEM = "New City";
-const char AutoBudgetStr[] PROGMEM = "Auto Budget:";
-const char OnStr[] PROGMEM = "On";
-const char OffStr[] PROGMEM = "Off";
-const char TwitterStr[] PROGMEM = "by @jameshhoward";
+const char SaveCityStr[]  = "Save City";
+const char LoadCityStr[]  = "Load City";
+const char NewCityStr[]  = "New City";
+const char AutoBudgetStr[]  = "Auto Budget:";
+const char OnStr[]  = "On";
+const char OffStr[]  = "Off";
+const char TwitterStr[]  = "by @jameshhoward";
 
 void DrawSaveLoadMenu()
 {
@@ -751,8 +751,8 @@ void DrawStartScreen()
 	DrawString(TwitterStr, x - FONT_WIDTH * 3, y);
 }
 
-const char LeftArrowStr[] PROGMEM = "<";
-const char RightArrowStr[] PROGMEM = ">";
+const char LeftArrowStr[]  = "<";
+const char RightArrowStr[]  = ">";
 
 void DrawNewCityMenu()
 {
@@ -768,13 +768,13 @@ void DrawNewCityMenu()
 	DrawString(RightArrowStr, DISPLAY_WIDTH / 2 + MAP_WIDTH / 2 + 6, DISPLAY_HEIGHT / 2 - FONT_HEIGHT / 2);
 }
 
-const char BudgetHeaderStr[] PROGMEM =		"Budget report for";
-const char TaxRateStr[] PROGMEM =			"Tax rate         <   % >";
-const char TaxesCollectedStr[] PROGMEM =	"Taxes collected";
-const char PoliceBudgetStr[] PROGMEM =		"Police budget";
-const char FireBudgetStr[] PROGMEM =		"Fire budget";
-const char RoadBudgetStr[] PROGMEM =		"Road budget";
-const char CashFlowStr[] PROGMEM =			"Cash flow";
+const char BudgetHeaderStr[]  =		"Budget report for";
+const char TaxRateStr[]  =			"Tax rate         <   % >";
+const char TaxesCollectedStr[]  =	"Taxes collected";
+const char PoliceBudgetStr[]  =		"Police budget";
+const char FireBudgetStr[]  =		"Fire budget";
+const char RoadBudgetStr[]  =		"Road budget";
+const char CashFlowStr[]  =			"Cash flow";
 
 void DrawBudgetMenu()
 {

@@ -96,7 +96,7 @@ We created a small JavaScript tool (`tools/text_generator.js` in this repo) to c
 * [Image Encoding Utility](http://www.andrewlowndes.co.uk/blog/graphics/arduboy-image-converter) - we didn't use this one in the end
 * [Reset Procedure if you brick device](https://www.youtube.com/watch?v=l1ifTSq0VK4)
 * [Information about Memory](https://www.arduino.cc/en/Tutorial/Memory) we are space constrained and need to pay attention to this
-* [Information on use of PROGMEM](https://www.arduino.cc/en/Reference/PROGMEM)
+* [Information on use of ](https://www.arduino.cc/en/Reference/)
 * [Taking Screen Shots of your Arduboy Game](http://community.arduboy.com/t/screen-mirroring-guide-how-to-screenshot-your-game/2800) (requires small code change)
 
 ## Legal

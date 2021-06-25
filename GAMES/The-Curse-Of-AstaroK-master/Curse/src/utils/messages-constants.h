@@ -90,7 +90,7 @@ constexpr uint8_t Monster_Attack_Idx = 84;
 constexpr uint8_t Throw_Again_Idx = 85;
 constexpr uint8_t Game_Saved_Idx = 86;
 
-const uint8_t keywords[] PROGMEM = {
+const uint8_t keywords[]  = {
 'e','l','m','e','t' + 0x80, // 129
 'n','v','e','n','t','o','r','y' + 0x80, // 130
 ' ','o','f',' ','a',' ','K','i','n','d','!' + 0x80, // 131
@@ -176,7 +176,7 @@ const uint8_t keywords[] PROGMEM = {
 };
 
 
-const uint8_t messages[] PROGMEM = {
+const uint8_t messages[]  = {
 ' ','I',130, 0x80,
 ' ','x',' ', 0x80,
 'S','t','a','t',189,198, 0x80,

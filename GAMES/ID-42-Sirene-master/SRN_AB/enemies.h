@@ -645,7 +645,7 @@ void sharkRestart()
 
 
 typedef void (*FunctionPointer) ();
-const FunctionPointer PROGMEM sharkAttackFases[] =
+const FunctionPointer  sharkAttackFases[] =
 {
   sharkSwimsRightOnScreen,
   sharkWait,
@@ -771,7 +771,7 @@ void seahorseSineAndShoot()
 
 
 typedef void (*FunctionPointer) ();
-const FunctionPointer PROGMEM seahorseAttackFases[] =
+const FunctionPointer  seahorseAttackFases[] =
 {
   seahorseSwimsRightOnScreen,
   seahorseWait,
@@ -888,7 +888,7 @@ void pirateShipRestart()
 
 
 typedef void (*FunctionPointer) ();
-const FunctionPointer PROGMEM pirateShipAttackFases[] =
+const FunctionPointer  pirateShipAttackFases[] =
 {
   pirateShipSailsRightOnScreen,
   pirateShipWait,

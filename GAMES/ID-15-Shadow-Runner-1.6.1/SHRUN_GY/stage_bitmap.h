@@ -1,5 +1,5 @@
 
-PROGMEM prog_uchar background_bitmap[] =
+ prog_uchar background_bitmap[] =
 {
   96,56,    
   0b00000000, 0b00000000, 0b00000101, 0b01010101, 0b01010101, 0b00000000, 0b00000000, //                      # # # # # # # # # #                
@@ -493,7 +493,7 @@ PROGMEM prog_uchar background_bitmap[] =
 };
 
 
-PROGMEM prog_uchar foreground_bitmap[] =
+ prog_uchar foreground_bitmap[] =
 {
   56,56,
   0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, //                                                         
@@ -671,7 +671,7 @@ PROGMEM prog_uchar foreground_bitmap[] =
 };
 
 
-PROGMEM prog_uchar ground_bitmap[] =
+ prog_uchar ground_bitmap[] =
 {
   96,16,
   0b10010100, 0b01000000, // #  # #   #      
@@ -1165,7 +1165,7 @@ PROGMEM prog_uchar ground_bitmap[] =
 };
 
 
-PROGMEM prog_uchar numbers_bitmap[] =
+ prog_uchar numbers_bitmap[] =
 {
   5,8,
   0b11000011, // ##    ##
@@ -1230,7 +1230,7 @@ PROGMEM prog_uchar numbers_bitmap[] =
 };
 
 
-PROGMEM prog_uchar life_bitmap[] =
+ prog_uchar life_bitmap[] =
 {
   25,8,
   0b11111111, // ########
@@ -1260,7 +1260,7 @@ PROGMEM prog_uchar life_bitmap[] =
   0b11111111, // ########
 };
 
-PROGMEM prog_uchar score_bitmap[] =
+ prog_uchar score_bitmap[] =
 {
   28,8,
   0b11111111, // ########

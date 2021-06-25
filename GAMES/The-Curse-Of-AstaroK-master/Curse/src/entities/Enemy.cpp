@@ -60,11 +60,11 @@ void Enemy::inflictDMG(uint8_t dmg) {
 
 }
 
-const uint8_t PROGMEM largeWerewolf_Head_Offset[] = { 0, 1, 1 };
-const uint8_t PROGMEM largeWerewolf_Torso_Offset[] = { 0, 0, 1 };
-const uint8_t PROGMEM aztarok_Left_Offset[] = { 1, 0, 0, 1 };
-const uint8_t PROGMEM aztarok_Middle_Offset[] = { 0, 1, 2, 1 };
-const uint8_t PROGMEM aztarok_Right_Offset[] = { 1, 1, 0, 0 };
+const uint8_t  largeWerewolf_Head_Offset[] = { 0, 1, 1 };
+const uint8_t  largeWerewolf_Torso_Offset[] = { 0, 0, 1 };
+const uint8_t  aztarok_Left_Offset[] = { 1, 0, 0, 1 };
+const uint8_t  aztarok_Middle_Offset[] = { 0, 1, 2, 1 };
+const uint8_t  aztarok_Right_Offset[] = { 1, 1, 0, 0 };
 
 void Enemy::render(Arduboy2Ext &arduboy, ArdBitmap<128, 64> &ardBitmap, Font3x6 &font3x6) {
 

@@ -13,7 +13,7 @@
 #define STRAFE_TILT 14
 #define ROTATE_TILT 3
 
-const char SignMessage1[] PROGMEM = "Abandon all hope ye who enter!";
+const char SignMessage1[]  = "Abandon all hope ye who enter!";
 
 void Player::Init()
 {

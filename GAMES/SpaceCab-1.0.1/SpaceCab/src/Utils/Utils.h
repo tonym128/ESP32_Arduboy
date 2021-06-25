@@ -94,7 +94,7 @@ bool isTileSolid(uint8_t tileType) {
 
 
 // ----------------------------------------------------------------------------------------------------------
-//  Get the level name from PROGMEM ..
+//  Get the level name from  ..
 // 
 const char * getLevelName(uint8_t index) {
 
@@ -103,7 +103,7 @@ const char * getLevelName(uint8_t index) {
 }
 
 // ----------------------------------------------------------------------------------------------------------
-//  Get the level name from PROGMEM ..
+//  Get the level name from  ..
 // 
 const __FlashStringHelper * getLevelName(Level &level) {
 

@@ -185,12 +185,12 @@ with open(os.path.dirname(filename)+os.sep+'messages-constants.h','w') as file:
   for i in range (len(labels)):
     file.write('{} {}_Idx = {};\n'.format(type,labels[i],i))
 
-  file.write('\nconst uint8_t keywords[] PROGMEM = {\n')
+  file.write('\nconst uint8_t keywords[]  = {\n')
   for i in range (len(listKeywordsEsc)):
     file.write('{} + 0x80, // {}\n'.format(listKeywordsEsc[i], str(i + 129)))
   file.write('};\n\n')
 
-  file.write('\nconst uint8_t messages[] PROGMEM = {\n')
+  file.write('\nconst uint8_t messages[]  = {\n')
   for i in range (len(messages)):
     file.write('{}\n'.format(messages[i]))
   file.write('};\n')

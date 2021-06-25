@@ -7,7 +7,7 @@
 #include "Draw.h"
 
 // Font Definition
-const uint8_t font4x6[96][2] PROGMEM = {
+const uint8_t font4x6[96][2]  = {
 	{ 0x00  ,  0x00 },   /*SPACE*/
 	{ 0x49  ,  0x08 },   /*'!'*/
 	{ 0xb4  ,  0x00 },   /*'"'*/

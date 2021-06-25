@@ -3,7 +3,7 @@
 // (c) 2019 Bert vt Veer
 //----------------------------------------------------------------------------
 
-typedef const uint8_t /*PROGMEM*/ t_bitmap;
+typedef const uint8_t /**/ t_bitmap;
 typedef const uint8_t* t_bitmaplist;
 
 

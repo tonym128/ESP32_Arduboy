@@ -14,7 +14,7 @@
 
 namespace Images {
 
-  const uint8_t * const DungeonDecorations_Images[] PROGMEM = { Images::Castle_DarkBrick, Images::Castle_DarkBrick, Images::Castle_DarkBrick, Images::Castle_DarkBrick, Images::Chest, Images::Skull, Images::Pumpkin }; 
+  const uint8_t * const DungeonDecorations_Images[]  = { Images::Castle_DarkBrick, Images::Castle_DarkBrick, Images::Castle_DarkBrick, Images::Castle_DarkBrick, Images::Chest, Images::Skull, Images::Pumpkin }; 
 
 }
 

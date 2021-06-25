@@ -1,7 +1,7 @@
 #ifndef SONG_H
 #define SONG_H
 
-#define Song const uint8_t PROGMEM
+#define Song const uint8_t 
 
 Song music[] = {                // total song in bytes = 101
 

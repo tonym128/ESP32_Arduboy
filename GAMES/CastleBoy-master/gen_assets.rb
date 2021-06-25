@@ -306,7 +306,7 @@ class MapData
 
   def to_s
     o = code_header
-    o << "PROGMEM const uint8_t #{@name}[] = {\n"
+    o << " const uint8_t #{@name}[] = {\n"
     o << "// width, height\n"
     o << "#{@width}, #{@height},\n"
     o << "// map type + player start y (SS00YYYY), player start x\n"
@@ -452,15 +452,15 @@ class ImageCharArray
 
   def to_s
     o = code_header
-    o << "PROGMEM const uint8_t #{variable_name}[] = {\n"
+    o << " const uint8_t #{variable_name}[] = {\n"
     o << image_data(@data)
     o << "\n};\n\n"
     if mask?
-      o << "PROGMEM const uint8_t #{mask_name}[] = {\n"
+      o << " const uint8_t #{mask_name}[] = {\n"
       o << image_data(@mask_data)
       o << "\n};\n\n"
 
-      o << "PROGMEM const uint8_t #{plus_mask_name}[] = {\n"
+      o << " const uint8_t #{plus_mask_name}[] = {\n"
       o << image_data(interlace(@data, @mask_data))
       o << "\n};\n\n"
 

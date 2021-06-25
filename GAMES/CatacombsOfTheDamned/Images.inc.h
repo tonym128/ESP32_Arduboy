@@ -1,4 +1,4 @@
-/*unsigned char const background[] PROGMEM =
+/*unsigned char const background[]  =
 {
 	32, 24,
 
@@ -16,7 +16,7 @@
 	0x00, 0x2a, 0x55, 0x2a, 0x55, 0x2a, 0x55, 0x2a,
 };*/
 
-unsigned char const background[] PROGMEM =
+unsigned char const background[]  =
 {
 	64, 24,
 	0x7f, 0xff, 0x7f, 0xff, 0x7f, 0xff, 0x3f, 0xdf,
@@ -45,7 +45,7 @@ unsigned char const background[] PROGMEM =
 	0x7f, 0xff, 0x7f, 0xff, 0x7f, 0xff, 0x7f, 0xff,
 };
 
-unsigned char const frame1_1[] PROGMEM =
+unsigned char const frame1_1[]  =
 {
 	17, 26,
 	// 0
@@ -60,7 +60,7 @@ unsigned char const frame1_1[] PROGMEM =
 	0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame1_1_mask[] PROGMEM =
+unsigned char const frame1_1_mask[]  =
 {
 	/*17, 26,*/
 	// 0
@@ -77,7 +77,7 @@ unsigned char const frame1_1_mask[] PROGMEM =
 
 
 
-unsigned char const frame1_2[] PROGMEM =
+unsigned char const frame1_2[]  =
 {
 	17, 26,
 	// 0
@@ -92,7 +92,7 @@ unsigned char const frame1_2[] PROGMEM =
 	0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame1_2_mask[] PROGMEM =
+unsigned char const frame1_2_mask[]  =
 {
 	/*17, 26,*/
 	// 0
@@ -107,7 +107,7 @@ unsigned char const frame1_2_mask[] PROGMEM =
 	0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame1_3[] PROGMEM =
+unsigned char const frame1_3[]  =
 {
 	17, 26,
 	// 0
@@ -122,7 +122,7 @@ unsigned char const frame1_3[] PROGMEM =
 	0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame1_3_mask[] PROGMEM =
+unsigned char const frame1_3_mask[]  =
 {
 	/*17, 26,*/
 	// 0
@@ -137,7 +137,7 @@ unsigned char const frame1_3_mask[] PROGMEM =
 	0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame2_1[] PROGMEM =
+unsigned char const frame2_1[]  =
 {
 	13, 20,
 	// 0
@@ -148,7 +148,7 @@ unsigned char const frame2_1[] PROGMEM =
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame2_1_mask[] PROGMEM =
+unsigned char const frame2_1_mask[]  =
 {
 	/*13, 20,*/
 	// 0
@@ -159,7 +159,7 @@ unsigned char const frame2_1_mask[] PROGMEM =
 	0x0f, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame2_2[] PROGMEM =
+unsigned char const frame2_2[]  =
 {
 	13, 20,
 	// 0
@@ -170,7 +170,7 @@ unsigned char const frame2_2[] PROGMEM =
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame2_2_mask[] PROGMEM =
+unsigned char const frame2_2_mask[]  =
 {
 	/*13, 20,*/
 	// 0
@@ -181,7 +181,7 @@ unsigned char const frame2_2_mask[] PROGMEM =
 	0x0f, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame2_3[] PROGMEM =
+unsigned char const frame2_3[]  =
 {
 	13, 20,
 	// 0
@@ -192,7 +192,7 @@ unsigned char const frame2_3[] PROGMEM =
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame2_3_mask[] PROGMEM =
+unsigned char const frame2_3_mask[]  =
 {
 	/*13, 20,*/
 	// 0
@@ -203,7 +203,7 @@ unsigned char const frame2_3_mask[] PROGMEM =
 	0x0f, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
-unsigned char const frame3_1[] PROGMEM =
+unsigned char const frame3_1[]  =
 {
 	9, 13,
 	// 0
@@ -212,7 +212,7 @@ unsigned char const frame3_1[] PROGMEM =
 	0x00, 0x00,
 };
 
-unsigned char const frame3_1_mask[] PROGMEM =
+unsigned char const frame3_1_mask[]  =
 {
 	/*9, 13,*/
 	// 0
@@ -221,7 +221,7 @@ unsigned char const frame3_1_mask[] PROGMEM =
 	0x01, 0x00,
 };
 
-unsigned char const frame3_2[] PROGMEM =
+unsigned char const frame3_2[]  =
 {
 	9, 13,
 	// 0
@@ -230,7 +230,7 @@ unsigned char const frame3_2[] PROGMEM =
 	0x00, 0x00,
 };
 
-unsigned char const frame3_2_mask[] PROGMEM =
+unsigned char const frame3_2_mask[]  =
 {
 	/*9, 13,*/
 	// 0
@@ -239,7 +239,7 @@ unsigned char const frame3_2_mask[] PROGMEM =
 	0x00, 0x00,
 };
 
-unsigned char const frame3_3[] PROGMEM =
+unsigned char const frame3_3[]  =
 {
 	9, 13,
 	// 0
@@ -248,7 +248,7 @@ unsigned char const frame3_3[] PROGMEM =
 	0x00, 0x00,
 };
 
-unsigned char const frame3_3_mask[] PROGMEM =
+unsigned char const frame3_3_mask[]  =
 {
 	/*9, 13,*/
 	// 0
@@ -257,21 +257,21 @@ unsigned char const frame3_3_mask[] PROGMEM =
 	0x00, 0x00,
 };
 
-unsigned char const frame4[] PROGMEM =
+unsigned char const frame4[]  =
 {
 	5, 8,
 	// 0
 	0x00, 0x30, 0x0c, 0x30, 0x00,
 };
 
-unsigned char const frame4_mask[] PROGMEM =
+unsigned char const frame4_mask[]  =
 {
 	/*5, 8,*/
 	// 0
 	0x04, 0x7c, 0xff, 0x7c, 0x04,
 };
 
-unsigned char const skull[] PROGMEM =
+unsigned char const skull[]  =
 {
 	48, 64,
 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x7f, 0xbf,
@@ -324,7 +324,7 @@ unsigned char const skull[] PROGMEM =
 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
 };
 
-unsigned char const logo[] PROGMEM =
+unsigned char const logo[]  =
 {
 	40, 24,
 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00,

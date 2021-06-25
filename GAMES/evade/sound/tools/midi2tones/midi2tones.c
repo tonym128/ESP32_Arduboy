@@ -136,7 +136,7 @@
 *
 *  -pi  Ignore notes in the MIDI percussion track 9 (also called 10 by some).
 *
-*  -dp  Generate IDE-dependent C code to define PROGMEM.
+*  -dp  Generate IDE-dependent C code to define .
 *
 *  -fx  For the alternate output format, instead of using defined note names,
 *       output actual frequency values in decimal format depending on "x":
@@ -305,7 +305,7 @@
 *     -Remove string.h for more portability; add strlength().
 *     -Add -i option for recording instrument types in the bytestream.
 *     -Add -d option for generating a file description header.
-*     -Add -dp option to make generating the PROGMEM definition optional
+*     -Add -dp option to make generating the  definition optional
 *     -Add -n option to specify number of items per output line
 *     -Do better error checking on options
 *     -Reformat option help
@@ -435,7 +435,7 @@ struct track_header {
 #define TONES_END 0x8000        /* end marker for stop playing */
 #define TONES_REPEAT 0x8001     /* end marker for restart playing */
 
-bool loggen, logparse, parseonly, strategy1, strategy2, binaryoutput, define_progmem,
+bool loggen, logparse, parseonly, strategy1, strategy2, binaryoutput, define_,
    velocityoutput, instrumentoutput, percussion_ignore, percussion_translate, do_header,
    alt_out, gen_restart, freq_style_a, freq_style_b, option_n;
 FILE *infile, *outfile, *logfile;
@@ -579,7 +579,7 @@ void SayUsage (char *programName) {
       "  -fa  for alternate format: high volume notes as \"<freq>+TONE_HIGH_VOLUME\"",
       "  -fb  for alternate format: high volume notes as a single decimal value",
       "  -r   terminate output file with \"restart\" instead of \"stop\" command",
-      "  -dp  define PROGMEM in output C code",
+      "  -dp  define  in output C code",
       NULL
    };
    int i = 0;
@@ -706,7 +706,7 @@ does not start with a dash or a slash*/
                break;
             }
             if (toupper (argv[i][2]) == 'P')
-               define_progmem = true;
+               define_ = true;
             else
                goto opterror;
             if (argv[i][3] != '\0')
@@ -1295,17 +1295,17 @@ int main (int argc, char *argv[]) {
          }
          if (keyshift != 0)
             fprintf (outfile, "//   Keyshift was %d chromatic notes\n", keyshift);
-         if (define_progmem) {
+         if (define_) {
             fprintf (outfile, "#ifdef __AVR__\n");
             fprintf (outfile, "#include <pgmspace.h>\n");
             fprintf (outfile, "#else\n");
-            fprintf (outfile, "#define PROGMEM\n");
+            fprintf (outfile, "#define \n");
             fprintf (outfile, "#endif\n");
          }
          if (!alt_out)
-            fprintf (outfile, "const byte score[] PROGMEM = {\n");
+            fprintf (outfile, "const byte score[]  = {\n");
          else
-            fprintf (outfile, "const uint16_t score[] PROGMEM = {\n");
+            fprintf (outfile, "const uint16_t score[]  = {\n");
          if (do_header) {       // write the C initialization for the file header
             fprintf (outfile, "'P','t', 6, 0x%02X, 0x%02X, ", file_header.f1, file_header.f2);
             fflush (outfile);

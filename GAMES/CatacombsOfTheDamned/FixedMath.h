@@ -22,7 +22,7 @@
 #define FIXED_ANGLE_270 (FIXED_ANGLE_90 * 3)
 #define FIXED_ANGLE_TO_RADIANS(x) ((x) * (2.0f * 3.141592654f / FIXED_ANGLE_MAX))
 
-extern const int16_t sinTable[FIXED_ANGLE_MAX] PROGMEM;
+extern const int16_t sinTable[FIXED_ANGLE_MAX] ;
 
 inline int16_t FixedSin(uint8_t angle)
 {

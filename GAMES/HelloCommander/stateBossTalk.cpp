@@ -34,7 +34,7 @@ void stateBossTalk(){
     }
 }
 /*/
-const char dialogue[] PROGMEM = 
+const char dialogue[]  = 
     "  Hello, Commander.\x00" 
     "We have a problem.\x00"
     "\"Elves\".\n"

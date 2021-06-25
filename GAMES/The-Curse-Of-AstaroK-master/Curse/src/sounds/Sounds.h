@@ -2,14 +2,14 @@
 
 namespace Sounds {
 
-  const uint16_t title[] PROGMEM = {
+  const uint16_t title[]  = {
     NOTE_REST,250, NOTE_B4,250, NOTE_G5,250, NOTE_FS5,750, NOTE_REST,250, NOTE_CS5,250, NOTE_REST,250, NOTE_B4,250,
     NOTE_G5,250, NOTE_FS5,750, NOTE_REST,250, NOTE_CS5,250, NOTE_REST,250, NOTE_B4,250, NOTE_B5,250, NOTE_A5,750,
     NOTE_REST,750, NOTE_G4,250, NOTE_C5,250, NOTE_D5,500, NOTE_E5,250,
     TONES_REPEAT
   };
 
-  const uint16_t main[] PROGMEM = { // Down one ocatve
+  const uint16_t main[]  = { // Down one ocatve
     NOTE_E4,250, NOTE_FS4,250, NOTE_GS4,375, NOTE_E4,125, NOTE_FS4,125, NOTE_GS4,125, NOTE_E4,250, NOTE_FS4,250,
     NOTE_E4,250, NOTE_CS4,250, NOTE_B4,250, NOTE_A4,250, NOTE_GS4,250, NOTE_FS4,250, NOTE_GS4,500, NOTE_FS4,250,
     NOTE_FS4,250, NOTE_E4,125, NOTE_FS4,125, NOTE_GS4,375, NOTE_E4,125, NOTE_FS4,125, NOTE_GS4,125, NOTE_E4,250,
@@ -26,46 +26,46 @@ namespace Sounds {
     TONES_END
   };
 
-  const uint16_t purchase[] PROGMEM = {
+  const uint16_t purchase[]  = {
     NOTE_B5,100, NOTE_D5,100, NOTE_F5,100,
     TONES_END
   };
 
-  const uint16_t cast[] PROGMEM = {
+  const uint16_t cast[]  = {
     NOTE_C5,75, NOTE_REST, 15, NOTE_A5,75, NOTE_REST, 15, NOTE_E5,75,  
     TONES_END
   };
 
-  const uint16_t touch[] PROGMEM = {
+  const uint16_t touch[]  = {
     NOTE_C5,75, NOTE_REST, 15, NOTE_C5,75, 
     TONES_END
   };
 
-  const uint16_t playerHit[] PROGMEM = {
+  const uint16_t playerHit[]  = {
     NOTE_E4,150, NOTE_REST, 15, NOTE_C3,150, NOTE_REST, 15, NOTE_A2,150, 
     TONES_END
   };
 
-  const uint16_t playerDead[] PROGMEM = {
+  const uint16_t playerDead[]  = {
     NOTE_E5,137, NOTE_B5,137, NOTE_A5,137, NOTE_B5,137, NOTE_G5,137, NOTE_B5,137, NOTE_FS5,137, NOTE_B5,137,
     NOTE_E5,137, NOTE_B5,137, NOTE_DS5,137, NOTE_B5,137, NOTE_E5,137, NOTE_B5,137, NOTE_FS5,137, NOTE_B5,137,
     NOTE_E5,275, NOTE_B4,275, NOTE_A4,275, NOTE_B4,275, NOTE_E4,1100,
     TONES_END
   };
 
-  const uint16_t enemyHit[] PROGMEM = {
+  const uint16_t enemyHit[]  = {
     NOTE_A2,150, NOTE_REST, 15, NOTE_C3,150, NOTE_REST, 15, NOTE_E4,150, 
     TONES_END
   };
 
-  const uint16_t enemyDead[] PROGMEM = {
+  const uint16_t enemyDead[]  = {
     NOTE_C5,133, NOTE_G4,133, NOTE_A4,133, NOTE_C5,266, NOTE_G4,133, NOTE_G4,266, NOTE_D5,133, NOTE_C5,133,
     NOTE_A5,133, NOTE_D5,266, NOTE_C5,133, NOTE_A4,266, NOTE_DS5,133, NOTE_DS5,133, NOTE_DS5,266, NOTE_D5,266,
     NOTE_D5,133, NOTE_C5,133, NOTE_C5,533,
     TONES_END
   };
 
-  const uint16_t hpOrGPGained[] PROGMEM = {
+  const uint16_t hpOrGPGained[]  = {
     NOTE_A5,25, NOTE_E5,25, NOTE_C5,25, NOTE_A6,25, 
     TONES_END
   };

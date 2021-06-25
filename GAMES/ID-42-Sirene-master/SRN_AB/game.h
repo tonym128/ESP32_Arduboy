@@ -80,7 +80,7 @@ void nextstageEnd()
 }
 
 typedef void (*FunctionPointer) ();
-const FunctionPointer PROGMEM nextstageFases[] =
+const FunctionPointer  nextstageFases[] =
 {
   start,
   wait,
@@ -159,7 +159,7 @@ void gameOverEnd()
 }
 
 typedef void (*FunctionPointer) ();
-const FunctionPointer PROGMEM gameOverFases[] =
+const FunctionPointer  gameOverFases[] =
 {
   start,
   slideToMiddle,
@@ -184,7 +184,7 @@ void stateGameOver()
 };
 
 typedef void (*FunctionPointer) ();
-const FunctionPointer PROGMEM gameEndFases[] =
+const FunctionPointer  gameEndFases[] =
 {
   start,
   wait,

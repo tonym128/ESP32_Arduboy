@@ -1,20 +1,20 @@
 #pragma once
 
-const uint8_t PROGMEM enemyMap[] = {
+const uint8_t  enemyMap[] = {
 4, 4,
 0x06, 0x09, 0x09, 0x06,
 };
 
-const uint8_t PROGMEM itemMap[] = {
+const uint8_t  itemMap[] = {
 4, 4,
 0x09, 0x06, 0x06, 0x09,
 };
 
-const uint8_t PROGMEM playerMap[] = {
+const uint8_t  playerMap[] = {
 4, 4,
 0x0F, 0x09, 0x09, 0x0F,
 };
 
-const uint8_t PROGMEM playerMap_Mask[] = {
+const uint8_t  playerMap_Mask[] = {
 0x0F, 0x0F, 0x0F, 0x0F,
 };

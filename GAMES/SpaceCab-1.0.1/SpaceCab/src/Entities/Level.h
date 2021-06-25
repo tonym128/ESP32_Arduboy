@@ -12,9 +12,9 @@
 
 
 template<typename T>
-inline T * ProgmemCopy(T & object, T const * const progmem)
+inline T * Copy(T & object, T const * const )
 {
-	return reinterpret_cast<T *>(memcpy_P(&object, progmem, sizeof(T)));
+	return reinterpret_cast<T *>(memcpy_P(&object, , sizeof(T)));
 }
 
 struct Level {
@@ -191,7 +191,7 @@ struct Level {
       _internalGateMode = GateMode::Closed;
 
       LevelDefinition levelDefinition;
-      ProgmemCopy(levelDefinition, &levelInit[levelNumber]);
+      Copy(levelDefinition, &levelInit[levelNumber]);
 
       _widthInTiles = levelDefinition.levelWidth;
       _heightInTiles = levelDefinition.levelHeight;

@@ -1,6 +1,6 @@
 #include <pgmspace.h>
 
-PROGMEM prog_uchar stone_bitmap[] =
+ prog_uchar stone_bitmap[] =
 {
   16,16,
   0b00000000, 0b00000000, //                 
@@ -21,7 +21,7 @@ PROGMEM prog_uchar stone_bitmap[] =
   0b00000000, 0b00000000, //                 
 };
 
-PROGMEM prog_uchar stonemask_bitmap[] =
+ prog_uchar stonemask_bitmap[] =
 {
   16,16,
   0b01111111, 0b11100000, //  ##########     
@@ -42,7 +42,7 @@ PROGMEM prog_uchar stonemask_bitmap[] =
   0b11111111, 0b10000000, // #########       
 };
 
-PROGMEM prog_uchar heart_bitmap[] =
+ prog_uchar heart_bitmap[] =
 {
   16,16,
   0b00000000, 0b00000000, //                 
@@ -82,7 +82,7 @@ PROGMEM prog_uchar heart_bitmap[] =
 
 
 
-PROGMEM prog_uchar heartmask_bitmap[] =
+ prog_uchar heartmask_bitmap[] =
 {
   16,16,
   0b00000011, 0b11111100, //       ########  
@@ -120,7 +120,7 @@ PROGMEM prog_uchar heartmask_bitmap[] =
 };
 
 
-PROGMEM prog_uchar bird_bitmap[] =
+ prog_uchar bird_bitmap[] =
 {
   19,24,
   0b00000000, 0b00000000, 0b00000000, //                         
@@ -277,7 +277,7 @@ PROGMEM prog_uchar bird_bitmap[] =
   0b00000000, 0b00000000, 0b00000000, //                         
 };
 
-PROGMEM prog_uchar birdmask_bitmap[] =
+ prog_uchar birdmask_bitmap[] =
 {
   19,24,
   0b00000000, 0b00000001, 0b11100000, //                ####     

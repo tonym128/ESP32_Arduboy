@@ -1,7 +1,7 @@
 #ifndef BADNEWS_H
 #define BADNEWS_H
 
-#define Song const uint8_t PROGMEM
+#define Song const uint8_t 
 
 Song badNews[] = {                // total song in bytes = 66
   0x07,                         // Number of tracks

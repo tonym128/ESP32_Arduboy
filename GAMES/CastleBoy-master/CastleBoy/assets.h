@@ -14,7 +14,7 @@
 // 333333333333301033300100
 // 333333333333333333333333
 
-PROGMEM const uint8_t stage_1_1[] = {
+ const uint8_t stage_1_1[] = {
 // width, height
 24, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -47,7 +47,7 @@ PROGMEM const uint8_t stage_1_1[] = {
 // 00000010001000000001000330033333000010000010000010000003330001000000100010333330010000001000033333333
 // 33333333333333333333333330033333333333333333333333333333333333333333333333333333333333333333333333333
 
-PROGMEM const uint8_t stage_1_2[] = {
+ const uint8_t stage_1_2[] = {
 // width, height
 101, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -104,7 +104,7 @@ PROGMEM const uint8_t stage_1_2[] = {
 // 33333000000003333333333333333333333333333333330000000000000033300000033330000000000033000000022222222
 // 33333000000003333333333333333333333333333333330000000000000033300000033330000000000333300000022222222
 
-PROGMEM const uint8_t stage_1_3[] = {
+ const uint8_t stage_1_3[] = {
 // width, height
 101, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -161,7 +161,7 @@ PROGMEM const uint8_t stage_1_3[] = {
 // 3300000000000033
 // 3333333333333333
 
-PROGMEM const uint8_t stage_1_4[] = {
+ const uint8_t stage_1_4[] = {
 // width, height
 16, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -192,7 +192,7 @@ PROGMEM const uint8_t stage_1_4[] = {
 // 222220000022222200000033333000001000010000000000
 // 222222222222222200000033333333333333333333333333
 
-PROGMEM const uint8_t stage_2_1[] = {
+ const uint8_t stage_2_1[] = {
 // width, height
 48, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -232,7 +232,7 @@ PROGMEM const uint8_t stage_2_1[] = {
 // 000000000000000000100000000000000333333000000000100000000000100000333000100000000033333333333333
 // 333333333333333003333333333333333333333333003003333330000333333333333333333333333333333333333333
 
-PROGMEM const uint8_t stage_2_2[] = {
+ const uint8_t stage_2_2[] = {
 // width, height
 96, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -287,7 +287,7 @@ PROGMEM const uint8_t stage_2_2[] = {
 // 33333333000333001033301003333333330000020000022000000022200000000222000000020002000200020002
 // 33333333333333333333333333333333333000000000000000000022200000000222000000022022202220222022
 
-PROGMEM const uint8_t stage_2_3[] = {
+ const uint8_t stage_2_3[] = {
 // width, height
 92, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -341,7 +341,7 @@ PROGMEM const uint8_t stage_2_3[] = {
 // 3000000000000003
 // 3333333333333333
 
-PROGMEM const uint8_t stage_2_4[] = {
+ const uint8_t stage_2_4[] = {
 // width, height
 16, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -372,7 +372,7 @@ PROGMEM const uint8_t stage_2_4[] = {
 // 000000000000033333333333333333000000
 // 333333333333333333333333333333333333
 
-PROGMEM const uint8_t stage_3_1[] = {
+ const uint8_t stage_3_1[] = {
 // width, height
 36, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -408,7 +408,7 @@ PROGMEM const uint8_t stage_3_1[] = {
 // 00000000000000000000003333330000000000000033330000000000033333330000000000000000003000000000000
 // 33333333333333333333333333333333300000000003333333333333333333300000000000000000000300333000000
 
-PROGMEM const uint8_t stage_3_2[] = {
+ const uint8_t stage_3_2[] = {
 // width, height
 95, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -464,7 +464,7 @@ PROGMEM const uint8_t stage_3_2[] = {
 // 333300000000000000000000000000000033300000000000000000000000000000000000000303030303030300000000000000000
 // 333333333333333333333333333333333000000000000000000000000000000000000000000330303030303333333333333333333
 
-PROGMEM const uint8_t stage_3_3[] = {
+ const uint8_t stage_3_3[] = {
 // width, height
 105, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -523,7 +523,7 @@ PROGMEM const uint8_t stage_3_3[] = {
 // 3000000000000003
 // 3333333333333333
 
-PROGMEM const uint8_t stage_3_4[] = {
+ const uint8_t stage_3_4[] = {
 // width, height
 16, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -554,7 +554,7 @@ PROGMEM const uint8_t stage_3_4[] = {
 // 333000000000000003333000000000000033300000000000000000000000000000000000000303030303030300000000000000000
 // 333333333333333333333333333333333000000000000000000000000000000000000000000330303030303333333333333333333
 
-PROGMEM const uint8_t stage_test[] = {
+ const uint8_t stage_test[] = {
 // width, height
 105, 8,
 // map type + player start y (SS00YYYY), player start x
@@ -602,7 +602,7 @@ PROGMEM const uint8_t stage_test[] = {
 
 // background_mountain.png
 // 120x16
-PROGMEM const uint8_t background_mountain[] = {
+ const uint8_t background_mountain[] = {
 // width, height
 120, 16,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -633,7 +633,7 @@ PROGMEM const uint8_t background_mountain[] = {
 
 };
 
-PROGMEM const uint8_t background_mountain_mask[] = {
+ const uint8_t background_mountain_mask[] = {
 // width, height
 120, 16,
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -664,7 +664,7 @@ PROGMEM const uint8_t background_mountain_mask[] = {
 
 };
 
-PROGMEM const uint8_t background_mountain_plus_mask[] = {
+ const uint8_t background_mountain_plus_mask[] = {
 // width, height
 120, 16,
 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 
@@ -721,7 +721,7 @@ PROGMEM const uint8_t background_mountain_plus_mask[] = {
 
 // end_hill.png
 // 48x24
-PROGMEM const uint8_t end_hill[] = {
+ const uint8_t end_hill[] = {
 // width, height
 48, 24,
 0x67, 0xEB, 0x47, 0x97, 0x6B, 0x77, 0x33, 0x45, 0x2B, 0x57, 
@@ -742,7 +742,7 @@ PROGMEM const uint8_t end_hill[] = {
 
 };
 
-PROGMEM const uint8_t end_hill_mask[] = {
+ const uint8_t end_hill_mask[] = {
 // width, height
 48, 24,
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -763,7 +763,7 @@ PROGMEM const uint8_t end_hill_mask[] = {
 
 };
 
-PROGMEM const uint8_t end_hill_plus_mask[] = {
+ const uint8_t end_hill_plus_mask[] = {
 // width, height
 48, 24,
 0x67, 0xFF, 0xEB, 0xFF, 0x47, 0xFF, 0x97, 0xFF, 0x6B, 0xFF, 
@@ -800,7 +800,7 @@ PROGMEM const uint8_t end_hill_plus_mask[] = {
 
 // end_increment.png
 // 40x16
-PROGMEM const uint8_t end_increment[] = {
+ const uint8_t end_increment[] = {
 // width, height
 40, 16,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -815,7 +815,7 @@ PROGMEM const uint8_t end_increment[] = {
 
 };
 
-PROGMEM const uint8_t end_increment_mask[] = {
+ const uint8_t end_increment_mask[] = {
 // width, height
 40, 16,
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -830,7 +830,7 @@ PROGMEM const uint8_t end_increment_mask[] = {
 
 };
 
-PROGMEM const uint8_t end_increment_plus_mask[] = {
+ const uint8_t end_increment_plus_mask[] = {
 // width, height
 40, 16,
 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 
@@ -856,7 +856,7 @@ PROGMEM const uint8_t end_increment_plus_mask[] = {
 // end_player.png
 // 2 frames
 // 16x16
-PROGMEM const uint8_t end_player[] = {
+ const uint8_t end_player[] = {
 // width, height
 16, 16,
 // frame 0
@@ -872,7 +872,7 @@ PROGMEM const uint8_t end_player[] = {
 
 };
 
-PROGMEM const uint8_t end_player_mask[] = {
+ const uint8_t end_player_mask[] = {
 // width, height
 16, 16,
 // frame 0
@@ -888,7 +888,7 @@ PROGMEM const uint8_t end_player_mask[] = {
 
 };
 
-PROGMEM const uint8_t end_player_plus_mask[] = {
+ const uint8_t end_player_plus_mask[] = {
 // width, height
 16, 16,
 // frame 0
@@ -912,7 +912,7 @@ PROGMEM const uint8_t end_player_plus_mask[] = {
 
 // end_zappedcow.png
 // 40x16
-PROGMEM const uint8_t end_zappedcow[] = {
+ const uint8_t end_zappedcow[] = {
 // width, height
 40, 16,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -927,7 +927,7 @@ PROGMEM const uint8_t end_zappedcow[] = {
 
 };
 
-PROGMEM const uint8_t end_zappedcow_mask[] = {
+ const uint8_t end_zappedcow_mask[] = {
 // width, height
 40, 16,
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -942,7 +942,7 @@ PROGMEM const uint8_t end_zappedcow_mask[] = {
 
 };
 
-PROGMEM const uint8_t end_zappedcow_plus_mask[] = {
+ const uint8_t end_zappedcow_plus_mask[] = {
 // width, height
 40, 16,
 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 
@@ -967,7 +967,7 @@ PROGMEM const uint8_t end_zappedcow_plus_mask[] = {
 
 // end_zcpp.png
 // 31x16
-PROGMEM const uint8_t end_zcpp[] = {
+ const uint8_t end_zcpp[] = {
 // width, height
 31, 16,
 0x3E, 0x05, 0x1F, 0x00, 0x00, 0x00, 0x18, 0xA4, 0x78, 0x00, 
@@ -980,7 +980,7 @@ PROGMEM const uint8_t end_zcpp[] = {
 
 };
 
-PROGMEM const uint8_t end_zcpp_mask[] = {
+ const uint8_t end_zcpp_mask[] = {
 // width, height
 31, 16,
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -993,7 +993,7 @@ PROGMEM const uint8_t end_zcpp_mask[] = {
 
 };
 
-PROGMEM const uint8_t end_zcpp_plus_mask[] = {
+ const uint8_t end_zcpp_plus_mask[] = {
 // width, height
 31, 16,
 0x3E, 0xFF, 0x05, 0xFF, 0x1F, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 
@@ -1015,7 +1015,7 @@ PROGMEM const uint8_t end_zcpp_plus_mask[] = {
 // entity_bird.png
 // 6 frames
 // 8x8
-PROGMEM const uint8_t entity_bird[] = {
+ const uint8_t entity_bird[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1033,7 +1033,7 @@ PROGMEM const uint8_t entity_bird[] = {
 
 };
 
-PROGMEM const uint8_t entity_bird_mask[] = {
+ const uint8_t entity_bird_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1051,7 +1051,7 @@ PROGMEM const uint8_t entity_bird_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_bird_plus_mask[] = {
+ const uint8_t entity_bird_plus_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1078,7 +1078,7 @@ PROGMEM const uint8_t entity_bird_plus_mask[] = {
 // entity_bone.png
 // 2 frames
 // 8x8
-PROGMEM const uint8_t entity_bone[] = {
+ const uint8_t entity_bone[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1088,7 +1088,7 @@ PROGMEM const uint8_t entity_bone[] = {
 
 };
 
-PROGMEM const uint8_t entity_bone_mask[] = {
+ const uint8_t entity_bone_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1098,7 +1098,7 @@ PROGMEM const uint8_t entity_bone_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_bone_plus_mask[] = {
+ const uint8_t entity_bone_plus_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1113,7 +1113,7 @@ PROGMEM const uint8_t entity_bone_plus_mask[] = {
 // entity_boss_harpy.png
 // 8 frames
 // 12x16
-PROGMEM const uint8_t entity_boss_harpy[] = {
+ const uint8_t entity_boss_harpy[] = {
 // width, height
 12, 16,
 // frame 0
@@ -1151,7 +1151,7 @@ PROGMEM const uint8_t entity_boss_harpy[] = {
 
 };
 
-PROGMEM const uint8_t entity_boss_harpy_mask[] = {
+ const uint8_t entity_boss_harpy_mask[] = {
 // width, height
 12, 16,
 // frame 0
@@ -1189,7 +1189,7 @@ PROGMEM const uint8_t entity_boss_harpy_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_boss_harpy_plus_mask[] = {
+ const uint8_t entity_boss_harpy_plus_mask[] = {
 // width, height
 12, 16,
 // frame 0
@@ -1246,7 +1246,7 @@ PROGMEM const uint8_t entity_boss_harpy_plus_mask[] = {
 // entity_boss_knight.png
 // 10 frames
 // 24x32
-PROGMEM const uint8_t entity_boss_knight[] = {
+ const uint8_t entity_boss_knight[] = {
 // width, height
 24, 32,
 // frame 0
@@ -1362,7 +1362,7 @@ PROGMEM const uint8_t entity_boss_knight[] = {
 
 };
 
-PROGMEM const uint8_t entity_boss_knight_mask[] = {
+ const uint8_t entity_boss_knight_mask[] = {
 // width, height
 24, 32,
 // frame 0
@@ -1478,7 +1478,7 @@ PROGMEM const uint8_t entity_boss_knight_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_boss_knight_plus_mask[] = {
+ const uint8_t entity_boss_knight_plus_mask[] = {
 // width, height
 24, 32,
 // frame 0
@@ -1696,7 +1696,7 @@ PROGMEM const uint8_t entity_boss_knight_plus_mask[] = {
 
 // entity_candlestick.png
 // 12x8
-PROGMEM const uint8_t entity_candlestick[] = {
+ const uint8_t entity_candlestick[] = {
 // width, height
 12, 8,
 0x00, 0x58, 0x60, 0x58, 0x61, 0x5D, 0x5D, 0x61, 0x58, 0x60, 
@@ -1704,7 +1704,7 @@ PROGMEM const uint8_t entity_candlestick[] = {
 
 };
 
-PROGMEM const uint8_t entity_candlestick_mask[] = {
+ const uint8_t entity_candlestick_mask[] = {
 // width, height
 12, 8,
 0xD8, 0xFC, 0xF8, 0xFD, 0xFF, 0xFF, 0xFF, 0xFF, 0xFD, 0xF8, 
@@ -1712,7 +1712,7 @@ PROGMEM const uint8_t entity_candlestick_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_candlestick_plus_mask[] = {
+ const uint8_t entity_candlestick_plus_mask[] = {
 // width, height
 12, 8,
 0x00, 0xD8, 0x58, 0xFC, 0x60, 0xF8, 0x58, 0xFD, 0x61, 0xFF, 
@@ -1724,7 +1724,7 @@ PROGMEM const uint8_t entity_candlestick_plus_mask[] = {
 // entity_candle.png
 // 2 frames
 // 5x8
-PROGMEM const uint8_t entity_candle[] = {
+ const uint8_t entity_candle[] = {
 // width, height
 5, 8,
 // frame 0
@@ -1734,7 +1734,7 @@ PROGMEM const uint8_t entity_candle[] = {
 
 };
 
-PROGMEM const uint8_t entity_candle_mask[] = {
+ const uint8_t entity_candle_mask[] = {
 // width, height
 5, 8,
 // frame 0
@@ -1744,7 +1744,7 @@ PROGMEM const uint8_t entity_candle_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_candle_plus_mask[] = {
+ const uint8_t entity_candle_plus_mask[] = {
 // width, height
 5, 8,
 // frame 0
@@ -1759,7 +1759,7 @@ PROGMEM const uint8_t entity_candle_plus_mask[] = {
 // entity_coin.png
 // 2 frames
 // 8x8
-PROGMEM const uint8_t entity_coin[] = {
+ const uint8_t entity_coin[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1769,7 +1769,7 @@ PROGMEM const uint8_t entity_coin[] = {
 
 };
 
-PROGMEM const uint8_t entity_coin_mask[] = {
+ const uint8_t entity_coin_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1779,7 +1779,7 @@ PROGMEM const uint8_t entity_coin_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_coin_plus_mask[] = {
+ const uint8_t entity_coin_plus_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1794,7 +1794,7 @@ PROGMEM const uint8_t entity_coin_plus_mask[] = {
 // entity_falling_platform.png
 // 2 frames
 // 16x8
-PROGMEM const uint8_t entity_falling_platform[] = {
+ const uint8_t entity_falling_platform[] = {
 // width, height
 16, 8,
 // frame 0
@@ -1806,7 +1806,7 @@ PROGMEM const uint8_t entity_falling_platform[] = {
 
 };
 
-PROGMEM const uint8_t entity_falling_platform_mask[] = {
+ const uint8_t entity_falling_platform_mask[] = {
 // width, height
 16, 8,
 // frame 0
@@ -1818,7 +1818,7 @@ PROGMEM const uint8_t entity_falling_platform_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_falling_platform_plus_mask[] = {
+ const uint8_t entity_falling_platform_plus_mask[] = {
 // width, height
 16, 8,
 // frame 0
@@ -1837,7 +1837,7 @@ PROGMEM const uint8_t entity_falling_platform_plus_mask[] = {
 // entity_fireball_horiz.png
 // 2 frames
 // 8x8
-PROGMEM const uint8_t entity_fireball_horiz[] = {
+ const uint8_t entity_fireball_horiz[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1847,7 +1847,7 @@ PROGMEM const uint8_t entity_fireball_horiz[] = {
 
 };
 
-PROGMEM const uint8_t entity_fireball_horiz_mask[] = {
+ const uint8_t entity_fireball_horiz_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1857,7 +1857,7 @@ PROGMEM const uint8_t entity_fireball_horiz_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_fireball_horiz_plus_mask[] = {
+ const uint8_t entity_fireball_horiz_plus_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1872,7 +1872,7 @@ PROGMEM const uint8_t entity_fireball_horiz_plus_mask[] = {
 // entity_fireball_vert.png
 // 2 frames
 // 6x8
-PROGMEM const uint8_t entity_fireball_vert[] = {
+ const uint8_t entity_fireball_vert[] = {
 // width, height
 6, 8,
 // frame 0
@@ -1882,7 +1882,7 @@ PROGMEM const uint8_t entity_fireball_vert[] = {
 
 };
 
-PROGMEM const uint8_t entity_fireball_vert_mask[] = {
+ const uint8_t entity_fireball_vert_mask[] = {
 // width, height
 6, 8,
 // frame 0
@@ -1892,7 +1892,7 @@ PROGMEM const uint8_t entity_fireball_vert_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_fireball_vert_plus_mask[] = {
+ const uint8_t entity_fireball_vert_plus_mask[] = {
 // width, height
 6, 8,
 // frame 0
@@ -1907,7 +1907,7 @@ PROGMEM const uint8_t entity_fireball_vert_plus_mask[] = {
 // entity_hurler.png
 // 3 frames
 // 8x8
-PROGMEM const uint8_t entity_hurler[] = {
+ const uint8_t entity_hurler[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1919,7 +1919,7 @@ PROGMEM const uint8_t entity_hurler[] = {
 
 };
 
-PROGMEM const uint8_t entity_hurler_mask[] = {
+ const uint8_t entity_hurler_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1931,7 +1931,7 @@ PROGMEM const uint8_t entity_hurler_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_hurler_plus_mask[] = {
+ const uint8_t entity_hurler_plus_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1949,7 +1949,7 @@ PROGMEM const uint8_t entity_hurler_plus_mask[] = {
 // entity_knife.png
 // 2 frames
 // 8x8
-PROGMEM const uint8_t entity_knife[] = {
+ const uint8_t entity_knife[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1959,7 +1959,7 @@ PROGMEM const uint8_t entity_knife[] = {
 
 };
 
-PROGMEM const uint8_t entity_knife_mask[] = {
+ const uint8_t entity_knife_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1969,7 +1969,7 @@ PROGMEM const uint8_t entity_knife_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_knife_plus_mask[] = {
+ const uint8_t entity_knife_plus_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -1983,7 +1983,7 @@ PROGMEM const uint8_t entity_knife_plus_mask[] = {
 
 // entity_moving_platform.png
 // 24x8
-PROGMEM const uint8_t entity_moving_platform[] = {
+ const uint8_t entity_moving_platform[] = {
 // width, height
 24, 8,
 0x00, 0x01, 0x00, 0x01, 0x00, 0x03, 0x03, 0x00, 0x03, 0x07, 
@@ -1992,7 +1992,7 @@ PROGMEM const uint8_t entity_moving_platform[] = {
 
 };
 
-PROGMEM const uint8_t entity_moving_platform_mask[] = {
+ const uint8_t entity_moving_platform_mask[] = {
 // width, height
 24, 8,
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -2001,7 +2001,7 @@ PROGMEM const uint8_t entity_moving_platform_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_moving_platform_plus_mask[] = {
+ const uint8_t entity_moving_platform_plus_mask[] = {
 // width, height
 24, 8,
 0x00, 0xFF, 0x01, 0xFF, 0x00, 0xFF, 0x01, 0xFF, 0x00, 0xFF, 
@@ -2015,7 +2015,7 @@ PROGMEM const uint8_t entity_moving_platform_plus_mask[] = {
 // entity_skeleton.png
 // 4 frames
 // 11x16
-PROGMEM const uint8_t entity_skeleton[] = {
+ const uint8_t entity_skeleton[] = {
 // width, height
 11, 16,
 // frame 0
@@ -2037,7 +2037,7 @@ PROGMEM const uint8_t entity_skeleton[] = {
 
 };
 
-PROGMEM const uint8_t entity_skeleton_mask[] = {
+ const uint8_t entity_skeleton_mask[] = {
 // width, height
 11, 16,
 // frame 0
@@ -2059,7 +2059,7 @@ PROGMEM const uint8_t entity_skeleton_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_skeleton_plus_mask[] = {
+ const uint8_t entity_skeleton_plus_mask[] = {
 // width, height
 11, 16,
 // frame 0
@@ -2092,7 +2092,7 @@ PROGMEM const uint8_t entity_skeleton_plus_mask[] = {
 // entity_skeleton_armored.png
 // 3 frames
 // 12x16
-PROGMEM const uint8_t entity_skeleton_armored[] = {
+ const uint8_t entity_skeleton_armored[] = {
 // width, height
 12, 16,
 // frame 0
@@ -2110,7 +2110,7 @@ PROGMEM const uint8_t entity_skeleton_armored[] = {
 
 };
 
-PROGMEM const uint8_t entity_skeleton_armored_mask[] = {
+ const uint8_t entity_skeleton_armored_mask[] = {
 // width, height
 12, 16,
 // frame 0
@@ -2128,7 +2128,7 @@ PROGMEM const uint8_t entity_skeleton_armored_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_skeleton_armored_plus_mask[] = {
+ const uint8_t entity_skeleton_armored_plus_mask[] = {
 // width, height
 12, 16,
 // frame 0
@@ -2155,7 +2155,7 @@ PROGMEM const uint8_t entity_skeleton_armored_plus_mask[] = {
 // entity_skull.png
 // 3 frames
 // 8x8
-PROGMEM const uint8_t entity_skull[] = {
+ const uint8_t entity_skull[] = {
 // width, height
 8, 8,
 // frame 0
@@ -2167,7 +2167,7 @@ PROGMEM const uint8_t entity_skull[] = {
 
 };
 
-PROGMEM const uint8_t entity_skull_mask[] = {
+ const uint8_t entity_skull_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -2179,7 +2179,7 @@ PROGMEM const uint8_t entity_skull_mask[] = {
 
 };
 
-PROGMEM const uint8_t entity_skull_plus_mask[] = {
+ const uint8_t entity_skull_plus_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -2197,7 +2197,7 @@ PROGMEM const uint8_t entity_skull_plus_mask[] = {
 // font.png
 // 10 frames
 // 3x8
-PROGMEM const uint8_t font_[] = {
+ const uint8_t font_[] = {
 // width, height
 3, 8,
 // frame 0
@@ -2223,7 +2223,7 @@ PROGMEM const uint8_t font_[] = {
 
 };
 
-PROGMEM const uint8_t font_mask[] = {
+ const uint8_t font_mask[] = {
 // width, height
 3, 8,
 // frame 0
@@ -2249,7 +2249,7 @@ PROGMEM const uint8_t font_mask[] = {
 
 };
 
-PROGMEM const uint8_t font_plus_mask[] = {
+ const uint8_t font_plus_mask[] = {
 // width, height
 3, 8,
 // frame 0
@@ -2278,7 +2278,7 @@ PROGMEM const uint8_t font_plus_mask[] = {
 // fx_destroy.png
 // 3 frames
 // 8x8
-PROGMEM const uint8_t fx_destroy[] = {
+ const uint8_t fx_destroy[] = {
 // width, height
 8, 8,
 // frame 0
@@ -2290,7 +2290,7 @@ PROGMEM const uint8_t fx_destroy[] = {
 
 };
 
-PROGMEM const uint8_t fx_destroy_mask[] = {
+ const uint8_t fx_destroy_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -2302,7 +2302,7 @@ PROGMEM const uint8_t fx_destroy_mask[] = {
 
 };
 
-PROGMEM const uint8_t fx_destroy_plus_mask[] = {
+ const uint8_t fx_destroy_plus_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -2319,7 +2319,7 @@ PROGMEM const uint8_t fx_destroy_plus_mask[] = {
 
 // help_screen.png
 // 79x40
-PROGMEM const uint8_t help_screen[] = {
+ const uint8_t help_screen[] = {
 // width, height
 79, 40,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -2365,7 +2365,7 @@ PROGMEM const uint8_t help_screen[] = {
 
 };
 
-PROGMEM const uint8_t help_screen_mask[] = {
+ const uint8_t help_screen_mask[] = {
 // width, height
 79, 40,
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -2411,7 +2411,7 @@ PROGMEM const uint8_t help_screen_mask[] = {
 
 };
 
-PROGMEM const uint8_t help_screen_plus_mask[] = {
+ const uint8_t help_screen_plus_mask[] = {
 // width, height
 79, 40,
 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 
@@ -2499,7 +2499,7 @@ PROGMEM const uint8_t help_screen_plus_mask[] = {
 
 // logo.png
 // 30x44
-PROGMEM const uint8_t logo[] = {
+ const uint8_t logo[] = {
 // width, height
 30, 44,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xC0, 
@@ -2524,7 +2524,7 @@ PROGMEM const uint8_t logo[] = {
 
 };
 
-PROGMEM const uint8_t logo_mask[] = {
+ const uint8_t logo_mask[] = {
 // width, height
 30, 44,
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -2549,7 +2549,7 @@ PROGMEM const uint8_t logo_mask[] = {
 
 };
 
-PROGMEM const uint8_t logo_plus_mask[] = {
+ const uint8_t logo_plus_mask[] = {
 // width, height
 30, 44,
 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 
@@ -2595,7 +2595,7 @@ PROGMEM const uint8_t logo_plus_mask[] = {
 // player.png
 // 22 frames
 // 16x16
-PROGMEM const uint8_t player[] = {
+ const uint8_t player[] = {
 // width, height
 16, 16,
 // frame 0
@@ -2711,7 +2711,7 @@ PROGMEM const uint8_t player[] = {
 
 };
 
-PROGMEM const uint8_t player_mask[] = {
+ const uint8_t player_mask[] = {
 // width, height
 16, 16,
 // frame 0
@@ -2827,7 +2827,7 @@ PROGMEM const uint8_t player_mask[] = {
 
 };
 
-PROGMEM const uint8_t player_plus_mask[] = {
+ const uint8_t player_plus_mask[] = {
 // width, height
 16, 16,
 // frame 0
@@ -3011,7 +3011,7 @@ PROGMEM const uint8_t player_plus_mask[] = {
 
 // player_attack_left.png
 // 16x3
-PROGMEM const uint8_t player_attack_left[] = {
+ const uint8_t player_attack_left[] = {
 // width, height
 16, 3,
 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x02, 0x02, 0x02, 0x02, 
@@ -3019,7 +3019,7 @@ PROGMEM const uint8_t player_attack_left[] = {
 
 };
 
-PROGMEM const uint8_t player_attack_left_mask[] = {
+ const uint8_t player_attack_left_mask[] = {
 // width, height
 16, 3,
 0x02, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 
@@ -3027,7 +3027,7 @@ PROGMEM const uint8_t player_attack_left_mask[] = {
 
 };
 
-PROGMEM const uint8_t player_attack_left_plus_mask[] = {
+ const uint8_t player_attack_left_plus_mask[] = {
 // width, height
 16, 3,
 0x00, 0x02, 0x02, 0x07, 0x00, 0x07, 0x02, 0x07, 0x00, 0x07, 
@@ -3039,7 +3039,7 @@ PROGMEM const uint8_t player_attack_left_plus_mask[] = {
 
 // player_attack_right.png
 // 16x3
-PROGMEM const uint8_t player_attack_right[] = {
+ const uint8_t player_attack_right[] = {
 // width, height
 16, 3,
 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 
@@ -3047,7 +3047,7 @@ PROGMEM const uint8_t player_attack_right[] = {
 
 };
 
-PROGMEM const uint8_t player_attack_right_mask[] = {
+ const uint8_t player_attack_right_mask[] = {
 // width, height
 16, 3,
 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 0x07, 
@@ -3055,7 +3055,7 @@ PROGMEM const uint8_t player_attack_right_mask[] = {
 
 };
 
-PROGMEM const uint8_t player_attack_right_plus_mask[] = {
+ const uint8_t player_attack_right_plus_mask[] = {
 // width, height
 16, 3,
 0x02, 0x07, 0x02, 0x07, 0x02, 0x07, 0x02, 0x07, 0x02, 0x07, 
@@ -3067,7 +3067,7 @@ PROGMEM const uint8_t player_attack_right_plus_mask[] = {
 
 // text_game_over.png
 // 34x6
-PROGMEM const uint8_t text_game_over[] = {
+ const uint8_t text_game_over[] = {
 // width, height
 34, 6,
 0x3E, 0x21, 0x19, 0x00, 0x3E, 0x05, 0x1F, 0x00, 0x3F, 0x02, 
@@ -3077,7 +3077,7 @@ PROGMEM const uint8_t text_game_over[] = {
 
 };
 
-PROGMEM const uint8_t text_game_over_mask[] = {
+ const uint8_t text_game_over_mask[] = {
 // width, height
 34, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3087,7 +3087,7 @@ PROGMEM const uint8_t text_game_over_mask[] = {
 
 };
 
-PROGMEM const uint8_t text_game_over_plus_mask[] = {
+ const uint8_t text_game_over_plus_mask[] = {
 // width, height
 34, 6,
 0x3E, 0x3F, 0x21, 0x3F, 0x19, 0x3F, 0x00, 0x3F, 0x3E, 0x3F, 
@@ -3102,7 +3102,7 @@ PROGMEM const uint8_t text_game_over_plus_mask[] = {
 
 // text_help.png
 // 15x6
-PROGMEM const uint8_t text_help[] = {
+ const uint8_t text_help[] = {
 // width, height
 15, 6,
 0x3E, 0x04, 0x1F, 0x00, 0x3E, 0x25, 0x11, 0x00, 0x3F, 0x20, 
@@ -3110,7 +3110,7 @@ PROGMEM const uint8_t text_help[] = {
 
 };
 
-PROGMEM const uint8_t text_help_mask[] = {
+ const uint8_t text_help_mask[] = {
 // width, height
 15, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3118,7 +3118,7 @@ PROGMEM const uint8_t text_help_mask[] = {
 
 };
 
-PROGMEM const uint8_t text_help_plus_mask[] = {
+ const uint8_t text_help_plus_mask[] = {
 // width, height
 15, 6,
 0x3E, 0x3F, 0x04, 0x3F, 0x1F, 0x3F, 0x00, 0x3F, 0x3E, 0x3F, 
@@ -3130,7 +3130,7 @@ PROGMEM const uint8_t text_help_plus_mask[] = {
 
 // text_paused.png
 // 23x6
-PROGMEM const uint8_t text_paused[] = {
+ const uint8_t text_paused[] = {
 // width, height
 23, 6,
 0x3F, 0x09, 0x06, 0x00, 0x3E, 0x05, 0x1F, 0x00, 0x1F, 0x20, 
@@ -3139,7 +3139,7 @@ PROGMEM const uint8_t text_paused[] = {
 
 };
 
-PROGMEM const uint8_t text_paused_mask[] = {
+ const uint8_t text_paused_mask[] = {
 // width, height
 23, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3148,7 +3148,7 @@ PROGMEM const uint8_t text_paused_mask[] = {
 
 };
 
-PROGMEM const uint8_t text_paused_plus_mask[] = {
+ const uint8_t text_paused_plus_mask[] = {
 // width, height
 23, 6,
 0x3F, 0x3F, 0x09, 0x3F, 0x06, 0x3F, 0x00, 0x3F, 0x3E, 0x3F, 
@@ -3161,7 +3161,7 @@ PROGMEM const uint8_t text_paused_plus_mask[] = {
 
 // text_play.png
 // 15x6
-PROGMEM const uint8_t text_play[] = {
+ const uint8_t text_play[] = {
 // width, height
 15, 6,
 0x3F, 0x09, 0x06, 0x00, 0x3F, 0x20, 0x10, 0x00, 0x3E, 0x05, 
@@ -3169,7 +3169,7 @@ PROGMEM const uint8_t text_play[] = {
 
 };
 
-PROGMEM const uint8_t text_play_mask[] = {
+ const uint8_t text_play_mask[] = {
 // width, height
 15, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3177,7 +3177,7 @@ PROGMEM const uint8_t text_play_mask[] = {
 
 };
 
-PROGMEM const uint8_t text_play_plus_mask[] = {
+ const uint8_t text_play_plus_mask[] = {
 // width, height
 15, 6,
 0x3F, 0x3F, 0x09, 0x3F, 0x06, 0x3F, 0x00, 0x3F, 0x3F, 0x3F, 
@@ -3189,7 +3189,7 @@ PROGMEM const uint8_t text_play_plus_mask[] = {
 
 // text_score.png
 // 19x6
-PROGMEM const uint8_t text_score[] = {
+ const uint8_t text_score[] = {
 // width, height
 19, 6,
 0x22, 0x25, 0x18, 0x00, 0x3E, 0x21, 0x13, 0x00, 0x3E, 0x21, 
@@ -3197,7 +3197,7 @@ PROGMEM const uint8_t text_score[] = {
 
 };
 
-PROGMEM const uint8_t text_score_mask[] = {
+ const uint8_t text_score_mask[] = {
 // width, height
 19, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3205,7 +3205,7 @@ PROGMEM const uint8_t text_score_mask[] = {
 
 };
 
-PROGMEM const uint8_t text_score_plus_mask[] = {
+ const uint8_t text_score_plus_mask[] = {
 // width, height
 19, 6,
 0x22, 0x3F, 0x25, 0x3F, 0x18, 0x3F, 0x00, 0x3F, 0x3E, 0x3F, 
@@ -3217,7 +3217,7 @@ PROGMEM const uint8_t text_score_plus_mask[] = {
 
 // text_sfx_off.png
 // 26x6
-PROGMEM const uint8_t text_sfx_off[] = {
+ const uint8_t text_sfx_off[] = {
 // width, height
 26, 6,
 0x22, 0x25, 0x18, 0x00, 0x3E, 0x05, 0x01, 0x00, 0x33, 0x0C, 
@@ -3226,7 +3226,7 @@ PROGMEM const uint8_t text_sfx_off[] = {
 
 };
 
-PROGMEM const uint8_t text_sfx_off_mask[] = {
+ const uint8_t text_sfx_off_mask[] = {
 // width, height
 26, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3235,7 +3235,7 @@ PROGMEM const uint8_t text_sfx_off_mask[] = {
 
 };
 
-PROGMEM const uint8_t text_sfx_off_plus_mask[] = {
+ const uint8_t text_sfx_off_plus_mask[] = {
 // width, height
 26, 6,
 0x22, 0x3F, 0x25, 0x3F, 0x18, 0x3F, 0x00, 0x3F, 0x3E, 0x3F, 
@@ -3249,7 +3249,7 @@ PROGMEM const uint8_t text_sfx_off_plus_mask[] = {
 
 // text_sfx_on.png
 // 22x6
-PROGMEM const uint8_t text_sfx_on[] = {
+ const uint8_t text_sfx_on[] = {
 // width, height
 22, 6,
 0x22, 0x25, 0x18, 0x00, 0x3E, 0x05, 0x01, 0x00, 0x33, 0x0C, 
@@ -3258,7 +3258,7 @@ PROGMEM const uint8_t text_sfx_on[] = {
 
 };
 
-PROGMEM const uint8_t text_sfx_on_mask[] = {
+ const uint8_t text_sfx_on_mask[] = {
 // width, height
 22, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3267,7 +3267,7 @@ PROGMEM const uint8_t text_sfx_on_mask[] = {
 
 };
 
-PROGMEM const uint8_t text_sfx_on_plus_mask[] = {
+ const uint8_t text_sfx_on_plus_mask[] = {
 // width, height
 22, 6,
 0x22, 0x3F, 0x25, 0x3F, 0x18, 0x3F, 0x00, 0x3F, 0x3E, 0x3F, 
@@ -3280,7 +3280,7 @@ PROGMEM const uint8_t text_sfx_on_plus_mask[] = {
 
 // text_stage.png
 // 19x6
-PROGMEM const uint8_t text_stage[] = {
+ const uint8_t text_stage[] = {
 // width, height
 19, 6,
 0x22, 0x25, 0x18, 0x00, 0x02, 0x3E, 0x01, 0x00, 0x3E, 0x05, 
@@ -3288,7 +3288,7 @@ PROGMEM const uint8_t text_stage[] = {
 
 };
 
-PROGMEM const uint8_t text_stage_mask[] = {
+ const uint8_t text_stage_mask[] = {
 // width, height
 19, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3296,7 +3296,7 @@ PROGMEM const uint8_t text_stage_mask[] = {
 
 };
 
-PROGMEM const uint8_t text_stage_plus_mask[] = {
+ const uint8_t text_stage_plus_mask[] = {
 // width, height
 19, 6,
 0x22, 0x3F, 0x25, 0x3F, 0x18, 0x3F, 0x00, 0x3F, 0x02, 0x3F, 
@@ -3308,7 +3308,7 @@ PROGMEM const uint8_t text_stage_plus_mask[] = {
 
 // text_the_end.png
 // 27x6
-PROGMEM const uint8_t text_the_end[] = {
+ const uint8_t text_the_end[] = {
 // width, height
 27, 6,
 0x02, 0x3E, 0x01, 0x00, 0x3E, 0x04, 0x1F, 0x00, 0x3E, 0x25, 
@@ -3317,7 +3317,7 @@ PROGMEM const uint8_t text_the_end[] = {
 
 };
 
-PROGMEM const uint8_t text_the_end_mask[] = {
+ const uint8_t text_the_end_mask[] = {
 // width, height
 27, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3326,7 +3326,7 @@ PROGMEM const uint8_t text_the_end_mask[] = {
 
 };
 
-PROGMEM const uint8_t text_the_end_plus_mask[] = {
+ const uint8_t text_the_end_plus_mask[] = {
 // width, height
 27, 6,
 0x02, 0x3F, 0x3E, 0x3F, 0x01, 0x3F, 0x00, 0x3F, 0x3E, 0x3F, 
@@ -3340,7 +3340,7 @@ PROGMEM const uint8_t text_the_end_plus_mask[] = {
 
 // text_time_up.png
 // 35x7
-PROGMEM const uint8_t text_time_up[] = {
+ const uint8_t text_time_up[] = {
 // width, height
 35, 7,
 0x04, 0x7C, 0x02, 0x00, 0x44, 0x7C, 0x42, 0x00, 0x7E, 0x04, 
@@ -3350,7 +3350,7 @@ PROGMEM const uint8_t text_time_up[] = {
 
 };
 
-PROGMEM const uint8_t text_time_up_mask[] = {
+ const uint8_t text_time_up_mask[] = {
 // width, height
 35, 7,
 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 
@@ -3360,7 +3360,7 @@ PROGMEM const uint8_t text_time_up_mask[] = {
 
 };
 
-PROGMEM const uint8_t text_time_up_plus_mask[] = {
+ const uint8_t text_time_up_plus_mask[] = {
 // width, height
 35, 7,
 0x04, 0x7F, 0x7C, 0x7F, 0x02, 0x7F, 0x00, 0x7F, 0x44, 0x7F, 
@@ -3377,7 +3377,7 @@ PROGMEM const uint8_t text_time_up_plus_mask[] = {
 // tileset.png
 // 11 frames
 // 8x8
-PROGMEM const uint8_t tileset[] = {
+ const uint8_t tileset[] = {
 // width, height
 8, 8,
 // frame 0
@@ -3405,7 +3405,7 @@ PROGMEM const uint8_t tileset[] = {
 
 };
 
-PROGMEM const uint8_t tileset_mask[] = {
+ const uint8_t tileset_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -3433,7 +3433,7 @@ PROGMEM const uint8_t tileset_mask[] = {
 
 };
 
-PROGMEM const uint8_t tileset_plus_mask[] = {
+ const uint8_t tileset_plus_mask[] = {
 // width, height
 8, 8,
 // frame 0
@@ -3474,7 +3474,7 @@ PROGMEM const uint8_t tileset_plus_mask[] = {
 
 // title_left.png
 // 32x32
-PROGMEM const uint8_t title_left[] = {
+ const uint8_t title_left[] = {
 // width, height
 32, 32,
 0x80, 0x40, 0x20, 0x10, 0x0A, 0x8F, 0x0A, 0x10, 0x20, 0x40, 
@@ -3493,7 +3493,7 @@ PROGMEM const uint8_t title_left[] = {
 
 };
 
-PROGMEM const uint8_t title_left_mask[] = {
+ const uint8_t title_left_mask[] = {
 // width, height
 32, 32,
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -3512,7 +3512,7 @@ PROGMEM const uint8_t title_left_mask[] = {
 
 };
 
-PROGMEM const uint8_t title_left_plus_mask[] = {
+ const uint8_t title_left_plus_mask[] = {
 // width, height
 32, 32,
 0x80, 0xFF, 0x40, 0xFF, 0x20, 0xFF, 0x10, 0xFF, 0x0A, 0xFF, 
@@ -3546,7 +3546,7 @@ PROGMEM const uint8_t title_left_plus_mask[] = {
 
 // title_right.png
 // 23x32
-PROGMEM const uint8_t title_right[] = {
+ const uint8_t title_right[] = {
 // width, height
 23, 32,
 0xF8, 0x08, 0x08, 0x08, 0xC8, 0x88, 0x10, 0x20, 0x40, 0x80, 
@@ -3562,7 +3562,7 @@ PROGMEM const uint8_t title_right[] = {
 
 };
 
-PROGMEM const uint8_t title_right_mask[] = {
+ const uint8_t title_right_mask[] = {
 // width, height
 23, 32,
 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
@@ -3578,7 +3578,7 @@ PROGMEM const uint8_t title_right_mask[] = {
 
 };
 
-PROGMEM const uint8_t title_right_plus_mask[] = {
+ const uint8_t title_right_plus_mask[] = {
 // width, height
 23, 32,
 0xF8, 0xFF, 0x08, 0xFF, 0x08, 0xFF, 0x08, 0xFF, 0xC8, 0xFF, 
@@ -3605,21 +3605,21 @@ PROGMEM const uint8_t title_right_plus_mask[] = {
 
 // ui_hp_empty.png
 // 3x6
-PROGMEM const uint8_t ui_hp_empty[] = {
+ const uint8_t ui_hp_empty[] = {
 // width, height
 3, 6,
 0x3F, 0x21, 0x3F
 
 };
 
-PROGMEM const uint8_t ui_hp_empty_mask[] = {
+ const uint8_t ui_hp_empty_mask[] = {
 // width, height
 3, 6,
 0x3F, 0x3F, 0x3F
 
 };
 
-PROGMEM const uint8_t ui_hp_empty_plus_mask[] = {
+ const uint8_t ui_hp_empty_plus_mask[] = {
 // width, height
 3, 6,
 0x3F, 0x3F, 0x21, 0x3F, 0x3F, 0x3F, 
@@ -3628,21 +3628,21 @@ PROGMEM const uint8_t ui_hp_empty_plus_mask[] = {
 
 // ui_hp_full.png
 // 3x6
-PROGMEM const uint8_t ui_hp_full[] = {
+ const uint8_t ui_hp_full[] = {
 // width, height
 3, 6,
 0x3F, 0x3F, 0x3F
 
 };
 
-PROGMEM const uint8_t ui_hp_full_mask[] = {
+ const uint8_t ui_hp_full_mask[] = {
 // width, height
 3, 6,
 0x3F, 0x3F, 0x3F
 
 };
 
-PROGMEM const uint8_t ui_hp_full_plus_mask[] = {
+ const uint8_t ui_hp_full_plus_mask[] = {
 // width, height
 3, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3651,7 +3651,7 @@ PROGMEM const uint8_t ui_hp_full_plus_mask[] = {
 
 // ui_knife_count.png
 // 11x6
-PROGMEM const uint8_t ui_knife_count[] = {
+ const uint8_t ui_knife_count[] = {
 // width, height
 11, 6,
 0x0C, 0x04, 0x1E, 0x0C, 0x0C, 0x04, 0x00, 0x00, 0x3B, 0x04, 
@@ -3659,7 +3659,7 @@ PROGMEM const uint8_t ui_knife_count[] = {
 
 };
 
-PROGMEM const uint8_t ui_knife_count_mask[] = {
+ const uint8_t ui_knife_count_mask[] = {
 // width, height
 11, 6,
 0x1E, 0x1E, 0x3F, 0x1E, 0x1E, 0x0E, 0x04, 0x3F, 0x3F, 0x3F, 
@@ -3667,7 +3667,7 @@ PROGMEM const uint8_t ui_knife_count_mask[] = {
 
 };
 
-PROGMEM const uint8_t ui_knife_count_plus_mask[] = {
+ const uint8_t ui_knife_count_plus_mask[] = {
 // width, height
 11, 6,
 0x0C, 0x1E, 0x04, 0x1E, 0x1E, 0x3F, 0x0C, 0x1E, 0x0C, 0x1E, 
@@ -3678,7 +3678,7 @@ PROGMEM const uint8_t ui_knife_count_plus_mask[] = {
 
 // ui_life_count.png
 // 11x6
-PROGMEM const uint8_t ui_life_count[] = {
+ const uint8_t ui_life_count[] = {
 // width, height
 11, 6,
 0x06, 0x0F, 0x1F, 0x3E, 0x1F, 0x0F, 0x06, 0x00, 0x3B, 0x04, 
@@ -3686,7 +3686,7 @@ PROGMEM const uint8_t ui_life_count[] = {
 
 };
 
-PROGMEM const uint8_t ui_life_count_mask[] = {
+ const uint8_t ui_life_count_mask[] = {
 // width, height
 11, 6,
 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 
@@ -3694,7 +3694,7 @@ PROGMEM const uint8_t ui_life_count_mask[] = {
 
 };
 
-PROGMEM const uint8_t ui_life_count_plus_mask[] = {
+ const uint8_t ui_life_count_plus_mask[] = {
 // width, height
 11, 6,
 0x06, 0x3F, 0x0F, 0x3F, 0x1F, 0x3F, 0x3E, 0x3F, 0x1F, 0x3F, 

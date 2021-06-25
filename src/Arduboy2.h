@@ -626,7 +626,7 @@ class Arduboy2Base : public Arduboy2Core
    * Each byte in the array specifies a vertical column of 8 pixels, with the
    * least significant bit at the top.
    *
-   * The array must be located in program memory by using the PROGMEM modifier.
+   * The array must be located in program memory by using the  modifier.
    */
   static void drawBitmap(int16_t x, int16_t y, const uint8_t *bitmap, uint8_t w, uint8_t h, uint8_t color = WHITE);
 
@@ -649,7 +649,7 @@ class Arduboy2Base : public Arduboy2Core
    * Each byte in the array specifies a horizontal row of 8 pixels, with the
    * most significant bit at the left end of the row.
    *
-   * The array must be located in program memory by using the PROGMEM modifier.
+   * The array must be located in program memory by using the  modifier.
    *
    * \note
    * This function requires a lot of additional CPU power and will draw images
@@ -679,7 +679,7 @@ class Arduboy2Base : public Arduboy2Core
    * pixel set to the specified color. For bits set to 0 in the array, the
    * corresponding pixel will be left unchanged.
    *
-   * The array must be located in program memory by using the PROGMEM modifier.
+   * The array must be located in program memory by using the  modifier.
    */
   static void drawCompressed(int16_t sx, int16_t sy, const uint8_t *bitmap, uint8_t color = WHITE);
 

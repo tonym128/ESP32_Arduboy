@@ -6,7 +6,7 @@
 #define FONT3X5_WIDTH 3
 #define FONT3X5_HEIGHT 6
 
-const uint8_t PROGMEM font_images[] = {
+const uint8_t  font_images[] = {
 3, 7,
 0x1F, 0x05, 0x1F, // A
 0x1F, 0x15, 0x1B, 

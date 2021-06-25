@@ -1,6 +1,6 @@
 // Playtune bytestream for file "../midi songs/silius1.mid.mid" created by MIDITONES V1.14 on Fri Nov  4 11:03:43 2016
 // command line: ./miditones ../midi songs/silius1.mid 
-const unsigned char PROGMEM score [] = {
+const unsigned char  score [] = {
 // Transport
 0x90,55, 0x91,60, 2,143, 0x90,58, 0x91,63, 0,163, 0x80, 0x81, 0,163, 0x90,56, 0x91,62, 0,81, 0x80, 0x81, 0,81, 
 0x90,55, 0x91,60, 1,235, 0x90,55, 0x91,60, 0,163, 0x80, 0x81, 0,163, 0x90,58, 0x91,63, 0,163, 0x80, 0x81, 0,163, 
@@ -36,4 +36,4 @@ const unsigned char PROGMEM score [] = {
 0x90,87, 0,163, 0x90,91, 0,163, 0x80, 0,163, 0x90,89, 0,163, 0x80, 0,163, 0x90,91, 0,163, 0x80, 0,163, 0x90,94, 
 1,235, 0x90,96, 10,62, 0x80, 0xf0};
 // This score contains 848 bytes, and 2 tone generators are used.
-const int PROGMEM numScoreElements = 848;
+const int  numScoreElements = 848;

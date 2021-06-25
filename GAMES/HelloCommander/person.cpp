@@ -5,7 +5,7 @@
 #include "bmp.h"
 
 int8_t fx, fy, blink;
-const char nameParts[] PROGMEM = "SaKaMoNimomikutokoranijiRoBoJuLimonokutokoroniji";
+const char nameParts[]  = "SaKaMoNimomikutokoranijiRoBoJuLimonokutokoroniji";
 
 void nextSoldier( Person *soldiers, int8_t &current, uint8_t max, int8_t add ){
     int8_t first = current;

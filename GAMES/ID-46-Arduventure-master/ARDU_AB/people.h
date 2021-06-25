@@ -41,7 +41,7 @@ struct People
 
 People npc;
 
-const unsigned char PROGMEM npcData[] =
+const unsigned char  npcData[] =
 {
   // x,y, tile coördinate for each npc
 

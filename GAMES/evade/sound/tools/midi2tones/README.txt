@@ -136,7 +136,7 @@
 *
 *  -pi  Ignore notes in the MIDI percussion track 9 (also called 10 by some).
 *
-*  -dp  Generate IDE-dependent C code to define PROGMEM.
+*  -dp  Generate IDE-dependent C code to define .
 *
 *  -fx  For the alternate output format, instead of using defined note names,
 *       output actual frequency values in decimal format depending on "x":

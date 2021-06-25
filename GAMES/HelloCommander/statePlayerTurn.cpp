@@ -56,13 +56,13 @@ void statePlayerTurn(){
     printstr = F("A] Walk  B] Commands ");
 }
 
-const char TXT_WALK[] PROGMEM =   "  WALK  ";
-const char TXT_SHOOT[] PROGMEM =  "  SHOOT ";
-const char TXT_DUCK[] PROGMEM =   "  DUCK  ";
-const char TXT_RELOAD[] PROGMEM = " RELOAD ";
-const char TXT_ENDT[] PROGMEM =   "END TURN";
-const char * const OPTS[] PROGMEM = { TXT_WALK, TXT_SHOOT, TXT_DUCK, TXT_RELOAD, TXT_ENDT };
-const FunctionPointer playerStates[] PROGMEM = {statePlayerWalk, statePlayerShoot, stateDuck, stateReload, stateElfTurn};
+const char TXT_WALK[]  =   "  WALK  ";
+const char TXT_SHOOT[]  =  "  SHOOT ";
+const char TXT_DUCK[]  =   "  DUCK  ";
+const char TXT_RELOAD[]  = " RELOAD ";
+const char TXT_ENDT[]  =   "END TURN";
+const char * const OPTS[]  = { TXT_WALK, TXT_SHOOT, TXT_DUCK, TXT_RELOAD, TXT_ENDT };
+const FunctionPointer playerStates[]  = {statePlayerWalk, statePlayerShoot, stateDuck, stateReload, stateElfTurn};
 
 void stateDirectSoldier(){
     uint8_t &tmp = stateVars[1];

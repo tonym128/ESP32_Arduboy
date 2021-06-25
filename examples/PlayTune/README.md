@@ -8,7 +8,7 @@ The ArduboyPlaytune library must be installed to use this sketch
 
 https://github.com/Arduboy/ArduboyPlayTune
 
-A small composition is stored by `byte PROGMEM score`. The score is started in the sketch loop using `playScore(score)`.
+A small composition is stored by `byte  score`. The score is started in the sketch loop using `playScore(score)`.
 
 D-Pad buttons will move the text and play a tone.
 

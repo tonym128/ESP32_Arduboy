@@ -2,13 +2,13 @@
 #include <WString.h>
 #include "Utils.h"
 
-const char OccularName[] PROGMEM = "AN OCCULAR";
-const char SkeletonName[] PROGMEM = "A SKELETON";
-const char SparkatName[] PROGMEM = "A SPARKAT";
-const char WraithName[] PROGMEM = "A WRAITH";
-const char DragonName[] PROGMEM = "A DRAGON";
-const char RatName[] PROGMEM = "A RAT";
-const char SlimeName[] PROGMEM = "A SLIME";
+const char OccularName[]  = "AN OCCULAR";
+const char SkeletonName[]  = "A SKELETON";
+const char SparkatName[]  = "A SPARKAT";
+const char WraithName[]  = "A WRAITH";
+const char DragonName[]  = "A DRAGON";
+const char RatName[]  = "A RAT";
+const char SlimeName[]  = "A SLIME";
 
 const __FlashStringHelper * EnemyNames[] = {
     FlashString(OccularName),

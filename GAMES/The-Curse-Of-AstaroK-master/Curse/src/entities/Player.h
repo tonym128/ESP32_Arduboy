@@ -5,7 +5,7 @@
 #include "../utils/Enums.h"
 #include "../ardBitmap/ArdBitmap.h"
 
-const uint8_t PROGMEM Player_Items[] = {  // Type, Index, Def, GP
+const uint8_t  Player_Items[] = {  // Type, Index, Def, GP
   static_cast<uint8_t>(PlayerItemType::Helmet), static_cast<uint8_t>(HelmetType::Crystal), 10, 65,
   static_cast<uint8_t>(PlayerItemType::Helmet), static_cast<uint8_t>(HelmetType::High), 5, 40,
   static_cast<uint8_t>(PlayerItemType::Helmet), static_cast<uint8_t>(HelmetType::Round), 5, 35,

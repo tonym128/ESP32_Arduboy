@@ -4,5 +4,6 @@
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 // Define the Audio Out Pin
-#define AUDIO_PORT 12
+#define TV_PORT 25
+#define AUDIO_PORT 26
 // #define DEBUG_FPS // Write the FPS to the Serial Port

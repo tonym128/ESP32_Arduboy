@@ -91,7 +91,7 @@ struct EntityData
   const uint8_t* sprite;
 };
 
-// don't use PROGMEM, we have enough RAM and this reduces code
+// don't use , we have enough RAM and this reduces code
 const EntityData data[] =
 {
   // 0000 platform: falling
@@ -572,7 +572,7 @@ void updateBossHarpy(Entity& entity)
   }
 }
 
-PROGMEM const uint8_t pattern[] = {
+ const uint8_t pattern[] = {
   // easy
   7, 0, 0, 0,15, 0, 0, 0,
   7, 7, 0, 0, 7, 7, 0, 0,

@@ -1,25 +1,25 @@
 #pragma once
 #include <ArduboyTones.h>
 
-const uint16_t pickUpGold[] PROGMEM = {
+const uint16_t pickUpGold[]  = {
 
   NOTE_A6, 15, NOTE_C6, 15, NOTE_E6, 15, TONES_END
 
 };
 
-const uint16_t digAHole[] PROGMEM = {
+const uint16_t digAHole[]  = {
 
   NOTE_D5, 75, NOTE_REST, 15, NOTE_D5, 75, NOTE_REST, 15, NOTE_D5, 75, NOTE_REST, 15, NOTE_D4, 75, TONES_END
 
 };
 
-const uint16_t enemyFallsIn[] PROGMEM = {
+const uint16_t enemyFallsIn[]  = {
 
   NOTE_A6, 30, NOTE_REST, 10, NOTE_A6, 30, TONES_END
 
 };
 
-const uint16_t freeFalling[] PROGMEM = {
+const uint16_t freeFalling[]  = {
 
   NOTE_G6, 75, NOTE_REST, 25, 
   NOTE_F6, 75, NOTE_REST, 25, 
@@ -70,7 +70,7 @@ const uint16_t freeFalling[] PROGMEM = {
 
 };
 
-const uint16_t levelComplete[] PROGMEM = {
+const uint16_t levelComplete[]  = {
 
   NOTE_G4, 100, NOTE_REST, 20, 
   NOTE_B5, 100, NOTE_REST, 20, 
@@ -84,7 +84,7 @@ const uint16_t levelComplete[] PROGMEM = {
   
 };
 
-const uint16_t dead[] PROGMEM = {
+const uint16_t dead[]  = {
   
   NOTE_G6, 100, NOTE_REST, 20, 
   NOTE_E6, 100, NOTE_REST, 20, 
@@ -98,7 +98,7 @@ const uint16_t dead[] PROGMEM = {
   
 };
 
-const uint16_t score[] PROGMEM = {
+const uint16_t score[]  = {
   NOTE_REST,500,
   NOTE_DS3,165, NOTE_REST,168, NOTE_D3,156, NOTE_REST,9, NOTE_AS3,156, NOTE_REST,9, NOTE_E3,156, NOTE_REST,9,
   NOTE_B3,156, NOTE_REST,9, NOTE_E3,165, NOTE_REST,168, NOTE_AS3,165, NOTE_REST,168, NOTE_C3,156, NOTE_REST,9,

@@ -111,7 +111,7 @@
 *
 *  -pi  Ignore notes in the MIDI percussion track 9 (also called 10 by some)
 *
-*  -dp  Generate IDE-dependent C code to define PROGMEM
+*  -dp  Generate IDE-dependent C code to define 
 *
 *  -r   Terminate the output file with a "restart" command instead of a "stop" command.
 *
@@ -240,7 +240,7 @@
 *     -Remove string.h for more portability; add strlength().
 *     -Add -i option for recording instrument types in the bytestream.
 *     -Add -d option for generating a file description header.
-*     -Add -dp option to make generating the PROGMEM definition optional
+*     -Add -dp option to make generating the  definition optional
 *     -Add -n option to specify number of items per output line
 *     -Do better error checking on options
 *     -Reformat option help
@@ -363,7 +363,7 @@ struct track_header {
 #define MAX_TRACKS 24           /* max number of MIDI tracks we will process */
 #define PERCUSSION_TRACK 9      /* the track MIDI uses for percussion sounds */
 
-bool loggen, logparse, parseonly, strategy1, strategy2, binaryoutput, define_progmem,
+bool loggen, logparse, parseonly, strategy1, strategy2, binaryoutput, define_,
    velocityoutput, instrumentoutput, percussion_ignore, percussion_translate, do_header,
    gen_restart;
 FILE *infile, *outfile, *logfile;
@@ -478,7 +478,7 @@ void SayUsage (char *programName) {
       "  -cn  mask for which tracks to process, e.g. -c3 for only 0 and 1",
       "  -kn  key shift in chromatic notes, positive or negative",
       "  -pi  ignore notes in the percussion track (9)",
-      "  -dp  define PROGMEM in output C code",
+      "  -dp  define  in output C code",
       "  -r   terminate output file with \"restart\" instead of \"stop\" command",
       NULL
    };
@@ -586,7 +586,7 @@ does not start with a dash or a slash*/
                break;
             }
             if (toupper (argv[i][2]) == 'P')
-               define_progmem = true;
+               define_ = true;
             else
                goto opterror;
             if (argv[i][3] != '\0')
@@ -1134,14 +1134,14 @@ int main (int argc, char *argv[]) {
             fprintf(outfile, "//   Only the masked channels were processed: %04X\n", channel_mask);
          if (keyshift != 0)
             fprintf(outfile, "//   Keyshift was %d chromatic notes\n", keyshift);
-         if (define_progmem) {
+         if (define_) {
             fprintf(outfile, "#ifdef __AVR__\n");
             fprintf(outfile, "#include <pgmspace.h>\n");
             fprintf(outfile, "#else\n");
-            fprintf(outfile, "#define PROGMEM\n");
+            fprintf(outfile, "#define \n");
             fprintf(outfile, "#endif\n");
          }
-         fprintf(outfile, "const unsigned char PROGMEM score [] = {\n");
+         fprintf(outfile, "const unsigned char  score [] = {\n");
          if (do_header) {       // write the C initialization for the file header
             fprintf(outfile, "'P','t', 6, 0x%02X, 0x%02X, ", file_header.f1, file_header.f2);
             fflush (outfile);
@@ -1439,7 +1439,7 @@ This is not unlike multiway merging used for tape sorting algoritms in the 50's!
          }
       }
  
-      fprintf(outfile, "const int PROGMEM numScoreElements = %ld;\n", outfile_bytecount);
+      fprintf(outfile, "const int  numScoreElements = %ld;\n", outfile_bytecount);
 
 
       fclose (outfile);

@@ -1,4 +1,4 @@
-PROGMEM prog_uchar TEAM_arg_logo[] ={
+ prog_uchar TEAM_arg_logo[] ={
   92,32,
   0b11111111, 0b11100000, 0b00000011, 0b11111111, // ###########           ##########
   0b11111111, 0b10001111, 0b11111000, 0b11111111, // #########   #########   ########
@@ -95,7 +95,7 @@ PROGMEM prog_uchar TEAM_arg_logo[] ={
 };
 
 
-PROGMEM prog_uchar shadowtittle_bitmap[] =
+ prog_uchar shadowtittle_bitmap[] =
 {
   94,24,
   0b11111111, 0b10101111, 0b11111111, // ######### # ############
@@ -195,7 +195,7 @@ PROGMEM prog_uchar shadowtittle_bitmap[] =
 };
 
 
-PROGMEM prog_uchar menu[] =
+ prog_uchar menu[] =
 {
   32,32,
   0b00000011, 0b00110011, 0b00000001, 0b00000001, //       ##  ##  ##       #       #
@@ -233,7 +233,7 @@ PROGMEM prog_uchar menu[] =
 
 };
 
-PROGMEM prog_uchar shade[] =
+ prog_uchar shade[] =
 {
   56,8,
   0b10101010, // # # # # 
@@ -294,7 +294,7 @@ PROGMEM prog_uchar shade[] =
   0b01010101, //  # # # #
 };
 
-PROGMEM prog_uchar yes_bitmap[] =
+ prog_uchar yes_bitmap[] =
 {
   16,8,
   0b11111101, // ###### #
@@ -316,7 +316,7 @@ PROGMEM prog_uchar yes_bitmap[] =
 };
 
 
-PROGMEM prog_uchar no_bitmap[] =
+ prog_uchar no_bitmap[] =
 {
   14,8,
   0b00000011, //       ##
@@ -336,7 +336,7 @@ PROGMEM prog_uchar no_bitmap[] =
 };
 
 
-PROGMEM prog_uchar info[] =
+ prog_uchar info[] =
 {
   96,40,
   0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, // ########################################
@@ -437,7 +437,7 @@ PROGMEM prog_uchar info[] =
   0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, // ########################################
 };
 
-PROGMEM prog_uchar gameover_bitmap[] =
+ prog_uchar gameover_bitmap[] =
 {
   58,24,
   0b11111111, 0b11110101, 0b01111111, // ############ # # #######
@@ -500,7 +500,7 @@ PROGMEM prog_uchar gameover_bitmap[] =
   0b11111110, 0b10111010, 0b11101011, // ####### # ### # ### # ##
 };
 
-PROGMEM prog_uchar pause_bitmap[] =
+ prog_uchar pause_bitmap[] =
 {
   56,16,
   0b01010100, 0b00001111, //  # # #      ####
@@ -564,7 +564,7 @@ PROGMEM prog_uchar pause_bitmap[] =
 
 
 
-PROGMEM prog_uchar QRcode[] =
+ prog_uchar QRcode[] =
 {
   58,64,
   0b11111111, 0b11111100, 0b11111111, 0b00000000, 0b11001111, 0b11001111, 0b11111111, 0b11000000, // ##############  ########        ##  ######  ##############

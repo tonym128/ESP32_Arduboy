@@ -19,7 +19,7 @@
 
 
 const byte animSeq[] = { 0, 1, 2, 1 };
-//const unsigned char PROGMEM collisionPoints[][2] =
+//const unsigned char  collisionPoints[][2] =
 const byte collisionPoints[][2] =
 {
   // Collision points for walking {x, y}

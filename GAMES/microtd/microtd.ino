@@ -26,8 +26,6 @@
   #include <cstdint>
   using namespace std;
 
-  #define  
-
   #define A_BUTTON             0
   #define B_BUTTON             1
   #define UP_BUTTON            2

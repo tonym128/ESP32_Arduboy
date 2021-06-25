@@ -1,6 +1,6 @@
 // Playtune bytestream for file "boss-250bpm-trebel.mid.mid" created by MIDITONES V1.14 on Thu Dec  1 09:31:56 2016
 // command line: miditones boss-250bpm-trebel.mid 
-const unsigned char PROGMEM score [] = {
+const unsigned char  score [] = {
 // Transport
 0,1, 0x90,48, 0,50, 0x80, 0,68, 0x90,60, 0,51, 0x80, 0,68, 0x90,48, 0,51, 0x80, 0,68, 0x90,60, 0,51, 
 0x80, 0,68, 0x90,60, 0,51, 0x80, 0,68, 0x90,48, 0,50, 0x80, 0,69, 0x90,60, 0,50, 0x80, 0,68, 0x90,48, 
