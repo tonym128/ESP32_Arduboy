@@ -938,7 +938,9 @@ void Arduboy2Base::display()
     tft.startWrite();
 #endif
 
+#ifdef TVOUT
     graphics.begin(0);
+#endif
     for (kPos = 0; kPos < 4; kPos++)
     { //if exclude this 4 parts screen devision and process all the big oBuffer, EPS8266 resets (
       kkPos = kPos << 1;
@@ -952,7 +954,9 @@ void Arduboy2Base::display()
           xDst = xPos;
           yDst = (yPos + kPos * 16);
           loc = xDst + yDst * WIDTH;
+#ifdef TVOUT
           graphics.dotFast(xDst,yDst, (currentDataByte & 0x01));
+#endif
 #ifdef TFTESPI
           if (myKpos == kPos) {
             tft.drawPixel(xDst, yDst, (currentDataByte & 0x01) ? TFT_GOLD : TFT_BLACK);
@@ -962,7 +966,10 @@ void Arduboy2Base::display()
         }
       }
     }
+#ifdef TVOUT
     graphics.end();
+#endif
+
 #ifdef TFTESPI
     tft.endWrite();  
 #endif
